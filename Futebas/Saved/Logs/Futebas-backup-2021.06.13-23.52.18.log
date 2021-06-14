@@ -1,0 +1,1766 @@
+﻿Log file open, 06/13/21 20:34:27
+LogInit: LLM is enabled
+LogInit: LLM CsvWriter: off TraceWriter: off
+LogInit: Display: Running engine for game: Futebas
+LogPlatformFile: Not using cached read wrapper
+LogTaskGraph: Started task graph with 5 named threads and 11 total threads with 3 sets of task threads.
+LogStats: Stats thread started at 0.376976
+LogD3D11RHI: Loaded GFSDK_Aftermath_Lib.x64.dll
+LogICUInternationalization: ICU TimeZone Detection - Raw Offset: -3:00, Platform Override: ''
+LogPluginManager: Mounting plugin MeshPainting
+LogPluginManager: Mounting plugin XGEController
+LogPluginManager: Mounting plugin AISupport
+LogPluginManager: Mounting plugin Paper2D
+LogPluginManager: Mounting plugin EnvironmentQueryEditor
+LogPluginManager: Mounting plugin LightPropagationVolume
+LogPluginManager: Mounting plugin CameraShakePreviewer
+LogPluginManager: Mounting plugin AnimationSharing
+LogPluginManager: Mounting plugin CLionSourceCodeAccess
+LogPluginManager: Mounting plugin CodeLiteSourceCodeAccess
+LogPluginManager: Mounting plugin GitSourceControl
+LogPluginManager: Mounting plugin KDevelopSourceCodeAccess
+LogPluginManager: Mounting plugin NullSourceCodeAccess
+LogPluginManager: Mounting plugin PerforceSourceControl
+LogPluginManager: Mounting plugin PlasticSourceControl
+LogPluginManager: Mounting plugin PropertyAccessNode
+LogPluginManager: Mounting plugin PluginUtils
+LogPluginManager: Mounting plugin RiderSourceCodeAccess
+LogPluginManager: Mounting plugin SubversionSourceControl
+LogPluginManager: Mounting plugin UObjectPlugin
+LogPluginManager: Mounting plugin VisualStudioCodeSourceCodeAccess
+LogPluginManager: Mounting plugin VisualStudioSourceCodeAccess
+LogPluginManager: Mounting plugin XCodeSourceCodeAccess
+LogPluginManager: Mounting plugin AssetManagerEditor
+LogPluginManager: Mounting plugin CryptoKeys
+LogPluginManager: Mounting plugin CurveEditorTools
+LogPluginManager: Mounting plugin DataValidation
+LogPluginManager: Mounting plugin FacialAnimation
+LogPluginManager: Mounting plugin GameplayTagsEditor
+LogPluginManager: Mounting plugin GeometryMode
+LogPluginManager: Mounting plugin MacGraphicsSwitching
+LogPluginManager: Mounting plugin MobileLauncherProfileWizard
+LogPluginManager: Mounting plugin MaterialAnalyzer
+LogPluginManager: Mounting plugin PluginBrowser
+LogPluginManager: Mounting plugin DatasmithContent
+LogPluginManager: Mounting plugin VariantManagerContent
+LogPluginManager: Mounting plugin AlembicImporter
+LogPluginManager: Mounting plugin AutomationUtils
+LogPluginManager: Mounting plugin BackChannel
+LogPluginManager: Mounting plugin ChaosCloth
+LogPluginManager: Mounting plugin ChaosClothEditor
+LogPluginManager: Mounting plugin ChaosEditor
+LogPluginManager: Mounting plugin ChaosNiagara
+LogPluginManager: Mounting plugin ChaosSolverPlugin
+LogPluginManager: Mounting plugin SpeedTreeImporter
+LogPluginManager: Mounting plugin CharacterAI
+LogPluginManager: Mounting plugin GeometryCache
+LogPluginManager: Mounting plugin GeometryCollectionPlugin
+LogPluginManager: Mounting plugin GeometryProcessing
+LogPluginManager: Mounting plugin Niagara
+LogPluginManager: Mounting plugin MotoSynth
+LogPluginManager: Mounting plugin PlanarCut
+LogPluginManager: Mounting plugin PlatformCrypto
+LogPluginManager: Mounting plugin ProxyLODPlugin
+LogPluginManager: Mounting plugin SkeletalReduction
+LogPluginManager: Mounting plugin LuminPlatformFeatures
+LogPluginManager: Mounting plugin MagicLeap
+LogPluginManager: Mounting plugin MagicLeapLightEstimation
+LogPluginManager: Mounting plugin MagicLeapMedia
+LogPluginManager: Mounting plugin MagicLeapPassableWorld
+LogPluginManager: Mounting plugin MLSDK
+LogPluginManager: Mounting plugin AndroidMedia
+LogPluginManager: Mounting plugin AvfMedia
+LogPluginManager: Mounting plugin ImgMedia
+LogPluginManager: Mounting plugin MediaCompositing
+LogPluginManager: Mounting plugin MediaPlayerEditor
+LogPluginManager: Mounting plugin WebMMedia
+LogPluginManager: Mounting plugin WmfMedia
+LogPluginManager: Mounting plugin UdpMessaging
+LogPluginManager: Mounting plugin TcpMessaging
+LogPluginManager: Mounting plugin ActorSequence
+LogPluginManager: Mounting plugin LevelSequenceEditor
+LogPluginManager: Mounting plugin MatineeToLevelSequence
+LogPluginManager: Mounting plugin TemplateSequence
+LogPluginManager: Mounting plugin OnlineSubsystem
+LogPluginManager: Mounting plugin OnlineSubsystemNull
+LogPluginManager: Mounting plugin OnlineSubsystemUtils
+LogPluginManager: Mounting plugin LauncherChunkInstaller
+LogPluginManager: Mounting plugin ActorLayerUtilities
+LogPluginManager: Mounting plugin AndroidDeviceProfileSelector
+LogPluginManager: Mounting plugin AndroidMoviePlayer
+LogPluginManager: Mounting plugin AndroidPermission
+LogPluginManager: Mounting plugin AppleImageUtils
+LogPluginManager: Mounting plugin AppleMoviePlayer
+LogPluginManager: Mounting plugin ArchVisCharacter
+LogPluginManager: Mounting plugin AssetTags
+LogPluginManager: Mounting plugin AudioCapture
+LogPluginManager: Mounting plugin CableComponent
+LogPluginManager: Mounting plugin AudioSynesthesia
+LogPluginManager: Mounting plugin ChunkDownloader
+LogPluginManager: Mounting plugin CustomMeshComponent
+LogPluginManager: Mounting plugin EditableMesh
+LogPluginManager: Mounting plugin GoogleCloudMessaging
+LogPluginManager: Mounting plugin GooglePAD
+LogPluginManager: Mounting plugin IOSDeviceProfileSelector
+LogPluginManager: Mounting plugin ExampleDeviceProfileSelector
+LogPluginManager: Mounting plugin LocationServicesBPLibrary
+LogPluginManager: Mounting plugin MobilePatchingUtils
+LogPluginManager: Mounting plugin LinuxDeviceProfileSelector
+LogPluginManager: Mounting plugin PhysXVehicles
+LogPluginManager: Mounting plugin PostSplashScreen
+LogPluginManager: Mounting plugin ProceduralMeshComponent
+LogPluginManager: Mounting plugin PropertyAccessEditor
+LogPluginManager: Mounting plugin RuntimePhysXCooking
+LogPluginManager: Mounting plugin SignificanceManager
+LogPluginManager: Mounting plugin SoundFields
+LogPluginManager: Mounting plugin Synthesis
+LogPluginManager: Mounting plugin WebMMoviePlayer
+LogPluginManager: Mounting plugin WindowsMoviePlayer
+LogPluginManager: Mounting plugin ScreenshotTools
+LogPluginManager: Mounting plugin ContentBrowserAssetDataSource
+LogPluginManager: Mounting plugin ContentBrowserClassDataSource
+LogPluginManager: Mounting plugin OnlineSubsystemGooglePlay
+LogPluginManager: Mounting plugin OnlineSubsystemIOS
+LogPluginManager: Mounting plugin OculusVR
+LogPluginManager: Mounting plugin SteamVR
+LogXGEController: Cannot use XGE Controller as Incredibuild is not installed on this machine.
+LogInit: Using libcurl 7.55.1-DEV
+LogInit:  - built for x86_64-pc-win32
+LogInit:  - supports SSL with OpenSSL/1.1.1
+LogInit:  - supports HTTP deflate (compression) using libz 1.2.8
+LogInit:  - other features:
+LogInit:      CURL_VERSION_SSL
+LogInit:      CURL_VERSION_LIBZ
+LogInit:      CURL_VERSION_IPV6
+LogInit:      CURL_VERSION_ASYNCHDNS
+LogInit:      CURL_VERSION_LARGEFILE
+LogInit:      CURL_VERSION_IDN
+LogInit:  CurlRequestOptions (configurable via config and command line):
+LogInit:  - bVerifyPeer = true  - Libcurl will verify peer certificate
+LogInit:  - bUseHttpProxy = false  - Libcurl will NOT use HTTP proxy
+LogInit:  - bDontReuseConnections = false  - Libcurl will reuse connections
+LogInit:  - MaxHostConnections = 16  - Libcurl will limit the number of connections to a host
+LogInit:  - LocalHostAddr = Default
+LogInit:  - BufferSize = 65536
+LogOnline: OSS: Creating online subsystem instance for: NULL
+LogInit: WinSock: version 1.1 (2.2), MaxSocks=32767, MaxUdp=65467
+LogOnline: OSS: TryLoadSubsystemAndSetDefault: Loaded subsystem for module [NULL]
+LogInit: Build: ++UE4+Release-4.26-CL-15228867
+LogInit: Engine Version: 4.26.1-15228867+++UE4+Release-4.26
+LogInit: Compatible Engine Version: 4.26.0-14830424+++UE4+Release-4.26
+LogInit: Net CL: 14830424
+LogInit: OS: Windows 10 (Release 2004) (), CPU: Intel(R) Core(TM) i3-7100 CPU @ 3.90GHz, GPU: NVIDIA GeForce GTX 1050 Ti
+LogInit: Compiled (64-bit): Jan 28 2021 07:07:34
+LogInit: Compiled with Visual C++: 19.24.28315.00
+LogInit: Build Configuration: Development
+LogInit: Branch Name: ++UE4+Release-4.26
+LogInit: Command Line: 
+LogInit: Base Directory: G:/Program Files/Epic Games/UE_4.26/Engine/Binaries/Win64/
+LogInit: Allocator: TBB
+LogInit: Installed Engine Build: 1
+LogDevObjectVersion: Number of dev versions registered: 29
+LogDevObjectVersion:   Dev-Blueprints (B0D832E4-1F89-4F0D-ACCF-7EB736FD4AA2): 10
+LogDevObjectVersion:   Dev-Build (E1C64328-A22C-4D53-A36C-8E866417BD8C): 0
+LogDevObjectVersion:   Dev-Core (375EC13C-06E4-48FB-B500-84F0262A717E): 4
+LogDevObjectVersion:   Dev-Editor (E4B068ED-F494-42E9-A231-DA0B2E46BB41): 40
+LogDevObjectVersion:   Dev-Framework (CFFC743F-43B0-4480-9391-14DF171D2073): 37
+LogDevObjectVersion:   Dev-Mobile (B02B49B5-BB20-44E9-A304-32B752E40360): 3
+LogDevObjectVersion:   Dev-Networking (A4E4105C-59A1-49B5-A7C5-40C4547EDFEE): 0
+LogDevObjectVersion:   Dev-Online (39C831C9-5AE6-47DC-9A44-9C173E1C8E7C): 0
+LogDevObjectVersion:   Dev-Physics (78F01B33-EBEA-4F98-B9B4-84EACCB95AA2): 4
+LogDevObjectVersion:   Dev-Platform (6631380F-2D4D-43E0-8009-CF276956A95A): 0
+LogDevObjectVersion:   Dev-Rendering (12F88B9F-8875-4AFC-A67C-D90C383ABD29): 44
+LogDevObjectVersion:   Dev-Sequencer (7B5AE74C-D270-4C10-A958-57980B212A5A): 12
+LogDevObjectVersion:   Dev-VR (D7296918-1DD6-4BDD-9DE2-64A83CC13884): 3
+LogDevObjectVersion:   Dev-LoadTimes (C2A15278-BFE7-4AFE-6C17-90FF531DF755): 1
+LogDevObjectVersion:   Private-Geometry (6EACA3D4-40EC-4CC1-B786-8BED09428FC5): 3
+LogDevObjectVersion:   Dev-AnimPhys (29E575DD-E0A3-4627-9D10-D276232CDCEA): 17
+LogDevObjectVersion:   Dev-Anim (AF43A65D-7FD3-4947-9873-3E8ED9C1BB05): 15
+LogDevObjectVersion:   Dev-ReflectionCapture (6B266CEC-1EC7-4B8F-A30B-E4D90942FC07): 1
+LogDevObjectVersion:   Dev-Automation (0DF73D61-A23F-47EA-B727-89E90C41499A): 1
+LogDevObjectVersion:   FortniteMain (601D1886-AC64-4F84-AA16-D3DE0DEAC7D6): 43
+LogDevObjectVersion:   FortniteRelease (E7086368-6B23-4C58-8439-1B7016265E91): 1
+LogDevObjectVersion:   Dev-Enterprise (9DFFBCD6-494F-0158-E221-12823C92A888): 10
+LogDevObjectVersion:   Dev-Niagara (F2AED0AC-9AFE-416F-8664-AA7FFA26D6FC): 1
+LogDevObjectVersion:   Dev-Destruction (174F1F0B-B4C6-45A5-B13F-2EE8D0FB917D): 10
+LogDevObjectVersion:   Dev-Physics-Ext (35F94A83-E258-406C-A318-09F59610247C): 40
+LogDevObjectVersion:   Dev-PhysicsMaterial-Chaos (B68FC16E-8B1B-42E2-B453-215C058844FE): 1
+LogDevObjectVersion:   Dev-CineCamera (B2E18506-4273-CFC2-A54E-F4BB758BBA07): 1
+LogDevObjectVersion:   Dev-VirtualProduction (64F58936-FD1B-42BA-BA96-7289D5D0FA4E): 1
+LogDevObjectVersion:   Dev-MediaFramework (6F0ED827-A609-4895-9C91-998D90180EA4): 2
+LogInit: Presizing for max 25165824 objects, including 0 objects not considered by GC, pre-allocating 0 bytes for permanent pool.
+LogConfig: Applying CVar settings from Section [/Script/Engine.StreamingSettings] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Engine.ini]
+LogConfig: Setting CVar [[s.MinBulkDataSizeForAsyncLoading:131072]]
+LogConfig: Setting CVar [[s.AsyncLoadingThreadEnabled:0]]
+LogConfig: Setting CVar [[s.EventDrivenLoaderEnabled:1]]
+LogConfig: Setting CVar [[s.WarnIfTimeLimitExceeded:0]]
+LogConfig: Setting CVar [[s.TimeLimitExceededMultiplier:1.5]]
+LogConfig: Setting CVar [[s.TimeLimitExceededMinTime:0.005]]
+LogConfig: Setting CVar [[s.UseBackgroundLevelStreaming:1]]
+LogConfig: Setting CVar [[s.PriorityAsyncLoadingExtraTime:15.0]]
+LogConfig: Setting CVar [[s.LevelStreamingActorsUpdateTimeLimit:5.0]]
+LogConfig: Setting CVar [[s.PriorityLevelStreamingActorsUpdateExtraTime:5.0]]
+LogConfig: Setting CVar [[s.LevelStreamingComponentsRegistrationGranularity:10]]
+LogConfig: Setting CVar [[s.UnregisterComponentsTimeLimit:1.0]]
+LogConfig: Setting CVar [[s.LevelStreamingComponentsUnregistrationGranularity:5]]
+LogConfig: Setting CVar [[s.FlushStreamingOnExit:1]]
+LogInit: Object subsystem initialized
+LogConfig: Setting CVar [[con.DebugEarlyDefault:1]]
+LogConfig: Setting CVar [[r.setres:1280x720]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.VSync:0]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.RHICmdBypass:0]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Applying CVar settings from Section [/Script/Engine.RendererSettings] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Engine.ini]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.GPUCrashDebugging:0]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.Mobile.DisableVertexFog:1]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.Shadow.CSM.MaxMobileCascades:2]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.MobileMSAA:1]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.Mobile.AllowDitheredLODTransition:0]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.Mobile.AllowSoftwareOcclusion:0]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.Mobile.VirtualTextures:0]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.DiscardUnusedQuality:0]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.AllowOcclusionQueries:1]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.MinScreenRadiusForLights:0.030000]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.MinScreenRadiusForDepthPrepass:0.030000]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.MinScreenRadiusForCSMDepth:0.010000]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.PrecomputedVisibilityWarning:0]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.TextureStreaming:1]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[Compat.UseDXT5NormalMaps:0]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.VirtualTextures:0]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.VirtualTexturedLightmaps:0]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.VT.TileSize:128]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.VT.TileBorderSize:4]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.vt.FeedbackFactor:16]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.VT.EnableCompressZlib:1]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.VT.EnableCompressCrunch:0]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.ClearCoatNormal:0]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.ReflectionCaptureResolution:128]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.Mobile.ReflectionCaptureCompression:0]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.ReflectionEnvironmentLightmapMixBasedOnRoughness:1]]
+[2021.06.13-23.34.28:259][  0]LogConfig: Setting CVar [[r.ForwardShading:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.VertexFoggingForOpaque:1]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.AllowStaticLighting:1]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.NormalMapsForStaticLighting:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.GenerateMeshDistanceFields:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.DistanceFieldBuild.EightBit:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.GenerateLandscapeGIData:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.DistanceFieldBuild.Compress:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.TessellationAdaptivePixelsPerTriangle:48.000000]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.SeparateTranslucency:1]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.TranslucentSortPolicy:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.CustomDepth:1]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.CustomDepthTemporalAAJitter:1]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.PostProcessing.PropagateAlpha:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.DefaultFeature.Bloom:1]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.DefaultFeature.AmbientOcclusion:1]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.DefaultFeature.AmbientOcclusionStaticFraction:1]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.DefaultFeature.AutoExposure:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.DefaultFeature.AutoExposure.Method:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.DefaultFeature.AutoExposure.Bias:1.000000]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.DefaultFeature.AutoExposure.ExtendDefaultLuminanceRange:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.UsePreExposure:1]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.EyeAdaptation.EditorOnly:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.DefaultFeature.MotionBlur:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.DefaultFeature.LensFlare:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.TemporalAA.Upsampling:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.SSGI.Enable:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.DefaultFeature.AntiAliasing:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.DefaultFeature.LightUnits:1]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.DefaultBackBufferPixelFormat:4]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.Shadow.UnbuiltPreviewInGame:1]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.StencilForLODDither:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.EarlyZPass:3]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.EarlyZPassOnlyMaterialMasking:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.DBuffer:1]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.ClearSceneMethod:1]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.BasePassOutputsVelocity:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.VertexDeformationOutputsVelocity:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.SelectiveBasePassOutputs:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[fx.GPUSimulationTextureSizeX:1024]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[fx.GPUSimulationTextureSizeY:1024]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.AllowGlobalClipPlane:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.GBufferFormat:1]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.MorphTarget.Mode:1]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[vr.InstancedStereo:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[r.MobileHDR:0]]
+[2021.06.13-23.34.28:260][  0]LogConfig: Setting CVar [[vr.MobileMultiView:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.Mobile.UseHWsRGBEncoding:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[vr.RoundRobinOcclusion:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[vr.ODSCapture:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.MeshStreaming:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.WireframeCullThreshold:5.000000]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.RayTracing:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.RayTracing.UseTextureLod:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.SupportStationarySkylight:1]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.SupportLowQualityLightmaps:1]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.SupportPointLightWholeSceneShadows:1]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.SupportAtmosphericFog:1]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.SupportSkyAtmosphere:1]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.SupportSkyAtmosphereAffectsHeightFog:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.SkinCache.CompileShaders:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.SkinCache.DefaultBehavior:1]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.SkinCache.SceneMemoryLimitInMB:128.000000]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.Mobile.EnableStaticAndCSMShadowReceivers:1]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.Mobile.EnableMovableLightCSMShaderCulling:1]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.Mobile.AllowDistanceFieldShadows:1]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.Mobile.AllowMovableDirectionalLights:1]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.MobileNumDynamicPointLights:4]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.MobileDynamicPointLightsUseStaticBranch:1]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.Mobile.EnableMovableSpotlights:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.Mobile.EnableMovableSpotlightsShadow:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.GPUSkin.Support16BitBoneIndex:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.GPUSkin.Limit2BoneInfluences:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.SupportDepthOnlyIndexBuffers:1]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.SupportReversedIndexBuffers:1]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.LightPropagationVolume:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.Mobile.AmbientOcclusion:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.GPUSkin.UnlimitedBoneInfluences:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.GPUSkin.UnlimitedBoneInfluencesThreshold:8]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[r.Mobile.PlanarReflectionMode:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Applying CVar settings from Section [/Script/Engine.RendererOverrideSettings] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Engine.ini]
+[2021.06.13-23.34.28:261][  0]LogConfig: Applying CVar settings from Section [/Script/Engine.StreamingSettings] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Engine.ini]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[s.MinBulkDataSizeForAsyncLoading:131072]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[s.AsyncLoadingThreadEnabled:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[s.EventDrivenLoaderEnabled:1]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[s.WarnIfTimeLimitExceeded:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[s.TimeLimitExceededMultiplier:1.5]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[s.TimeLimitExceededMinTime:0.005]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[s.UseBackgroundLevelStreaming:1]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[s.PriorityAsyncLoadingExtraTime:15.0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[s.LevelStreamingActorsUpdateTimeLimit:5.0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[s.PriorityLevelStreamingActorsUpdateExtraTime:5.0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[s.LevelStreamingComponentsRegistrationGranularity:10]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[s.UnregisterComponentsTimeLimit:1.0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[s.LevelStreamingComponentsUnregistrationGranularity:5]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[s.FlushStreamingOnExit:1]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Applying CVar settings from Section [/Script/Engine.GarbageCollectionSettings] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Engine.ini]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[gc.MaxObjectsNotConsideredByGC:1]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[gc.SizeOfPermanentObjectPool:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[gc.FlushStreamingOnGC:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[gc.NumRetriesBeforeForcingGC:10]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[gc.AllowParallelGC:1]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[gc.TimeBetweenPurgingPendingKillObjects:61.1]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[gc.MaxObjectsInEditor:25165824]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[gc.IncrementalBeginDestroyEnabled:1]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[gc.CreateGCClusters:1]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[gc.MinGCClusterSize:5]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[gc.ActorClusteringEnabled:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[gc.BlueprintClusteringEnabled:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[gc.UseDisregardForGCOnDedicatedServers:0]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Setting CVar [[gc.MultithreadedDestructionEnabled:1]]
+[2021.06.13-23.34.28:261][  0]LogConfig: Applying CVar settings from Section [/Script/Engine.NetworkSettings] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Engine.ini]
+[2021.06.13-23.34.28:261][  0]LogConfig: Applying CVar settings from Section [/Script/UnrealEd.CookerSettings] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Engine.ini]
+[2021.06.13-23.34.28:267][  0]LogConfig: Applying CVar settings from Section [ViewDistanceQuality@3] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Scalability.ini]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.SkeletalMeshLODBias:0]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.ViewDistanceScale:1.0]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Applying CVar settings from Section [AntiAliasingQuality@3] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Scalability.ini]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.PostProcessAAQuality:4]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Applying CVar settings from Section [ShadowQuality@3] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Scalability.ini]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.LightFunctionQuality:1]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.ShadowQuality:5]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.Shadow.CSM.MaxCascades:10]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.Shadow.MaxResolution:2048]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.Shadow.MaxCSMResolution:2048]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.Shadow.RadiusThreshold:0.01]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.Shadow.DistanceScale:1.0]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.Shadow.CSM.TransitionScale:1.0]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.Shadow.PreShadowResolutionFactor:1.0]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.DistanceFieldShadowing:1]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.DistanceFieldAO:1]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.AOQuality:2]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.VolumetricFog:1]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.VolumetricFog.GridPixelSize:8]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.VolumetricFog.GridSizeZ:128]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.VolumetricFog.HistoryMissSupersampleCount:4]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.LightMaxDrawDistanceScale:1]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.CapsuleShadows:1]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Applying CVar settings from Section [PostProcessQuality@3] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Scalability.ini]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.MotionBlurQuality:4]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.AmbientOcclusionMipLevelFactor:0.4]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.AmbientOcclusionMaxQuality:100]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.AmbientOcclusionLevels:-1]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.AmbientOcclusionRadiusScale:1.0]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.DepthOfFieldQuality:2]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.RenderTargetPoolMin:400]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.LensFlareQuality:2]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.SceneColorFringeQuality:1]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.EyeAdaptationQuality:2]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.BloomQuality:5]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.FastBlurThreshold:100]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.Upscale.Quality:3]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.Tonemapper.GrainQuantization:1]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.LightShaftQuality:1]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.Filter.SizeScale:1]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.Tonemapper.Quality:5]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.DOF.Gather.AccumulatorQuality:1        ; higher gathering accumulator quality]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.DOF.Gather.PostfilterMethod:1          ; Median3x3 postfilering method]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.DOF.Gather.EnableBokehSettings:0       ; no bokeh simulation when gathering]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.DOF.Gather.RingCount:4                 ; medium number of samples when gathering]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.DOF.Scatter.ForegroundCompositing:1    ; additive foreground scattering]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.DOF.Scatter.BackgroundCompositing:2    ; additive background scattering]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.DOF.Scatter.EnableBokehSettings:1      ; bokeh simulation when scattering]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.DOF.Scatter.MaxSpriteRatio:0.1         ; only a maximum of 10% of scattered bokeh]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.DOF.Recombine.Quality:1                ; cheap slight out of focus]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.DOF.Recombine.EnableBokehSettings:0    ; no bokeh simulation on slight out of focus]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.DOF.TemporalAAQuality:1                ; more stable temporal accumulation]]
+[2021.06.13-23.34.28:267][  0]LogConfig: Setting CVar [[r.DOF.Kernel.MaxForegroundRadius:0.025]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.DOF.Kernel.MaxBackgroundRadius:0.025]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Applying CVar settings from Section [TextureQuality@3] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Scalability.ini]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.Streaming.MipBias:0]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.Streaming.AmortizeCPUToGPUCopy:0]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.Streaming.MaxNumTexturesToStreamPerFrame:0]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.Streaming.Boost:1]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.MaxAnisotropy:8]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.VT.MaxAnisotropy:8]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.Streaming.LimitPoolSizeToVRAM:0]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.Streaming.PoolSize:1000]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.Streaming.MaxEffectiveScreenSize:0]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Applying CVar settings from Section [EffectsQuality@3] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Scalability.ini]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.TranslucencyLightingVolumeDim:64]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.RefractionQuality:2]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.SSR.Quality:3]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.SSR.HalfResSceneColor:0]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.SceneColorFormat:4]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.DetailMode:2]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.TranslucencyVolumeBlur:1]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.MaterialQualityLevel:1 ; High quality]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.AnisotropicMaterials:1]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.SSS.Scale:1]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.SSS.SampleSet:2]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.SSS.Quality:1]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.SSS.HalfRes:0]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.SSGI.Quality:3]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.EmitterSpawnRateScale:1.0]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.ParticleLightQuality:2]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.SkyAtmosphere.AerialPerspectiveLUT.FastApplyOnOpaque:1 ; Always have FastSkyLUT 1 in this case to avoid wrong sky]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.SkyAtmosphere.AerialPerspectiveLUT.SampleCountMaxPerSlice:4]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.SkyAtmosphere.AerialPerspectiveLUT.DepthResolution:16.0]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.SkyAtmosphere.FastSkyLUT:1]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.SkyAtmosphere.FastSkyLUT.SampleCountMin:4.0]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.SkyAtmosphere.FastSkyLUT.SampleCountMax:128.0]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.SkyAtmosphere.SampleCountMin:4.0]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.SkyAtmosphere.SampleCountMax:128.0]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.SkyAtmosphere.TransmittanceLUT.UseSmallFormat:0]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.SkyAtmosphere.TransmittanceLUT.SampleCount:10.0]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.SkyAtmosphere.MultiScatteringLUT.SampleCount:15.0]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Applying CVar settings from Section [FoliageQuality@3] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Scalability.ini]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[foliage.DensityScale:1.0]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[grass.DensityScale:1.0]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Applying CVar settings from Section [ShadingQuality@3] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Scalability.ini]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.HairStrands.SkyLighting.IntegrationType:2]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.HairStrands.SkyAO.SampleCount:4]]
+[2021.06.13-23.34.28:268][  0]LogConfig: Setting CVar [[r.HairStrands.Visibility.MSAA.SamplePerPixel:4]]
+[2021.06.13-23.34.28:268][  0]LogInit: Selected Device Profile: [Windows]
+[2021.06.13-23.34.28:268][  0]LogInit: Applying CVar settings loaded from the selected device profile: [Windows]
+[2021.06.13-23.34.28:268][  0]LogHAL: Display: Platform has ~ 12 GB [12819615744 / 17179869184 / 12], which maps to Larger [LargestMinGB=32, LargerMinGB=12, DefaultMinGB=8, SmallerMinGB=6, SmallestMinGB=0)
+[2021.06.13-23.34.28:268][  0]LogInit: Going up to parent DeviceProfile []
+[2021.06.13-23.34.28:268][  0]LogConfig: Applying CVar settings from Section [ViewDistanceQuality@3] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Scalability.ini]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.SkeletalMeshLODBias:0]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.ViewDistanceScale:1.0]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Applying CVar settings from Section [AntiAliasingQuality@3] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Scalability.ini]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.PostProcessAAQuality:4]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Applying CVar settings from Section [ShadowQuality@3] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Scalability.ini]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.LightFunctionQuality:1]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.ShadowQuality:5]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.Shadow.CSM.MaxCascades:10]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.Shadow.MaxResolution:2048]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.Shadow.MaxCSMResolution:2048]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.Shadow.RadiusThreshold:0.01]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.Shadow.DistanceScale:1.0]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.Shadow.CSM.TransitionScale:1.0]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.Shadow.PreShadowResolutionFactor:1.0]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.DistanceFieldShadowing:1]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.DistanceFieldAO:1]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.AOQuality:2]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.VolumetricFog:1]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.VolumetricFog.GridPixelSize:8]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.VolumetricFog.GridSizeZ:128]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.VolumetricFog.HistoryMissSupersampleCount:4]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.LightMaxDrawDistanceScale:1]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.CapsuleShadows:1]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Applying CVar settings from Section [PostProcessQuality@3] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Scalability.ini]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.MotionBlurQuality:4]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.AmbientOcclusionMipLevelFactor:0.4]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.AmbientOcclusionMaxQuality:100]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.AmbientOcclusionLevels:-1]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.AmbientOcclusionRadiusScale:1.0]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.DepthOfFieldQuality:2]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.RenderTargetPoolMin:400]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.LensFlareQuality:2]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.SceneColorFringeQuality:1]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.EyeAdaptationQuality:2]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.BloomQuality:5]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.FastBlurThreshold:100]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.Upscale.Quality:3]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.Tonemapper.GrainQuantization:1]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.LightShaftQuality:1]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.Filter.SizeScale:1]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.Tonemapper.Quality:5]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.DOF.Gather.AccumulatorQuality:1        ; higher gathering accumulator quality]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.DOF.Gather.PostfilterMethod:1          ; Median3x3 postfilering method]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.DOF.Gather.EnableBokehSettings:0       ; no bokeh simulation when gathering]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.DOF.Gather.RingCount:4                 ; medium number of samples when gathering]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.DOF.Scatter.ForegroundCompositing:1    ; additive foreground scattering]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.DOF.Scatter.BackgroundCompositing:2    ; additive background scattering]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.DOF.Scatter.EnableBokehSettings:1      ; bokeh simulation when scattering]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.DOF.Scatter.MaxSpriteRatio:0.1         ; only a maximum of 10% of scattered bokeh]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.DOF.Recombine.Quality:1                ; cheap slight out of focus]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.DOF.Recombine.EnableBokehSettings:0    ; no bokeh simulation on slight out of focus]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.DOF.TemporalAAQuality:1                ; more stable temporal accumulation]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.DOF.Kernel.MaxForegroundRadius:0.025]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.DOF.Kernel.MaxBackgroundRadius:0.025]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Applying CVar settings from Section [TextureQuality@3] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Scalability.ini]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.Streaming.MipBias:0]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.Streaming.AmortizeCPUToGPUCopy:0]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.Streaming.MaxNumTexturesToStreamPerFrame:0]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.Streaming.Boost:1]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.MaxAnisotropy:8]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.VT.MaxAnisotropy:8]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.Streaming.LimitPoolSizeToVRAM:0]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.Streaming.PoolSize:1000]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.Streaming.MaxEffectiveScreenSize:0]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Applying CVar settings from Section [EffectsQuality@3] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Scalability.ini]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.TranslucencyLightingVolumeDim:64]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.RefractionQuality:2]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.SSR.Quality:3]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.SSR.HalfResSceneColor:0]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.SceneColorFormat:4]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.DetailMode:2]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.TranslucencyVolumeBlur:1]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.MaterialQualityLevel:1 ; High quality]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.AnisotropicMaterials:1]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.SSS.Scale:1]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.SSS.SampleSet:2]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.SSS.Quality:1]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.SSS.HalfRes:0]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.SSGI.Quality:3]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.EmitterSpawnRateScale:1.0]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.ParticleLightQuality:2]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.SkyAtmosphere.AerialPerspectiveLUT.FastApplyOnOpaque:1 ; Always have FastSkyLUT 1 in this case to avoid wrong sky]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.SkyAtmosphere.AerialPerspectiveLUT.SampleCountMaxPerSlice:4]]
+[2021.06.13-23.34.28:269][  0]LogConfig: Setting CVar [[r.SkyAtmosphere.AerialPerspectiveLUT.DepthResolution:16.0]]
+[2021.06.13-23.34.28:270][  0]LogConfig: Setting CVar [[r.SkyAtmosphere.FastSkyLUT:1]]
+[2021.06.13-23.34.28:270][  0]LogConfig: Setting CVar [[r.SkyAtmosphere.FastSkyLUT.SampleCountMin:4.0]]
+[2021.06.13-23.34.28:270][  0]LogConfig: Setting CVar [[r.SkyAtmosphere.FastSkyLUT.SampleCountMax:128.0]]
+[2021.06.13-23.34.28:270][  0]LogConfig: Setting CVar [[r.SkyAtmosphere.SampleCountMin:4.0]]
+[2021.06.13-23.34.28:270][  0]LogConfig: Setting CVar [[r.SkyAtmosphere.SampleCountMax:128.0]]
+[2021.06.13-23.34.28:270][  0]LogConfig: Setting CVar [[r.SkyAtmosphere.TransmittanceLUT.UseSmallFormat:0]]
+[2021.06.13-23.34.28:270][  0]LogConfig: Setting CVar [[r.SkyAtmosphere.TransmittanceLUT.SampleCount:10.0]]
+[2021.06.13-23.34.28:270][  0]LogConfig: Setting CVar [[r.SkyAtmosphere.MultiScatteringLUT.SampleCount:15.0]]
+[2021.06.13-23.34.28:270][  0]LogConfig: Applying CVar settings from Section [FoliageQuality@3] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Scalability.ini]
+[2021.06.13-23.34.28:270][  0]LogConfig: Setting CVar [[foliage.DensityScale:1.0]]
+[2021.06.13-23.34.28:270][  0]LogConfig: Setting CVar [[grass.DensityScale:1.0]]
+[2021.06.13-23.34.28:270][  0]LogConfig: Applying CVar settings from Section [ShadingQuality@3] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Scalability.ini]
+[2021.06.13-23.34.28:270][  0]LogConfig: Setting CVar [[r.HairStrands.SkyLighting.IntegrationType:2]]
+[2021.06.13-23.34.28:270][  0]LogConfig: Setting CVar [[r.HairStrands.SkyAO.SampleCount:4]]
+[2021.06.13-23.34.28:270][  0]LogConfig: Setting CVar [[r.HairStrands.Visibility.MSAA.SamplePerPixel:4]]
+[2021.06.13-23.34.28:270][  0]LogConfig: Applying CVar settings from Section [Startup] File [../../../Engine/Config/ConsoleVariables.ini]
+[2021.06.13-23.34.28:270][  0]LogConfig: Setting CVar [[net.UseAdaptiveNetUpdateFrequency:0]]
+[2021.06.13-23.34.28:270][  0]LogConfig: Setting CVar [[p.chaos.AllowCreatePhysxBodies:1]]
+[2021.06.13-23.34.28:270][  0]LogConfig: Setting CVar [[fx.SkipVectorVMBackendOptimizations:1]]
+[2021.06.13-23.34.28:270][  0]LogConfig: Applying CVar settings from Section [ConsoleVariables] File [G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Config/Windows/Engine.ini]
+[2021.06.13-23.34.28:271][  0]LogInit: Computer: DESKTOP-PKIN6P4
+[2021.06.13-23.34.28:271][  0]LogInit: User: Merligus
+[2021.06.13-23.34.28:271][  0]LogInit: CPU Page size=4096, Cores=2
+[2021.06.13-23.34.28:271][  0]LogInit: High frequency timer resolution =10.000000 MHz
+[2021.06.13-23.34.28:271][  0]LogMemory: Memory total: Physical=11.9GB (12GB approx)
+[2021.06.13-23.34.28:271][  0]LogMemory: Platform Memory Stats for Windows
+[2021.06.13-23.34.28:271][  0]LogMemory: Process Physical Memory: 133.23 MB used, 133.23 MB peak
+[2021.06.13-23.34.28:271][  0]LogMemory: Process Virtual Memory: 117.40 MB used, 117.40 MB peak
+[2021.06.13-23.34.28:271][  0]LogMemory: Physical Memory: 4171.34 MB used,  8054.39 MB free, 12225.74 MB total
+[2021.06.13-23.34.28:271][  0]LogMemory: Virtual Memory: 134211912.00 MB used,  5819.48 MB free, 134217728.00 MB total
+[2021.06.13-23.34.28:276][  0]LogWindows: WindowsPlatformFeatures enabled
+[2021.06.13-23.34.28:323][  0]LogInit: Physics initialised using underlying interface: PhysX
+[2021.06.13-23.34.28:324][  0]LogInit: Overriding language with editor language configuration option (en).
+[2021.06.13-23.34.28:324][  0]LogInit: Overriding language with editor locale configuration option (en).
+[2021.06.13-23.34.28:565][  0]LogInit: Setting process to per monitor DPI aware
+[2021.06.13-23.34.28:574][  0]LogWindowsTextInputMethodSystem: Display: IME system deactivated.
+[2021.06.13-23.34.28:596][  0]LogSlate: New Slate User Created.  User Index 0, Is Virtual User: 0
+[2021.06.13-23.34.28:596][  0]LogSlate: Slate User Registered.  User Index 0, Is Virtual User: 0
+[2021.06.13-23.34.28:905][  0]LogHMD: Failed to initialize OpenVR with code 110
+[2021.06.13-23.34.28:905][  0]LogD3D11RHI: D3D11 min allowed feature level: 11_0
+[2021.06.13-23.34.28:905][  0]LogD3D11RHI: D3D11 max allowed feature level: 11_0
+[2021.06.13-23.34.28:905][  0]LogD3D11RHI: D3D11 adapters:
+[2021.06.13-23.34.29:018][  0]LogD3D11RHI:    0. 'NVIDIA GeForce GTX 1050 Ti' (Feature Level 11_0)
+[2021.06.13-23.34.29:018][  0]LogD3D11RHI:       4018/0/6112 MB DedicatedVideo/DedicatedSystem/SharedSystem, Outputs:1, VendorId:0x10de
+[2021.06.13-23.34.29:021][  0]LogD3D11RHI:    1. 'Microsoft Basic Render Driver' (Feature Level 11_0)
+[2021.06.13-23.34.29:021][  0]LogD3D11RHI:       0/0/6112 MB DedicatedVideo/DedicatedSystem/SharedSystem, Outputs:0, VendorId:0x1414
+[2021.06.13-23.34.29:021][  0]LogD3D11RHI: Chosen D3D11 Adapter: 0
+[2021.06.13-23.34.29:026][  0]LogD3D11RHI: Creating new Direct3DDevice
+[2021.06.13-23.34.29:026][  0]LogD3D11RHI:     GPU DeviceId: 0x1c82 (for the marketing name, search the web for "GPU Device Id")
+[2021.06.13-23.34.29:026][  0]LogWindows: EnumDisplayDevices:
+[2021.06.13-23.34.29:026][  0]LogWindows:    0. 'NVIDIA GeForce GTX 1050 Ti' (P:1 D:1)
+[2021.06.13-23.34.29:026][  0]LogWindows:    1. 'NVIDIA GeForce GTX 1050 Ti' (P:0 D:0)
+[2021.06.13-23.34.29:027][  0]LogWindows:    2. 'NVIDIA GeForce GTX 1050 Ti' (P:0 D:0)
+[2021.06.13-23.34.29:027][  0]LogWindows:    3. 'NVIDIA GeForce GTX 1050 Ti' (P:0 D:0)
+[2021.06.13-23.34.29:027][  0]LogWindows: DebugString: FoundDriverCount:4 
+[2021.06.13-23.34.29:027][  0]LogD3D11RHI:     Adapter Name: NVIDIA GeForce GTX 1050 Ti
+[2021.06.13-23.34.29:027][  0]LogD3D11RHI:   Driver Version: 466.27 (internal:27.21.14.6627, unified:466.27)
+[2021.06.13-23.34.29:027][  0]LogD3D11RHI:      Driver Date: 4-23-2021
+[2021.06.13-23.34.29:027][  0]LogRHI: Texture pool is 2812 MB (70% of 4018 MB)
+[2021.06.13-23.34.29:118][  0]LogD3D11RHI: RHI has support for 64 bit atomics
+[2021.06.13-23.34.29:118][  0]LogD3D11RHI: Async texture creation enabled
+[2021.06.13-23.34.29:118][  0]LogD3D11RHI: Array index from any shader is supported
+[2021.06.13-23.34.29:153][  0]LogD3D11RHI: GPU Timing Frequency: 1000.000000 (Debug: 2 1)
+[2021.06.13-23.34.29:155][  0]LogRHI: GeForceNow SDK initialized: 1
+[2021.06.13-23.34.29:581][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'AllDesktop'
+[2021.06.13-23.34.29:603][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Android'
+[2021.06.13-23.34.29:604][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Android_ASTC'
+[2021.06.13-23.34.29:604][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Android_DXT'
+[2021.06.13-23.34.29:604][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Android_ETC2'
+[2021.06.13-23.34.29:604][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'AndroidClient'
+[2021.06.13-23.34.29:604][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Android_ASTCClient'
+[2021.06.13-23.34.29:604][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Android_DXTClient'
+[2021.06.13-23.34.29:604][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Android_ETC2Client'
+[2021.06.13-23.34.29:604][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Android_Multi'
+[2021.06.13-23.34.29:604][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Android_MultiClient'
+[2021.06.13-23.34.29:626][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'IOSClient'
+[2021.06.13-23.34.29:626][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'IOS'
+[2021.06.13-23.34.29:638][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Linux'
+[2021.06.13-23.34.29:646][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'LinuxNoEditor'
+[2021.06.13-23.34.29:656][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'LinuxClient'
+[2021.06.13-23.34.29:666][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'LinuxServer'
+[2021.06.13-23.34.29:674][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'LinuxAArch64NoEditor'
+[2021.06.13-23.34.29:683][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'LinuxAArch64Client'
+[2021.06.13-23.34.29:693][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'LinuxAArch64Server'
+[2021.06.13-23.34.29:726][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Lumin'
+[2021.06.13-23.34.29:726][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'LuminClient'
+[2021.06.13-23.34.29:736][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'MacNoEditor'
+[2021.06.13-23.34.29:748][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Mac'
+[2021.06.13-23.34.29:758][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'MacClient'
+[2021.06.13-23.34.29:768][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'MacServer'
+[2021.06.13-23.34.29:788][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'TVOSClient'
+[2021.06.13-23.34.29:788][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'TVOS'
+[2021.06.13-23.34.29:798][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsNoEditor'
+[2021.06.13-23.34.29:811][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'Windows'
+[2021.06.13-23.34.29:821][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsClient'
+[2021.06.13-23.34.29:829][  0]LogTargetPlatformManager: Display: Loaded TargetPlatform 'WindowsServer'
+[2021.06.13-23.34.29:829][  0]LogTargetPlatformManager: Display: Building Assets For Windows
+[2021.06.13-23.34.29:833][  0]LogAudioDebug: Display: Lib vorbis DLL was dynamically loaded.
+[2021.06.13-23.34.29:869][  0]LogRendererCore: Ray tracing is disabled. Reason: r.RayTracing=0.
+[2021.06.13-23.34.29:869][  0]LogShaderCompilers: Guid format shader working directory is -11 characters bigger than the processId version (../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Intermediate/Shaders/WorkingDirectory/7452/).
+[2021.06.13-23.34.29:870][  0]LogShaderCompilers: Cleaned the shader compiler working directory 'C:/Users/Pichau/AppData/Local/Temp/UnrealShaderWorkingDir/6694A82D441198A226C11997E78BA79B/'.
+[2021.06.13-23.34.29:870][  0]LogShaderCompilers: Cannot use XGE Shader Compiler as Incredibuild is not installed on this machine.
+[2021.06.13-23.34.29:870][  0]LogShaderCompilers: Display: Using Local Shader Compiler.
+[2021.06.13-23.34.31:801][  0]LogDerivedDataCache: Display: Max Cache Size: 512 MB
+[2021.06.13-23.34.31:882][  0]LogDerivedDataCache: Loaded boot cache 0.08s 77MB C:/Users/Pichau/AppData/Local/UnrealEngine/4.26/DerivedDataCache/Boot.ddc.
+[2021.06.13-23.34.31:882][  0]LogDerivedDataCache: Display: Loaded Boot cache: C:/Users/Pichau/AppData/Local/UnrealEngine/4.26/DerivedDataCache/Boot.ddc
+[2021.06.13-23.34.31:882][  0]LogDerivedDataCache: FDerivedDataBackendGraph:  Pak pak cache file ../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/DerivedDataCache/DDC.ddp not found, will not use a pak cache.
+[2021.06.13-23.34.31:882][  0]LogDerivedDataCache: Unable to find inner node Pak for hierarchical cache Hierarchy.
+[2021.06.13-23.34.31:882][  0]LogDerivedDataCache: FDerivedDataBackendGraph:  CompressedPak pak cache file ../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/DerivedDataCache/Compressed.ddp not found, will not use a pak cache.
+[2021.06.13-23.34.31:883][  0]LogDerivedDataCache: Unable to find inner node CompressedPak for hierarchical cache Hierarchy.
+[2021.06.13-23.34.31:901][  0]LogDerivedDataCache: Display: Pak cache opened for reading ../../../Engine/DerivedDataCache/Compressed.ddp.
+[2021.06.13-23.34.31:901][  0]LogDerivedDataCache: FDerivedDataBackendGraph:  EnterprisePak pak cache file ../../../Enterprise/DerivedDataCache/Compressed.ddp not found, will not use a pak cache.
+[2021.06.13-23.34.31:901][  0]LogDerivedDataCache: Unable to find inner node EnterprisePak for hierarchical cache Hierarchy.
+[2021.06.13-23.34.31:915][  0]LogDerivedDataCache: Speed tests for C:/Users/Pichau/AppData/Local/UnrealEngine/Common/DerivedDataCache took 0.01 seconds
+[2021.06.13-23.34.31:915][  0]LogDerivedDataCache: Display: Performance to C:/Users/Pichau/AppData/Local/UnrealEngine/Common/DerivedDataCache: Latency=0.04ms. RandomReadSpeed=177.62MBs, RandomWriteSpeed=114.45MBs. Assigned SpeedClass 'Local'
+[2021.06.13-23.34.31:958][  0]LogDerivedDataCache: Using Local data cache path C:/Users/Pichau/AppData/Local/UnrealEngine/Common/DerivedDataCache: Writable
+[2021.06.13-23.34.31:958][  0]LogDerivedDataCache: Shared data cache path not found in *engine.ini, will not use an Shared cache.
+[2021.06.13-23.34.31:958][  0]LogDerivedDataCache: Unable to find inner node Shared for hierarchical cache Hierarchy.
+[2021.06.13-23.34.32:050][  0]LogSlate: Using FreeType 2.10.0
+[2021.06.13-23.34.32:051][  0]LogSlate: SlateFontServices - WITH_FREETYPE: 1, WITH_HARFBUZZ: 1
+[2021.06.13-23.34.32:338][  0]LogAssetRegistry: FAssetRegistry took 0.0050 seconds to start up
+[2021.06.13-23.34.32:730][  0]LogInit: Selected Device Profile: [Windows]
+[2021.06.13-23.34.32:730][  0]LogInit: Active device profile: [0000013AD4E1DB00][0000013AD59EF940 49] Windows
+[2021.06.13-23.34.32:730][  0]LogInit: Profiles: [0000013AD4E1DB00][0000013AD59EF940 49] Windows, [0000013AD4E0CD00][0000013AD59F3A80 49] WindowsNoEditor, [0000013AD4E1CC00][0000013AD59F7BC0 49] WindowsServer, [0000013AD4E0EC00][0000013AD59FBD00 49] WindowsClient, [0000013AD4E1F700][0000013AD5A021C0 49] IOS, [0000013AD4E0F700][0000013AD5A06340 49] iPadAir, [0000013AD4E1EE00][0000013AD5A0A4C0 49] iPadAir2, [0000013AD4DD2D00][0000013AD5A12780 49] IPadPro, [0000013AD4DD2E00][0000013AD5A0E7C0 49] iPadAir3, [0000013AD4E1D300][0000013AD5A16940 49] iPadAir4, [0000013AD4DD2700][0000013AD5A46AC0 49] iPadMini2, [0000013AD4E1F200][0000013AD5A4AC40 49] iPadMini3, [0000013AD4DD1600][0000013AD5ABCDC0 49] iPadMini4, [0000013AD4E1D100][0000013AD5ACAF40 49] iPadMini5, [0000013AD4DE2600][0000013AD5B2B200 49] iPhone6, [0000013AD4DE2700][0000013AD5B27240 49] iPodTouch6, [0000013AD4DD3500][0000013AD5B33500 49] iPhone7, [0000013AD4DD3600][0000013AD5B2F540 49] iPodTouch7, [0000013AD4DE3F00][0000013AD5B376C0 49] iPhone5S, [0000013AD4DD2300][0000013AD5B3B840 49] iPhone6Plus, [0000013AD4DE1400][0000013AD5B3F9C0 49] iPhone6S, [0000013AD4DD1100][0000013AD59FFB00 49] iPhone6SPlus, [0000013AD4DE0300][0000013AD5B43C40 49] iPhone7Plus, [0000013AD4DD0B00][0000013AD5B460C0 49] iPhoneSE, [0000013AD4DE3200][0000013AD5B68240 49] iPhone8, [0000013AD4DD1300][0000013AD5B7C3C0 49] iPhone8Plus, [0000013AD4DE1900][0000013AD5B80540 49] iPhoneX, [0000013AD4DD2100][0000013AD5B846C0 49] iPhoneXS, [0000013AD4DE2300][0000013AD5B88840 49] iPhoneXSMax, [0000013AD4DD3900][0000013AD5B8C9C0 49] iPhoneXR, [0000013AD4DE1E00][0000013AD5B90B40 49] iPhone11, [0000013AD4DD0C00][0000013AD5B94CC0 49] iPhone11Pro, [0000013AD4DE3300][0000013AD5B98E40 49] iPhone11ProMax, [0000013AD4DD0100][0000013AD5B9CFC0 49] iPhoneSE2, [0000013AD4DE0500][0000013AD5BA1140 49] iPhone12Mini, [0000013AD4DD2500][0000013AD5BA52C0 49] iPhone12, [0000013AD4DE2A00][0000013AD5BA9440 49] iPhone12Pro, [0000013AD4DD2C00][0000013AD5BAD5C0 49] iPhone12ProMax, [0000013AD4DE3500][0000013AD5BB1740 49] iPadPro105, [0000013AD4E0F400][0000013AD5BB58C0 49] iPadPro129, [0000013AD4DD1D00][0000013AD5BD1A40 49] iPadPro97, [0000013AD4E0C900][0000013AD5B65B80 49] iPadPro2_129, [0000013AD4DD3000][0000013ABA22BCC0 49] iPad5, [0000013AD4E0DF00][0000013ABA22E140 49] iPad6, [0000013AD4DD2800][0000013ABA232280 49] iPad7, [0000013AD4E0F500][0000013ABA23A400 49] iPad8, [0000013AD4DD0900][0000013ABA252580 49] iPadPro11, [0000013AD4DE0F00][0000013ABA256700 49] iPadPro2_11, [0000013AD4E0E000][0000013ABA25A880 49] iPadPro3_129, [0000013AD4DE3C00][0000013ABA25EA00 49] iPadPro4_129, [0000013AD4E0D300][0000013ABA262B80 49] AppleTV, [0000013AD4DE0B00][0000013ABA266D00 49] AppleTV4K, [0000013AD4E0CA00][0000013AD5D56E80 49] TVOS, [0000013AD4DD0700][0000013AD5D5B000 49] Mac, [0000013AD4E0EA00][0000013AD5D5F180 49] MacClient, [0000013AD4DD1900][0000013AD5D63300 49] MacNoEditor, [0000013AD4E0E900][0000013AD5D67480 49] MacServer, [0000013AD4DD2900][0000013AD5D6B600 49] Linux, [0000013AD4E0DE00][0000013AD5D6F780 49] LinuxNoEditor, [0000013AD4DD2F00][0000013AD5D73900 49] LinuxAArch64NoEditor, [0000013AD4E0EF00][0000013AD5D77A80 49] LinuxClient, [0000013AD4DD0400][0000013ABA237BC0 49] LinuxAArch64Client, [0000013AD4E0CB00][0000013AD5D7BD00 49] LinuxServer, [0000013AD4DD2000][0000013AD5D7E180 49] LinuxAArch64Server, [0000013AD4E0FB00][0000013AD5D822C0 49] Android, [0000013AD4DD1400][0000013AD5D8A440 49] Android_Low, [0000013AD4E0D000][0000013AD5D8E5C0 49] Android_Mid, [0000013AD4DD3D00][0000013AD5D92740 49] Android_High, [0000013AD4E0DB00][0000013AD5D968C0 49] Android_Default, [0000013AD4DD0D00][0000013AD5D9AA40 49] Android_Adreno4xx, [0000013AD4E0D100][0000013AD5D9EBC0 49] Android_Adreno5xx_Low, [0000013AD4DD0200][0000013AD5DA2D40 49] Android_Adreno5xx, [0000013AD4E0DC00][0000013AD5DA6EC0 49] Android_Adreno6xx, [0000013AD4DD0E00][0000013AD5DAB040 49] Android_Adreno6xx_Vulkan, [0000013AD4E0CF00][0000013AD5DAF1C0 49] Android_Mali_T6xx, [0000013AD4DD3700][0000013AD5DB3340 49] Android_Mali_T7xx, [0000013AD4E0D600][0000013AD5DB74C0 49] Android_Mali_T8xx, [0000013AD4DD3100][0000013AD5DBB640 49] Android_Mali_G71, [0000013AD4E0C300][0000013AD5DBF7C0 49] Android_Mali_G72, [0000013AD4DD2200][0000013AD5DC3940 49] Android_Mali_G72_Vulkan, [0000013AD4E0C100][0000013AD5DC7AC0 49] Android_Mali_G76, [0000013AD4DD3F00][0000013AD5DCBC40 49] Android_Mali_G76_Vulkan, [0000013AD4E0E800][0000013AD5D860C0 49] Android_Mali_G77, [0000013AD4DD1C00][0000013AD5DCE200 49] Android_Mali_G77_Vulkan, [0000013AD4E0F900][0000013AD5DD2340 49] Android_Vulkan_SM5, [0000013AD4DD1000][0000013AD5DDA4C0 49] Android_PowerVR_G6xxx, [0000013AD4E0ED00][0000013AD5DDE640 49] Android_PowerVR_GT7xxx, [0000013AD4DD0F00][0000013AD5DE27C0 49] Android_PowerVR_GE8xxx, [0000013AD4E0EE00][0000013AD5DE6940 49] Android_PowerVR_GM9xxx, [0000013AD4DD3E00][0000013AD5DEAAC0 49] Android_PowerVR_GM9xxx_Vulkan, [0000013AD4E0DA00][0000013AD5DEEC40 49] Android_TegraK1, [0000013AD4DD3400][0000013AD5DF2DC0 49] Android_Unknown_Vulkan, [0000013AD4E0CE00][0000013AD5DF6F40 49] Lumin, [0000013AD4DE1C00][0000013AD5DFB0C0 49] Lumin_Desktop, [0000013AD4E1ED00][0000013AD5DFF240 49] HoloLens, 
+[2021.06.13-23.34.33:036][  0]LogMeshReduction: Using QuadricMeshReduction for automatic static mesh reduction
+[2021.06.13-23.34.33:036][  0]LogMeshReduction: Using SimplygonMeshReduction for automatic skeletal mesh reduction
+[2021.06.13-23.34.33:036][  0]LogMeshReduction: Using ProxyLODMeshReduction for automatic mesh merging
+[2021.06.13-23.34.33:036][  0]LogMeshReduction: No distributed automatic mesh merging module available
+[2021.06.13-23.34.33:036][  0]LogMeshMerging: No distributed automatic mesh merging module available
+[2021.06.13-23.34.33:097][  0]LogNetVersion: Futebas 1.0.0, NetCL: 14830424, EngineNetVer: 16, GameNetVer: 0 (Checksum: 827575815)
+[2021.06.13-23.34.40:333][  0]LogHMD: PokeAHoleMaterial loaded successfully
+[2021.06.13-23.34.40:412][  0]LogPackageLocalizationCache: Processed 22 localized package path(s) for 1 prioritized culture(s) in 0.077408 seconds
+[2021.06.13-23.34.40:421][  0]LogUObjectArray: 16830 objects as part of root set at end of initial load.
+[2021.06.13-23.34.40:421][  0]LogUObjectAllocator: 4209472 out of 0 bytes used by permanent object pool.
+[2021.06.13-23.34.40:421][  0]LogUObjectArray: CloseDisregardForGC: 0/0 objects in disregard for GC pool
+[2021.06.13-23.34.41:463][  0]LogUdpMessaging: Initializing bridge on interface 0.0.0.0:0 to multicast group 230.0.0.1:6666.
+[2021.06.13-23.34.41:471][  0]LogTcpMessaging: Initializing TcpMessaging bridge
+[2021.06.13-23.34.41:596][  0]SourceControl: Source control is disabled
+[2021.06.13-23.34.41:596][  0]SourceControl: Source control is disabled
+[2021.06.13-23.34.41:599][  0]SourceControl: Source control is disabled
+[2021.06.13-23.34.41:603][  0]SourceControl: Source control is disabled
+[2021.06.13-23.34.41:614][  0]SourceControl: Source control is disabled
+[2021.06.13-23.34.41:621][  0]LogUProjectInfo: Found projects:
+[2021.06.13-23.34.41:644][  0]LogVSAccessor: Display: Unable to create Visual Studio setup instance: 80040154
+[2021.06.13-23.34.41:644][  0]LogVSAccessor: Display: Unable to create Visual Studio setup instance: 80040154
+[2021.06.13-23.34.42:010][  0]LogAndroidPermission: UAndroidPermissionCallbackProxy::GetInstance
+[2021.06.13-23.34.42:035][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2021.06.13-23.34.42:036][  0]LogAudioCaptureCore: Display: No Audio Capture implementations found. Audio input will be silent.
+[2021.06.13-23.34.42:100][  0]LogCollectionManager: Loaded 0 collections in 0.001046 seconds
+[2021.06.13-23.34.42:157][  0]LogFileCache: Scanning file cache for directory 'G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Collections/' took 0.00s
+[2021.06.13-23.34.42:157][  0]LogFileCache: Scanning file cache for directory 'G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Developers/Merligus/Collections/' took 0.00s
+[2021.06.13-23.34.42:157][  0]LogFileCache: Scanning file cache for directory 'G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Collections/' took 0.00s
+[2021.06.13-23.34.42:157][  0]LogOcInput: OculusInput pre-init called
+[2021.06.13-23.34.42:168][  0]LogWindows: Failed to load 'OVRPlugin.dll' (GetLastError=126)
+[2021.06.13-23.34.42:168][  0]LogWindows: File 'OVRPlugin.dll' does not exist
+[2021.06.13-23.34.42:262][  0]LogEngine: Initializing Engine...
+[2021.06.13-23.34.42:264][  0]LogHMD: Failed to initialize OpenVR with code 110
+[2021.06.13-23.34.42:264][  0]LogMagicLeap: Warning: VR disabled because ZI is not enabled.  To enable, in the editor, Edit -> Project Settings -> Plugins -> Magic Leap Plugin -> Enable Zero Iteration
+[2021.06.13-23.34.42:265][  0]LogStats: UGameplayTagsManager::InitializeManager -  0.000 s
+[2021.06.13-23.34.42:625][  0]LogInit: Initializing FReadOnlyCVARCache
+[2021.06.13-23.34.42:637][  0]LogAIModule: Creating AISystem for world Untitled
+[2021.06.13-23.34.42:638][  0]LogAudio: Display: Initializing Audio Device Manager...
+[2021.06.13-23.34.42:643][  0]LogAudio: Display: Audio Device Manager Initialized
+[2021.06.13-23.34.42:643][  0]LogAudio: Display: Creating Audio Device:                 Id: 1, Scope: Shared, Realtime: True
+[2021.06.13-23.34.42:644][  0]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2021.06.13-23.34.42:644][  0]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2021.06.13-23.34.42:644][  0]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2021.06.13-23.34.42:644][  0]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2021.06.13-23.34.42:644][  0]LogAudioMixer: Display: 	Number of buffers to queue:			  2
+[2021.06.13-23.34.42:644][  0]LogAudioMixer: Display: 	Max Channels (voices):				  32
+[2021.06.13-23.34.42:644][  0]LogAudioMixer: Display: 	Number of Async Source Workers:		  0
+[2021.06.13-23.34.42:644][  0]LogAudio: Display: AudioDevice MaxSources: 32
+[2021.06.13-23.34.42:644][  0]LogAudio: Display: Using built-in audio occlusion.
+[2021.06.13-23.34.42:644][  0]LogAudioMixer: Display: Initializing audio mixer.
+[2021.06.13-23.34.42:662][  0]LogAudioMixer: Display: 0: FrontLeft
+[2021.06.13-23.34.42:662][  0]LogAudioMixer: Display: 1: FrontRight
+[2021.06.13-23.34.42:694][  0]LogAudioMixer: Display: Using Audio Device Alto-falantes (Realtek High Definition Audio)
+[2021.06.13-23.34.42:695][  0]LogAudioMixer: Display: Initializing Sound Submixes...
+[2021.06.13-23.34.42:708][  0]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2021.06.13-23.34.42:708][  0]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2021.06.13-23.34.42:710][  0]LogAudioMixer: Display: Creating Master Submix 'MasterEQSubmixDefault'
+[2021.06.13-23.34.42:710][  0]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called
+[2021.06.13-23.34.42:710][  0]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048
+[2021.06.13-23.34.42:711][  0]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal()
+[2021.06.13-23.34.42:711][  0]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time
+[2021.06.13-23.34.42:711][  0]LogInit: FAudioDevice initialized.
+[2021.06.13-23.34.42:711][  0]LogAudio: Display: Audio Device (ID: 1) registered with world 'Untitled'.
+[2021.06.13-23.34.42:711][  0]LogNetVersion: Set ProjectVersion to 1.0.0.0. Version Checksum will be recalculated on next use.
+[2021.06.13-23.34.43:158][  0]LogDerivedDataCache: Saved boot cache 0.45s 77MB C:/Users/Pichau/AppData/Local/UnrealEngine/4.26/DerivedDataCache/Boot.ddc.
+[2021.06.13-23.34.43:158][  0]LogInit: Texture streaming: Enabled
+[2021.06.13-23.34.43:167][  0]LogAnalytics: Display: [UEEditor.Rocket.Release] APIServer = https://datarouter.ol.epicgames.com/. AppVersion = 4.26.1-15228867+++UE4+Release-4.26
+[2021.06.13-23.34.43:170][  0]LogEngineSessionManager: EngineSessionManager initialized
+[2021.06.13-23.34.43:171][  0]LogEditorSessionSummary: Verbose: Initializing EditorSessionSummaryWriter for editor session tracking
+[2021.06.13-23.34.43:173][  0]LogEditorSessionSummary: EditorSessionSummaryWriter initialized
+[2021.06.13-23.34.43:212][  0]LogInit: Transaction tracking system initialized
+[2021.06.13-23.34.43:228][  0]BlueprintLog: New page: Editor Load
+[2021.06.13-23.34.43:278][  0]LocalizationService: Localization service is disabled
+[2021.06.13-23.34.43:295][  0]TimingProfiler: Initialize
+[2021.06.13-23.34.43:295][  0]TimingProfiler: OnSessionChanged
+[2021.06.13-23.34.43:295][  0]LoadingProfiler: Initialize
+[2021.06.13-23.34.43:295][  0]LoadingProfiler: OnSessionChanged
+[2021.06.13-23.34.43:295][  0]NetworkingProfiler: Initialize
+[2021.06.13-23.34.43:295][  0]NetworkingProfiler: OnSessionChanged
+[2021.06.13-23.34.43:295][  0]MemoryProfiler: Initialize
+[2021.06.13-23.34.43:295][  0]MemoryProfiler: OnSessionChanged
+[2021.06.13-23.34.43:341][  0]LogVSAccessor: Display: Unable to create Visual Studio setup instance: 80040154
+[2021.06.13-23.34.43:342][  0]LogVSAccessor: Display: Unable to create Visual Studio setup instance: 80040154
+[2021.06.13-23.34.43:656][  0]LogCook: Display: CookSettings for Memory: MemoryMaxUsedVirtual 0MiB, MemoryMaxUsedPhysical 16384MiB, MemoryMinFreeVirtual 0MiB, MemoryMinFreePhysical 1024MiB
+[2021.06.13-23.34.43:657][  0]LogCook: Display: Mobile HDR setting 0
+[2021.06.13-23.34.43:663][  0]LogUObjectGlobals: Warning: Failed to find object 'StaticMesh /Engine/BasicShapes/Sphere.Sphere'
+[2021.06.13-23.34.44:262][  0]LogFileCache: Scanning file cache for directory 'G:/Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/' took 0.03s
+[2021.06.13-23.34.44:821][  0]LogInit: Display: Engine is initialized. Leaving FEngineLoop::Init()
+[2021.06.13-23.34.44:826][  0]SourceControl: Source control is disabled
+[2021.06.13-23.34.44:826][  0]LogUnrealEdMisc: Loading editor; pre map load, took 18.666
+[2021.06.13-23.34.44:826][  0]Cmd: MAP LOAD FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Levels/Menu_Level.umap" TEMPLATE=0 SHOWPROGRESS=1 FEATURELEVEL=3
+[2021.06.13-23.34.44:827][  0]LightingResults: New page: Lighting Build
+[2021.06.13-23.34.44:828][  0]LogWorld: UWorld::CleanupWorld for Untitled, bSessionEnded=true, bCleanupResources=true
+[2021.06.13-23.34.44:828][  0]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.06.13-23.34.44:828][  0]MapCheck: New page: Map Check
+[2021.06.13-23.34.44:828][  0]LightingResults: New page: Lighting Build
+[2021.06.13-23.34.44:952][  0]LogUObjectHash: Compacting FUObjectHashTables data took   1.35ms
+[2021.06.13-23.34.50:459][  0]LogAudio: Display: Audio Device (ID: 1) registered with world 'Menu_Level'.
+[2021.06.13-23.34.50:460][  0]LogAIModule: Creating AISystem for world Menu_Level
+[2021.06.13-23.34.50:461][  0]LogEditorServer: Finished looking for orphan Actors (0.000 secs)
+[2021.06.13-23.34.50:477][  0]LogUObjectHash: Compacting FUObjectHashTables data took   1.00ms
+[2021.06.13-23.34.50:478][  0]Cmd: MAP CHECKDEP NOCLEARLOG
+[2021.06.13-23.34.50:479][  0]MapCheck: Map check complete: 0 Error(s), 0 Warning(s), took 0.179ms to complete.
+[2021.06.13-23.34.50:479][  0]LogFileHelpers: Loading map 'Menu_Level' took 5.652
+[2021.06.13-23.34.50:484][  0]LogUnrealEdMisc: Total Editor Startup Time, took 24.324
+[2021.06.13-23.34.50:630][  0]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2021.06.13-23.34.50:638][  0]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2021.06.13-23.34.50:650][  0]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2021.06.13-23.34.50:660][  0]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2021.06.13-23.34.50:688][  0]LogNativeClassHierarchy: Verbose: Native class hierarchy populated in 0.0153 seconds. Added 3601 classes and 859 folders.
+[2021.06.13-23.34.50:691][  0]LogNativeClassHierarchy: Verbose: Native class hierarchy updated for 'WidgetCarousel' in 0.0004 seconds. Added 0 classes and 0 folders.
+[2021.06.13-23.34.50:734][  0]LogPakFile: PakFile PrimaryIndexSize=187
+[2021.06.13-23.34.50:734][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:734][  0]LogPakFile: PakFile FullDirectoryIndexSize=148
+[2021.06.13-23.34.50:734][  0]LogPakFile: OnPakFileMounted2Time == 0.000009
+[2021.06.13-23.34.50:746][  0]LogPakFile: PakFile PrimaryIndexSize=189
+[2021.06.13-23.34.50:746][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:746][  0]LogPakFile: PakFile FullDirectoryIndexSize=152
+[2021.06.13-23.34.50:746][  0]LogPakFile: OnPakFileMounted2Time == 0.000015
+[2021.06.13-23.34.50:754][  0]LogPakFile: PakFile PrimaryIndexSize=191
+[2021.06.13-23.34.50:754][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:754][  0]LogPakFile: PakFile FullDirectoryIndexSize=160
+[2021.06.13-23.34.50:754][  0]LogPakFile: OnPakFileMounted2Time == 0.000021
+[2021.06.13-23.34.50:767][  0]LogPakFile: PakFile PrimaryIndexSize=185
+[2021.06.13-23.34.50:767][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:767][  0]LogPakFile: PakFile FullDirectoryIndexSize=148
+[2021.06.13-23.34.50:767][  0]LogPakFile: OnPakFileMounted2Time == 0.000025
+[2021.06.13-23.34.50:777][  0]LogPakFile: PakFile PrimaryIndexSize=190
+[2021.06.13-23.34.50:777][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:777][  0]LogPakFile: PakFile FullDirectoryIndexSize=154
+[2021.06.13-23.34.50:777][  0]LogPakFile: OnPakFileMounted2Time == 0.000029
+[2021.06.13-23.34.50:791][  0]LogPakFile: PakFile PrimaryIndexSize=192
+[2021.06.13-23.34.50:791][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:791][  0]LogPakFile: PakFile FullDirectoryIndexSize=158
+[2021.06.13-23.34.50:791][  0]LogPakFile: OnPakFileMounted2Time == 0.000033
+[2021.06.13-23.34.50:801][  0]LogPakFile: PakFile PrimaryIndexSize=182
+[2021.06.13-23.34.50:801][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:801][  0]LogPakFile: PakFile FullDirectoryIndexSize=138
+[2021.06.13-23.34.50:801][  0]LogPakFile: OnPakFileMounted2Time == 0.000037
+[2021.06.13-23.34.50:809][  0]LogPakFile: PakFile PrimaryIndexSize=184
+[2021.06.13-23.34.50:809][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:809][  0]LogPakFile: PakFile FullDirectoryIndexSize=142
+[2021.06.13-23.34.50:809][  0]LogPakFile: OnPakFileMounted2Time == 0.000042
+[2021.06.13-23.34.50:822][  0]LogPakFile: PakFile PrimaryIndexSize=188
+[2021.06.13-23.34.50:823][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:823][  0]LogPakFile: PakFile FullDirectoryIndexSize=150
+[2021.06.13-23.34.50:823][  0]LogPakFile: OnPakFileMounted2Time == 0.000046
+[2021.06.13-23.34.50:832][  0]LogPakFile: PakFile PrimaryIndexSize=182
+[2021.06.13-23.34.50:832][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:832][  0]LogPakFile: PakFile FullDirectoryIndexSize=138
+[2021.06.13-23.34.50:832][  0]LogPakFile: OnPakFileMounted2Time == 0.000051
+[2021.06.13-23.34.50:843][  0]LogPakFile: PakFile PrimaryIndexSize=184
+[2021.06.13-23.34.50:843][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:843][  0]LogPakFile: PakFile FullDirectoryIndexSize=142
+[2021.06.13-23.34.50:843][  0]LogPakFile: OnPakFileMounted2Time == 0.000056
+[2021.06.13-23.34.50:855][  0]LogPakFile: PakFile PrimaryIndexSize=183
+[2021.06.13-23.34.50:855][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:855][  0]LogPakFile: PakFile FullDirectoryIndexSize=140
+[2021.06.13-23.34.50:855][  0]LogPakFile: OnPakFileMounted2Time == 0.000060
+[2021.06.13-23.34.50:867][  0]LogPakFile: PakFile PrimaryIndexSize=185
+[2021.06.13-23.34.50:867][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:867][  0]LogPakFile: PakFile FullDirectoryIndexSize=144
+[2021.06.13-23.34.50:867][  0]LogPakFile: OnPakFileMounted2Time == 0.000065
+[2021.06.13-23.34.50:879][  0]LogPakFile: PakFile PrimaryIndexSize=188
+[2021.06.13-23.34.50:879][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:879][  0]LogPakFile: PakFile FullDirectoryIndexSize=150
+[2021.06.13-23.34.50:879][  0]LogPakFile: OnPakFileMounted2Time == 0.000070
+[2021.06.13-23.34.50:889][  0]LogPakFile: PakFile PrimaryIndexSize=190
+[2021.06.13-23.34.50:889][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:889][  0]LogPakFile: PakFile FullDirectoryIndexSize=154
+[2021.06.13-23.34.50:889][  0]LogPakFile: OnPakFileMounted2Time == 0.000074
+[2021.06.13-23.34.50:898][  0]LogPakFile: PakFile PrimaryIndexSize=187
+[2021.06.13-23.34.50:898][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:898][  0]LogPakFile: PakFile FullDirectoryIndexSize=148
+[2021.06.13-23.34.50:898][  0]LogPakFile: OnPakFileMounted2Time == 0.000079
+[2021.06.13-23.34.50:908][  0]LogPakFile: PakFile PrimaryIndexSize=189
+[2021.06.13-23.34.50:908][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:908][  0]LogPakFile: PakFile FullDirectoryIndexSize=152
+[2021.06.13-23.34.50:908][  0]LogPakFile: OnPakFileMounted2Time == 0.000084
+[2021.06.13-23.34.50:917][  0]LogPakFile: PakFile PrimaryIndexSize=183
+[2021.06.13-23.34.50:917][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:917][  0]LogPakFile: PakFile FullDirectoryIndexSize=140
+[2021.06.13-23.34.50:918][  0]LogPakFile: OnPakFileMounted2Time == 0.000089
+[2021.06.13-23.34.50:925][  0]LogPakFile: PakFile PrimaryIndexSize=185
+[2021.06.13-23.34.50:925][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:925][  0]LogPakFile: PakFile FullDirectoryIndexSize=144
+[2021.06.13-23.34.50:925][  0]LogPakFile: OnPakFileMounted2Time == 0.000094
+[2021.06.13-23.34.50:937][  0]LogPakFile: PakFile PrimaryIndexSize=185
+[2021.06.13-23.34.50:937][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:937][  0]LogPakFile: PakFile FullDirectoryIndexSize=144
+[2021.06.13-23.34.50:937][  0]LogPakFile: OnPakFileMounted2Time == 0.000098
+[2021.06.13-23.34.50:945][  0]LogPakFile: PakFile PrimaryIndexSize=187
+[2021.06.13-23.34.50:946][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:946][  0]LogPakFile: PakFile FullDirectoryIndexSize=148
+[2021.06.13-23.34.50:946][  0]LogPakFile: OnPakFileMounted2Time == 0.000103
+[2021.06.13-23.34.50:955][  0]LogPakFile: PakFile PrimaryIndexSize=183
+[2021.06.13-23.34.50:955][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:955][  0]LogPakFile: PakFile FullDirectoryIndexSize=140
+[2021.06.13-23.34.50:955][  0]LogPakFile: OnPakFileMounted2Time == 0.000107
+[2021.06.13-23.34.50:964][  0]LogPakFile: PakFile PrimaryIndexSize=186
+[2021.06.13-23.34.50:964][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:964][  0]LogPakFile: PakFile FullDirectoryIndexSize=146
+[2021.06.13-23.34.50:964][  0]LogPakFile: OnPakFileMounted2Time == 0.000111
+[2021.06.13-23.34.50:974][  0]LogPakFile: PakFile PrimaryIndexSize=188
+[2021.06.13-23.34.50:974][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:974][  0]LogPakFile: PakFile FullDirectoryIndexSize=150
+[2021.06.13-23.34.50:974][  0]LogPakFile: OnPakFileMounted2Time == 0.000116
+[2021.06.13-23.34.50:984][  0]LogPakFile: PakFile PrimaryIndexSize=185
+[2021.06.13-23.34.50:984][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:985][  0]LogPakFile: PakFile FullDirectoryIndexSize=144
+[2021.06.13-23.34.50:985][  0]LogPakFile: OnPakFileMounted2Time == 0.000121
+[2021.06.13-23.34.50:996][  0]LogPakFile: PakFile PrimaryIndexSize=192
+[2021.06.13-23.34.50:996][  0]LogPakFile: PakFile PathHashIndexSize=101
+[2021.06.13-23.34.50:996][  0]LogPakFile: PakFile FullDirectoryIndexSize=158
+[2021.06.13-23.34.50:996][  0]LogPakFile: OnPakFileMounted2Time == 0.000126
+[2021.06.13-23.34.51:498][  0]LogNativeClassHierarchy: Verbose: Native class hierarchy updated for 'AddContentDialog' in 0.0004 seconds. Added 0 classes and 0 folders.
+[2021.06.13-23.34.51:499][  0]LogNativeClassHierarchy: Verbose: Native class hierarchy updated for 'SceneOutliner' in 0.0002 seconds. Added 2 classes and 0 folders.
+[2021.06.13-23.34.51:620][  0]LogSlate: Took 0.000279 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Regular.ttf' (155K)
+[2021.06.13-23.34.51:622][  0]LogSlate: Took 0.000346 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Bold.ttf' (160K)
+[2021.06.13-23.34.51:628][  0]LogSlate: Took 0.000277 seconds to synchronously load lazily loaded font '../../../Engine/Content/Editor/Slate/Fonts/FontAwesome.ttf' (139K)
+[2021.06.13-23.34.51:846][  0]LogRenderer: Reallocating scene render targets to support 1112x572 Format 10 NumSamples 1 (Frame:1).
+[2021.06.13-23.34.52:094][  0]LogNativeClassHierarchy: Verbose: Native class hierarchy updated for 'HierarchicalLODOutliner' in 0.0003 seconds. Added 0 classes and 0 folders.
+[2021.06.13-23.34.52:094][  0]LogLoad: (Engine Initialization) Total time: 25.93 seconds
+[2021.06.13-23.34.52:094][  0]LogLoad: (Engine Initialization) Total Blueprint compile time: 0.00 seconds
+[2021.06.13-23.34.52:094][  0]LogInit: First time updating LLM stats...
+[2021.06.13-23.34.52:114][  0]LogUObjectGlobals: Warning: Failed to find object 'StaticMesh /Engine/BasicShapes/Sphere.Sphere'
+[2021.06.13-23.34.52:155][  0]LogAssetRegistry: Asset discovery search completed in 19.8187 seconds
+[2021.06.13-23.34.52:157][  0]LogCollectionManager: Fixed up redirectors for 0 collections in 0.000004 seconds (updated 0 objects)
+[2021.06.13-23.34.52:273][  0]LogContentStreaming: Texture pool size now 1000 MB
+[2021.06.13-23.34.52:798][  2]LogSlate: Took 0.000236 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Light.ttf' (167K)
+[2021.06.13-23.34.53:450][  4]LogSlate: Took 0.000174 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Light.ttf' (167K)
+[2021.06.13-23.35.14:559][260]LogAssetEditorSubsystem: Opening Asset editor for WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.35.14:722][260]LogNativeClassHierarchy: Verbose: Native class hierarchy updated for 'BlueprintGraph' in 0.0005 seconds. Added 126 classes and 0 folders.
+[2021.06.13-23.35.15:572][260]LogAssetEditorSubsystem: Opening Asset editor for Blueprint /Game/Levels/JogosGameState.JogosGameState
+[2021.06.13-23.35.16:207][260]LogOutputDevice: Warning: 
+
+Script Stack (0 frames):
+
+[2021.06.13-23.35.17:232][260]LogStats: FPlatformStackWalk::StackWalkAndDump -  1.024 s
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: === Handled ensure: ===
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: 
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: Ensure condition failed: !FPackageName::IsShortPackageName(Path) [File:D:/Build/++UE4/Sync/Engine/Source/Runtime/CoreUObject/Private/UObject/SoftObjectPath.cpp] [Line: 79]
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: Cannot create SoftObjectPath with short package name 'False'! You must pass in fully qualified package names
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: Stack: 
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc2f2f1909 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc2f1c8c0c UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc2f141669 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc2f150ce9 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc2f14cca6 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc2f14cb5f UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc2ee054f8 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc2a6c1448 UE4Editor-UnrealEd.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc0bdc38c5 UE4Editor-KismetCompiler.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc0bdeda88 UE4Editor-KismetCompiler.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc10167e1e UE4Editor-Kismet.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc10111282 UE4Editor-Kismet.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc1010dfc3 UE4Editor-Kismet.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc2ee32f80 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc2f04177a UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc2f041c7b UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc2f07a28c UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc2f209195 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc2f207ff0 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc2ab315b9 UE4Editor-UnrealEd.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc2ab33d3a UE4Editor-UnrealEd.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc2ab2f332 UE4Editor-UnrealEd.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc2ab13104 UE4Editor-UnrealEd.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc3be9d5fa UE4Editor-Slate.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc3be5c09f UE4Editor-Slate.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc3be89479 UE4Editor-Slate.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc3bd785fe UE4Editor-Slate.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc3bd9077e UE4Editor-Slate.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc3bbd46be UE4Editor-Slate.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc3bc57f54 UE4Editor-Slate.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc3bc40367 UE4Editor-Slate.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc3bc33642 UE4Editor-Slate.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc61bebca5 UE4Editor-ApplicationCore.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc61bd9197 UE4Editor-ApplicationCore.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc61bee379 UE4Editor-ApplicationCore.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc61bd4310 UE4Editor-ApplicationCore.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc7cdae858 USER32.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc7cdae299 USER32.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc61bef904 UE4Editor-ApplicationCore.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ff74de88857 UE4Editor.exe!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ff74dea11ac UE4Editor.exe!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ff74dea128a UE4Editor.exe!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ff74deb52ed UE4Editor.exe!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ff74deb801a UE4Editor.exe!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc7df27034 KERNEL32.DLL!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: [Callstack] 0x00007ffc7e982651 ntdll.dll!UnknownFunction []
+[2021.06.13-23.35.17:232][260]LogOutputDevice: Error: 
+[2021.06.13-23.35.17:233][260]LogStats:                SubmitErrorReport -  0.000 s
+[2021.06.13-23.35.18:763][260]LogStats:                    SendNewReport -  1.531 s
+[2021.06.13-23.35.18:763][260]LogStats:             FDebug::EnsureFailed -  2.556 s
+[2021.06.13-23.35.18:905][260]LogAssetEditorSubsystem: Opening Asset editor for Blueprint /Game/Levels/JogosGameMode.JogosGameMode
+[2021.06.13-23.35.19:355][260]LogAssetEditorSubsystem: Opening Asset editor for WidgetBlueprint /Game/Widgets/Pause.Pause
+[2021.06.13-23.35.20:307][260]LogSlate: Took 0.000236 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-BoldCondensed.ttf' (158K)
+[2021.06.13-23.35.25:304][731]LogSlate: Took 0.001503 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/DroidSansFallback.ttf' (3848K)
+[2021.06.13-23.35.26:059][784]LogSlate: Took 0.000206 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Italic.ttf' (157K)
+[2021.06.13-23.35.47:460][ 17]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.35.47:478][ 17]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_Partida51F588CA4324F1B7A26469B784AA8B69.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.35.47:494][ 17]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.35.47:494][ 17]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.35.47:883][ 54]BlueprintLog: New page: Compile Menu_Nova_Partida
+[2021.06.13-23.35.47:972][ 54]LogUObjectHash: Compacting FUObjectHashTables data took   5.80ms
+[2021.06.13-23.35.48:408][ 89]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.35.48:425][ 89]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_Partida816AA0D74E1C334432354491A4234342.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.35.48:436][ 89]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.35.48:436][ 89]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.36.25:803][107]LogContentBrowser: Attempting asset rename: Level0 -> anfield
+[2021.06.13-23.36.25:828][107]LogMetaData: Removing '/Game/Levels/anfield.anfield_C' ref from Metadata '/Game/Levels/Level0.PackageMetaData'
+[2021.06.13-23.36.25:828][107]LogMetaData: Removing '/Game/Levels/anfield.anfield:PersistentLevel.anfield.EventGraph.K2Node_Event_1' ref from Metadata '/Game/Levels/Level0.PackageMetaData'
+[2021.06.13-23.36.25:828][107]LogMetaData: Removing '/Game/Levels/anfield.SKEL_anfield_C:ReceiveTick' ref from Metadata '/Game/Levels/Level0.PackageMetaData'
+[2021.06.13-23.36.25:828][107]LogMetaData: Removing '/Game/Levels/anfield.SKEL_anfield_C:ReceiveBeginPlay' ref from Metadata '/Game/Levels/Level0.PackageMetaData'
+[2021.06.13-23.36.25:828][107]LogMetaData: Removing '/Game/Levels/anfield.SKEL_anfield_C:BndEvt__golEsq_K2Node_ActorBoundEvent_0_ActorBeginOverlapSignature__DelegateSignature' ref from Metadata '/Game/Levels/Level0.PackageMetaData'
+[2021.06.13-23.36.25:828][107]LogMetaData: Removing '/Game/Levels/anfield.SKEL_anfield_C:BndEvt__golDir_K2Node_ActorBoundEvent_1_ActorBeginOverlapSignature__DelegateSignature' ref from Metadata '/Game/Levels/Level0.PackageMetaData'
+[2021.06.13-23.36.25:828][107]LogMetaData: Removing '/Game/Levels/anfield.SKEL_anfield_C:BndEvt__foraBaixo_K2Node_ActorBoundEvent_2_ActorBeginOverlapSignature__DelegateSignature' ref from Metadata '/Game/Levels/Level0.PackageMetaData'
+[2021.06.13-23.36.25:828][107]LogMetaData: Removing '/Game/Levels/anfield.SKEL_anfield_C:BndEvt__foraEsq_K2Node_ActorBoundEvent_4_ActorBeginOverlapSignature__DelegateSignature' ref from Metadata '/Game/Levels/Level0.PackageMetaData'
+[2021.06.13-23.36.25:828][107]LogMetaData: Removing '/Game/Levels/anfield.SKEL_anfield_C:BndEvt__foraDir_K2Node_ActorBoundEvent_5_ActorBeginOverlapSignature__DelegateSignature' ref from Metadata '/Game/Levels/Level0.PackageMetaData'
+[2021.06.13-23.36.25:828][107]LogMetaData: Removing '/Game/Levels/anfield.SKEL_anfield_C' ref from Metadata '/Game/Levels/Level0.PackageMetaData'
+[2021.06.13-23.36.25:828][107]LogMetaData: Removing '/Game/Levels/anfield.anfield_C:ReceiveBeginPlay' ref from Metadata '/Game/Levels/Level0.PackageMetaData'
+[2021.06.13-23.36.25:856][107]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Levels/anfield_BuiltData" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Levels/anfield_BuiltData.uasset" SILENT=true
+[2021.06.13-23.36.25:859][107]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/anfield_BuiltData32A8D4B04937AF6C58A3818ADDF35B38.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Levels/anfield_BuiltData.uasset'
+[2021.06.13-23.36.25:861][107]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Levels/anfield" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Levels/anfield.umap" SILENT=true AUTOSAVING=false KEEPDIRTY=false
+[2021.06.13-23.36.25:903][107]LogUObjectHash: Compacting FUObjectHashTables data took   3.12ms
+[2021.06.13-23.36.25:925][107]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/anfieldD60A85F24EB37355FD8B8290DB599E64.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Levels/anfield.umap'
+[2021.06.13-23.36.25:929][107]LogFileHelpers: Saving map 'anfield' took 0.069
+[2021.06.13-23.36.26:048][107]LogUObjectHash: Compacting FUObjectHashTables data took   1.83ms
+[2021.06.13-23.36.26:080][107]LogUObjectHash: Compacting FUObjectHashTables data took   0.53ms
+[2021.06.13-23.36.26:115][107]LogUObjectHash: Compacting FUObjectHashTables data took   1.80ms
+[2021.06.13-23.36.26:148][107]LogUObjectHash: Compacting FUObjectHashTables data took   0.53ms
+[2021.06.13-23.36.26:173][107]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu.uasset" SILENT=true
+[2021.06.13-23.36.26:204][107]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu3A0A853F4FDB89F0D1E26EBC63840632.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu.uasset'
+[2021.06.13-23.36.26:256][107]AssetCheck: New page: Asset Save: multiple assets
+[2021.06.13-23.36.26:256][107]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu.Menu
+[2021.06.13-23.36.26:257][107]LogContentValidation: Display: Validating World /Game/Levels/anfield.anfield
+[2021.06.13-23.36.26:257][107]LogContentValidation: Display: Validating MapBuildDataRegistry /Game/Levels/anfield_BuiltData.anfield_BuiltData
+[2021.06.13-23.37.30:379][437]LogContentBrowser: Attempting asset rename: anfield -> Anfield
+[2021.06.13-23.37.30:423][437]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Levels/anfield_BuiltData" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Levels/anfield_BuiltData.uasset" SILENT=true
+[2021.06.13-23.37.30:425][437]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/anfield_BuiltData96259D2947DDB622D91386B20033F17D.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Levels/anfield_BuiltData.uasset'
+[2021.06.13-23.37.30:427][437]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Levels/anfield" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Levels/anfield.umap" SILENT=true AUTOSAVING=false KEEPDIRTY=false
+[2021.06.13-23.37.30:512][437]LogUObjectHash: Compacting FUObjectHashTables data took   4.10ms
+[2021.06.13-23.37.30:514][437]LogOutputDevice: Warning: 
+
+Script Stack (0 frames):
+
+[2021.06.13-23.37.30:945][437]LogStats: FPlatformStackWalk::StackWalkAndDump -  0.432 s
+[2021.06.13-23.37.30:945][437]LogOutputDevice: Error: === Handled ensure: ===
+[2021.06.13-23.37.30:945][437]LogOutputDevice: Error: 
+[2021.06.13-23.37.30:945][437]LogOutputDevice: Error: Ensure condition failed: !SeenPaths.Contains(NewPath) [File:D:/Build/++UE4/Sync/Engine/Source/Runtime/CoreUObject/Private/Misc/RedirectCollector.cpp] [Line: 222]
+[2021.06.13-23.37.30:945][437]LogOutputDevice: Error: Found circular redirect from /Game/Levels/anfield.anfield to /Game/Levels/Anfield.Anfield! Returning None instead
+[2021.06.13-23.37.30:945][437]LogOutputDevice: Error: Stack: 
+[2021.06.13-23.37.30:945][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f2c7093 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:945][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2ee72810 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:945][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f1af236 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:945][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f1c834e UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:945][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2eea7cb7 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:945][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f8a5162 UE4Editor-Core.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f1bfcc3 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f0be699 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f015896 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f173ec7 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f174444 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f0185e3 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f01609c UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f0159ae UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f173ec7 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f109175 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f174444 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f0185e3 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f01609c UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f109504 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f107af0 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f10755b UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2c265b20 UE4Editor-Engine.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2c265714 UE4Editor-Engine.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f1567d2 UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f178a5b UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2f15dfec UE4Editor-CoreUObject.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2a2e276e UE4Editor-UnrealEd.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2a2e325e UE4Editor-UnrealEd.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2a31e762 UE4Editor-UnrealEd.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2a31b09c UE4Editor-UnrealEd.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2ab9cc97 UE4Editor-UnrealEd.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2a65592c UE4Editor-UnrealEd.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2a653951 UE4Editor-UnrealEd.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2a618fac UE4Editor-UnrealEd.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2a6179ad UE4Editor-UnrealEd.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc2a640a50 UE4Editor-UnrealEd.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc09b2e2c7 UE4Editor-AssetTools.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc09acffca UE4Editor-AssetTools.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc09b48c92 UE4Editor-AssetTools.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffbf819f233 UE4Editor-ContentBrowserAssetDataSource.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffbf819f521 UE4Editor-ContentBrowserAssetDataSource.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffbf819f5fb UE4Editor-ContentBrowserAssetDataSource.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc0a8888a6 UE4Editor-ContentBrowserData.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc0a2c402e UE4Editor-ContentBrowser.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc0a308ebf UE4Editor-ContentBrowser.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc0a328c3b UE4Editor-ContentBrowser.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc0a3080e7 UE4Editor-ContentBrowser.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc3bea5fb4 UE4Editor-Slate.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc3be8b857 UE4Editor-Slate.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc3be34c98 UE4Editor-Slate.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc3be137a7 UE4Editor-Slate.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc3be93c66 UE4Editor-Slate.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc3be95078 UE4Editor-Slate.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc3bd8f084 UE4Editor-Slate.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc3bbd25b2 UE4Editor-Slate.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc3bc3e399 UE4Editor-Slate.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc3bc32236 UE4Editor-Slate.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc61beb948 UE4Editor-ApplicationCore.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc61bd9197 UE4Editor-ApplicationCore.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc61bee379 UE4Editor-ApplicationCore.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc61bd4310 UE4Editor-ApplicationCore.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc7cdae858 USER32.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc7cdae299 USER32.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc61bef904 UE4Editor-ApplicationCore.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ff74de88857 UE4Editor.exe!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ff74dea11ac UE4Editor.exe!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ff74dea128a UE4Editor.exe!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ff74deb52ed UE4Editor.exe!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ff74deb801a UE4Editor.exe!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc7df27034 KERNEL32.DLL!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: [Callstack] 0x00007ffc7e982651 ntdll.dll!UnknownFunction []
+[2021.06.13-23.37.30:946][437]LogOutputDevice: Error: 
+[2021.06.13-23.37.30:950][437]LogStats:                SubmitErrorReport -  0.000 s
+[2021.06.13-23.37.32:305][437]LogStats:                    SendNewReport -  1.356 s
+[2021.06.13-23.37.32:306][437]LogStats:             FDebug::EnsureFailed -  1.792 s
+[2021.06.13-23.37.32:340][437]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/anfield601FC8DA45B8A5460BC6F2A184348B2A.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Levels/anfield.umap'
+[2021.06.13-23.37.32:345][437]LogFileHelpers: Saving map 'anfield' took 1.918
+[2021.06.13-23.37.32:530][437]LogUObjectHash: Compacting FUObjectHashTables data took   2.84ms
+[2021.06.13-23.37.32:556][437]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu.uasset" SILENT=true
+[2021.06.13-23.37.32:596][437]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu9AF4854A40E7A0C0D89DE29378F74EBF.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu.uasset'
+[2021.06.13-23.37.32:652][437]AssetCheck: New page: Asset Save: multiple assets
+[2021.06.13-23.37.32:652][437]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu.Menu
+[2021.06.13-23.37.32:653][437]LogContentValidation: Display: Validating World /Game/Levels/anfield.Anfield
+[2021.06.13-23.37.32:654][437]LogContentValidation: Display: Validating MapBuildDataRegistry /Game/Levels/anfield_BuiltData.anfield_BuiltData
+[2021.06.13-23.37.43:391][403]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.37.43:413][403]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_PartidaF8833CD34AA8591A5826C6A88486C0C4.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.37.43:426][403]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.37.43:427][403]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.38.11:407][987]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.38.11:429][987]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_Partida53C46A5C4D772653089A96B4CA3873AE.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.38.11:444][987]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.38.11:444][987]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.38.22:024][953]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.38.22:050][953]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_PartidaAA183814486E0D5FA05FFE86E755B974.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.38.22:066][953]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.38.22:066][953]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.38.53:275][734]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.38.53:295][734]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_Partida8237D2B447F469C875D131BB0C0F2265.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.38.53:311][734]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.38.53:311][734]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.39.02:575][581]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.39.02:594][581]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_Partida8550C1DE42FFC084D4D48A92B149E0A2.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.39.02:608][581]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.39.02:608][581]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.39.54:322][143]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.39.54:345][143]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_PartidaBB01228D4A3A5994ADD409B531DC4792.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.39.54:361][143]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.39.54:361][143]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.40.36:044][633]LogSlate: Window 'Color Picker' being destroyed
+[2021.06.13-23.40.39:405][883]LogSlate: Window 'Color Picker' being destroyed
+[2021.06.13-23.40.43:887][217]LogSlate: Window 'Color Picker' being destroyed
+[2021.06.13-23.40.46:273][395]LogSlate: Window 'Color Picker' being destroyed
+[2021.06.13-23.40.50:112][679]LogSlate: Window 'Color Picker' being destroyed
+[2021.06.13-23.40.55:190][ 62]LogSlate: Window 'Color Picker' being destroyed
+[2021.06.13-23.40.57:578][231]LogSlate: Window 'Color Picker' being destroyed
+[2021.06.13-23.41.01:579][539]LogSlate: Window 'Color Picker' being destroyed
+[2021.06.13-23.41.05:244][820]LogSlate: Window 'Color Picker' being destroyed
+[2021.06.13-23.41.08:946][ 99]LogSlate: Window 'Color Picker' being destroyed
+[2021.06.13-23.41.11:122][269]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.41.11:144][269]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_PartidaD118F15C47BEF1D2FBF5E393F3A486A9.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.41.11:160][269]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.41.11:160][269]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.41.36:311][124]LogSlate: Window 'Color Picker' being destroyed
+[2021.06.13-23.41.37:576][228]LogSlate: FontCache flush requested. Reason: Font Atlases Full; 2/1 Pages; frames since last flush: 34228
+[2021.06.13-23.41.37:579][228]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.06.13-23.41.37:587][229]LogSlate: Took 0.000319 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Regular.ttf' (155K)
+[2021.06.13-23.41.37:591][229]LogSlate: Took 0.000237 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-BoldCondensed.ttf' (158K)
+[2021.06.13-23.41.37:594][229]LogSlate: Took 0.000208 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Bold.ttf' (160K)
+[2021.06.13-23.41.37:597][229]LogSlate: Took 0.000202 seconds to synchronously load lazily loaded font '../../../Engine/Content/Editor/Slate/Fonts/FontAwesome.ttf' (139K)
+[2021.06.13-23.41.37:599][229]LogSlate: Took 0.000248 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Light.ttf' (167K)
+[2021.06.13-23.41.37:603][229]LogSlate: Took 0.000200 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Light.ttf' (167K)
+[2021.06.13-23.41.37:806][244]LogSlate: FontCache flush requested. Reason: Font Atlases Full; 2/1 Pages; frames since last flush: 16
+[2021.06.13-23.41.37:809][244]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.06.13-23.41.37:816][245]LogSlate: Took 0.000250 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Regular.ttf' (155K)
+[2021.06.13-23.41.37:820][245]LogSlate: Took 0.000340 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-BoldCondensed.ttf' (158K)
+[2021.06.13-23.41.37:823][245]LogSlate: Took 0.000194 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Bold.ttf' (160K)
+[2021.06.13-23.41.37:827][245]LogSlate: Took 0.000193 seconds to synchronously load lazily loaded font '../../../Engine/Content/Editor/Slate/Fonts/FontAwesome.ttf' (139K)
+[2021.06.13-23.41.37:829][245]LogSlate: Took 0.000187 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Light.ttf' (167K)
+[2021.06.13-23.41.37:832][245]LogSlate: Took 0.000191 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Light.ttf' (167K)
+[2021.06.13-23.41.43:406][718]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.41.43:424][718]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_Partida4F72E36640F4AF9F68528DB387665F6D.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.41.43:441][718]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.41.43:441][718]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.41.44:048][766]BlueprintLog: New page: Compile Menu_Nova_Partida
+[2021.06.13-23.41.44:126][766]LogUObjectHash: Compacting FUObjectHashTables data took   2.63ms
+[2021.06.13-23.41.45:155][826]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.41.45:174][826]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_Partida48FCC1684A972B7C3FB5128C785ABDEC.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.41.45:190][826]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.41.45:190][826]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.41.46:206][905]LogSlate: FontCache flush requested. Reason: Font Atlases Full; 2/1 Pages; frames since last flush: 661
+[2021.06.13-23.41.46:208][905]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.06.13-23.41.46:215][906]LogSlate: Took 0.000306 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Regular.ttf' (155K)
+[2021.06.13-23.41.46:219][906]LogSlate: Took 0.000440 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-BoldCondensed.ttf' (158K)
+[2021.06.13-23.41.46:222][906]LogSlate: Took 0.000215 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Bold.ttf' (160K)
+[2021.06.13-23.41.46:226][906]LogSlate: Took 0.000191 seconds to synchronously load lazily loaded font '../../../Engine/Content/Editor/Slate/Fonts/FontAwesome.ttf' (139K)
+[2021.06.13-23.41.46:228][906]LogSlate: Took 0.000190 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Light.ttf' (167K)
+[2021.06.13-23.41.46:231][906]LogSlate: Took 0.000191 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Light.ttf' (167K)
+[2021.06.13-23.41.56:446][775]LogSlate: FontCache flush requested. Reason: Font Atlases Full; 2/1 Pages; frames since last flush: 870
+[2021.06.13-23.41.56:446][775]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.06.13-23.41.56:453][776]LogSlate: Took 0.000239 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Regular.ttf' (155K)
+[2021.06.13-23.41.56:456][776]LogSlate: Took 0.000391 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-BoldCondensed.ttf' (158K)
+[2021.06.13-23.41.56:460][776]LogSlate: Took 0.000198 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Bold.ttf' (160K)
+[2021.06.13-23.41.56:464][776]LogSlate: Took 0.000207 seconds to synchronously load lazily loaded font '../../../Engine/Content/Editor/Slate/Fonts/FontAwesome.ttf' (139K)
+[2021.06.13-23.41.56:466][776]LogSlate: Took 0.000196 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Light.ttf' (167K)
+[2021.06.13-23.41.56:469][776]LogSlate: Took 0.000189 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Light.ttf' (167K)
+[2021.06.13-23.42.00:872][119]LogSlate: Took 0.000204 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Italic.ttf' (157K)
+[2021.06.13-23.42.15:558][632]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.42.15:578][632]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_Partida9CE2DC634F934B3FE72FE8B08971063E.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.42.15:593][632]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.42.15:593][632]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.42.21:914][227]LogSlate: Took 0.001562 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/DroidSansFallback.ttf' (3848K)
+[2021.06.13-23.42.37:088][793]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.42.37:109][793]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_PartidaA461D71A4ADC50E8E85D61A61439A6BE.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.42.37:123][793]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.42.37:123][793]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.42.47:439][866]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.42.47:466][866]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_Partida5B115CA84BCCA67A25B62990F26F1163.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.42.47:483][866]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.42.47:483][866]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.42.52:513][255]LogSlate: Window 'Delete Variable' being destroyed
+[2021.06.13-23.43.52:671][769]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.43.52:694][769]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_PartidaE66D0CBC4962472B45C29687508C1EF5.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.43.52:710][769]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.43.52:710][769]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.43.53:192][816]BlueprintLog: New page: Compile Menu_Nova_Partida
+[2021.06.13-23.43.53:266][816]LogUObjectHash: Compacting FUObjectHashTables data took   3.16ms
+[2021.06.13-23.43.54:155][892]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.43.54:175][892]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_Partida79F0A8AA4082EAADF879F18A748BDEB7.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.43.54:190][892]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.43.54:190][892]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.44.04:912][973]LogSlate: Took 0.000261 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-BoldCondensedItalic.ttf' (160K)
+[2021.06.13-23.44.08:186][317]BlueprintLog: New page: Compile JogosGameState
+[2021.06.13-23.44.08:262][317]LogUObjectHash: Compacting FUObjectHashTables data took   2.92ms
+[2021.06.13-23.44.08:654][352]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Levels/JogosGameState" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Levels/JogosGameState.uasset" SILENT=true
+[2021.06.13-23.44.08:667][352]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/JogosGameStateBF512E974070C5C86C30FD8B53F75F68.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Levels/JogosGameState.uasset'
+[2021.06.13-23.44.08:686][352]AssetCheck: New page: Asset Save: JogosGameState
+[2021.06.13-23.44.08:686][352]LogContentValidation: Display: Validating Blueprint /Game/Levels/JogosGameState.JogosGameState
+[2021.06.13-23.44.56:355][335]BlueprintLog: New page: Compile Pause
+[2021.06.13-23.44.56:361][335]LogBlueprint: Error: [AssetLog] G:\Epic Games\UE_4.23\OJogo\futebas\Futebas\Content\Widgets\Pause.uasset: [Compiler] This blueprint (self) is not a JogosGameState_C, therefore ' Target ' must have a connection.
+[2021.06.13-23.44.56:361][335]LogBlueprint: Error: [AssetLog] G:\Epic Games\UE_4.23\OJogo\futebas\Futebas\Content\Widgets\Pause.uasset: [Compiler] Variable node  Set volume  uses an invalid target.  It may depend on a node that is not connected to the execution chain, and got purged.
+[2021.06.13-23.44.56:403][335]LogUObjectHash: Compacting FUObjectHashTables data took   3.31ms
+[2021.06.13-23.44.56:474][335]LogSlate: Took 0.012606 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/DroidSansMono.ttf' (77K)
+[2021.06.13-23.44.56:871][375]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Pause" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Pause.uasset" SILENT=true
+[2021.06.13-23.44.56:899][375]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Pause4C0325F54F6C8774090875BF2859D239.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Pause.uasset'
+[2021.06.13-23.44.56:913][375]AssetCheck: New page: Asset Save: Pause
+[2021.06.13-23.44.56:913][375]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Pause.Pause
+[2021.06.13-23.45.22:637][105]BlueprintLog: New page: Compile Pause
+[2021.06.13-23.45.22:707][105]LogUObjectHash: Compacting FUObjectHashTables data took   3.18ms
+[2021.06.13-23.45.23:088][135]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Pause" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Pause.uasset" SILENT=true
+[2021.06.13-23.45.23:120][135]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Pause9EE950A24C4FF0510EF848883458865E.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Pause.uasset'
+[2021.06.13-23.45.23:134][135]AssetCheck: New page: Asset Save: Pause
+[2021.06.13-23.45.23:134][135]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Pause.Pause
+[2021.06.13-23.45.43:021][203]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.45.43:046][203]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_Partida5A5F6EA94E322C0854D4B09534ED06B2.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.45.43:061][203]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.45.43:061][203]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.45.43:656][252]BlueprintLog: New page: Compile Menu_Nova_Partida
+[2021.06.13-23.45.43:723][252]LogUObjectHash: Compacting FUObjectHashTables data took   3.28ms
+[2021.06.13-23.45.44:087][283]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.45.44:112][283]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_Partida9F14FB744997615B162AEA9FAD72ADD3.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.45.44:126][283]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.45.44:126][283]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.45.52:039][176]LogAssetEditorSubsystem: Opening Asset editor for WidgetBlueprint /Game/Widgets/Menu.Menu
+[2021.06.13-23.46.10:216][971]BlueprintLog: New page: Compile Menu
+[2021.06.13-23.46.10:268][971]LogUObjectHash: Compacting FUObjectHashTables data took   3.27ms
+[2021.06.13-23.46.10:604][996]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu.uasset" SILENT=true
+[2021.06.13-23.46.10:644][996]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/MenuC73C9E504A2C530AB290719DF71E3978.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu.uasset'
+[2021.06.13-23.46.10:660][996]AssetCheck: New page: Asset Save: Menu
+[2021.06.13-23.46.10:660][996]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu.Menu
+[2021.06.13-23.46.15:861][521]BlueprintLog: New page: Compile JogosGameState
+[2021.06.13-23.46.15:959][521]LogUObjectHash: Compacting FUObjectHashTables data took   3.29ms
+[2021.06.13-23.46.16:220][539]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Levels/JogosGameState" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Levels/JogosGameState.uasset" SILENT=true
+[2021.06.13-23.46.16:229][539]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/JogosGameState41089F014BF2FD85B8E505A5427481A5.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Levels/JogosGameState.uasset'
+[2021.06.13-23.46.16:243][539]AssetCheck: New page: Asset Save: JogosGameState
+[2021.06.13-23.46.16:243][539]LogContentValidation: Display: Validating Blueprint /Game/Levels/JogosGameState.JogosGameState
+[2021.06.13-23.46.45:857][589]BlueprintLog: New page: Compile Menu_Nova_Partida
+[2021.06.13-23.46.45:912][589]LogUObjectHash: Compacting FUObjectHashTables data took   3.51ms
+[2021.06.13-23.46.46:270][620]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.46.46:294][620]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_PartidaAFF3B73C40BAD11BA947C89A1D89859F.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.46.46:308][620]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.46.46:308][620]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.47.12:318][ 82]BlueprintLog: New page: Compile Menu_Nova_Partida
+[2021.06.13-23.47.12:385][ 82]LogUObjectHash: Compacting FUObjectHashTables data took   3.16ms
+[2021.06.13-23.47.12:686][105]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.47.12:719][105]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_PartidaAAD8679E4F3403553D6AC9A953E10EBA.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.47.12:737][105]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.47.12:737][105]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.48.14:009][266]BlueprintLog: New page: Compile Menu_Nova_Partida
+[2021.06.13-23.48.14:082][266]LogUObjectHash: Compacting FUObjectHashTables data took   3.46ms
+[2021.06.13-23.48.14:353][288]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.48.14:378][288]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_Partida822BEEE84D589101DED3B993B7DD8135.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.48.14:397][288]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.48.14:397][288]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.48.15:405][396]LogTemp: Repeating last play command: New Editor Window (PIE)
+[2021.06.13-23.48.15:414][396]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2021.06.13-23.48.15:414][396]PIE: New page: PIE session: Menu_Level (Jun 13, 2021, 5:48:15 PM)
+[2021.06.13-23.48.15:415][396]LogOnline: OSS: Creating online subsystem instance for: NULL
+[2021.06.13-23.48.15:416][396]LogOnline: OSS: TryLoadSubsystemAndSetDefault: Loaded subsystem for module [NULL]
+[2021.06.13-23.48.15:416][396]LogPlayLevel: Creating play world package: /Game/Levels/UEDPIE_0_Menu_Level
+[2021.06.13-23.48.15:418][396]LogPlayLevel: PIE: StaticDuplicateObject took: (0.001328s)
+[2021.06.13-23.48.15:419][396]LogAIModule: Creating AISystem for world Menu_Level
+[2021.06.13-23.48.15:419][396]LogPlayLevel: PIE: World Init took: (0.001067s)
+[2021.06.13-23.48.15:419][396]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Levels/Menu_Level.Menu_Level to /Game/Levels/UEDPIE_0_Menu_Level.Menu_Level (0.002546s)
+[2021.06.13-23.48.15:460][396]LogUObjectHash: Compacting FUObjectHashTables data took   3.16ms
+[2021.06.13-23.48.15:460][396]LogAudio: Display: Creating Audio Device:                 Id: 2, Scope: Unique, Realtime: True
+[2021.06.13-23.48.15:460][396]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2021.06.13-23.48.15:460][396]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2021.06.13-23.48.15:460][396]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2021.06.13-23.48.15:460][396]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2021.06.13-23.48.15:460][396]LogAudioMixer: Display: 	Number of buffers to queue:			  2
+[2021.06.13-23.48.15:460][396]LogAudioMixer: Display: 	Max Channels (voices):				  32
+[2021.06.13-23.48.15:460][396]LogAudioMixer: Display: 	Number of Async Source Workers:		  0
+[2021.06.13-23.48.15:460][396]LogAudio: Display: AudioDevice MaxSources: 32
+[2021.06.13-23.48.15:461][396]LogAudio: Display: Using built-in audio occlusion.
+[2021.06.13-23.48.15:461][396]LogAudioMixer: Display: Initializing audio mixer.
+[2021.06.13-23.48.15:465][396]LogAudioMixer: Display: 0: FrontLeft
+[2021.06.13-23.48.15:465][396]LogAudioMixer: Display: 1: FrontRight
+[2021.06.13-23.48.15:472][396]LogAudioMixer: Display: Using Audio Device Alto-falantes (Realtek High Definition Audio)
+[2021.06.13-23.48.15:472][396]LogAudioMixer: Display: Initializing Sound Submixes...
+[2021.06.13-23.48.15:472][396]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2021.06.13-23.48.15:472][396]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2021.06.13-23.48.15:473][396]LogAudioMixer: Display: Creating Master Submix 'MasterEQSubmixDefault'
+[2021.06.13-23.48.15:473][396]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called
+[2021.06.13-23.48.15:473][396]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048
+[2021.06.13-23.48.15:490][396]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal()
+[2021.06.13-23.48.15:490][396]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time
+[2021.06.13-23.48.15:490][396]LogInit: FAudioDevice initialized.
+[2021.06.13-23.48.15:490][396]LogAudio: Display: Audio Device (ID: 2) registered with world 'Menu_Level'.
+[2021.06.13-23.48.15:519][396]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2021.06.13-23.48.15:532][396]LogLoad: Game class is '2DSideScrollerGameMode_C'
+[2021.06.13-23.48.15:532][396]LogWorld: Bringing World /Game/Levels/UEDPIE_0_Menu_Level.Menu_Level up for play (max tick rate 0) at 2021.06.13-20.48.15
+[2021.06.13-23.48.15:532][396]LogWorld: Bringing up level for play took: 0.000384
+[2021.06.13-23.48.15:533][396]LogOnline: OSS: Creating online subsystem instance for: :Context_9
+[2021.06.13-23.48.15:542][396]LogNativeClassHierarchy: Verbose: Native class hierarchy updated for 'MovieSceneCapture' in 0.0003 seconds. Added 20 classes and 0 folders.
+[2021.06.13-23.48.15:548][396]PIE: Server logged in
+[2021.06.13-23.48.15:551][396]PIE: Play in editor total start time 0.138 seconds.
+[2021.06.13-23.48.15:608][397]LogRenderer: Reallocating scene render targets to support 1912x1008 Format 10 NumSamples 1 (Frame:1).
+[2021.06.13-23.48.25:216][ 47]LogPackageName: SearchForPackageOnDisk took   0.158s, but failed to resolve None.umap.
+[2021.06.13-23.48.25:371][ 47]LogPackageName: SearchForPackageOnDisk took   0.154s, but failed to resolve None.umap.
+[2021.06.13-23.48.25:371][ 47]LogNet: Browse: /Game/Levels/Menu_Level
+[2021.06.13-23.48.25:371][ 47]LogNet: Warning: Travel Failure: [InvalidURL]: Invalid URL: /Game/Levels/Menu_Level
+[2021.06.13-23.48.25:371][ 47]LogNet: Warning: TravelFailure: InvalidURL, Reason for Failure: 'Invalid URL: /Game/Levels/Menu_Level'. Shutting down PIE.
+[2021.06.13-23.48.25:372][ 47]PIE: Warning: TravelFailure: InvalidURL, Reason for Failure: 'Invalid URL: /Game/Levels/Menu_Level'. Shutting down PIE.
+[2021.06.13-23.48.25:372][ 47]LogNet: Warning: Travel Failure: [ClientTravelFailure]: Invalid URL: /Game/Levels/Menu_Level
+[2021.06.13-23.48.25:372][ 47]LogNet: Warning: TravelFailure: ClientTravelFailure, Reason for Failure: 'Invalid URL: /Game/Levels/Menu_Level'. Shutting down PIE.
+[2021.06.13-23.48.25:372][ 47]PIE: Warning: TravelFailure: ClientTravelFailure, Reason for Failure: 'Invalid URL: /Game/Levels/Menu_Level'. Shutting down PIE.
+[2021.06.13-23.48.25:409][ 47]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2021.06.13-23.48.25:409][ 47]LogWorld: BeginTearingDown for /Game/Levels/UEDPIE_0_Menu_Level
+[2021.06.13-23.48.25:409][ 47]LogSlate: Window 'Futebas Preview [NetMode: Standalone]  (64-bit/Windows) ' being destroyed
+[2021.06.13-23.48.25:413][ 47]LogWorld: UWorld::CleanupWorld for Menu_Level, bSessionEnded=true, bCleanupResources=true
+[2021.06.13-23.48.25:413][ 47]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.06.13-23.48.25:422][ 47]LogPlayLevel: Display: Shutting down PIE online subsystems
+[2021.06.13-23.48.25:428][ 47]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.06.13-23.48.25:484][ 47]LogAudio: Display: Audio Device unregistered from world 'None'.
+[2021.06.13-23.48.25:487][ 47]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called
+[2021.06.13-23.48.25:488][ 47]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called
+[2021.06.13-23.48.25:535][ 47]LogUObjectHash: Compacting FUObjectHashTables data took   4.28ms
+[2021.06.13-23.48.25:628][ 48]LogPlayLevel: Display: Destroying online subsystem :Context_9
+[2021.06.13-23.48.44:873][ 88]LogSlate: Window 'Message Log' being destroyed
+[2021.06.13-23.48.44:878][ 88]LogSlate: Window 'Message Log' being destroyed
+[2021.06.13-23.50.20:654][622]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.50.20:682][622]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_Partida194BEE314AAF67A0C4ED268514974DB8.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.50.20:699][622]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.50.20:699][622]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.50.25:118][ 40]BlueprintLog: New page: Compile Menu_Nova_Partida
+[2021.06.13-23.50.25:205][ 40]LogUObjectHash: Compacting FUObjectHashTables data took   4.11ms
+[2021.06.13-23.50.25:502][ 62]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.50.25:533][ 62]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_PartidaF9E4B9764D8F2BC09EF206861CB539FC.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.50.25:556][ 62]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.50.25:556][ 62]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.50.26:357][143]LogTemp: Repeating last play command: New Editor Window (PIE)
+[2021.06.13-23.50.26:365][143]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2021.06.13-23.50.26:365][143]PIE: New page: PIE session: Menu_Level (Jun 13, 2021, 5:50:26 PM)
+[2021.06.13-23.50.26:365][143]LogPlayLevel: Creating play world package: /Game/Levels/UEDPIE_0_Menu_Level
+[2021.06.13-23.50.26:366][143]LogPlayLevel: PIE: StaticDuplicateObject took: (0.000988s)
+[2021.06.13-23.50.26:367][143]LogAIModule: Creating AISystem for world Menu_Level
+[2021.06.13-23.50.26:367][143]LogPlayLevel: PIE: World Init took: (0.001159s)
+[2021.06.13-23.50.26:367][143]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Levels/Menu_Level.Menu_Level to /Game/Levels/UEDPIE_0_Menu_Level.Menu_Level (0.002284s)
+[2021.06.13-23.50.26:415][143]LogUObjectHash: Compacting FUObjectHashTables data took   4.20ms
+[2021.06.13-23.50.26:416][143]LogAudio: Display: Creating Audio Device:                 Id: 3, Scope: Unique, Realtime: True
+[2021.06.13-23.50.26:416][143]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2021.06.13-23.50.26:416][143]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2021.06.13-23.50.26:416][143]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2021.06.13-23.50.26:416][143]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2021.06.13-23.50.26:416][143]LogAudioMixer: Display: 	Number of buffers to queue:			  2
+[2021.06.13-23.50.26:416][143]LogAudioMixer: Display: 	Max Channels (voices):				  32
+[2021.06.13-23.50.26:416][143]LogAudioMixer: Display: 	Number of Async Source Workers:		  0
+[2021.06.13-23.50.26:416][143]LogAudio: Display: AudioDevice MaxSources: 32
+[2021.06.13-23.50.26:416][143]LogAudio: Display: Using built-in audio occlusion.
+[2021.06.13-23.50.26:417][143]LogAudioMixer: Display: Initializing audio mixer.
+[2021.06.13-23.50.26:421][143]LogAudioMixer: Display: 0: FrontLeft
+[2021.06.13-23.50.26:421][143]LogAudioMixer: Display: 1: FrontRight
+[2021.06.13-23.50.26:428][143]LogAudioMixer: Display: Using Audio Device Alto-falantes (Realtek High Definition Audio)
+[2021.06.13-23.50.26:428][143]LogAudioMixer: Display: Initializing Sound Submixes...
+[2021.06.13-23.50.26:428][143]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2021.06.13-23.50.26:428][143]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2021.06.13-23.50.26:429][143]LogAudioMixer: Display: Creating Master Submix 'MasterEQSubmixDefault'
+[2021.06.13-23.50.26:429][143]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called
+[2021.06.13-23.50.26:429][143]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048
+[2021.06.13-23.50.26:449][143]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal()
+[2021.06.13-23.50.26:449][143]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time
+[2021.06.13-23.50.26:449][143]LogInit: FAudioDevice initialized.
+[2021.06.13-23.50.26:449][143]LogAudio: Display: Audio Device (ID: 3) registered with world 'Menu_Level'.
+[2021.06.13-23.50.26:501][143]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2021.06.13-23.50.26:501][143]LogLoad: Game class is '2DSideScrollerGameMode_C'
+[2021.06.13-23.50.26:502][143]LogWorld: Bringing World /Game/Levels/UEDPIE_0_Menu_Level.Menu_Level up for play (max tick rate 0) at 2021.06.13-20.50.26
+[2021.06.13-23.50.26:502][143]LogWorld: Bringing up level for play took: 0.000489
+[2021.06.13-23.50.26:502][143]LogOnline: OSS: Creating online subsystem instance for: :Context_10
+[2021.06.13-23.50.26:513][143]PIE: Server logged in
+[2021.06.13-23.50.26:516][143]PIE: Play in editor total start time 0.152 seconds.
+[2021.06.13-23.50.27:622][213]LogNet: Browse: /Game/Levels/Menu_Level
+[2021.06.13-23.50.27:622][213]LogLoad: LoadMap: /Game/Levels/Menu_Level
+[2021.06.13-23.50.27:622][213]LogWorld: BeginTearingDown for /Game/Levels/UEDPIE_0_Menu_Level
+[2021.06.13-23.50.27:623][213]LogWorld: UWorld::CleanupWorld for Menu_Level, bSessionEnded=true, bCleanupResources=true
+[2021.06.13-23.50.27:623][213]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.06.13-23.50.27:686][213]LogAudio: Display: Audio Device unregistered from world 'None'.
+[2021.06.13-23.50.27:690][213]LogUObjectHash: Compacting FUObjectHashTables data took   2.88ms
+[2021.06.13-23.50.27:691][213]LogPlayLevel: Creating play world package: /Game/Levels/UEDPIE_0_Menu_Level
+[2021.06.13-23.50.27:692][213]LogPlayLevel: PIE: StaticDuplicateObject took: (0.001043s)
+[2021.06.13-23.50.27:693][213]LogAIModule: Creating AISystem for world Menu_Level
+[2021.06.13-23.50.27:693][213]LogPlayLevel: PIE: World Init took: (0.000940s)
+[2021.06.13-23.50.27:693][213]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Levels/Menu_Level.Menu_Level to /Game/Levels/UEDPIE_0_Menu_Level.Menu_Level (0.002126s)
+[2021.06.13-23.50.27:693][213]LogAudio: Display: Audio Device (ID: 3) registered with world 'Menu_Level'.
+[2021.06.13-23.50.27:693][213]LogLoad: Game class is '2DSideScrollerGameMode_C'
+[2021.06.13-23.50.27:694][213]LogWorld: Bringing World /Game/Levels/UEDPIE_0_Menu_Level.Menu_Level up for play (max tick rate 0) at 2021.06.13-20.50.27
+[2021.06.13-23.50.27:694][213]LogWorld: Bringing up level for play took: 0.000304
+[2021.06.13-23.50.27:694][213]LogGameMode: FindPlayerStart: PATHS NOT DEFINED or NO PLAYERSTART with positive rating
+[2021.06.13-23.50.27:698][213]LogLoad: Took 0.076577 seconds to LoadMap(/Game/Levels/UEDPIE_0_Menu_Level)
+[2021.06.13-23.50.30:086][364]LogPackageName: SearchForPackageOnDisk took   0.153s, but failed to resolve None.umap.
+[2021.06.13-23.50.30:240][364]LogPackageName: SearchForPackageOnDisk took   0.152s, but failed to resolve None.umap.
+[2021.06.13-23.50.30:240][364]LogNet: Browse: /Game/Levels/Menu_Level
+[2021.06.13-23.50.30:240][364]LogNet: Warning: Travel Failure: [InvalidURL]: Invalid URL: /Game/Levels/Menu_Level
+[2021.06.13-23.50.30:240][364]LogNet: Warning: TravelFailure: InvalidURL, Reason for Failure: 'Invalid URL: /Game/Levels/Menu_Level'. Shutting down PIE.
+[2021.06.13-23.50.30:240][364]PIE: Warning: TravelFailure: InvalidURL, Reason for Failure: 'Invalid URL: /Game/Levels/Menu_Level'. Shutting down PIE.
+[2021.06.13-23.50.30:240][364]LogNet: Warning: Travel Failure: [ClientTravelFailure]: Invalid URL: /Game/Levels/Menu_Level
+[2021.06.13-23.50.30:240][364]LogNet: Warning: TravelFailure: ClientTravelFailure, Reason for Failure: 'Invalid URL: /Game/Levels/Menu_Level'. Shutting down PIE.
+[2021.06.13-23.50.30:240][364]PIE: Warning: TravelFailure: ClientTravelFailure, Reason for Failure: 'Invalid URL: /Game/Levels/Menu_Level'. Shutting down PIE.
+[2021.06.13-23.50.30:268][364]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2021.06.13-23.50.30:268][364]LogWorld: BeginTearingDown for /Game/Levels/UEDPIE_0_Menu_Level
+[2021.06.13-23.50.30:268][364]LogSlate: Window 'Futebas Preview [NetMode: Standalone]  (64-bit/Windows) ' being destroyed
+[2021.06.13-23.50.30:271][364]LogWorld: UWorld::CleanupWorld for Menu_Level, bSessionEnded=true, bCleanupResources=true
+[2021.06.13-23.50.30:272][364]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.06.13-23.50.30:280][364]LogPlayLevel: Display: Shutting down PIE online subsystems
+[2021.06.13-23.50.30:287][364]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.06.13-23.50.30:339][364]LogAudio: Display: Audio Device unregistered from world 'None'.
+[2021.06.13-23.50.30:339][364]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called
+[2021.06.13-23.50.30:340][364]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called
+[2021.06.13-23.50.30:364][364]LogUObjectHash: Compacting FUObjectHashTables data took   3.08ms
+[2021.06.13-23.50.30:458][365]LogPlayLevel: Display: Destroying online subsystem :Context_10
+[2021.06.13-23.50.35:131][830]LogSlate: Window 'Message Log' being destroyed
+[2021.06.13-23.50.35:137][830]LogSlate: Window 'Message Log' being destroyed
+[2021.06.13-23.50.38:523][164]LogEditorTransaction: Undo Delete current selection
+[2021.06.13-23.50.44:957][740]BlueprintLog: New page: Compile Menu_Nova_Partida
+[2021.06.13-23.50.45:013][740]LogUObjectHash: Compacting FUObjectHashTables data took   3.84ms
+[2021.06.13-23.50.45:586][784]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.50.45:619][784]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_Partida798F76594408BB56DB530982F73762FC.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.50.45:639][784]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.50.45:639][784]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.50.46:418][843]LogTemp: Repeating last play command: New Editor Window (PIE)
+[2021.06.13-23.50.46:426][843]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2021.06.13-23.50.46:426][843]PIE: New page: PIE session: Menu_Level (Jun 13, 2021, 5:50:46 PM)
+[2021.06.13-23.50.46:426][843]LogPlayLevel: Creating play world package: /Game/Levels/UEDPIE_0_Menu_Level
+[2021.06.13-23.50.46:428][843]LogPlayLevel: PIE: StaticDuplicateObject took: (0.001412s)
+[2021.06.13-23.50.46:429][843]LogAIModule: Creating AISystem for world Menu_Level
+[2021.06.13-23.50.46:429][843]LogPlayLevel: PIE: World Init took: (0.001058s)
+[2021.06.13-23.50.46:429][843]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Levels/Menu_Level.Menu_Level to /Game/Levels/UEDPIE_0_Menu_Level.Menu_Level (0.002596s)
+[2021.06.13-23.50.46:482][843]LogUObjectHash: Compacting FUObjectHashTables data took   4.10ms
+[2021.06.13-23.50.46:482][843]LogAudio: Display: Creating Audio Device:                 Id: 4, Scope: Unique, Realtime: True
+[2021.06.13-23.50.46:482][843]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2021.06.13-23.50.46:482][843]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2021.06.13-23.50.46:482][843]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2021.06.13-23.50.46:482][843]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2021.06.13-23.50.46:482][843]LogAudioMixer: Display: 	Number of buffers to queue:			  2
+[2021.06.13-23.50.46:482][843]LogAudioMixer: Display: 	Max Channels (voices):				  32
+[2021.06.13-23.50.46:482][843]LogAudioMixer: Display: 	Number of Async Source Workers:		  0
+[2021.06.13-23.50.46:483][843]LogAudio: Display: AudioDevice MaxSources: 32
+[2021.06.13-23.50.46:483][843]LogAudio: Display: Using built-in audio occlusion.
+[2021.06.13-23.50.46:483][843]LogAudioMixer: Display: Initializing audio mixer.
+[2021.06.13-23.50.46:486][843]LogAudioMixer: Display: 0: FrontLeft
+[2021.06.13-23.50.46:486][843]LogAudioMixer: Display: 1: FrontRight
+[2021.06.13-23.50.46:493][843]LogAudioMixer: Display: Using Audio Device Alto-falantes (Realtek High Definition Audio)
+[2021.06.13-23.50.46:493][843]LogAudioMixer: Display: Initializing Sound Submixes...
+[2021.06.13-23.50.46:493][843]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2021.06.13-23.50.46:493][843]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2021.06.13-23.50.46:494][843]LogAudioMixer: Display: Creating Master Submix 'MasterEQSubmixDefault'
+[2021.06.13-23.50.46:494][843]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called
+[2021.06.13-23.50.46:494][843]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048
+[2021.06.13-23.50.46:516][843]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal()
+[2021.06.13-23.50.46:516][843]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time
+[2021.06.13-23.50.46:516][843]LogInit: FAudioDevice initialized.
+[2021.06.13-23.50.46:516][843]LogAudio: Display: Audio Device (ID: 4) registered with world 'Menu_Level'.
+[2021.06.13-23.50.46:567][843]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2021.06.13-23.50.46:568][843]LogLoad: Game class is '2DSideScrollerGameMode_C'
+[2021.06.13-23.50.46:569][843]LogWorld: Bringing World /Game/Levels/UEDPIE_0_Menu_Level.Menu_Level up for play (max tick rate 0) at 2021.06.13-20.50.46
+[2021.06.13-23.50.46:569][843]LogWorld: Bringing up level for play took: 0.000512
+[2021.06.13-23.50.46:569][843]LogOnline: OSS: Creating online subsystem instance for: :Context_11
+[2021.06.13-23.50.46:581][843]PIE: Server logged in
+[2021.06.13-23.50.46:584][843]PIE: Play in editor total start time 0.159 seconds.
+[2021.06.13-23.50.48:187][939]LogNet: Browse: /Game/Levels/anfield
+[2021.06.13-23.50.48:187][939]LogLoad: LoadMap: /Game/Levels/anfield
+[2021.06.13-23.50.48:187][939]LogWorld: BeginTearingDown for /Game/Levels/UEDPIE_0_Menu_Level
+[2021.06.13-23.50.48:188][939]LogWorld: UWorld::CleanupWorld for Menu_Level, bSessionEnded=true, bCleanupResources=true
+[2021.06.13-23.50.48:188][939]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.06.13-23.50.48:231][939]LogAudio: Display: Audio Device unregistered from world 'None'.
+[2021.06.13-23.50.48:235][939]LogUObjectHash: Compacting FUObjectHashTables data took   3.13ms
+[2021.06.13-23.50.48:236][939]LogPlayLevel: Creating play world package: /Game/Levels/UEDPIE_0_anfield
+[2021.06.13-23.50.48:241][939]LogPlayLevel: PIE: StaticDuplicateObject took: (0.005337s)
+[2021.06.13-23.50.48:242][939]LogAIModule: Creating AISystem for world Anfield
+[2021.06.13-23.50.48:242][939]LogPlayLevel: PIE: World Init took: (0.000975s)
+[2021.06.13-23.50.48:242][939]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Levels/anfield.Anfield to /Game/Levels/UEDPIE_0_anfield.Anfield (0.006457s)
+[2021.06.13-23.50.48:242][939]LogAudio: Display: Audio Device (ID: 4) registered with world 'Anfield'.
+[2021.06.13-23.50.48:242][939]LogLoad: Game class is 'JogosGameMode_C'
+[2021.06.13-23.50.48:244][939]LogWorld: Bringing World /Game/Levels/UEDPIE_0_anfield.Anfield up for play (max tick rate 0) at 2021.06.13-20.50.48
+[2021.06.13-23.50.48:245][939]LogWorld: Bringing up level for play took: 0.001828
+[2021.06.13-23.50.48:251][939]Cmd: stat FPS
+[2021.06.13-23.50.48:253][939]LogLoad: Took 0.065818 seconds to LoadMap(/Game/Levels/UEDPIE_0_anfield)
+[2021.06.13-23.50.55:124][367]LogNet: Browse: /Game/Levels/Menu_Level
+[2021.06.13-23.50.55:124][367]LogLoad: LoadMap: /Game/Levels/Menu_Level
+[2021.06.13-23.50.55:124][367]LogWorld: BeginTearingDown for /Game/Levels/UEDPIE_0_anfield
+[2021.06.13-23.50.55:125][367]LogWorld: UWorld::CleanupWorld for Anfield, bSessionEnded=true, bCleanupResources=true
+[2021.06.13-23.50.55:126][367]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.06.13-23.50.55:172][367]LogAudio: Display: Audio Device unregistered from world 'None'.
+[2021.06.13-23.50.55:176][367]LogUObjectHash: Compacting FUObjectHashTables data took   3.14ms
+[2021.06.13-23.50.55:178][367]LogPlayLevel: Creating play world package: /Game/Levels/UEDPIE_0_Menu_Level
+[2021.06.13-23.50.55:180][367]LogPlayLevel: PIE: StaticDuplicateObject took: (0.001212s)
+[2021.06.13-23.50.55:180][367]LogAIModule: Creating AISystem for world Menu_Level
+[2021.06.13-23.50.55:181][367]LogPlayLevel: PIE: World Init took: (0.000926s)
+[2021.06.13-23.50.55:181][367]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Levels/Menu_Level.Menu_Level to /Game/Levels/UEDPIE_0_Menu_Level.Menu_Level (0.002293s)
+[2021.06.13-23.50.55:181][367]LogAudio: Display: Audio Device (ID: 4) registered with world 'Menu_Level'.
+[2021.06.13-23.50.55:181][367]LogLoad: Game class is '2DSideScrollerGameMode_C'
+[2021.06.13-23.50.55:181][367]LogWorld: Bringing World /Game/Levels/UEDPIE_0_Menu_Level.Menu_Level up for play (max tick rate 0) at 2021.06.13-20.50.55
+[2021.06.13-23.50.55:182][367]LogWorld: Bringing up level for play took: 0.000348
+[2021.06.13-23.50.55:182][367]LogGameMode: FindPlayerStart: PATHS NOT DEFINED or NO PLAYERSTART with positive rating
+[2021.06.13-23.50.55:185][367]LogLoad: Took 0.060691 seconds to LoadMap(/Game/Levels/UEDPIE_0_Menu_Level)
+[2021.06.13-23.50.55:644][394]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2021.06.13-23.50.55:645][394]LogWorld: BeginTearingDown for /Game/Levels/UEDPIE_0_Menu_Level
+[2021.06.13-23.50.55:645][394]LogSlate: Window 'Futebas Preview [NetMode: Standalone]  (64-bit/Windows) ' being destroyed
+[2021.06.13-23.50.55:676][394]LogWorld: UWorld::CleanupWorld for Menu_Level, bSessionEnded=true, bCleanupResources=true
+[2021.06.13-23.50.55:676][394]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.06.13-23.50.55:681][394]LogPlayLevel: Display: Shutting down PIE online subsystems
+[2021.06.13-23.50.55:688][394]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.06.13-23.50.55:734][394]LogAudio: Display: Audio Device unregistered from world 'None'.
+[2021.06.13-23.50.55:756][394]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called
+[2021.06.13-23.50.55:757][394]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called
+[2021.06.13-23.50.55:783][394]LogUObjectHash: Compacting FUObjectHashTables data took   3.45ms
+[2021.06.13-23.50.55:815][395]LogPlayLevel: Display: Destroying online subsystem :Context_11
+[2021.06.13-23.51.06:545][354]BlueprintLog: New page: Compile Menu_Nova_Partida
+[2021.06.13-23.51.06:599][354]LogUObjectHash: Compacting FUObjectHashTables data took   3.20ms
+[2021.06.13-23.51.07:003][382]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.51.07:033][382]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_Partida4D41E3774764ACD51AB5E4B4AB2883F7.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.51.07:051][382]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.51.07:051][382]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.51.26:669][980]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.51.26:702][980]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_Partida5524832C43550E21F5AA81A54C0107C7.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.51.26:720][980]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.51.26:720][980]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.51.27:059][  1]LogTemp: Repeating last play command: New Editor Window (PIE)
+[2021.06.13-23.51.27:066][  1]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2021.06.13-23.51.27:067][  1]PIE: New page: PIE session: Menu_Level (Jun 13, 2021, 5:51:27 PM)
+[2021.06.13-23.51.27:067][  1]LogPlayLevel: Creating play world package: /Game/Levels/UEDPIE_0_Menu_Level
+[2021.06.13-23.51.27:068][  1]LogPlayLevel: PIE: StaticDuplicateObject took: (0.001067s)
+[2021.06.13-23.51.27:069][  1]LogAIModule: Creating AISystem for world Menu_Level
+[2021.06.13-23.51.27:069][  1]LogPlayLevel: PIE: World Init took: (0.001147s)
+[2021.06.13-23.51.27:069][  1]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Levels/Menu_Level.Menu_Level to /Game/Levels/UEDPIE_0_Menu_Level.Menu_Level (0.002346s)
+[2021.06.13-23.51.27:131][  1]LogUObjectHash: Compacting FUObjectHashTables data took   4.62ms
+[2021.06.13-23.51.27:132][  1]LogAudio: Display: Creating Audio Device:                 Id: 5, Scope: Unique, Realtime: True
+[2021.06.13-23.51.27:132][  1]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2021.06.13-23.51.27:133][  1]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2021.06.13-23.51.27:133][  1]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2021.06.13-23.51.27:133][  1]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2021.06.13-23.51.27:133][  1]LogAudioMixer: Display: 	Number of buffers to queue:			  2
+[2021.06.13-23.51.27:133][  1]LogAudioMixer: Display: 	Max Channels (voices):				  32
+[2021.06.13-23.51.27:133][  1]LogAudioMixer: Display: 	Number of Async Source Workers:		  0
+[2021.06.13-23.51.27:133][  1]LogAudio: Display: AudioDevice MaxSources: 32
+[2021.06.13-23.51.27:133][  1]LogAudio: Display: Using built-in audio occlusion.
+[2021.06.13-23.51.27:133][  1]LogAudioMixer: Display: Initializing audio mixer.
+[2021.06.13-23.51.27:137][  1]LogAudioMixer: Display: 0: FrontLeft
+[2021.06.13-23.51.27:137][  1]LogAudioMixer: Display: 1: FrontRight
+[2021.06.13-23.51.27:144][  1]LogAudioMixer: Display: Using Audio Device Alto-falantes (Realtek High Definition Audio)
+[2021.06.13-23.51.27:144][  1]LogAudioMixer: Display: Initializing Sound Submixes...
+[2021.06.13-23.51.27:144][  1]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2021.06.13-23.51.27:144][  1]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2021.06.13-23.51.27:144][  1]LogAudioMixer: Display: Creating Master Submix 'MasterEQSubmixDefault'
+[2021.06.13-23.51.27:144][  1]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called
+[2021.06.13-23.51.27:144][  1]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048
+[2021.06.13-23.51.27:164][  1]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal()
+[2021.06.13-23.51.27:164][  1]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time
+[2021.06.13-23.51.27:164][  1]LogInit: FAudioDevice initialized.
+[2021.06.13-23.51.27:164][  1]LogAudio: Display: Audio Device (ID: 5) registered with world 'Menu_Level'.
+[2021.06.13-23.51.27:201][  1]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2021.06.13-23.51.27:201][  1]LogLoad: Game class is '2DSideScrollerGameMode_C'
+[2021.06.13-23.51.27:202][  1]LogWorld: Bringing World /Game/Levels/UEDPIE_0_Menu_Level.Menu_Level up for play (max tick rate 0) at 2021.06.13-20.51.27
+[2021.06.13-23.51.27:202][  1]LogWorld: Bringing up level for play took: 0.000541
+[2021.06.13-23.51.27:202][  1]LogOnline: OSS: Creating online subsystem instance for: :Context_12
+[2021.06.13-23.51.27:211][  1]PIE: Server logged in
+[2021.06.13-23.51.27:213][  1]PIE: Play in editor total start time 0.148 seconds.
+[2021.06.13-23.51.28:760][ 75]LogPackageName: SearchForPackageOnDisk took   0.152s, but failed to resolve None.umap.
+[2021.06.13-23.51.28:914][ 75]LogPackageName: SearchForPackageOnDisk took   0.152s, but failed to resolve None.umap.
+[2021.06.13-23.51.28:914][ 75]LogNet: Browse: /Game/Levels/Menu_Level
+[2021.06.13-23.51.28:914][ 75]LogNet: Warning: Travel Failure: [InvalidURL]: Invalid URL: /Game/Levels/Menu_Level
+[2021.06.13-23.51.28:914][ 75]LogNet: Warning: TravelFailure: InvalidURL, Reason for Failure: 'Invalid URL: /Game/Levels/Menu_Level'. Shutting down PIE.
+[2021.06.13-23.51.28:914][ 75]PIE: Warning: TravelFailure: InvalidURL, Reason for Failure: 'Invalid URL: /Game/Levels/Menu_Level'. Shutting down PIE.
+[2021.06.13-23.51.28:914][ 75]LogNet: Warning: Travel Failure: [ClientTravelFailure]: Invalid URL: /Game/Levels/Menu_Level
+[2021.06.13-23.51.28:914][ 75]LogNet: Warning: TravelFailure: ClientTravelFailure, Reason for Failure: 'Invalid URL: /Game/Levels/Menu_Level'. Shutting down PIE.
+[2021.06.13-23.51.28:914][ 75]PIE: Warning: TravelFailure: ClientTravelFailure, Reason for Failure: 'Invalid URL: /Game/Levels/Menu_Level'. Shutting down PIE.
+[2021.06.13-23.51.28:957][ 75]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2021.06.13-23.51.28:957][ 75]LogWorld: BeginTearingDown for /Game/Levels/UEDPIE_0_Menu_Level
+[2021.06.13-23.51.28:958][ 75]LogSlate: Window 'Futebas Preview [NetMode: Standalone]  (64-bit/Windows) ' being destroyed
+[2021.06.13-23.51.28:961][ 75]LogWorld: UWorld::CleanupWorld for Menu_Level, bSessionEnded=true, bCleanupResources=true
+[2021.06.13-23.51.28:961][ 75]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.06.13-23.51.28:972][ 75]LogPlayLevel: Display: Shutting down PIE online subsystems
+[2021.06.13-23.51.28:981][ 75]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.06.13-23.51.29:026][ 75]LogAudio: Display: Audio Device unregistered from world 'None'.
+[2021.06.13-23.51.29:026][ 75]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called
+[2021.06.13-23.51.29:027][ 75]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called
+[2021.06.13-23.51.29:051][ 75]LogUObjectHash: Compacting FUObjectHashTables data took   2.85ms
+[2021.06.13-23.51.29:161][ 76]LogPlayLevel: Display: Destroying online subsystem :Context_12
+[2021.06.13-23.51.30:432][170]LogSlate: Window 'Message Log' being destroyed
+[2021.06.13-23.51.30:437][170]LogSlate: Window 'Message Log' being destroyed
+[2021.06.13-23.51.35:510][566]BlueprintLog: New page: Compile Menu_Nova_Partida
+[2021.06.13-23.51.35:564][566]LogUObjectHash: Compacting FUObjectHashTables data took   3.49ms
+[2021.06.13-23.51.35:936][569]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.51.35:961][569]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_PartidaE147806441126259554A11A5059D2979.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.51.35:980][569]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.51.35:980][569]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.51.36:702][620]LogTemp: Repeating last play command: New Editor Window (PIE)
+[2021.06.13-23.51.36:710][620]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2021.06.13-23.51.36:710][620]PIE: New page: PIE session: Menu_Level (Jun 13, 2021, 5:51:36 PM)
+[2021.06.13-23.51.36:710][620]LogPlayLevel: Creating play world package: /Game/Levels/UEDPIE_0_Menu_Level
+[2021.06.13-23.51.36:711][620]LogPlayLevel: PIE: StaticDuplicateObject took: (0.001012s)
+[2021.06.13-23.51.36:712][620]LogAIModule: Creating AISystem for world Menu_Level
+[2021.06.13-23.51.36:712][620]LogPlayLevel: PIE: World Init took: (0.000923s)
+[2021.06.13-23.51.36:712][620]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Levels/Menu_Level.Menu_Level to /Game/Levels/UEDPIE_0_Menu_Level.Menu_Level (0.002044s)
+[2021.06.13-23.51.36:760][620]LogUObjectHash: Compacting FUObjectHashTables data took   3.64ms
+[2021.06.13-23.51.36:761][620]LogAudio: Display: Creating Audio Device:                 Id: 6, Scope: Unique, Realtime: True
+[2021.06.13-23.51.36:761][620]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2021.06.13-23.51.36:762][620]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2021.06.13-23.51.36:762][620]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2021.06.13-23.51.36:762][620]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2021.06.13-23.51.36:762][620]LogAudioMixer: Display: 	Number of buffers to queue:			  2
+[2021.06.13-23.51.36:762][620]LogAudioMixer: Display: 	Max Channels (voices):				  32
+[2021.06.13-23.51.36:762][620]LogAudioMixer: Display: 	Number of Async Source Workers:		  0
+[2021.06.13-23.51.36:762][620]LogAudio: Display: AudioDevice MaxSources: 32
+[2021.06.13-23.51.36:762][620]LogAudio: Display: Using built-in audio occlusion.
+[2021.06.13-23.51.36:762][620]LogAudioMixer: Display: Initializing audio mixer.
+[2021.06.13-23.51.36:766][620]LogAudioMixer: Display: 0: FrontLeft
+[2021.06.13-23.51.36:766][620]LogAudioMixer: Display: 1: FrontRight
+[2021.06.13-23.51.36:772][620]LogAudioMixer: Display: Using Audio Device Alto-falantes (Realtek High Definition Audio)
+[2021.06.13-23.51.36:773][620]LogAudioMixer: Display: Initializing Sound Submixes...
+[2021.06.13-23.51.36:773][620]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2021.06.13-23.51.36:773][620]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2021.06.13-23.51.36:773][620]LogAudioMixer: Display: Creating Master Submix 'MasterEQSubmixDefault'
+[2021.06.13-23.51.36:773][620]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called
+[2021.06.13-23.51.36:773][620]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048
+[2021.06.13-23.51.36:793][620]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal()
+[2021.06.13-23.51.36:793][620]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time
+[2021.06.13-23.51.36:793][620]LogInit: FAudioDevice initialized.
+[2021.06.13-23.51.36:793][620]LogAudio: Display: Audio Device (ID: 6) registered with world 'Menu_Level'.
+[2021.06.13-23.51.36:834][620]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2021.06.13-23.51.36:834][620]LogLoad: Game class is '2DSideScrollerGameMode_C'
+[2021.06.13-23.51.36:835][620]LogWorld: Bringing World /Game/Levels/UEDPIE_0_Menu_Level.Menu_Level up for play (max tick rate 0) at 2021.06.13-20.51.36
+[2021.06.13-23.51.36:835][620]LogWorld: Bringing up level for play took: 0.000524
+[2021.06.13-23.51.36:835][620]LogOnline: OSS: Creating online subsystem instance for: :Context_13
+[2021.06.13-23.51.36:846][620]PIE: Server logged in
+[2021.06.13-23.51.36:849][620]PIE: Play in editor total start time 0.14 seconds.
+[2021.06.13-23.51.38:275][685]LogPackageName: SearchForPackageOnDisk took   0.155s, but failed to resolve None.umap.
+[2021.06.13-23.51.38:426][685]LogPackageName: SearchForPackageOnDisk took   0.150s, but failed to resolve None.umap.
+[2021.06.13-23.51.38:426][685]LogNet: Browse: /Game/Levels/Menu_Level
+[2021.06.13-23.51.38:426][685]LogNet: Warning: Travel Failure: [InvalidURL]: Invalid URL: /Game/Levels/Menu_Level
+[2021.06.13-23.51.38:426][685]LogNet: Warning: TravelFailure: InvalidURL, Reason for Failure: 'Invalid URL: /Game/Levels/Menu_Level'. Shutting down PIE.
+[2021.06.13-23.51.38:426][685]PIE: Warning: TravelFailure: InvalidURL, Reason for Failure: 'Invalid URL: /Game/Levels/Menu_Level'. Shutting down PIE.
+[2021.06.13-23.51.38:426][685]LogNet: Warning: Travel Failure: [ClientTravelFailure]: Invalid URL: /Game/Levels/Menu_Level
+[2021.06.13-23.51.38:426][685]LogNet: Warning: TravelFailure: ClientTravelFailure, Reason for Failure: 'Invalid URL: /Game/Levels/Menu_Level'. Shutting down PIE.
+[2021.06.13-23.51.38:426][685]PIE: Warning: TravelFailure: ClientTravelFailure, Reason for Failure: 'Invalid URL: /Game/Levels/Menu_Level'. Shutting down PIE.
+[2021.06.13-23.51.38:477][685]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2021.06.13-23.51.38:477][685]LogWorld: BeginTearingDown for /Game/Levels/UEDPIE_0_Menu_Level
+[2021.06.13-23.51.38:478][685]LogSlate: Window 'Futebas Preview [NetMode: Standalone]  (64-bit/Windows) ' being destroyed
+[2021.06.13-23.51.38:481][685]LogWorld: UWorld::CleanupWorld for Menu_Level, bSessionEnded=true, bCleanupResources=true
+[2021.06.13-23.51.38:481][685]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.06.13-23.51.38:488][685]LogPlayLevel: Display: Shutting down PIE online subsystems
+[2021.06.13-23.51.38:496][685]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.06.13-23.51.38:552][685]LogAudio: Display: Audio Device unregistered from world 'None'.
+[2021.06.13-23.51.38:553][685]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called
+[2021.06.13-23.51.38:554][685]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called
+[2021.06.13-23.51.38:580][685]LogUObjectHash: Compacting FUObjectHashTables data took   3.18ms
+[2021.06.13-23.51.38:678][686]LogPlayLevel: Display: Destroying online subsystem :Context_13
+[2021.06.13-23.51.40:450][820]LogSlate: Window 'Message Log' being destroyed
+[2021.06.13-23.51.40:457][820]LogSlate: Window 'Message Log' being destroyed
+[2021.06.13-23.52.01:647][603]BlueprintLog: New page: Compile Menu_Nova_Partida
+[2021.06.13-23.52.01:700][603]LogUObjectHash: Compacting FUObjectHashTables data took   3.31ms
+[2021.06.13-23.52.02:186][636]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.52.02:219][636]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_Partida7DAA99FD4E8A1A114927CEA7AFEB25DE.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.52.02:236][636]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.52.02:236][636]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.52.06:755][ 23]BlueprintLog: New page: Compile Menu_Nova_Partida
+[2021.06.13-23.52.06:833][ 23]LogUObjectHash: Compacting FUObjectHashTables data took   3.91ms
+[2021.06.13-23.52.07:235][ 45]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Widgets/Menu_Nova_Partida" FILE="../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset" SILENT=true
+[2021.06.13-23.52.07:278][ 45]LogSavePackage: Moving '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Saved/Menu_Nova_Partida3DC39B1E45A8517C1B84F786536D55BC.tmp' to '../../../../../../Epic Games/UE_4.23/OJogo/futebas/Futebas/Content/Widgets/Menu_Nova_Partida.uasset'
+[2021.06.13-23.52.07:302][ 45]AssetCheck: New page: Asset Save: Menu_Nova_Partida
+[2021.06.13-23.52.07:303][ 45]LogContentValidation: Display: Validating WidgetBlueprint /Game/Widgets/Menu_Nova_Partida.Menu_Nova_Partida
+[2021.06.13-23.52.14:824][641]LogTemp: Repeating last play command: New Editor Window (PIE)
+[2021.06.13-23.52.14:833][641]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2021.06.13-23.52.14:833][641]PIE: New page: PIE session: Menu_Level (Jun 13, 2021, 5:52:14 PM)
+[2021.06.13-23.52.14:833][641]LogPlayLevel: Creating play world package: /Game/Levels/UEDPIE_0_Menu_Level
+[2021.06.13-23.52.14:834][641]LogPlayLevel: PIE: StaticDuplicateObject took: (0.001128s)
+[2021.06.13-23.52.14:835][641]LogAIModule: Creating AISystem for world Menu_Level
+[2021.06.13-23.52.14:835][641]LogPlayLevel: PIE: World Init took: (0.000913s)
+[2021.06.13-23.52.14:835][641]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Levels/Menu_Level.Menu_Level to /Game/Levels/UEDPIE_0_Menu_Level.Menu_Level (0.002153s)
+[2021.06.13-23.52.14:883][641]LogUObjectHash: Compacting FUObjectHashTables data took   3.72ms
+[2021.06.13-23.52.14:883][641]LogAudio: Display: Creating Audio Device:                 Id: 7, Scope: Unique, Realtime: True
+[2021.06.13-23.52.14:883][641]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2021.06.13-23.52.14:883][641]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2021.06.13-23.52.14:883][641]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2021.06.13-23.52.14:883][641]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2021.06.13-23.52.14:883][641]LogAudioMixer: Display: 	Number of buffers to queue:			  2
+[2021.06.13-23.52.14:883][641]LogAudioMixer: Display: 	Max Channels (voices):				  32
+[2021.06.13-23.52.14:883][641]LogAudioMixer: Display: 	Number of Async Source Workers:		  0
+[2021.06.13-23.52.14:883][641]LogAudio: Display: AudioDevice MaxSources: 32
+[2021.06.13-23.52.14:884][641]LogAudio: Display: Using built-in audio occlusion.
+[2021.06.13-23.52.14:884][641]LogAudioMixer: Display: Initializing audio mixer.
+[2021.06.13-23.52.14:888][641]LogAudioMixer: Display: 0: FrontLeft
+[2021.06.13-23.52.14:888][641]LogAudioMixer: Display: 1: FrontRight
+[2021.06.13-23.52.14:894][641]LogAudioMixer: Display: Using Audio Device Alto-falantes (Realtek High Definition Audio)
+[2021.06.13-23.52.14:894][641]LogAudioMixer: Display: Initializing Sound Submixes...
+[2021.06.13-23.52.14:895][641]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2021.06.13-23.52.14:895][641]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2021.06.13-23.52.14:895][641]LogAudioMixer: Display: Creating Master Submix 'MasterEQSubmixDefault'
+[2021.06.13-23.52.14:895][641]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called
+[2021.06.13-23.52.14:895][641]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048
+[2021.06.13-23.52.14:913][641]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal()
+[2021.06.13-23.52.14:913][641]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time
+[2021.06.13-23.52.14:913][641]LogInit: FAudioDevice initialized.
+[2021.06.13-23.52.14:913][641]LogAudio: Display: Audio Device (ID: 7) registered with world 'Menu_Level'.
+[2021.06.13-23.52.14:952][641]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2021.06.13-23.52.14:952][641]LogLoad: Game class is '2DSideScrollerGameMode_C'
+[2021.06.13-23.52.14:953][641]LogWorld: Bringing World /Game/Levels/UEDPIE_0_Menu_Level.Menu_Level up for play (max tick rate 0) at 2021.06.13-20.52.14
+[2021.06.13-23.52.14:953][641]LogWorld: Bringing up level for play took: 0.000515
+[2021.06.13-23.52.14:953][641]LogOnline: OSS: Creating online subsystem instance for: :Context_14
+[2021.06.13-23.52.14:963][641]PIE: Server logged in
+[2021.06.13-23.52.14:966][641]PIE: Play in editor total start time 0.134 seconds.
+[2021.06.13-23.52.16:512][724]LogNet: Browse: /Game/Levels/anfield
+[2021.06.13-23.52.16:512][724]LogLoad: LoadMap: /Game/Levels/anfield
+[2021.06.13-23.52.16:512][724]LogWorld: BeginTearingDown for /Game/Levels/UEDPIE_0_Menu_Level
+[2021.06.13-23.52.16:513][724]LogWorld: UWorld::CleanupWorld for Menu_Level, bSessionEnded=true, bCleanupResources=true
+[2021.06.13-23.52.16:513][724]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2021.06.13-23.52.16:557][724]LogAudio: Display: Audio Device unregistered from world 'None'.
+[2021.06.13-23.52.16:560][724]LogUObjectHash: Compacting FUObjectHashTables data took   2.89ms
+[2021.06.13-23.52.16:561][724]LogLoad: Error: Previously active world /Engine/Transient.World_40 not cleaned up by garbage collection!
+[2021.06.13-23.52.16:561][724]LogLoad: Error: Once a world has become active, it cannot be reused and must be destroyed and reloaded. World referenced by:
+[2021.06.13-23.52.16:864][724]LogReferenceChain: (root) UnrealEdEngine /Engine/Transient.UnrealEdEngine_0->Trans
+[2021.06.13-23.52.16:864][724]LogReferenceChain:  TransBuffer /Engine/Transient.TransBuffer_0::AddReferencedObjects()
+[2021.06.13-23.52.16:864][724]LogReferenceChain:   World /Engine/Transient.World_40
+[2021.06.13-23.52.16:864][724]LogReferenceChain:   
+[2021.06.13-23.52.16:864][724]LogOutputDevice: Warning: 
+
+Script Stack (0 frames):
+
+[2021.06.13-23.52.16:864][724]LogWindows: Windows GetLastError: A operação foi concluída com êxito. (0)
+[2021.06.13-23.52.18:900][724]LogWindows: Error: === Critical error: ===
+[2021.06.13-23.52.18:900][724]LogWindows: Error: 
+[2021.06.13-23.52.18:900][724]LogWindows: Error: Fatal error: [File:D:/Build/++UE4/Sync/Engine/Source/Editor/UnrealEd/Private/EditorEngine.cpp] [Line: 7234] 
+[2021.06.13-23.52.18:900][724]LogWindows: Error: Previously active world /Engine/Transient.World_40 not cleaned up by garbage collection! Referenced by:
+[2021.06.13-23.52.18:900][724]LogWindows: Error: (root) UnrealEdEngine /Engine/Transient.UnrealEdEngine_0->Trans
+[2021.06.13-23.52.18:900][724]LogWindows: Error:  TransBuffer /Engine/Transient.TransBuffer_0::AddReferencedObjects()
+[2021.06.13-23.52.18:900][724]LogWindows: Error:   World /Engine/Transient.World_40
+[2021.06.13-23.52.18:900][724]LogWindows: Error: 
+[2021.06.13-23.52.18:900][724]LogWindows: Error: 
+[2021.06.13-23.52.18:900][724]LogWindows: Error: [Callstack] 0x00007ffc7c444b89 KERNELBASE.dll!UnknownFunction []
+[2021.06.13-23.52.18:900][724]LogWindows: Error: [Callstack] 0x00007ffc2faed096 UE4Editor-Core.dll!UnknownFunction []
+[2021.06.13-23.52.18:900][724]LogWindows: Error: [Callstack] 0x00007ffc2faf07f8 UE4Editor-Core.dll!UnknownFunction []
+[2021.06.13-23.52.18:900][724]LogWindows: Error: [Callstack] 0x00007ffc2f7fe98d UE4Editor-Core.dll!UnknownFunction []
+[2021.06.13-23.52.18:900][724]LogWindows: Error: [Callstack] 0x00007ffc2a2ede82 UE4Editor-UnrealEd.dll!UnknownFunction []
+[2021.06.13-23.52.18:900][724]LogWindows: Error: [Callstack] 0x00007ffc2d1e43c2 UE4Editor-Engine.dll!UnknownFunction []
+[2021.06.13-23.52.18:900][724]LogWindows: Error: [Callstack] 0x00007ffc2d190f52 UE4Editor-Engine.dll!UnknownFunction []
+[2021.06.13-23.52.18:900][724]LogWindows: Error: [Callstack] 0x00007ffc2d2031ed UE4Editor-Engine.dll!UnknownFunction []
+[2021.06.13-23.52.18:900][724]LogWindows: Error: [Callstack] 0x00007ffc2a2e8fa2 UE4Editor-UnrealEd.dll!UnknownFunction []
+[2021.06.13-23.52.18:900][724]LogWindows: Error: [Callstack] 0x00007ffc2ac04206 UE4Editor-UnrealEd.dll!UnknownFunction []
+[2021.06.13-23.52.18:900][724]LogWindows: Error: [Callstack] 0x00007ff74de89bda UE4Editor.exe!UnknownFunction []
+[2021.06.13-23.52.18:900][724]LogWindows: Error: [Callstack] 0x00007ff74dea11ac UE4Editor.exe!UnknownFunction []
+[2021.06.13-23.52.18:900][724]LogWindows: Error: [Callstack] 0x00007ff74dea128a UE4Editor.exe!UnknownFunction []
+[2021.06.13-23.52.18:900][724]LogWindows: Error: [Callstack] 0x00007ff74deb52ed UE4Editor.exe!UnknownFunction []
+[2021.06.13-23.52.18:900][724]LogWindows: Error: [Callstack] 0x00007ff74deb801a UE4Editor.exe!UnknownFunction []
+[2021.06.13-23.52.18:900][724]LogWindows: Error: [Callstack] 0x00007ffc7df27034 KERNEL32.DLL!UnknownFunction []
+[2021.06.13-23.52.18:900][724]LogWindows: Error: [Callstack] 0x00007ffc7e982651 ntdll.dll!UnknownFunction []
+[2021.06.13-23.52.18:900][724]LogWindows: Error: 
+[2021.06.13-23.52.18:918][724]LogExit: Executing StaticShutdownAfterError
+[2021.06.13-23.52.18:922][724]LogWindows: FPlatformMisc::RequestExit(1)
+[2021.06.13-23.52.18:922][724]LogCore: Engine exit requested (reason: Win RequestExit)
+[2021.06.13-23.52.18:928][724]Log file closed, 06/13/21 20:52:18
