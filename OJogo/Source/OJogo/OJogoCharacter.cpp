@@ -74,6 +74,16 @@ AOJogoCharacter::AOJogoCharacter()
 	// Enable replication on the Sprite component so animations show up when networked
 	GetSprite()->SetIsReplicated(true);
 	bReplicates = true;
+
+
+	MaxForcaChute = 5000.0f;
+	MaxForcaCabeceio = 5000.0f;
+	velocidade = GetCharacterMovement()->MaxWalkSpeed;
+	velocidadeCarrinho = 1200.0f;
+	aceleracaoCarrinho = 10000.0f;
+	staminaRegen = 0.05f;
+	jumpStaminaCost = 10.0f;
+	slidingStaminaCost = 20.0f;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -95,7 +105,11 @@ void AOJogoCharacter::UpdateAnimation()
 void AOJogoCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	
+	/*
+	if (GEngine)
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, FString::Printf(TEXT("%f %f %f %f %f %f"), MaxForcaChute, MaxForcaCabeceio, velocidade, velocidadeCarrinho, staminaRegen, jumpStaminaCost, slidingStaminaCost));
+	*/
+
 	UpdateCharacter();	
 }
 
@@ -154,4 +168,22 @@ void AOJogoCharacter::UpdateCharacter()
 			Controller->SetControlRotation(FRotator(0.0f, 0.0f, 0.0f));
 		}
 	}
+}
+
+void AOJogoCharacter::setHabilidades(const FHabilidades h)
+{
+	this->MaxForcaChute = h.MaxForcaChute;
+	this->MaxForcaCabeceio = h.MaxForcaCabeceio;
+	this->setVelocidade(h.velocidade);
+	this->velocidadeCarrinho = h.velocidadeCarrinho;
+	this->aceleracaoCarrinho = h.aceleracaoCarrinho;
+	this->staminaRegen = h.staminaRegen;
+	this->jumpStaminaCost = h.jumpStaminaCost;
+	this->slidingStaminaCost = h.slidingStaminaCost;
+}
+
+void AOJogoCharacter::setVelocidade(float v)
+{
+	this->velocidade = v;
+	GetCharacterMovement()->MaxWalkSpeed = v;
 }

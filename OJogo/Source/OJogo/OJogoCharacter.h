@@ -8,6 +8,54 @@
 
 class UTextRenderComponent;
 
+
+USTRUCT(BlueprintType)
+struct FHabilidades : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Habilidades")
+		float MaxForcaChute;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Habilidades")
+		float MaxForcaCabeceio;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Habilidades")
+		float velocidade;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Habilidades")
+		float velocidadeCarrinho;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Habilidades")
+		float aceleracaoCarrinho;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Habilidades")
+		float staminaRegen;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Habilidades")
+		float jumpStaminaCost;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Habilidades")
+		float slidingStaminaCost;
+
+	FHabilidades()
+	{
+		MaxForcaChute = 5000.0f;
+		MaxForcaCabeceio = 5000.0f;
+		velocidade = 600.0f;
+		velocidadeCarrinho = 1200.0f;
+		aceleracaoCarrinho = 10000.0f;
+		staminaRegen = 0.05f;
+		jumpStaminaCost = 5.0f;
+		slidingStaminaCost = 20.0f;
+	}
+
+	~FHabilidades()
+	{
+
+	}
+};
+
 /**
  * This class is the default character for OJogo, and it is responsible for all
  * physical interaction between the player and the world.
@@ -65,4 +113,34 @@ public:
 	FORCEINLINE class UCameraComponent* GetSideViewCameraComponent() const { return SideViewCameraComponent; }
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
+
+	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	float MaxForcaChute;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	float MaxForcaCabeceio;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	float velocidade;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	float velocidadeCarrinho;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	float aceleracaoCarrinho;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	float staminaRegen;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	float jumpStaminaCost;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	float slidingStaminaCost;
+
+	UFUNCTION(BlueprintCallable, Category = "Habilidades")
+	void setVelocidade(float v);
+
+	UFUNCTION(BlueprintCallable, Category = "Habilidades")
+	void setHabilidades(const FHabilidades h);
 };
