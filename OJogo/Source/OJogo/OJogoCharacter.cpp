@@ -269,7 +269,7 @@ void AOJogoCharacter::UpdateCharacter()
 	}
 }
 
-void AOJogoCharacter::setHabilidades(const FHabilidades h)
+void AOJogoCharacter::setHabilidades(const FHabilidadesData h)
 {
 	this->MaxForcaChute = h.MaxForcaChute;
 	this->MaxForcaCabeceio = h.MaxForcaCabeceio;
@@ -290,10 +290,10 @@ void AOJogoCharacter::setVelocidade(float v)
 void AOJogoCharacter::setJogador(FJogadorData f)
 {
 	jogador = f;
-	this->setColor();
+	this->setCor();
 }
 
-void AOJogoCharacter::setColor()
+void AOJogoCharacter::setCor()
 {
 	cabelo->SetSpriteColor(jogador.cabelo);
 	olho->SetSpriteColor(jogador.olho);
@@ -304,7 +304,7 @@ void AOJogoCharacter::setColor()
 	chuteira->SetSpriteColor(jogador.chuteira);
 }
 
-void AOJogoCharacter::setMove(int mIndex)
+void AOJogoCharacter::setMovimentacao(int mIndex)
 {
 	cabelo->SetFlipbook(jogador.cabeloArray[mIndex]);
 	olho->SetFlipbook(jogador.olhoArray[mIndex]);

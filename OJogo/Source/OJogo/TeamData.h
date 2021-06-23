@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "JogadorData.h"
-#include "OJogoCharacter.h"
+#include "HabilidadesData.h"
 #include "Engine/Texture2D.h"
 #include "TeamData.generated.h"
 
@@ -39,7 +39,7 @@ struct FTeamData : public FTableRowBase
 	UTexture2D* flag;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Team")
-	FHabilidades habilidades;
+	FHabilidadesData habilidades;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Team")
 	FName estadio;
