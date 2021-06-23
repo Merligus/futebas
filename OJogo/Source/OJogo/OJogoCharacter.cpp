@@ -84,6 +84,98 @@ AOJogoCharacter::AOJogoCharacter()
 	staminaRegen = 0.05f;
 	jumpStaminaCost = 10.0f;
 	slidingStaminaCost = 20.0f;
+
+	cabelo = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("cabelo"));
+	if (cabelo)
+	{
+		cabelo->AlwaysLoadOnClient = true;
+		cabelo->AlwaysLoadOnServer = true;
+		cabelo->bOwnerNoSee = false;
+		cabelo->bAffectDynamicIndirectLighting = true;
+		cabelo->PrimaryComponentTick.TickGroup = TG_PrePhysics;
+		cabelo->SetupAttachment(Sprite);
+		static FName CollisionProfileName(TEXT("OverlapAll"));
+		cabelo->SetCollisionProfileName(CollisionProfileName);
+		cabelo->SetGenerateOverlapEvents(false);
+	}
+	olho = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("olho"));
+	if (olho)
+	{
+		olho->AlwaysLoadOnClient = true;
+		olho->AlwaysLoadOnServer = true;
+		olho->bOwnerNoSee = false;
+		olho->bAffectDynamicIndirectLighting = true;
+		olho->PrimaryComponentTick.TickGroup = TG_PrePhysics;
+		olho->SetupAttachment(Sprite);
+		static FName CollisionProfileName(TEXT("OverlapAll"));
+		olho->SetCollisionProfileName(CollisionProfileName);
+		olho->SetGenerateOverlapEvents(false);
+	}
+	luva = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("luva"));
+	if (luva)
+	{
+		luva->AlwaysLoadOnClient = true;
+		luva->AlwaysLoadOnServer = true;
+		luva->bOwnerNoSee = false;
+		luva->bAffectDynamicIndirectLighting = true;
+		luva->PrimaryComponentTick.TickGroup = TG_PrePhysics;
+		luva->SetupAttachment(Sprite);
+		static FName CollisionProfileName(TEXT("OverlapAll"));
+		luva->SetCollisionProfileName(CollisionProfileName);
+		luva->SetGenerateOverlapEvents(false);
+	}
+	pele = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("pele"));
+	if (pele)
+	{
+		pele->AlwaysLoadOnClient = true;
+		pele->AlwaysLoadOnServer = true;
+		pele->bOwnerNoSee = false;
+		pele->bAffectDynamicIndirectLighting = true;
+		pele->PrimaryComponentTick.TickGroup = TG_PrePhysics;
+		pele->SetupAttachment(Sprite);
+		static FName CollisionProfileName(TEXT("OverlapAll"));
+		pele->SetCollisionProfileName(CollisionProfileName);
+		pele->SetGenerateOverlapEvents(false);
+	}
+	roupa1 = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("roupa1"));
+	if (roupa1)
+	{
+		roupa1->AlwaysLoadOnClient = true;
+		roupa1->AlwaysLoadOnServer = true;
+		roupa1->bOwnerNoSee = false;
+		roupa1->bAffectDynamicIndirectLighting = true;
+		roupa1->PrimaryComponentTick.TickGroup = TG_PrePhysics;
+		roupa1->SetupAttachment(Sprite);
+		static FName CollisionProfileName(TEXT("OverlapAll"));
+		roupa1->SetCollisionProfileName(CollisionProfileName);
+		roupa1->SetGenerateOverlapEvents(false);
+	}
+	roupa2 = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("roupa2"));
+	if (roupa2)
+	{
+		roupa2->AlwaysLoadOnClient = true;
+		roupa2->AlwaysLoadOnServer = true;
+		roupa2->bOwnerNoSee = false;
+		roupa2->bAffectDynamicIndirectLighting = true;
+		roupa2->PrimaryComponentTick.TickGroup = TG_PrePhysics;
+		roupa2->SetupAttachment(Sprite);
+		static FName CollisionProfileName(TEXT("OverlapAll"));
+		roupa2->SetCollisionProfileName(CollisionProfileName);
+		roupa2->SetGenerateOverlapEvents(false);
+	}
+	chuteira = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("chuteira"));
+	if (chuteira)
+	{
+		chuteira->AlwaysLoadOnClient = true;
+		chuteira->AlwaysLoadOnServer = true;
+		chuteira->bOwnerNoSee = false;
+		chuteira->bAffectDynamicIndirectLighting = true;
+		chuteira->PrimaryComponentTick.TickGroup = TG_PrePhysics;
+		chuteira->SetupAttachment(Sprite);
+		static FName CollisionProfileName(TEXT("OverlapAll"));
+		chuteira->SetCollisionProfileName(CollisionProfileName);
+		chuteira->SetGenerateOverlapEvents(false);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -186,4 +278,32 @@ void AOJogoCharacter::setVelocidade(float v)
 {
 	this->velocidade = v;
 	GetCharacterMovement()->MaxWalkSpeed = v;
+}
+
+void AOJogoCharacter::setJogador(FJogadorData f)
+{
+	jogador = f;
+	this->setColor();
+}
+
+void AOJogoCharacter::setColor()
+{
+	cabelo->SetSpriteColor(jogador.cabelo);
+	olho->SetSpriteColor(jogador.olho);
+	luva->SetSpriteColor(jogador.luva);
+	pele->SetSpriteColor(jogador.pele);
+	roupa1->SetSpriteColor(jogador.roupa1);
+	roupa2->SetSpriteColor(jogador.roupa2);
+	chuteira->SetSpriteColor(jogador.chuteira);
+}
+
+void AOJogoCharacter::setMove(int mIndex)
+{
+	cabelo->SetFlipbook(jogador.cabeloArray[mIndex]);
+	olho->SetFlipbook(jogador.olhoArray[mIndex]);
+	luva->SetFlipbook(jogador.luvaArray[mIndex]);
+	pele->SetFlipbook(jogador.peleArray[mIndex]);
+	roupa1->SetFlipbook(jogador.roupa1Array[mIndex]);
+	roupa2->SetFlipbook(jogador.roupa2Array[mIndex]);
+	chuteira->SetFlipbook(jogador.chuteiraArray[mIndex]);
 }

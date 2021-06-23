@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "PaperCharacter.h"
+#include "JogadorData.h"
 #include "OJogoCharacter.generated.h"
 
 class UTextRenderComponent;
@@ -15,28 +16,28 @@ struct FHabilidades : public FTableRowBase
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Habilidades")
-		float MaxForcaChute;
+	float MaxForcaChute;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Habilidades")
-		float MaxForcaCabeceio;
+	float MaxForcaCabeceio;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Habilidades")
-		float velocidade;
+	float velocidade;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Habilidades")
-		float velocidadeCarrinho;
+	float velocidadeCarrinho;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Habilidades")
-		float aceleracaoCarrinho;
+	float aceleracaoCarrinho;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Habilidades")
-		float staminaRegen;
+	float staminaRegen;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Habilidades")
-		float jumpStaminaCost;
+	float jumpStaminaCost;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Habilidades")
-		float slidingStaminaCost;
+	float slidingStaminaCost;
 
 	FHabilidades()
 	{
@@ -88,6 +89,54 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
 	class UPaperFlipbook* IdleAnimation;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+	class UPaperFlipbookComponent* cabelo;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+	class UPaperFlipbookComponent* olho;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+	class UPaperFlipbookComponent* luva;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+	class UPaperFlipbookComponent* pele;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+	class UPaperFlipbookComponent* roupa1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+	class UPaperFlipbookComponent* roupa2;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+	class UPaperFlipbookComponent* chuteira;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	float MaxForcaChute;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	float MaxForcaCabeceio;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	float velocidade;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	float velocidadeCarrinho;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	float aceleracaoCarrinho;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	float staminaRegen;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	float jumpStaminaCost;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	float slidingStaminaCost;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+	FJogadorData jogador;
+
 	/** Called to choose the correct animation to play based on the character's movement state */
 	void UpdateAnimation();
 
@@ -114,33 +163,32 @@ public:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 
-	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
-	float MaxForcaChute;
+	FORCEINLINE class UPaperFlipbookComponent* Getcabelo() const { return cabelo; }
 
-	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
-	float MaxForcaCabeceio;
+	FORCEINLINE class UPaperFlipbookComponent* Getolho() const { return olho; }
 
-	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
-	float velocidade;
+	FORCEINLINE class UPaperFlipbookComponent* Getluva() const { return luva; }
 
-	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
-	float velocidadeCarrinho;
+	FORCEINLINE class UPaperFlipbookComponent* Getpele() const { return pele; }
 
-	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
-	float aceleracaoCarrinho;
+	FORCEINLINE class UPaperFlipbookComponent* Getroupa1() const { return roupa1; }
 
-	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
-	float staminaRegen;
+	FORCEINLINE class UPaperFlipbookComponent* Getroupa2() const { return roupa2; }
 
-	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
-	float jumpStaminaCost;
-
-	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
-	float slidingStaminaCost;
+	FORCEINLINE class UPaperFlipbookComponent* Getchuteira() const { return chuteira; }
 
 	UFUNCTION(BlueprintCallable, Category = "Habilidades")
 	void setVelocidade(float v);
 
 	UFUNCTION(BlueprintCallable, Category = "Habilidades")
 	void setHabilidades(const FHabilidades h);
+
+	UFUNCTION(BlueprintCallable, Category = "Habilidades")
+	void setJogador(FJogadorData f);
+
+	UFUNCTION(BlueprintCallable, Category = "Habilidades")
+	void setMove(int mIndex);
+
+	UFUNCTION(BlueprintCallable, Category = "Habilidades")
+	void setColor();
 };
