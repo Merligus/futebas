@@ -92,11 +92,12 @@ AOJogoCharacter::AOJogoCharacter()
 		cabelo->AlwaysLoadOnServer = true;
 		cabelo->bOwnerNoSee = false;
 		cabelo->bAffectDynamicIndirectLighting = true;
-		cabelo->PrimaryComponentTick.TickGroup = TG_PrePhysics;
+		cabelo->PrimaryComponentTick.TickGroup = TG_DuringPhysics;
 		cabelo->SetupAttachment(Sprite);
 		static FName CollisionProfileName(TEXT("OverlapAll"));
 		cabelo->SetCollisionProfileName(CollisionProfileName);
 		cabelo->SetGenerateOverlapEvents(false);
+		cabelo->SetCanEverAffectNavigation(false);
 	}
 	olho = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("olho"));
 	if (olho)
@@ -105,11 +106,12 @@ AOJogoCharacter::AOJogoCharacter()
 		olho->AlwaysLoadOnServer = true;
 		olho->bOwnerNoSee = false;
 		olho->bAffectDynamicIndirectLighting = true;
-		olho->PrimaryComponentTick.TickGroup = TG_PrePhysics;
+		olho->PrimaryComponentTick.TickGroup = TG_DuringPhysics;
 		olho->SetupAttachment(Sprite);
 		static FName CollisionProfileName(TEXT("OverlapAll"));
 		olho->SetCollisionProfileName(CollisionProfileName);
 		olho->SetGenerateOverlapEvents(false);
+		olho->SetCanEverAffectNavigation(false);
 	}
 	luva = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("luva"));
 	if (luva)
@@ -118,11 +120,12 @@ AOJogoCharacter::AOJogoCharacter()
 		luva->AlwaysLoadOnServer = true;
 		luva->bOwnerNoSee = false;
 		luva->bAffectDynamicIndirectLighting = true;
-		luva->PrimaryComponentTick.TickGroup = TG_PrePhysics;
+		luva->PrimaryComponentTick.TickGroup = TG_DuringPhysics;
 		luva->SetupAttachment(Sprite);
 		static FName CollisionProfileName(TEXT("OverlapAll"));
 		luva->SetCollisionProfileName(CollisionProfileName);
 		luva->SetGenerateOverlapEvents(false);
+		luva->SetCanEverAffectNavigation(false);
 	}
 	pele = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("pele"));
 	if (pele)
@@ -131,11 +134,12 @@ AOJogoCharacter::AOJogoCharacter()
 		pele->AlwaysLoadOnServer = true;
 		pele->bOwnerNoSee = false;
 		pele->bAffectDynamicIndirectLighting = true;
-		pele->PrimaryComponentTick.TickGroup = TG_PrePhysics;
+		pele->PrimaryComponentTick.TickGroup = TG_DuringPhysics;
 		pele->SetupAttachment(Sprite);
 		static FName CollisionProfileName(TEXT("OverlapAll"));
 		pele->SetCollisionProfileName(CollisionProfileName);
 		pele->SetGenerateOverlapEvents(false);
+		pele->SetCanEverAffectNavigation(false);
 	}
 	roupa1 = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("roupa1"));
 	if (roupa1)
@@ -144,11 +148,12 @@ AOJogoCharacter::AOJogoCharacter()
 		roupa1->AlwaysLoadOnServer = true;
 		roupa1->bOwnerNoSee = false;
 		roupa1->bAffectDynamicIndirectLighting = true;
-		roupa1->PrimaryComponentTick.TickGroup = TG_PrePhysics;
+		roupa1->PrimaryComponentTick.TickGroup = TG_DuringPhysics;
 		roupa1->SetupAttachment(Sprite);
 		static FName CollisionProfileName(TEXT("OverlapAll"));
 		roupa1->SetCollisionProfileName(CollisionProfileName);
 		roupa1->SetGenerateOverlapEvents(false);
+		roupa1->SetCanEverAffectNavigation(false);
 	}
 	roupa2 = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("roupa2"));
 	if (roupa2)
@@ -157,11 +162,12 @@ AOJogoCharacter::AOJogoCharacter()
 		roupa2->AlwaysLoadOnServer = true;
 		roupa2->bOwnerNoSee = false;
 		roupa2->bAffectDynamicIndirectLighting = true;
-		roupa2->PrimaryComponentTick.TickGroup = TG_PrePhysics;
+		roupa2->PrimaryComponentTick.TickGroup = TG_DuringPhysics;
 		roupa2->SetupAttachment(Sprite);
 		static FName CollisionProfileName(TEXT("OverlapAll"));
 		roupa2->SetCollisionProfileName(CollisionProfileName);
 		roupa2->SetGenerateOverlapEvents(false);
+		roupa2->SetCanEverAffectNavigation(false);
 	}
 	chuteira = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("chuteira"));
 	if (chuteira)
@@ -170,11 +176,12 @@ AOJogoCharacter::AOJogoCharacter()
 		chuteira->AlwaysLoadOnServer = true;
 		chuteira->bOwnerNoSee = false;
 		chuteira->bAffectDynamicIndirectLighting = true;
-		chuteira->PrimaryComponentTick.TickGroup = TG_PrePhysics;
+		chuteira->PrimaryComponentTick.TickGroup = TG_DuringPhysics;
 		chuteira->SetupAttachment(Sprite);
 		static FName CollisionProfileName(TEXT("OverlapAll"));
 		chuteira->SetCollisionProfileName(CollisionProfileName);
 		chuteira->SetGenerateOverlapEvents(false);
+		chuteira->SetCanEverAffectNavigation(false);
 	}
 }
 
