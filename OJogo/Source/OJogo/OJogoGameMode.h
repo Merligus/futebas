@@ -18,4 +18,5 @@ class AOJogoGameMode : public AGameModeBase
 	GENERATED_BODY()
 public:
 	AOJogoGameMode();
+	
 };
