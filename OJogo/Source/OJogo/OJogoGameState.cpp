@@ -21,4 +21,8 @@ AOJogoGameState::AOJogoGameState()
 	vsBotIA = true;
 	posIndex.Add(0);
 	posIndex.Add(1);
+	tempoParadoAntesInicioPartida = 1.0f;
+	tempoParado = 2.0f;
+	tempoParadoEscanteio = 1.0f;
+	alturaReinicio = 800.0f;
 }

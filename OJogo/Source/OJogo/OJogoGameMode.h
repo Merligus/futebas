@@ -36,6 +36,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<AOJogoCharacter*> arrayJogadores;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	AActor* posicao;
+
 public:
 	AOJogoGameMode();
 
@@ -49,7 +52,52 @@ public:
 	void antesDoComeco();
 
 	UFUNCTION(BlueprintCallable)
+	void antesDoComecoTimedOut();
+
+	UFUNCTION(BlueprintCallable)
+	void comecaJogo();
+
+	UFUNCTION(BlueprintCallable)
+	void maisAcrescimos();
+
+	UFUNCTION(BlueprintCallable)
+	void terminaTempo();
+	
+	UFUNCTION(BlueprintCallable)
+	void terminaTempoTimedOut();
+
+	UFUNCTION(BlueprintCallable)
+	void fimDePapo();
+
+	UFUNCTION(BlueprintCallable)
+	void trocaTimes();
+
+	UFUNCTION(BlueprintCallable)
+	void golEsquerdo();
+
+	UFUNCTION(BlueprintCallable)
+	void golEsquerdoTimedOut();
+
+	UFUNCTION(BlueprintCallable)
+	void golDireito();
+
+	UFUNCTION(BlueprintCallable)
+	void golDireitoTimedOut();
+
+	UFUNCTION(BlueprintCallable)
+	void escanteio(AActor* pos);
+
+	UFUNCTION(BlueprintCallable)
+	void escanteioTimedOut();
+
+	UFUNCTION(BlueprintCallable)
+	void reiniciaBolaMeio();
+
+	UFUNCTION(BlueprintCallable)
 	void setBotProprioGol(int32 golIndex);
+
+	UFUNCTION(BlueprintCallable)
+	void setBotGols(int32 golsEsq, int32 golsDir);
 
 	virtual void BeginPlay() override;
 };

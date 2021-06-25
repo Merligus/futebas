@@ -314,3 +314,9 @@ void AOJogoCharacter::setMovimentacao(int mIndex)
 	roupa2->SetFlipbook(jogador.roupa2Array[mIndex]);
 	chuteira->SetFlipbook(jogador.chuteiraArray[mIndex]);
 }
+
+void AOJogoCharacter::setBotGols(int32 meus, int32 adversario)
+{
+	meusGols = meus;
+	golsAdversario = adversario;
+}

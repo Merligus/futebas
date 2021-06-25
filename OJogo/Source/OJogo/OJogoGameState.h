@@ -56,7 +56,19 @@ public:
 	bool vsBotIA;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<int32> posIndex;
+	TArray<int32> posIndex;	
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float tempoParadoAntesInicioPartida;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float tempoParado;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float tempoParadoEscanteio;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float alturaReinicio;
 
 	AOJogoGameState();
 	

@@ -87,6 +87,12 @@ protected:
 	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
 	float slidingStaminaCost;
 
+	UPROPERTY(BlueprintReadWrite, Category = "BotIA")
+	int32 meusGols;
+
+	UPROPERTY(BlueprintReadWrite, Category = "BotIA")
+	int32 golsAdversario;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
 	FJogadorData jogador;
 
@@ -141,6 +147,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Habilidades")
 	void setMovimentacao(int mIndex);
+
+	UFUNCTION(BlueprintCallable, Category = "BotIA")
+	void setBotGols(int32 meus, int32 adversario);
 
 	UFUNCTION(BlueprintCallable, Category = "Habilidades")
 	void setCor();

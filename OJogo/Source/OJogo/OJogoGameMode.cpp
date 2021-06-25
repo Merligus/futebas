@@ -3,6 +3,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "Blueprint/AIBlueprintHelperLibrary.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "GameFramework/PlayerStart.h"
+// #include "NiagaraFunctionLibrary.h"
 
 AOJogoGameMode::AOJogoGameMode()
 {
@@ -25,6 +27,7 @@ void AOJogoGameMode::BeginPlay()
 	else
 	{
 		a = -1;
+		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("JogosGameState nao encontrado")));
 	}
 
 	FutebasGI = GetGameInstance<UFutebasGameInstance>();
@@ -32,8 +35,10 @@ void AOJogoGameMode::BeginPlay()
 	{
 		b = FutebasGI->team1.sigla;
 	}
-	GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Begin Play: %d"), a));
-	GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, b);
+	else
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("FutebasGI nao encontrado")));
+	}
 
 	// game instance
 	// FutebasGI = Cast<UFutebasGameInstance>(GetGameInstance());
@@ -102,7 +107,7 @@ void AOJogoGameMode::reiniciaPartida(bool neutro, bool favoravelEsq)
 		else
 		{
 			offsets.Add(FVector(0.0f));
-			offsets.Add(FVector(1400.0f, 0.0f, 0.0f));
+			offsets.Add(FVector(-1400.0f, 0.0f, 0.0f));
 		}
 	}
 
@@ -110,13 +115,12 @@ void AOJogoGameMode::reiniciaPartida(bool neutro, bool favoravelEsq)
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), JogosGameState->Bola_c, FoundActors);
 	if (FoundActors[0])
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Achou bola")));
 		UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(FoundActors[0]->GetRootComponent());
 		if (Sphere)
 		{
 			Sphere->AddImpulse(Sphere->GetPhysicsLinearVelocity() * Sphere->GetMass() * (-1.0f));
 			Sphere->SetPhysicsAngularVelocity(FVector(0.0f));
-			Sphere->SetWorldLocation(JogosGameState->posInicial);
+			Sphere->SetWorldLocation(JogosGameState->posInicial, false, NULL, ETeleportType::TeleportPhysics);
 		}
 		else
 		{
@@ -128,9 +132,221 @@ void AOJogoGameMode::reiniciaPartida(bool neutro, bool favoravelEsq)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola nao achada")));
 	}
+
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStart::StaticClass(), FoundActors);
+	for (int32 Index = 0; Index != FoundActors.Num(); ++Index)
+	{
+		APlayerStart* PS = Cast<APlayerStart>(FoundActors[Index]);
+		if (PS)
+		{
+			FString tag = PS->PlayerStartTag.ToString();
+			int32 indicePS = FCString::Atoi(*tag);
+			FVector NewLocation;
+			NewLocation = offsets[indicePS] + FoundActors[Index]->GetActorLocation();
+			arrayJogadores[indicePS]->SetActorLocation(NewLocation, false, NULL, ETeleportType::TeleportPhysics);
+		}
+		else
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Player Start %d nao achado"), Index));
+		}
+	}
 }
 
 void AOJogoGameMode::antesDoComeco()
 {
-	
+	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	PC->SetIgnoreMoveInput(true);
+
+	FTimerHandle UnusedHandle;
+	GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::antesDoComecoTimedOut, JogosGameState->tempoParadoAntesInicioPartida, false);
+}
+
+void AOJogoGameMode::antesDoComecoTimedOut()
+{
+	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	PC->SetIgnoreMoveInput(false);
+
+	comecaJogo();
+}
+
+void AOJogoGameMode::comecaJogo()
+{
+	GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 45.0f, false);
+	JogosGameState->tempoRegulamentar = true;
+	JogosGameState->bolaEmJogo = true;
+}
+
+void AOJogoGameMode::maisAcrescimos()
+{
+	float timeAcrescimos = JogosGameState->acrescimos.GetSeconds() + 0.1f;
+	GetWorldTimerManager().SetTimer(JogosGameState->tempo2, this, &AOJogoGameMode::terminaTempo, timeAcrescimos, false);
+	JogosGameState->tempoRegulamentar = false;
+}
+
+void AOJogoGameMode::terminaTempo()
+{
+	JogosGameState->bolaEmJogo = false;
+	if (JogosGameState->tempo1Ou2 == 1)
+	{
+		JogosGameState->tempo1Ou2 = 2;
+		FTimerHandle UnusedHandle;
+		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::terminaTempoTimedOut, JogosGameState->tempoParadoAntesInicioPartida, false);
+	}
+	else
+	{
+		JogosGameState->tempo1Ou2 = 3;
+		fimDePapo();
+	}
+}
+
+void AOJogoGameMode::terminaTempoTimedOut()
+{
+	JogosGameState->tempoRegulamentar = true;
+	JogosGameState->acrescimos = FTimespan(0, 0, 0);
+	JogosGameState->posIndex.Swap(0, 1);
+	arrayJogadores.Swap(0, 1);
+	trocaTimes();
+	setBotProprioGol(JogosGameState->posIndex[1]);
+	reiniciaPartida(true, false);
+	antesDoComeco();
+}
+
+void AOJogoGameMode::fimDePapo()
+{
+	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	PC->SetIgnoreMoveInput(true);
+}
+
+void AOJogoGameMode::trocaTimes()
+{
+	int32 aux;
+	aux = JogosGameState->golsTimeEsq;
+	JogosGameState->golsTimeEsq = JogosGameState->golsTimeDir;
+	JogosGameState->golsTimeDir = aux;
+
+	FTeamData auxTeam;
+	auxTeam = FutebasGI->team1;
+	FutebasGI->team1 = FutebasGI->team2;
+	FutebasGI->team2 = auxTeam;
+}
+
+void AOJogoGameMode::golEsquerdo()
+{
+	if (JogosGameState->bolaEmJogo == true)
+	{
+		JogosGameState->bolaEmJogo = false;
+		JogosGameState->golsTimeDir += 1;
+		setBotGols(JogosGameState->golsTimeEsq, JogosGameState->golsTimeDir);
+		FTimerHandle UnusedHandle;
+		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::golEsquerdoTimedOut, JogosGameState->tempoParado, false);
+	}
+}
+
+void AOJogoGameMode::golEsquerdoTimedOut()
+{
+	reiniciaPartida(false, true);
+	if (JogosGameState->tempoRegulamentar)
+		JogosGameState->acrescimos += FTimespan(0, 0, JogosGameState->tempoParado);
+	JogosGameState->bolaEmJogo = true;
+}
+
+void AOJogoGameMode::golDireito()
+{
+	if (JogosGameState->bolaEmJogo == true)
+	{
+		JogosGameState->bolaEmJogo = false;
+		JogosGameState->golsTimeEsq += 1;
+		setBotGols(JogosGameState->golsTimeEsq, JogosGameState->golsTimeDir);
+		FTimerHandle UnusedHandle;
+		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::golDireitoTimedOut, JogosGameState->tempoParado, false);
+	}
+}
+
+void AOJogoGameMode::golDireitoTimedOut()
+{
+	reiniciaPartida(false, false);
+	if (JogosGameState->tempoRegulamentar)
+		JogosGameState->acrescimos += FTimespan(0, 0, JogosGameState->tempoParado);
+	JogosGameState->bolaEmJogo = true;
+}
+
+void AOJogoGameMode::escanteio(AActor* pos)
+{
+	posicao = pos;
+	if (JogosGameState->bolaEmJogo)
+	{
+		JogosGameState->bolaEmJogo = false;
+		FTimerHandle UnusedHandle;
+		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::escanteioTimedOut, JogosGameState->tempoParadoEscanteio, false);
+	}
+}
+
+void AOJogoGameMode::escanteioTimedOut()
+{
+	JogosGameState->bolaEmJogo = true;
+	if (JogosGameState->tempoRegulamentar)
+		JogosGameState->acrescimos += FTimespan(0, 0, JogosGameState->tempoParadoEscanteio);
+
+	TArray<AActor*> FoundActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), JogosGameState->Bola_c, FoundActors);
+	if (FoundActors[0])
+	{
+		UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(FoundActors[0]->GetRootComponent());
+		if (Sphere)
+		{
+			Sphere->AddImpulse(Sphere->GetPhysicsLinearVelocity() * Sphere->GetMass() * (-1.0f));
+			Sphere->SetPhysicsAngularVelocity(FVector(0.0f));
+			Sphere->SetWorldLocation(posicao->GetActorLocation(), false, NULL, ETeleportType::TeleportPhysics);
+		}
+		else
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Sphere nao achada no escanteio")));
+		}
+		
+	}
+	else
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola nao achada no escanteio")));
+	}
+}
+
+void AOJogoGameMode::reiniciaBolaMeio()
+{
+	if (JogosGameState->bolaEmJogo)
+	{
+		TArray<AActor*> FoundActors;
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), JogosGameState->Bola_c, FoundActors);
+		if (FoundActors[0])
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Achou bola na explosao")));
+			UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(FoundActors[0]->GetRootComponent());
+			if (Sphere)
+			{
+				Sphere->AddImpulse(Sphere->GetPhysicsLinearVelocity() * Sphere->GetMass() * (-1.0f));
+				Sphere->SetPhysicsAngularVelocity(FVector(0.0f));
+				FVector posOld = FoundActors[0]->GetActorLocation();
+				Sphere->SetWorldLocation(FVector(posOld.X, posOld.Y, posOld.Z + JogosGameState->alturaReinicio), false, NULL, ETeleportType::TeleportPhysics);
+				// SpawnSystemAtLocation();
+			}
+			else
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Sphere nao achada na explosao")));
+			}
+		}
+		else
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola nao achada na explosao")));
+		}
+	}
+}
+
+void AOJogoGameMode::setBotGols(int32 golsEsq, int32 golsDir)
+{
+	if (JogosGameState->vsBotIA)
+	{
+		if (JogosGameState->posIndex[1] == 0)
+			botIA->setBotGols(golsEsq, golsDir);
+		else
+			botIA->setBotGols(golsDir, golsEsq);
+	}
 }
