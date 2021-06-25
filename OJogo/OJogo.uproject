@@ -12,13 +12,18 @@
 				"Engine",
 				"UnrealEd",
 				"CoreUObject",
-				"AIModule"
+				"AIModule",
+				"Niagara"
 			]
 		}
 	],
 	"Plugins": [
 		{
 			"Name": "Paper2D",
+			"Enabled": true
+		},
+		{
+			"Name": "NiagaraExtras",
 			"Enabled": true
 		}
 	]

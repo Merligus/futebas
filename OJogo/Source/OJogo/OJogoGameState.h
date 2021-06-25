@@ -16,9 +16,6 @@ class OJOGO_API AOJogoGameState : public AGameStateBase
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UClass* Bola_c;
-
 	// UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	// TSubclassOf<AOJogoCharacter> player1_c;
 

@@ -7,6 +7,7 @@
 #include "FutebasGameInstance.h"
 #include "OJogoCharacter.h"
 #include "OJogoGameState.h"
+#include "Bola.h"
 #include "OJogoGameMode.generated.h"
 
 /**

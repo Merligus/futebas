@@ -4,7 +4,7 @@
 #include "Blueprint/AIBlueprintHelperLibrary.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "GameFramework/PlayerStart.h"
-// #include "NiagaraFunctionLibrary.h"
+#include "UObject/ConstructorHelpers.h"
 
 AOJogoGameMode::AOJogoGameMode()
 {
@@ -112,14 +112,14 @@ void AOJogoGameMode::reiniciaPartida(bool neutro, bool favoravelEsq)
 	}
 
 	TArray<AActor*> FoundActors;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), JogosGameState->Bola_c, FoundActors);
-	if (FoundActors[0])
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
+	if (FoundActors.Num() == 1)
 	{
 		UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(FoundActors[0]->GetRootComponent());
 		if (Sphere)
 		{
 			Sphere->AddImpulse(Sphere->GetPhysicsLinearVelocity() * Sphere->GetMass() * (-1.0f));
-			Sphere->SetPhysicsAngularVelocity(FVector(0.0f));
+			Sphere->SetPhysicsAngularVelocityInDegrees(FVector(0.0f));
 			Sphere->SetWorldLocation(JogosGameState->posInicial, false, NULL, ETeleportType::TeleportPhysics);
 		}
 		else
@@ -288,21 +288,20 @@ void AOJogoGameMode::escanteioTimedOut()
 		JogosGameState->acrescimos += FTimespan(0, 0, JogosGameState->tempoParadoEscanteio);
 
 	TArray<AActor*> FoundActors;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), JogosGameState->Bola_c, FoundActors);
-	if (FoundActors[0])
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
+	if (FoundActors.Num() == 1)
 	{
 		UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(FoundActors[0]->GetRootComponent());
 		if (Sphere)
 		{
 			Sphere->AddImpulse(Sphere->GetPhysicsLinearVelocity() * Sphere->GetMass() * (-1.0f));
-			Sphere->SetPhysicsAngularVelocity(FVector(0.0f));
+			Sphere->SetPhysicsAngularVelocityInDegrees(FVector(0.0f));
 			Sphere->SetWorldLocation(posicao->GetActorLocation(), false, NULL, ETeleportType::TeleportPhysics);
 		}
 		else
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Sphere nao achada no escanteio")));
 		}
-		
 	}
 	else
 	{
@@ -315,28 +314,28 @@ void AOJogoGameMode::reiniciaBolaMeio()
 	if (JogosGameState->bolaEmJogo)
 	{
 		TArray<AActor*> FoundActors;
-		UGameplayStatics::GetAllActorsOfClass(GetWorld(), JogosGameState->Bola_c, FoundActors);
-		if (FoundActors[0])
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
+		if (FoundActors.Num() == 1)
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Achou bola na explosao")));
 			UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(FoundActors[0]->GetRootComponent());
 			if (Sphere)
 			{
 				Sphere->AddImpulse(Sphere->GetPhysicsLinearVelocity() * Sphere->GetMass() * (-1.0f));
-				Sphere->SetPhysicsAngularVelocity(FVector(0.0f));
+				Sphere->SetPhysicsAngularVelocityInDegrees(FVector(0.0f));
 				FVector posOld = FoundActors[0]->GetActorLocation();
 				Sphere->SetWorldLocation(FVector(posOld.X, posOld.Y, posOld.Z + JogosGameState->alturaReinicio), false, NULL, ETeleportType::TeleportPhysics);
-				// SpawnSystemAtLocation();
+				ABola* bola = Cast<ABola>(FoundActors[0]);
+				if (bola)
+					bola->explode(FVector(posOld.X, 10, 0));
+				else
+					GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("nao deu pra explodir")));
 			}
 			else
-			{
 				GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Sphere nao achada na explosao")));
-			}
 		}
 		else
-		{
 			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola nao achada na explosao")));
-		}
 	}
 }
 
