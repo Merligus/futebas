@@ -111,7 +111,18 @@ void AOJogoGameMode::reiniciaPartida(bool neutro, bool favoravelEsq)
 	if (FoundActors[0])
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Achou bola")));
-		FoundActors[0]->
+		UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(FoundActors[0]->GetRootComponent());
+		if (Sphere)
+		{
+			Sphere->AddImpulse(Sphere->GetPhysicsLinearVelocity() * Sphere->GetMass() * (-1.0f));
+			Sphere->SetPhysicsAngularVelocity(FVector(0.0f));
+			Sphere->SetWorldLocation(JogosGameState->posInicial);
+		}
+		else
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Sphere nao achada")));
+		}
+		
 	}
 	else
 	{
