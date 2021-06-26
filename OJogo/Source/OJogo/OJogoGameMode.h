@@ -40,6 +40,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	AActor* posicao;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool vezTimeEsquerdo;
+
 public:
 	AOJogoGameMode();
 
@@ -95,10 +98,22 @@ public:
 	void reiniciaBolaMeio();
 
 	UFUNCTION(BlueprintCallable)
+	void penalidadesMaximas();
+
+	UFUNCTION(BlueprintCallable)
+	void atualizaContagem();
+
+	UFUNCTION(BlueprintCallable)
+	void decideVencedor(FString timeVencedor);
+
+	UFUNCTION(BlueprintCallable)
 	void setBotProprioGol(int32 golIndex);
 
 	UFUNCTION(BlueprintCallable)
 	void setBotGols(int32 golsEsq, int32 golsDir);
+
+	UFUNCTION(BlueprintCallable)
+	void paralisaMovimentacao(bool ignora);
 
 	virtual void BeginPlay() override;
 };

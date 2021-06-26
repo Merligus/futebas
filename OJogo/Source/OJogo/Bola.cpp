@@ -46,6 +46,8 @@ void ABola::explode(FVector posicao)
 
 void ABola::chuta(FRotator anguloChute, float forca)
 {
+	explode(GetActorLocation());
+
 	esfera->SetCollisionProfileName(FName(TEXT("Ragdoll")), true);
 	esfera->AddImpulse(UKismetMathLibrary::GetForwardVector(anguloChute) * forca, FName(TEXT("None")), true);
 	esfera->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);

@@ -1,6 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 #include "OJogoGameMode.h"
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "Blueprint/AIBlueprintHelperLibrary.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "GameFramework/PlayerStart.h"
@@ -71,22 +72,16 @@ void AOJogoGameMode::beginGame()
 			antesDoComeco();
 		}
 		else
-		{
 			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bot nao spawnado")));
-		}
 	}
 }
 
 void AOJogoGameMode::setBotProprioGol(int32 golIndex)
 {
 	if (UAIBlueprintHelperLibrary::GetBlackboard(botIA))
-	{
 		UAIBlueprintHelperLibrary::GetBlackboard(botIA)->SetValueAsInt(FName("proprioGol"), golIndex);
-	}
 	else
-	{
 		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bot sem blackboard")));
-	}
 }
 
 void AOJogoGameMode::reiniciaPartida(bool neutro, bool favoravelEsq)
@@ -123,15 +118,10 @@ void AOJogoGameMode::reiniciaPartida(bool neutro, bool favoravelEsq)
 			Sphere->SetWorldLocation(JogosGameState->posInicial, false, NULL, ETeleportType::TeleportPhysics);
 		}
 		else
-		{
 			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Sphere nao achada")));
-		}
-		
 	}
 	else
-	{
 		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola nao achada")));
-	}
 
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStart::StaticClass(), FoundActors);
 	for (int32 Index = 0; Index != FoundActors.Num(); ++Index)
@@ -146,32 +136,31 @@ void AOJogoGameMode::reiniciaPartida(bool neutro, bool favoravelEsq)
 			arrayJogadores[indicePS]->SetActorLocation(NewLocation, false, NULL, ETeleportType::TeleportPhysics);
 		}
 		else
-		{
 			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Player Start %d nao achado"), Index));
-		}
 	}
 }
 
 void AOJogoGameMode::antesDoComeco()
 {
-	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-	PC->SetIgnoreMoveInput(true);
-
+	paralisaMovimentacao(true);
+	
 	FTimerHandle UnusedHandle;
 	GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::antesDoComecoTimedOut, JogosGameState->tempoParadoAntesInicioPartida, false);
 }
 
 void AOJogoGameMode::antesDoComecoTimedOut()
 {
-	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-	PC->SetIgnoreMoveInput(false);
+	paralisaMovimentacao(false);
 
-	comecaJogo();
+	if (!JogosGameState->penalidades)
+		comecaJogo();
+	else
+		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::atualizaContagem, 10.0f, false);
 }
 
 void AOJogoGameMode::comecaJogo()
 {
-	GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 45.0f, false);
+	GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 5.0f, false);
 	JogosGameState->tempoRegulamentar = true;
 	JogosGameState->bolaEmJogo = true;
 }
@@ -213,8 +202,16 @@ void AOJogoGameMode::terminaTempoTimedOut()
 
 void AOJogoGameMode::fimDePapo()
 {
-	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-	PC->SetIgnoreMoveInput(true);
+	paralisaMovimentacao(true);
+
+	if (JogosGameState->golsTimeDir == JogosGameState->golsTimeEsq)
+	{
+		vezTimeEsquerdo = JogosGameState->timeDireitoPrimeiro_pen;
+		JogosGameState->tempo1Ou2 = 1;
+
+		FTimerHandle UnusedHandle;
+		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::penalidadesMaximas, JogosGameState->tempoParadoAntesInicioPartida, false);
+	}
 }
 
 void AOJogoGameMode::trocaTimes()
@@ -240,6 +237,11 @@ void AOJogoGameMode::golEsquerdo()
 		FTimerHandle UnusedHandle;
 		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::golEsquerdoTimedOut, JogosGameState->tempoParado, false);
 	}
+	else if (JogosGameState->penalidades && JogosGameState->golEsquerdoAtivado_pen)
+	{
+		JogosGameState->penalidades = false;
+		JogosGameState->golsTimeDir_pen.Add(1);
+	}
 }
 
 void AOJogoGameMode::golEsquerdoTimedOut()
@@ -259,6 +261,11 @@ void AOJogoGameMode::golDireito()
 		setBotGols(JogosGameState->golsTimeEsq, JogosGameState->golsTimeDir);
 		FTimerHandle UnusedHandle;
 		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::golDireitoTimedOut, JogosGameState->tempoParado, false);
+	}
+	else if (JogosGameState->penalidades && JogosGameState->golDireitoAtivado_pen)
+	{
+		JogosGameState->penalidades = false;
+		JogosGameState->golsTimeEsq_pen.Add(1);
 	}
 }
 
@@ -339,6 +346,86 @@ void AOJogoGameMode::reiniciaBolaMeio()
 	}
 }
 
+void AOJogoGameMode::penalidadesMaximas()
+{
+	bool acabou;
+	vezTimeEsquerdo = !vezTimeEsquerdo;
+
+	int32 golsEsq = 0, golsDir = 0;
+	for (int32 Index = 0; Index < JogosGameState->golsTimeEsq_pen.Num(); ++Index)
+		golsEsq += JogosGameState->golsTimeEsq_pen[Index];
+
+	for (int32 Index = 0; Index < JogosGameState->golsTimeDir_pen.Num(); ++Index)
+		golsDir += JogosGameState->golsTimeDir_pen[Index];
+
+	FString JoinedStrEsq("Esq:"), JoinedStrDir("Dir:");
+	for (auto& golzinho : JogosGameState->golsTimeEsq_pen)
+	{
+		JoinedStrEsq += TEXT(" ");
+		JoinedStrEsq += FString::FromInt(golzinho);
+	}
+	for (auto& golzinho : JogosGameState->golsTimeDir_pen)
+	{
+		JoinedStrDir += FString::FromInt(golzinho);
+		JoinedStrDir += TEXT(" ");
+	}
+	
+	GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, JoinedStrEsq);
+	GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, JoinedStrDir);
+
+	acabou = false;
+	if (JogosGameState->golsTimeEsq_pen.Num() >= 5 && JogosGameState->golsTimeDir_pen.Num() >= 5)
+	{
+		if (JogosGameState->golsTimeEsq_pen.Num() == JogosGameState->golsTimeDir_pen.Num())
+		{
+			if (golsEsq - golsDir != 0)
+			{
+				acabou = true;
+				decideVencedor( (golsEsq - golsDir < 0) ? "time dir" : "time esq");
+			}
+		}
+	}
+	else
+	{
+		if ( (golsEsq - golsDir) > 5 - JogosGameState->golsTimeDir_pen.Num())
+		{
+			acabou = true;
+			decideVencedor("time esq");
+		}
+		if ( (golsDir - golsEsq) > 5 - JogosGameState->golsTimeEsq_pen.Num())
+		{
+			acabou = true;
+			decideVencedor("time dir");
+		}
+	}
+
+	if(!acabou)
+	{
+		JogosGameState->penalidades = true;
+		reiniciaPartida(false, vezTimeEsquerdo);
+		JogosGameState->golEsquerdoAtivado_pen = !vezTimeEsquerdo;
+		JogosGameState->golDireitoAtivado_pen = vezTimeEsquerdo;
+		paralisaMovimentacao(false);
+		antesDoComeco();
+	}
+}
+
+void AOJogoGameMode::atualizaContagem()
+{
+	if (vezTimeEsquerdo && JogosGameState->penalidades)
+		JogosGameState->golsTimeEsq_pen.Add(0);
+	if (!vezTimeEsquerdo && JogosGameState->penalidades)
+		JogosGameState->golsTimeDir_pen.Add(0);
+	JogosGameState->penalidades = false;
+	penalidadesMaximas();
+}
+
+void AOJogoGameMode::decideVencedor(FString timeVencedor)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, timeVencedor);
+	paralisaMovimentacao(true);
+}
+
 void AOJogoGameMode::setBotGols(int32 golsEsq, int32 golsDir)
 {
 	if (JogosGameState->vsBotIA)
@@ -348,4 +435,12 @@ void AOJogoGameMode::setBotGols(int32 golsEsq, int32 golsDir)
 		else
 			botIA->setBotGols(golsDir, golsEsq);
 	}
+}
+
+void AOJogoGameMode::paralisaMovimentacao(bool ignora)
+{
+	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	PC->SetIgnoreMoveInput(ignora);
+
+	UAIBlueprintHelperLibrary::GetBlackboard(botIA)->SetValueAsBool(FName("canMove"), !ignora);
 }

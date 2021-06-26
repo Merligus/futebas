@@ -67,6 +67,24 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float alturaReinicio;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool penalidades;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool timeDireitoPrimeiro_pen;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool golEsquerdoAtivado_pen;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool golDireitoAtivado_pen;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<int32> golsTimeEsq_pen;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<int32> golsTimeDir_pen;
+
 	AOJogoGameState();
 	
 };

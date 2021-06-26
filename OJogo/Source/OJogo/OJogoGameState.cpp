@@ -25,4 +25,9 @@ AOJogoGameState::AOJogoGameState()
 	tempoParado = 2.0f;
 	tempoParadoEscanteio = 1.0f;
 	alturaReinicio = 800.0f;
+
+	penalidades = false;
+	timeDireitoPrimeiro_pen = false;
+	golEsquerdoAtivado_pen = false;
+	golDireitoAtivado_pen = false;
 }
