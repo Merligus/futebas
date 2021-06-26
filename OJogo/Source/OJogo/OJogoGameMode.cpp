@@ -208,6 +208,7 @@ void AOJogoGameMode::fimDePapo()
 	{
 		vezTimeEsquerdo = JogosGameState->timeDireitoPrimeiro_pen;
 		JogosGameState->tempo1Ou2 = 1;
+		JogosGameState->tempoRegulamentar = true;
 
 		FTimerHandle UnusedHandle;
 		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::penalidadesMaximas, JogosGameState->tempoParadoAntesInicioPartida, false);
@@ -241,6 +242,7 @@ void AOJogoGameMode::golEsquerdo()
 	{
 		JogosGameState->penalidades = false;
 		JogosGameState->golsTimeDir_pen.Add(1);
+		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::penalidadesMaximas, JogosGameState->tempoParado, false);
 	}
 }
 
@@ -266,6 +268,7 @@ void AOJogoGameMode::golDireito()
 	{
 		JogosGameState->penalidades = false;
 		JogosGameState->golsTimeEsq_pen.Add(1);
+		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::penalidadesMaximas, JogosGameState->tempoParado, false);
 	}
 }
 
@@ -286,6 +289,8 @@ void AOJogoGameMode::escanteio(AActor* pos)
 		FTimerHandle UnusedHandle;
 		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::escanteioTimedOut, JogosGameState->tempoParadoEscanteio, false);
 	}
+	else if (JogosGameState->penalidades)
+		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::atualizaContagem, JogosGameState->tempoParadoEscanteio, false);
 }
 
 void AOJogoGameMode::escanteioTimedOut()
@@ -351,12 +356,13 @@ void AOJogoGameMode::penalidadesMaximas()
 	bool acabou;
 	vezTimeEsquerdo = !vezTimeEsquerdo;
 
-	int32 golsEsq = 0, golsDir = 0;
+	JogosGameState->golsSomadosTimeEsq_pen = 0;
+	JogosGameState->golsSomadosTimeDir_pen = 0;
 	for (int32 Index = 0; Index < JogosGameState->golsTimeEsq_pen.Num(); ++Index)
-		golsEsq += JogosGameState->golsTimeEsq_pen[Index];
+		JogosGameState->golsSomadosTimeEsq_pen += JogosGameState->golsTimeEsq_pen[Index];
 
 	for (int32 Index = 0; Index < JogosGameState->golsTimeDir_pen.Num(); ++Index)
-		golsDir += JogosGameState->golsTimeDir_pen[Index];
+		JogosGameState->golsSomadosTimeDir_pen += JogosGameState->golsTimeDir_pen[Index];
 
 	FString JoinedStrEsq("Esq:"), JoinedStrDir("Dir:");
 	for (auto& golzinho : JogosGameState->golsTimeEsq_pen)
@@ -370,29 +376,29 @@ void AOJogoGameMode::penalidadesMaximas()
 		JoinedStrDir += TEXT(" ");
 	}
 	
-	GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, JoinedStrEsq);
-	GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, JoinedStrDir);
+	// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, JoinedStrEsq);
+	// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, JoinedStrDir);
 
 	acabou = false;
 	if (JogosGameState->golsTimeEsq_pen.Num() >= 5 && JogosGameState->golsTimeDir_pen.Num() >= 5)
 	{
 		if (JogosGameState->golsTimeEsq_pen.Num() == JogosGameState->golsTimeDir_pen.Num())
 		{
-			if (golsEsq - golsDir != 0)
+			if (JogosGameState->golsSomadosTimeEsq_pen - JogosGameState->golsSomadosTimeDir_pen != 0)
 			{
 				acabou = true;
-				decideVencedor( (golsEsq - golsDir < 0) ? "time dir" : "time esq");
+				decideVencedor( (JogosGameState->golsSomadosTimeEsq_pen - JogosGameState->golsSomadosTimeDir_pen < 0) ? "time dir" : "time esq");
 			}
 		}
 	}
 	else
 	{
-		if ( (golsEsq - golsDir) > 5 - JogosGameState->golsTimeDir_pen.Num())
+		if ( (JogosGameState->golsSomadosTimeEsq_pen - JogosGameState->golsSomadosTimeDir_pen) > 5 - JogosGameState->golsTimeDir_pen.Num())
 		{
 			acabou = true;
 			decideVencedor("time esq");
 		}
-		if ( (golsDir - golsEsq) > 5 - JogosGameState->golsTimeEsq_pen.Num())
+		if ( (JogosGameState->golsSomadosTimeDir_pen - JogosGameState->golsSomadosTimeEsq_pen) > 5 - JogosGameState->golsTimeEsq_pen.Num())
 		{
 			acabou = true;
 			decideVencedor("time dir");

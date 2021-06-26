@@ -30,4 +30,6 @@ AOJogoGameState::AOJogoGameState()
 	timeDireitoPrimeiro_pen = false;
 	golEsquerdoAtivado_pen = false;
 	golDireitoAtivado_pen = false;
+	golsSomadosTimeEsq_pen = 0;
+	golsSomadosTimeDir_pen = 0;
 }

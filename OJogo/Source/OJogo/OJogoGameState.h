@@ -85,6 +85,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<int32> golsTimeDir_pen;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 golsSomadosTimeEsq_pen;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 golsSomadosTimeDir_pen;
+
 	AOJogoGameState();
 	
 };
