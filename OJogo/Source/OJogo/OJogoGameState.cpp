@@ -32,4 +32,6 @@ AOJogoGameState::AOJogoGameState()
 	golDireitoAtivado_pen = false;
 	golsSomadosTimeEsq_pen = 0;
 	golsSomadosTimeDir_pen = 0;
+	golsTimeEsq_pen.Init(2, 5);
+	golsTimeDir_pen.Init(2, 5);
 }

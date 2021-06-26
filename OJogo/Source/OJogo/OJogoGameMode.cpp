@@ -241,8 +241,9 @@ void AOJogoGameMode::golEsquerdo()
 	else if (JogosGameState->penalidades && JogosGameState->golEsquerdoAtivado_pen)
 	{
 		JogosGameState->penalidades = false;
-		JogosGameState->golsTimeDir_pen.Add(1);
-		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::penalidadesMaximas, JogosGameState->tempoParado, false);
+		GetWorldTimerManager().PauseTimer(JogosGameState->tempo1);
+		FTimerHandle UnusedHandle;
+		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::atualizaContagem, JogosGameState->tempoParado, false);
 	}
 }
 
@@ -267,8 +268,9 @@ void AOJogoGameMode::golDireito()
 	else if (JogosGameState->penalidades && JogosGameState->golDireitoAtivado_pen)
 	{
 		JogosGameState->penalidades = false;
-		JogosGameState->golsTimeEsq_pen.Add(1);
-		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::penalidadesMaximas, JogosGameState->tempoParado, false);
+		GetWorldTimerManager().PauseTimer(JogosGameState->tempo1);
+		FTimerHandle UnusedHandle;
+		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::atualizaContagem, JogosGameState->tempoParado, false);
 	}
 }
 
@@ -290,7 +292,11 @@ void AOJogoGameMode::escanteio(AActor* pos)
 		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::escanteioTimedOut, JogosGameState->tempoParadoEscanteio, false);
 	}
 	else if (JogosGameState->penalidades)
-		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::atualizaContagem, JogosGameState->tempoParadoEscanteio, false);
+	{
+		GetWorldTimerManager().PauseTimer(JogosGameState->tempo1);
+		FTimerHandle UnusedHandle;
+		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::atualizaContagem, JogosGameState->tempoParado, false);
+	}
 }
 
 void AOJogoGameMode::escanteioTimedOut()
@@ -354,35 +360,50 @@ void AOJogoGameMode::reiniciaBolaMeio()
 void AOJogoGameMode::penalidadesMaximas()
 {
 	bool acabou;
+	int32 faltamEsq_pen, faltamDir_pen;
+
 	vezTimeEsquerdo = !vezTimeEsquerdo;
 
 	JogosGameState->golsSomadosTimeEsq_pen = 0;
-	JogosGameState->golsSomadosTimeDir_pen = 0;
+	faltamEsq_pen = 0;
 	for (int32 Index = 0; Index < JogosGameState->golsTimeEsq_pen.Num(); ++Index)
-		JogosGameState->golsSomadosTimeEsq_pen += JogosGameState->golsTimeEsq_pen[Index];
-
+	{
+		if (JogosGameState->golsTimeEsq_pen[Index] != 2)
+			JogosGameState->golsSomadosTimeEsq_pen += JogosGameState->golsTimeEsq_pen[Index];
+		else
+			faltamEsq_pen++;
+	}
+	
+	JogosGameState->golsSomadosTimeDir_pen = 0;
+	faltamDir_pen = 0;
 	for (int32 Index = 0; Index < JogosGameState->golsTimeDir_pen.Num(); ++Index)
-		JogosGameState->golsSomadosTimeDir_pen += JogosGameState->golsTimeDir_pen[Index];
-
-	FString JoinedStrEsq("Esq:"), JoinedStrDir("Dir:");
-	for (auto& golzinho : JogosGameState->golsTimeEsq_pen)
 	{
-		JoinedStrEsq += TEXT(" ");
-		JoinedStrEsq += FString::FromInt(golzinho);
+		if (JogosGameState->golsTimeDir_pen[Index] != 2)
+			JogosGameState->golsSomadosTimeDir_pen += JogosGameState->golsTimeDir_pen[Index];
+		else
+			faltamDir_pen++;
 	}
-	for (auto& golzinho : JogosGameState->golsTimeDir_pen)
-	{
-		JoinedStrDir += FString::FromInt(golzinho);
-		JoinedStrDir += TEXT(" ");
-	}
+	
+	// debug
+	// FString JoinedStrEsq("Esq:"), JoinedStrDir("Dir:");
+	// for (auto& golzinho : JogosGameState->golsTimeEsq_pen)
+	// {
+	// 	JoinedStrEsq += TEXT(" ");
+	// 	JoinedStrEsq += FString::FromInt(golzinho);
+	// }
+	// for (auto& golzinho : JogosGameState->golsTimeDir_pen)
+	// {
+	// 	JoinedStrDir += FString::FromInt(golzinho);
+	// 	JoinedStrDir += TEXT(" ");
+	// }
 	
 	// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, JoinedStrEsq);
 	// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, JoinedStrDir);
 
 	acabou = false;
-	if (JogosGameState->golsTimeEsq_pen.Num() >= 5 && JogosGameState->golsTimeDir_pen.Num() >= 5)
+	if (JogosGameState->golsTimeEsq_pen.Num() > 5 && JogosGameState->golsTimeDir_pen.Num() > 5)
 	{
-		if (JogosGameState->golsTimeEsq_pen.Num() == JogosGameState->golsTimeDir_pen.Num())
+		if (faltamEsq_pen == faltamDir_pen)
 		{
 			if (JogosGameState->golsSomadosTimeEsq_pen - JogosGameState->golsSomadosTimeDir_pen != 0)
 			{
@@ -393,12 +414,12 @@ void AOJogoGameMode::penalidadesMaximas()
 	}
 	else
 	{
-		if ( (JogosGameState->golsSomadosTimeEsq_pen - JogosGameState->golsSomadosTimeDir_pen) > 5 - JogosGameState->golsTimeDir_pen.Num())
+		if ( (JogosGameState->golsSomadosTimeEsq_pen - JogosGameState->golsSomadosTimeDir_pen) > faltamDir_pen)
 		{
 			acabou = true;
 			decideVencedor("time esq");
 		}
-		if ( (JogosGameState->golsSomadosTimeDir_pen - JogosGameState->golsSomadosTimeEsq_pen) > 5 - JogosGameState->golsTimeEsq_pen.Num())
+		if ( (JogosGameState->golsSomadosTimeDir_pen - JogosGameState->golsSomadosTimeEsq_pen) > faltamEsq_pen)
 		{
 			acabou = true;
 			decideVencedor("time dir");
@@ -418,12 +439,45 @@ void AOJogoGameMode::penalidadesMaximas()
 
 void AOJogoGameMode::atualizaContagem()
 {
-	if (vezTimeEsquerdo && JogosGameState->penalidades)
-		JogosGameState->golsTimeEsq_pen.Add(0);
-	if (!vezTimeEsquerdo && JogosGameState->penalidades)
-		JogosGameState->golsTimeDir_pen.Add(0);
+	if (vezTimeEsquerdo)
+	{
+		if (JogosGameState->penalidades)
+			JogosGameState->golsTimeEsq_pen = atualizaPenalidades(JogosGameState->golsTimeEsq_pen, 0);
+		else
+			JogosGameState->golsTimeEsq_pen = atualizaPenalidades(JogosGameState->golsTimeEsq_pen, 1);
+	}
+	if (!vezTimeEsquerdo)
+	{
+		if (JogosGameState->penalidades)
+			JogosGameState->golsTimeDir_pen = atualizaPenalidades(JogosGameState->golsTimeDir_pen, 0);
+		else
+			JogosGameState->golsTimeDir_pen = atualizaPenalidades(JogosGameState->golsTimeDir_pen, 1);
+	}
 	JogosGameState->penalidades = false;
 	penalidadesMaximas();
+}
+
+TArray<int32> AOJogoGameMode::atualizaPenalidades(TArray<int32> array_pen, int32 pen)
+{
+	int32 i;
+	if (array_pen[array_pen.Num() - 1] != 2)
+	{
+		for (i = 0; i < 5; ++i)
+		{
+			JogosGameState->golsTimeEsq_pen.Add(2);
+			JogosGameState->golsTimeDir_pen.Add(2);
+			array_pen.Add(2);
+		}
+	}
+	i = array_pen.Num() - 1;
+	while (i >= 0)
+	{
+		if (array_pen[i] != 2)
+			break;
+		--i;
+	}
+	array_pen[i + 1] = pen;
+	return array_pen;
 }
 
 void AOJogoGameMode::decideVencedor(FString timeVencedor)

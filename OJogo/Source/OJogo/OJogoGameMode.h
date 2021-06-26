@@ -104,6 +104,9 @@ public:
 	void atualizaContagem();
 
 	UFUNCTION(BlueprintCallable)
+	TArray<int32> atualizaPenalidades(TArray<int32> array_pen, int32 pen);
+
+	UFUNCTION(BlueprintCallable)
 	void decideVencedor(FString timeVencedor);
 
 	UFUNCTION(BlueprintCallable)
