@@ -76,8 +76,8 @@ AOJogoCharacter::AOJogoCharacter()
 	bReplicates = true;
 
 
-	MaxForcaChute = 5000.0f;
-	MaxForcaCabeceio = 5000.0f;
+	maxForcaChute = 5000.0f;
+	maxForcaCabeceio = 5000.0f;
 	velocidade = GetCharacterMovement()->MaxWalkSpeed;
 	velocidadeCarrinho = 1200.0f;
 	aceleracaoCarrinho = 10000.0f;
@@ -271,14 +271,14 @@ void AOJogoCharacter::UpdateCharacter()
 
 void AOJogoCharacter::setHabilidades(const FHabilidadesData h)
 {
-	this->MaxForcaChute = h.MaxForcaChute;
-	this->MaxForcaCabeceio = h.MaxForcaCabeceio;
-	this->setVelocidade(h.velocidade);
-	this->velocidadeCarrinho = h.velocidadeCarrinho;
-	this->aceleracaoCarrinho = h.aceleracaoCarrinho;
-	this->staminaRegen = h.staminaRegen;
-	this->jumpStaminaCost = h.jumpStaminaCost;
-	this->slidingStaminaCost = h.slidingStaminaCost;
+	this->maxForcaChute = h.converteMaxForcaChute();
+	this->maxForcaCabeceio = h.converteMaxForcaCabeceio();
+	this->setVelocidade(h.converteVelocidade());
+	this->velocidadeCarrinho = h.converteVelocidadeCarrinho();
+	this->aceleracaoCarrinho = h.converteAceleracaoCarrinho();
+	this->staminaRegen = h.converteStaminaRegen();
+	this->jumpStaminaCost = h.converteJumpStaminaCost();
+	this->slidingStaminaCost = h.converteSlidingStaminaCost();
 }
 
 void AOJogoCharacter::setVelocidade(float v)

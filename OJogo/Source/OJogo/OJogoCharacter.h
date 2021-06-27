@@ -64,10 +64,10 @@ protected:
 	class UPaperFlipbookComponent* chuteira;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
-	float MaxForcaChute;
+	float maxForcaChute;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
-	float MaxForcaCabeceio;
+	float maxForcaCabeceio;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
 	float velocidade;

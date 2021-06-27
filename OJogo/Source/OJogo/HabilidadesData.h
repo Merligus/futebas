@@ -22,19 +22,16 @@ struct FHabilidadesData : public FTableRowBase
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Habilidades")
-	float MaxForcaChute;
+	float maxForcaChute;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Habilidades")
-	float MaxForcaCabeceio;
+	float maxForcaCabeceio;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Habilidades")
 	float velocidade;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Habilidades")
 	float velocidadeCarrinho;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Habilidades")
-	float aceleracaoCarrinho;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Habilidades")
 	float staminaRegen;
@@ -47,18 +44,27 @@ struct FHabilidadesData : public FTableRowBase
 
 	FHabilidadesData()
 	{
-		MaxForcaChute = 5000.0f;
-		MaxForcaCabeceio = 5000.0f;
-		velocidade = 600.0f;
-		velocidadeCarrinho = 1200.0f;
-		aceleracaoCarrinho = 10000.0f;
-		staminaRegen = 0.05f;
-		jumpStaminaCost = 5.0f;
-		slidingStaminaCost = 20.0f;
+		maxForcaChute = 0.5f;
+		maxForcaCabeceio = 0.5f;
+		velocidade = 0.5f;
+		velocidadeCarrinho = 0.5f;
+		staminaRegen = 0.5f;
+		jumpStaminaCost = 0.5f;
+		slidingStaminaCost = 0.5f;
 	}
 
 	~FHabilidadesData()
 	{
 
 	}
+
+	FORCEINLINE float converteMaxForcaChute() const { return maxForcaChute*(5000) + 3000; }
+	FORCEINLINE float converteMaxForcaCabeceio() const { return maxForcaCabeceio*(5000) + 3000; }
+	FORCEINLINE float converteVelocidade() const { return velocidade*(300) + 500; }
+	FORCEINLINE float converteVelocidadeCarrinho() const { return velocidadeCarrinho*(600) + 1000; }
+	FORCEINLINE float converteAceleracaoCarrinho() const { return velocidadeCarrinho*(6000) + 10000; }
+	FORCEINLINE float converteStaminaRegen() const { return staminaRegen*(0.05) + 0.05; }
+	FORCEINLINE float converteJumpStaminaCost() const { return jumpStaminaCost*(8) + 2; }
+	FORCEINLINE float converteSlidingStaminaCost() const { return slidingStaminaCost*(15) + 5; }
+
 };
