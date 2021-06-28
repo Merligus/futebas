@@ -21,6 +21,21 @@ class AOJogoGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 
+	UPROPERTY(VisibleAnywhere)
+	FTimerHandle delayTimedOut;
+
+	UPROPERTY(VisibleAnywhere)
+	bool golTimeEsq;
+
+	UPROPERTY(VisibleAnywhere)
+	int32 faltamEsq_pen;
+
+	UPROPERTY(VisibleAnywhere)
+	bool golTimeDir;
+
+	UPROPERTY(VisibleAnywhere)
+	int32 faltamDir_pen;
+
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UFutebasGameInstance* FutebasGI;
@@ -105,6 +120,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	TArray<int32> atualizaPenalidades(TArray<int32> array_pen, int32 pen);
+
+	UFUNCTION(BlueprintCallable)
+	void penaltyTimedOut();
 
 	UFUNCTION(BlueprintCallable)
 	void decideVencedor(FString timeVencedor);

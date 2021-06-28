@@ -155,7 +155,7 @@ void AOJogoGameMode::antesDoComecoTimedOut()
 	if (!JogosGameState->penalidades)
 		comecaJogo();
 	else
-		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::atualizaContagem, 10.0f, false);
+		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::penaltyTimedOut, 5.0f, false);
 }
 
 void AOJogoGameMode::comecaJogo()
@@ -178,6 +178,8 @@ void AOJogoGameMode::terminaTempo()
 	if (JogosGameState->tempo1Ou2 == 1)
 	{
 		JogosGameState->tempo1Ou2 = 2;
+		GetWorldTimerManager().ClearTimer(delayTimedOut);
+		paralisaMovimentacao(true);
 		FTimerHandle UnusedHandle;
 		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::terminaTempoTimedOut, JogosGameState->tempoParadoAntesInicioPartida, false);
 	}
@@ -190,6 +192,7 @@ void AOJogoGameMode::terminaTempo()
 
 void AOJogoGameMode::terminaTempoTimedOut()
 {
+	paralisaMovimentacao(false);
 	JogosGameState->tempoRegulamentar = true;
 	JogosGameState->acrescimos = FTimespan(0, 0, 0);
 	JogosGameState->posIndex.Swap(0, 1);
@@ -206,13 +209,17 @@ void AOJogoGameMode::fimDePapo()
 
 	if (JogosGameState->golsTimeDir == JogosGameState->golsTimeEsq)
 	{
+		JogosGameState->penalidades = true;
 		vezTimeEsquerdo = JogosGameState->timeDireitoPrimeiro_pen;
 		JogosGameState->tempo1Ou2 = 1;
 		JogosGameState->tempoRegulamentar = true;
+		botIA->setBotGols(0, 100);
 
 		FTimerHandle UnusedHandle;
 		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::penalidadesMaximas, JogosGameState->tempoParadoAntesInicioPartida, false);
 	}
+	else
+		decideVencedor( (JogosGameState->golsTimeEsq - JogosGameState->golsTimeDir < 0) ? "time dir" : "time esq");
 }
 
 void AOJogoGameMode::trocaTimes()
@@ -235,15 +242,17 @@ void AOJogoGameMode::golEsquerdo()
 		JogosGameState->bolaEmJogo = false;
 		JogosGameState->golsTimeDir += 1;
 		setBotGols(JogosGameState->golsTimeEsq, JogosGameState->golsTimeDir);
-		FTimerHandle UnusedHandle;
-		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::golEsquerdoTimedOut, JogosGameState->tempoParado, false);
+		GetWorldTimerManager().SetTimer(delayTimedOut, this, &AOJogoGameMode::golEsquerdoTimedOut, JogosGameState->tempoParado, false);
 	}
-	else if (JogosGameState->penalidades && JogosGameState->golEsquerdoAtivado_pen)
+	else if (JogosGameState->penalidades && GetWorldTimerManager().IsTimerActive(JogosGameState->tempo1))
 	{
-		JogosGameState->penalidades = false;
 		GetWorldTimerManager().PauseTimer(JogosGameState->tempo1);
+		paralisaMovimentacao(true);
+		if (JogosGameState->golEsquerdoAtivado_pen)
+			golTimeDir = true;
+		atualizaContagem();
 		FTimerHandle UnusedHandle;
-		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::atualizaContagem, JogosGameState->tempoParado, false);
+		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::penalidadesMaximas, JogosGameState->tempoParado, false);
 	}
 }
 
@@ -262,15 +271,17 @@ void AOJogoGameMode::golDireito()
 		JogosGameState->bolaEmJogo = false;
 		JogosGameState->golsTimeEsq += 1;
 		setBotGols(JogosGameState->golsTimeEsq, JogosGameState->golsTimeDir);
-		FTimerHandle UnusedHandle;
-		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::golDireitoTimedOut, JogosGameState->tempoParado, false);
+		GetWorldTimerManager().SetTimer(delayTimedOut, this, &AOJogoGameMode::golDireitoTimedOut, JogosGameState->tempoParado, false);
 	}
-	else if (JogosGameState->penalidades && JogosGameState->golDireitoAtivado_pen)
+	else if (JogosGameState->penalidades && GetWorldTimerManager().IsTimerActive(JogosGameState->tempo1))
 	{
-		JogosGameState->penalidades = false;
 		GetWorldTimerManager().PauseTimer(JogosGameState->tempo1);
+		paralisaMovimentacao(true);
+		if (JogosGameState->golDireitoAtivado_pen)
+			golTimeEsq = true;
+		atualizaContagem();
 		FTimerHandle UnusedHandle;
-		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::atualizaContagem, JogosGameState->tempoParado, false);
+		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::penalidadesMaximas, JogosGameState->tempoParado, false);
 	}
 }
 
@@ -288,14 +299,15 @@ void AOJogoGameMode::escanteio(AActor* pos)
 	if (JogosGameState->bolaEmJogo)
 	{
 		JogosGameState->bolaEmJogo = false;
-		FTimerHandle UnusedHandle;
-		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::escanteioTimedOut, JogosGameState->tempoParadoEscanteio, false);
+		GetWorldTimerManager().SetTimer(delayTimedOut, this, &AOJogoGameMode::escanteioTimedOut, JogosGameState->tempoParadoEscanteio, false);
 	}
-	else if (JogosGameState->penalidades)
+	else if (JogosGameState->penalidades && GetWorldTimerManager().IsTimerActive(JogosGameState->tempo1))
 	{
 		GetWorldTimerManager().PauseTimer(JogosGameState->tempo1);
+		paralisaMovimentacao(true);
+		atualizaContagem();
 		FTimerHandle UnusedHandle;
-		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::atualizaContagem, JogosGameState->tempoParado, false);
+		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::penalidadesMaximas, JogosGameState->tempoParado, false);
 	}
 }
 
@@ -317,14 +329,10 @@ void AOJogoGameMode::escanteioTimedOut()
 			Sphere->SetWorldLocation(posicao->GetActorLocation(), false, NULL, ETeleportType::TeleportPhysics);
 		}
 		else
-		{
 			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Sphere nao achada no escanteio")));
-		}
 	}
 	else
-	{
 		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola nao achada no escanteio")));
-	}
 }
 
 void AOJogoGameMode::reiniciaBolaMeio()
@@ -360,30 +368,7 @@ void AOJogoGameMode::reiniciaBolaMeio()
 void AOJogoGameMode::penalidadesMaximas()
 {
 	bool acabou;
-	int32 faltamEsq_pen, faltamDir_pen;
 
-	vezTimeEsquerdo = !vezTimeEsquerdo;
-
-	JogosGameState->golsSomadosTimeEsq_pen = 0;
-	faltamEsq_pen = 0;
-	for (int32 Index = 0; Index < JogosGameState->golsTimeEsq_pen.Num(); ++Index)
-	{
-		if (JogosGameState->golsTimeEsq_pen[Index] != 2)
-			JogosGameState->golsSomadosTimeEsq_pen += JogosGameState->golsTimeEsq_pen[Index];
-		else
-			faltamEsq_pen++;
-	}
-	
-	JogosGameState->golsSomadosTimeDir_pen = 0;
-	faltamDir_pen = 0;
-	for (int32 Index = 0; Index < JogosGameState->golsTimeDir_pen.Num(); ++Index)
-	{
-		if (JogosGameState->golsTimeDir_pen[Index] != 2)
-			JogosGameState->golsSomadosTimeDir_pen += JogosGameState->golsTimeDir_pen[Index];
-		else
-			faltamDir_pen++;
-	}
-	
 	// debug
 	// FString JoinedStrEsq("Esq:"), JoinedStrDir("Dir:");
 	// for (auto& golzinho : JogosGameState->golsTimeEsq_pen)
@@ -399,7 +384,8 @@ void AOJogoGameMode::penalidadesMaximas()
 	
 	// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, JoinedStrEsq);
 	// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, JoinedStrDir);
-
+	
+	vezTimeEsquerdo = !vezTimeEsquerdo;
 	acabou = false;
 	if (JogosGameState->golsTimeEsq_pen.Num() > 5 && JogosGameState->golsTimeDir_pen.Num() > 5)
 	{
@@ -428,8 +414,9 @@ void AOJogoGameMode::penalidadesMaximas()
 
 	if(!acabou)
 	{
-		JogosGameState->penalidades = true;
 		reiniciaPartida(false, vezTimeEsquerdo);
+		golTimeEsq = false;
+		golTimeDir = false;
 		JogosGameState->golEsquerdoAtivado_pen = !vezTimeEsquerdo;
 		JogosGameState->golDireitoAtivado_pen = vezTimeEsquerdo;
 		paralisaMovimentacao(false);
@@ -441,20 +428,38 @@ void AOJogoGameMode::atualizaContagem()
 {
 	if (vezTimeEsquerdo)
 	{
-		if (JogosGameState->penalidades)
+		if (!golTimeEsq)
 			JogosGameState->golsTimeEsq_pen = atualizaPenalidades(JogosGameState->golsTimeEsq_pen, 0);
 		else
 			JogosGameState->golsTimeEsq_pen = atualizaPenalidades(JogosGameState->golsTimeEsq_pen, 1);
 	}
 	if (!vezTimeEsquerdo)
 	{
-		if (JogosGameState->penalidades)
+		if (!golTimeDir)
 			JogosGameState->golsTimeDir_pen = atualizaPenalidades(JogosGameState->golsTimeDir_pen, 0);
 		else
 			JogosGameState->golsTimeDir_pen = atualizaPenalidades(JogosGameState->golsTimeDir_pen, 1);
 	}
-	JogosGameState->penalidades = false;
-	penalidadesMaximas();
+
+	JogosGameState->golsSomadosTimeEsq_pen = 0;
+	faltamEsq_pen = 0;
+	for (int32 Index = 0; Index < JogosGameState->golsTimeEsq_pen.Num(); ++Index)
+	{
+		if (JogosGameState->golsTimeEsq_pen[Index] != 2)
+			JogosGameState->golsSomadosTimeEsq_pen += JogosGameState->golsTimeEsq_pen[Index];
+		else
+			faltamEsq_pen++;
+	}
+	
+	JogosGameState->golsSomadosTimeDir_pen = 0;
+	faltamDir_pen = 0;
+	for (int32 Index = 0; Index < JogosGameState->golsTimeDir_pen.Num(); ++Index)
+	{
+		if (JogosGameState->golsTimeDir_pen[Index] != 2)
+			JogosGameState->golsSomadosTimeDir_pen += JogosGameState->golsTimeDir_pen[Index];
+		else
+			faltamDir_pen++;
+	}
 }
 
 TArray<int32> AOJogoGameMode::atualizaPenalidades(TArray<int32> array_pen, int32 pen)
@@ -478,6 +483,12 @@ TArray<int32> AOJogoGameMode::atualizaPenalidades(TArray<int32> array_pen, int32
 	}
 	array_pen[i + 1] = pen;
 	return array_pen;
+}
+
+void AOJogoGameMode::penaltyTimedOut()
+{
+	atualizaContagem();
+	penalidadesMaximas();
 }
 
 void AOJogoGameMode::decideVencedor(FString timeVencedor)
