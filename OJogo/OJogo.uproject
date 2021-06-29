@@ -13,7 +13,8 @@
 				"UnrealEd",
 				"CoreUObject",
 				"AIModule",
-				"Niagara"
+				"Niagara",
+				"UMG"
 			]
 		}
 	],
