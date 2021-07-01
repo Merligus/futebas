@@ -13,7 +13,7 @@
 UCLASS()
 class OJOGO_API UFutebasGameInstance : public UPlatformGameInstance
 {
-	GENERATED_BODY()
+	GENERATED_BODY()	
 
 public:
 	
@@ -24,5 +24,10 @@ public:
 	FTeamData team2;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UDataTable* teams;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float volume;
+
+	FTeamData getTeam(int32 index);
 };
