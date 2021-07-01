@@ -47,13 +47,7 @@ struct FTeamData : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Team")
 	FJogadorData jogador;
 
-	FTeamData()
-	{
+	FTeamData() { }
 
-	}
-
-	~FTeamData()
-	{
-
-	}
+	~FTeamData() { }
 };
