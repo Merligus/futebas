@@ -13,10 +13,10 @@ bool UTeamSlotWidget::Initialize()
 	FTeamData b;
 
 	FutebasGI = GetGameInstance<UFutebasGameInstance>();
-	if (!FutebasGI)
+	if (FutebasGI)
 		b = FutebasGI->getTeam(0);
 	else
-		UE_LOG(LogTemp, Warning, TEXT("Futebas nao encontrado"));
+        return false;
 
     if (!ensure(timeBotao != nullptr))
         return false;

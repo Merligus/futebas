@@ -40,7 +40,7 @@ public:
 	UPROPERTY(BlueprintReadOnly, meta=(BindWidget))
 	UTextBlock* timeNome;
 
-	UPROPERTY(EditDefaultsOnly, meta=(BindWidget))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidget))
 	int32 indexSlot;
 
 	UPROPERTY(BlueprintAssignable, Category = "Delegate")
