@@ -3,14 +3,21 @@
 
 #include "FutebasGameInstance.h"
 
-FTeamData UFutebasGameInstance::getTeam(int32 index)
+void UFutebasGameInstance::loadTeams()
 {
     FString Context;
-    TArray<FTeamData*> teamsArray;
+    TArray<FTeamData*> aux;
 
-    teams->GetAllRows(Context, teamsArray);
+    teams->GetAllRows(Context, aux);
+
+    for (int32 i = 0; i < aux.Num(); ++i)
+        teamsArray.Add(*(aux[i]));
+}
+
+FTeamData UFutebasGameInstance::getTeam(int32 index)
+{
     if (index < teamsArray.Num())
-        return *(teamsArray[index]);
+        return teamsArray[index];
     else
         return FTeamData();
 }

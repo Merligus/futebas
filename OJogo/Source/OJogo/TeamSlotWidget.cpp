@@ -10,11 +10,9 @@ bool UTeamSlotWidget::Initialize()
     if (!success)
         return false;
 
-	FTeamData b;
-
 	FutebasGI = GetGameInstance<UFutebasGameInstance>();
 	if (FutebasGI)
-		b = FutebasGI->getTeam(0);
+		FutebasGI->loadTeams();
 	else
         return false;
 
@@ -22,19 +20,15 @@ bool UTeamSlotWidget::Initialize()
         return false;
     timeBotao->OnClicked.AddDynamic(this, &UTeamSlotWidget::ButtonClicked);
 
-    indexPassDelegate.AddDynamic(this, &UTeamSlotWidget::ButtonWasClicked);
-
     return true;
-}
-
-void UTeamSlotWidget::ButtonWasClicked(int32 index)
-{
-
 }
 
 void UTeamSlotWidget::ButtonClicked()
 {
-    indexPassDelegate.Broadcast(indexSlot);
+    if (FutebasGI)
+        FutebasGI->team1 = FutebasGI->getTeam(indexSlot);
+    else
+        GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Slot %d clicado mas FutebasGI null"), indexSlot));
 }
 
 FSlateBrush UTeamSlotWidget::bindFlagNome()
@@ -42,7 +36,7 @@ FSlateBrush UTeamSlotWidget::bindFlagNome()
 	if (FutebasGI)
     {
         timeNome->SetText(FText::FromString(FutebasGI->getTeam(indexSlot).nome_hud));
-		return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeam(indexSlot).flag, 640, 480);
+		return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeam(indexSlot).flag, 36, 24);
     }
 	else
     {

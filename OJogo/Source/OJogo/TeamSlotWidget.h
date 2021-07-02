@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Blueprint/UserWidget.h"
 #include "FutebasGameInstance.h"
 #include "Components/Image.h"
 #include "Components/Button.h"
@@ -14,8 +13,6 @@
 /**
  * 
  */
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTeamSlotDelegate, int32, index);
 
 UCLASS()
 class OJOGO_API UTeamSlotWidget : public UUserWidget
@@ -42,11 +39,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidget))
 	int32 indexSlot;
-
-	UPROPERTY(BlueprintAssignable, Category = "Delegate")
-	FTeamSlotDelegate indexPassDelegate;
-
-	void ButtonWasClicked(int32 index);
 
 	UFUNCTION(BlueprintCallable)
 	void ButtonClicked();

@@ -15,6 +15,9 @@ class OJOGO_API UFutebasGameInstance : public UPlatformGameInstance
 {
 	GENERATED_BODY()	
 
+	UPROPERTY()
+    TArray<FTeamData> teamsArray;
+
 public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -28,6 +31,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float volume;
+
+	void loadTeams();
 
 	FTeamData getTeam(int32 index);
 };
