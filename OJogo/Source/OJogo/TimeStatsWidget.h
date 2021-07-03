@@ -23,6 +23,9 @@ public:
 	virtual bool Initialize();
 
 	UFUNCTION(BlueprintCallable)
+	void sorteiaGruposCopa();
+
+	UFUNCTION(BlueprintCallable)
 	bool bindStatsEnabled();
 
 	UFUNCTION(BlueprintCallable)

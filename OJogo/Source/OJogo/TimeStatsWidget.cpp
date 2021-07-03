@@ -12,10 +12,21 @@ bool UTimeStatsWidget::Initialize()
         return false;
 
 	FutebasGI = GetGameInstance<UFutebasGameInstance>();
-	if (!FutebasGI)
+	if (FutebasGI)
+    {
+        FutebasGI->loadTeams(8);
+        FutebasGI->team1 = FTeamData();
+    }
+    else
         return false;
 
     return true;
+}
+
+void UTimeStatsWidget::sorteiaGruposCopa()
+{
+    if (FutebasGI)
+        FutebasGI->sortear(8);
 }
 
 bool UTimeStatsWidget::bindStatsEnabled()

@@ -66,5 +66,6 @@ struct FHabilidadesData : public FTableRowBase
 	FORCEINLINE float converteStaminaRegen() const { return staminaRegen*(0.05) + 0.05; }
 	FORCEINLINE float converteJumpStaminaCost() const { return jumpStaminaCost*(8) + 2; }
 	FORCEINLINE float converteSlidingStaminaCost() const { return slidingStaminaCost*(15) + 5; }
+	FORCEINLINE float overall() const { return (maxForcaChute + maxForcaCabeceio + velocidade + velocidadeCarrinho + staminaRegen)/5.0f; }
 
 };

@@ -18,6 +18,9 @@ class OJOGO_API UFutebasGameInstance : public UPlatformGameInstance
 	UPROPERTY()
     TArray<FTeamData> teamsArray;
 
+	UPROPERTY()
+    TMap<int32, int32> sorteioGrupo;
+
 public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -32,7 +35,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float volume;
 
-	void loadTeams();
+	void loadTeams(int32 grupos);
+
+	void sortear(int32 grupos);
 
 	FTeamData getTeam(int32 index);
 };
