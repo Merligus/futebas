@@ -28,6 +28,9 @@ void UFutebasGameInstance::loadTeams(int32 grupos)
             }
         );
         sortear(grupos);
+
+        for (int32 i = 0; i < grupos; ++i)
+            tabelaGrupos.Add(FCampeonatoData(teamsArray.Num()/grupos));
     }
 }
 
@@ -59,7 +62,7 @@ void UFutebasGameInstance::sortear(int32 grupos)
     }
     int32 qatarIndex = *(sorteioGrupo.FindKey(0));
     int32 timeCabecaGrupoA = sorteioGrupo[0];
-    sorteioGrupo[0] = 0; // cabeca grupo precisa ser o Qatar
+    sorteioGrupo[0] = 0; // cabeca grupo A precisa ser o Qatar
     sorteioGrupo[qatarIndex] = timeCabecaGrupoA; // o cabeca de grupo que o qatar estava deve ser substituido pelo antigo cabeca do grupo A
 }
 
@@ -69,4 +72,18 @@ FTeamData UFutebasGameInstance::getTeam(int32 index)
         return teamsArray[sorteioGrupo[index]];
     else
         return FTeamData();
+}
+
+void UFutebasGameInstance::bindIndexTimeGrupos()
+{
+    int32 grupoAtual, posicaoAtual;
+    int32 times_por_grupo = tabelaGrupos[0].n_times;
+
+    for (int32 indexSlot = 0; indexSlot < teamsArray.Num(); ++indexSlot)
+    {
+        grupoAtual = indexSlot/times_por_grupo;
+        posicaoAtual = indexSlot % times_por_grupo;
+
+        tabelaGrupos[grupoAtual].tabela[posicaoAtual].index_time = indexSlot;
+    }
 }

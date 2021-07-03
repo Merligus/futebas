@@ -42,4 +42,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	float bindEnergia();
+
+	UFUNCTION(BlueprintCallable)
+	void bindIndexTimeGrupos();
 };

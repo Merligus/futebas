@@ -76,3 +76,9 @@ float UTimeStatsWidget::bindEnergia()
     else
         return 0.0f;
 }
+
+void UTimeStatsWidget::bindIndexTimeGrupos()
+{
+    if (FutebasGI)
+        FutebasGI->bindIndexTimeGrupos();
+}

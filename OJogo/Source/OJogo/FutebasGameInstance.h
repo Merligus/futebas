@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "TeamData.h"
+#include "CampeonatoData.h"
 #include "Kismet/BlueprintPlatformLibrary.h"
 #include "FutebasGameInstance.generated.h"
 
@@ -30,6 +31,9 @@ public:
 	FTeamData team2;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FCampeonatoData> tabelaGrupos;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UDataTable* teams;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -40,4 +44,6 @@ public:
 	void sortear(int32 grupos);
 
 	FTeamData getTeam(int32 index);
+
+	void bindIndexTimeGrupos();
 };

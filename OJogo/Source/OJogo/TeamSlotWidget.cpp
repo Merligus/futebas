@@ -34,7 +34,7 @@ FSlateBrush UTeamSlotWidget::bindFlagNome()
 	if (FutebasGI)
     {
         timeNome->SetText(FText::FromString(FutebasGI->getTeam(indexSlot).nome_hud));
-		return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeam(indexSlot).flag, 36, 24);
+		return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeam(indexSlot).flag, 32, 24);
     }
 	else
     {

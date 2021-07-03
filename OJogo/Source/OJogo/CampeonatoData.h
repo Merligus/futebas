@@ -39,6 +39,8 @@ public:
 
 	void atualizaTabela(int32 indexX, int32 indexY, FResultadoData resultado);
 
+	void ordenaTabela();
+
 	FCampeonatoData(){}
 	FCampeonatoData(int32 n_times);
 	FCampeonatoData(int32 n_times, bool apenasIda);

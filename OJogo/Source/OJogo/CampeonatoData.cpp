@@ -20,7 +20,10 @@ void FCampeonatoData::atualizaTabela(int32 indexX, int32 indexY, FResultadoData 
     if (apenasIda)
         confrontos.casa[indexY].fora[indexX] = resultado;
     confrontos.casa[indexX].fora[indexY] = resultado;
+}
 
+void FCampeonatoData::ordenaTabela()
+{
     tabela.StableSort(
         [this](const FPosicaoData& A, const FPosicaoData& B) // return true = A antes de B
         {
