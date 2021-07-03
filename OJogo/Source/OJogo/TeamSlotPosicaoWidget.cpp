@@ -21,7 +21,7 @@ bool UTeamSlotPosicaoWidget::Initialize()
 
 FSlateBrush UTeamSlotPosicaoWidget::bindFlagTudo()
 {
-	if (FutebasGI && FutebasGI->tabelaGrupos.Num() > 0)
+	if (FutebasGI && FutebasGI->tabelaGrupos.Num() > 0 && indexSlot >= 0)
     {
         FPosicaoData posicao;
         int32 times_por_grupo = FutebasGI->tabelaGrupos[0].n_times;
@@ -43,16 +43,18 @@ FSlateBrush UTeamSlotPosicaoWidget::bindFlagTudo()
     }
 	else
     {
-        timeNome->SetText(FText::FromString(FString(TEXT("TIME"))));
-        timePontos->SetText(FText::FromString(FString(TEXT("0"))));
-        timePartidasJogadas->SetText(FText::FromString(FString(TEXT("0"))));
-        timeVitorias->SetText(FText::FromString(FString(TEXT("0"))));
-        timeEmpates->SetText(FText::FromString(FString(TEXT("0"))));
-        timeDerrotas->SetText(FText::FromString(FString(TEXT("0"))));
-        timeGolsPro->SetText(FText::FromString(FString(TEXT("0"))));
-        timeGolsContra->SetText(FText::FromString(FString(TEXT("0"))));
-        timeSaldoDeGols->SetText(FText::FromString(FString(TEXT("0"))));
-		return FSlateNoResource();
+        timeNome->SetText(FText::FromString(FString(TEXT("Equipe"))));
+        timePontos->SetText(FText::FromString(FString(TEXT("P"))));
+        timePartidasJogadas->SetText(FText::FromString(FString(TEXT("PJ"))));
+        timeVitorias->SetText(FText::FromString(FString(TEXT("V"))));
+        timeEmpates->SetText(FText::FromString(FString(TEXT("E"))));
+        timeDerrotas->SetText(FText::FromString(FString(TEXT("D"))));
+        timeGolsPro->SetText(FText::FromString(FString(TEXT("GP"))));
+        timeGolsContra->SetText(FText::FromString(FString(TEXT("GC"))));
+        timeSaldoDeGols->SetText(FText::FromString(FString(TEXT("SG"))));
+        FSlateBrush inv_img = FSlateNoResource();
+        inv_img.TintColor = FSlateColor(FLinearColor(0, 0, 0, 0));
+		return inv_img;
     }
 
 }
