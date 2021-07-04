@@ -24,10 +24,10 @@ struct FPartidasData : public FTableRowBase
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Partidas")
-	TArray<FPartidasLinhaData> casa;
+	TMap<int32, FPartidasLinhaData> casa;
 
-	void AddNewRow();
-	void AddUninitialized(const int32 RowCount, const int32 ColCount);
+	void AddNewRow(int32 index_time);
+	void AddUninitialized(TArray<int32> times);
 
 	FPartidasData(){}
 };

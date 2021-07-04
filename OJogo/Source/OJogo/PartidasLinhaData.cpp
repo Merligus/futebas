@@ -3,7 +3,7 @@
 
 #include "PartidasLinhaData.h"
 
-void FPartidasLinhaData::AddNewColumn()
+void FPartidasLinhaData::AddNewColumn(int32 index_time)
 {
-    fora.Add(FResultadoData());
+    fora.Add(index_time, FResultadoData());
 }

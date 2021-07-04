@@ -76,14 +76,84 @@ FTeamData UFutebasGameInstance::getTeam(int32 index)
 
 void UFutebasGameInstance::bindIndexTimeGrupos()
 {
-    int32 grupoAtual, posicaoAtual;
+    int32 grupoAtual, posicaoInicial;
     int32 times_por_grupo = tabelaGrupos[0].n_times;
 
     for (int32 indexSlot = 0; indexSlot < teamsArray.Num(); ++indexSlot)
     {
         grupoAtual = indexSlot/times_por_grupo;
-        posicaoAtual = indexSlot % times_por_grupo;
+        posicaoInicial = indexSlot % times_por_grupo;
 
-        tabelaGrupos[grupoAtual].tabela[posicaoAtual].index_time = indexSlot;
+        tabelaGrupos[grupoAtual].adicionaTime(indexSlot, posicaoInicial);
+    }
+
+    for (int32 grupo = 0; grupo < tabelaGrupos.Num(); ++grupo)
+    {
+        tabelaGrupos[grupo].montaConfrontos();
+
+        // debug
+        FString JoinedStrRodada("Grupo ");
+        JoinedStrRodada += FString::FromInt(grupo);
+        for (int32 rodada = 0; rodada < tabelaGrupos[grupo].times.Num()-1; ++rodada)
+        {
+            JoinedStrRodada += FString(" Rodada ");
+            JoinedStrRodada += FString::FromInt(rodada);
+            for (int32 indJogo = 0; indJogo < tabelaGrupos[grupo].calendario[rodada].jogos.Num(); ++indJogo)
+            {
+                JoinedStrRodada += TEXT(" (");
+                JoinedStrRodada += getTeam(tabelaGrupos[grupo].calendario[rodada].jogos[indJogo].casa).nome_hud;
+                JoinedStrRodada += TEXT(",");
+                JoinedStrRodada += getTeam(tabelaGrupos[grupo].calendario[rodada].jogos[indJogo].fora).nome_hud;
+                JoinedStrRodada += TEXT(")");
+            }
+        }
+        GEngine->AddOnScreenDebugMessage(-1, 150.0f, FColor::Red, JoinedStrRodada);
+    }
+}
+
+void UFutebasGameInstance::simulaJogosProximaRodada()
+{
+    for (int32 grupo = 0; grupo < tabelaGrupos.Num(); ++grupo)
+    {
+        int32 rodada_atual = tabelaGrupos[grupo].rodada_atual;
+        for (int32 ind_jogo = 0; ind_jogo < tabelaGrupos[grupo].calendario[rodada_atual].jogos.Num(); ++ind_jogo)
+        {
+            int32 index_t1 = tabelaGrupos[grupo].calendario[rodada_atual].jogos[ind_jogo].casa;
+            int32 index_t2 = tabelaGrupos[grupo].calendario[rodada_atual].jogos[ind_jogo].fora;
+            float overall_t1 = getTeam(index_t1).habilidades.overall();
+            float overall_t2 = getTeam(index_t2).habilidades.overall();
+            int32 gols_t1 = FMath::RandRange(0, FMath::TruncToInt(5*overall_t1));
+            int32 gols_t2 = FMath::RandRange(0, FMath::TruncToInt(5*overall_t2));
+
+            tabelaGrupos[grupo].atualizaTabela(index_t1, index_t2, gols_t1, gols_t2);
+        }
+        tabelaGrupos[grupo].terminaRodada();
+    }
+
+    // debug
+    for (int32 grupo = 0; grupo < tabelaGrupos.Num(); ++grupo)
+    {
+        FString JoinedStrRodada("Grupo ");
+        JoinedStrRodada += FString::FromInt(grupo);
+        JoinedStrRodada += FString(" Rodada ");
+        int32 rodada = tabelaGrupos[grupo].rodada_atual - 1;
+        JoinedStrRodada += FString::FromInt(rodada);
+        for (int32 indJogo = 0; indJogo < tabelaGrupos[grupo].calendario[rodada].jogos.Num(); ++indJogo)
+        {
+            int32 index_casa = tabelaGrupos[grupo].calendario[rodada].jogos[indJogo].casa;
+            int32 index_fora = tabelaGrupos[grupo].calendario[rodada].jogos[indJogo].fora;
+            int32 gols_casa = tabelaGrupos[grupo].confrontos.casa[index_casa].fora[index_fora].gols_casa;
+            int32 gols_fora = tabelaGrupos[grupo].confrontos.casa[index_casa].fora[index_fora].gols_fora;
+            JoinedStrRodada += TEXT(" (");
+            JoinedStrRodada += getTeam(index_casa).nome_hud;
+            JoinedStrRodada += TEXT(" ");
+            JoinedStrRodada += FString::FromInt(gols_casa);
+            JoinedStrRodada += TEXT(" x ");
+            JoinedStrRodada += FString::FromInt(gols_fora);
+            JoinedStrRodada += TEXT(" ");
+            JoinedStrRodada += getTeam(index_fora).nome_hud;
+            JoinedStrRodada += TEXT(")");
+        }
+        GEngine->AddOnScreenDebugMessage(-1, 150.0f, FColor::Red, JoinedStrRodada);
     }
 }

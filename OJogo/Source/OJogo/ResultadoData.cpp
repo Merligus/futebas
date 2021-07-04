@@ -5,6 +5,17 @@
 
 FResultadoData::FResultadoData()
 {
-    gols_casa = 0;
-    gols_fora = 0;
+    gols_casa = -1;
+    gols_fora = -1;
+}
+
+FResultadoData::FResultadoData(int32 empate)
+{
+    gols_casa = gols_fora = empate;
+}
+
+FResultadoData::FResultadoData(int32 casa, int32 fora)
+{
+    gols_casa = casa;
+    gols_fora = fora;
 }

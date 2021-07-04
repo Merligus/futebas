@@ -46,4 +46,6 @@ public:
 	FTeamData getTeam(int32 index);
 
 	void bindIndexTimeGrupos();
+
+	void simulaJogosProximaRodada();
 };

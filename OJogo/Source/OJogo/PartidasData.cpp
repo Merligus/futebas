@@ -3,19 +3,17 @@
 
 #include "PartidasData.h"
 
-void FPartidasData::AddNewRow()
+void FPartidasData::AddNewRow(int32 index_time)
 {
-    casa.Add(FPartidasLinhaData());
+    casa.Add(index_time, FPartidasLinhaData());
 }
 
-void FPartidasData::AddUninitialized(const int32 RowCount, const int32 ColCount)
+void FPartidasData::AddUninitialized(TArray<int32> times)
 {
-    //Add Rows
-    for(int32 v = 0; v < RowCount; v++)
-        AddNewRow();
-    
-    //Add Columns
-    for(int32 v = 0; v < RowCount; v++)
-        for(int32 b = 0; b < ColCount; b++)
-            casa[v].AddNewColumn();
+    for (auto& index_time : times)
+        AddNewRow(index_time);
+
+    for (auto& index_time1 : times)
+        for (auto& index_time2 : times)
+            casa[index_time1].AddNewColumn(index_time2);
 }

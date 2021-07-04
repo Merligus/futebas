@@ -29,4 +29,8 @@ public:
 	int32 gols_fora;
 
 	FResultadoData();
+
+	FResultadoData(int32 empate);
+
+	FResultadoData(int32 casa, int32 fora);
 };

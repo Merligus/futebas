@@ -24,9 +24,9 @@ struct FPartidasLinhaData : public FTableRowBase
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PartidasLinha")
-	TArray<FResultadoData> fora;
+	TMap<int32, FResultadoData> fora;
 
-	void AddNewColumn();
+	void AddNewColumn(int32 index_time);
 
 	FPartidasLinhaData(){}
 };
