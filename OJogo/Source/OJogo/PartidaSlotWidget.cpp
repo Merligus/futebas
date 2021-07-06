@@ -23,11 +23,11 @@ FSlateBrush UPartidaSlotWidget::bindFlagTudo1()
 {
 	if (FutebasGI)
     {
-        int32 max_rodadas = FutebasGI->tabelaGrupos[grupo].times.Num()-2;
-        int32 index_casa = FutebasGI->tabelaGrupos[grupo].calendario[FMath::Clamp(rodada-1, 0, max_rodadas)].jogos[index_jogo].casa;
-        int32 index_fora = FutebasGI->tabelaGrupos[grupo].calendario[FMath::Clamp(rodada-1, 0, max_rodadas)].jogos[index_jogo].fora;
-        int32 gols_casa = FutebasGI->tabelaGrupos[grupo].confrontos.casa[index_casa].fora[index_fora].gols_casa;
-        int32 gols_fora = FutebasGI->tabelaGrupos[grupo].confrontos.casa[index_casa].fora[index_fora].gols_fora;
+        int32 max_rodadas = FutebasGI->copa_do_mundo.tabelaGrupos[grupo].times.Num()-2;
+        int32 index_casa = FutebasGI->copa_do_mundo.tabelaGrupos[grupo].calendario[FMath::Clamp(rodada-1, 0, max_rodadas)].jogos[index_jogo].casa;
+        int32 index_fora = FutebasGI->copa_do_mundo.tabelaGrupos[grupo].calendario[FMath::Clamp(rodada-1, 0, max_rodadas)].jogos[index_jogo].fora;
+        int32 gols_casa = FutebasGI->copa_do_mundo.tabelaGrupos[grupo].confrontos.casa[index_casa].fora[index_fora].gols_casa;
+        int32 gols_fora = FutebasGI->copa_do_mundo.tabelaGrupos[grupo].confrontos.casa[index_casa].fora[index_fora].gols_fora;
 
         time1Nome->SetText(FText::FromString(FutebasGI->getTeam(index_casa).nome_hud));
         if (gols_casa >= 0)
@@ -48,11 +48,11 @@ FSlateBrush UPartidaSlotWidget::bindFlagTudo2()
 {
 	if (FutebasGI)
     {
-        int32 max_rodadas = FutebasGI->tabelaGrupos[grupo].times.Num()-2;
-        int32 index_casa = FutebasGI->tabelaGrupos[grupo].calendario[FMath::Clamp(rodada-1, 0, max_rodadas)].jogos[index_jogo].casa;
-        int32 index_fora = FutebasGI->tabelaGrupos[grupo].calendario[FMath::Clamp(rodada-1, 0, max_rodadas)].jogos[index_jogo].fora;
-        int32 gols_casa = FutebasGI->tabelaGrupos[grupo].confrontos.casa[index_casa].fora[index_fora].gols_casa;
-        int32 gols_fora = FutebasGI->tabelaGrupos[grupo].confrontos.casa[index_casa].fora[index_fora].gols_fora;
+        int32 max_rodadas = FutebasGI->copa_do_mundo.tabelaGrupos[grupo].times.Num()-2;
+        int32 index_casa = FutebasGI->copa_do_mundo.tabelaGrupos[grupo].calendario[FMath::Clamp(rodada-1, 0, max_rodadas)].jogos[index_jogo].casa;
+        int32 index_fora = FutebasGI->copa_do_mundo.tabelaGrupos[grupo].calendario[FMath::Clamp(rodada-1, 0, max_rodadas)].jogos[index_jogo].fora;
+        int32 gols_casa = FutebasGI->copa_do_mundo.tabelaGrupos[grupo].confrontos.casa[index_casa].fora[index_fora].gols_casa;
+        int32 gols_fora = FutebasGI->copa_do_mundo.tabelaGrupos[grupo].confrontos.casa[index_casa].fora[index_fora].gols_fora;
 
         time2Nome->SetText(FText::FromString(FutebasGI->getTeam(index_fora).nome_hud));
         if (gols_fora >= 0)

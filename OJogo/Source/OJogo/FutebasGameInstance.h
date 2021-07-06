@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "TeamData.h"
-#include "CampeonatoData.h"
+#include "CopaMundoData.h"
 #include "Kismet/BlueprintPlatformLibrary.h"
 #include "FutebasGameInstance.generated.h"
 
@@ -19,9 +19,6 @@ class OJOGO_API UFutebasGameInstance : public UPlatformGameInstance
 	UPROPERTY()
     TArray<FTeamData> teamsArray;
 
-	UPROPERTY()
-    TMap<int32, int32> sorteioGrupo;
-
 public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -31,7 +28,7 @@ public:
 	FTeamData team2;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FCampeonatoData> tabelaGrupos;
+	FCopaMundoData copa_do_mundo;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UDataTable* teams;
@@ -39,13 +36,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float volume;
 
-	void loadTeams(int32 grupos);
-
-	void sortear(int32 grupos);
+	void loadTeams();
 
 	FTeamData getTeam(int32 index);
 
-	void bindIndexTimeGrupos();
+	FResultadoData simulaJogo(int32 index_t1, int32 index_t2, bool penaltis);
 
 	void simulaJogosProximaRodada();
 };

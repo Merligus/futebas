@@ -66,8 +66,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Campeonato")
 	TArray<FRodadaData> calendario; // [[(1, 2), (3, 4)],
-								//  [(1, 3), (2, 4)],
-								//  [(1, 4), (2, 3)]]
+									//  [(1, 3), (2, 4)],
+									//  [(1, 4), (2, 3)]]
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Campeonato")
 	TArray<int32> times; // {index_time1, index_time2, ..., index_timeN}

@@ -3,9 +3,10 @@
 
 #include "FutebasGameInstance.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "ResultadoData.h"
 #include "Math/UnrealMathUtility.h"
 
-void UFutebasGameInstance::loadTeams(int32 grupos)
+void UFutebasGameInstance::loadTeams()
 {
     if (teamsArray.Num() == 0)
     {
@@ -27,133 +28,161 @@ void UFutebasGameInstance::loadTeams(int32 grupos)
                     return A.habilidades.overall() > B.habilidades.overall();
             }
         );
-        sortear(grupos);
-
-        for (int32 i = 0; i < grupos; ++i)
-            tabelaGrupos.Add(FCampeonatoData(teamsArray.Num()/grupos));
     }
-}
-
-void UFutebasGameInstance::sortear(int32 grupos)
-{
-    TArray<TArray<int32>> potes;
-    int32 times_por_grupo;
-    times_por_grupo = UKismetMathLibrary::FTrunc(teamsArray.Num()/grupos);
-
-    for (int32 i = 0; i < times_por_grupo; ++i)
-    {
-        TArray<int32> aux;
-        while (aux.Num() > 0)
-            aux.RemoveAt(0);
-        for (int32 j = i*grupos; j < (i+1)*grupos; ++j)
-            aux.Add(j);
-        potes.Emplace(aux);
-    }
-
-    int32 time_sorteado;
-    for (int32 i = 0; i < grupos; ++i)
-    {
-        for (int32 j = 0; j < times_por_grupo; ++j)
-        {
-            time_sorteado = FMath::RandRange(0, potes[j].Num()-1);
-            sorteioGrupo.Add(i*times_por_grupo + j, potes[j][time_sorteado]);
-            potes[j].RemoveAt(time_sorteado);
-        }
-    }
-    int32 qatarIndex = *(sorteioGrupo.FindKey(0));
-    int32 timeCabecaGrupoA = sorteioGrupo[0];
-    sorteioGrupo[0] = 0; // cabeca grupo A precisa ser o Qatar
-    sorteioGrupo[qatarIndex] = timeCabecaGrupoA; // o cabeca de grupo que o qatar estava deve ser substituido pelo antigo cabeca do grupo A
 }
 
 FTeamData UFutebasGameInstance::getTeam(int32 index)
 {
     if (index < teamsArray.Num())
-        return teamsArray[sorteioGrupo[index]];
+        return teamsArray[copa_do_mundo.sorteioGrupo[index]];
     else
         return FTeamData();
 }
 
-void UFutebasGameInstance::bindIndexTimeGrupos()
+FResultadoData UFutebasGameInstance::simulaJogo(int32 index_t1, int32 index_t2, bool penaltis)
 {
-    int32 grupoAtual, posicaoInicial;
-    int32 times_por_grupo = tabelaGrupos[0].n_times;
+    FResultadoData result;
+    result.index_casa = index_t1;
+    result.index_fora = index_t2;
+    float overall_t1 = getTeam(index_t1).habilidades.overall();
+    float overall_t2 = getTeam(index_t2).habilidades.overall();
+    int32 max_gols_t1 = FMath::TruncToInt(FMath::RoundHalfFromZero(5*overall_t1));
+    int32 max_gols_t2 = FMath::TruncToInt(FMath::RoundHalfFromZero(5*overall_t2));
+    result.gols_casa = FMath::RandRange(FMath::Clamp(max_gols_t1-1, 0, 100), max_gols_t1+1);
+    result.gols_fora = FMath::RandRange(FMath::Clamp(max_gols_t2-1, 0, 100), max_gols_t2+1);
 
-    for (int32 indexSlot = 0; indexSlot < teamsArray.Num(); ++indexSlot)
+    if (result.gols_casa == result.gols_fora && penaltis) // penaltis
     {
-        grupoAtual = indexSlot/times_por_grupo;
-        posicaoInicial = indexSlot % times_por_grupo;
+        bool vez_casa = FMath::RandBool();
+        int32 penaltis_batidos_casa = 0;
+        int32 penaltis_batidos_fora = 0;
+        result.gols_penalti_casa = 0;
+        result.gols_penalti_fora = 0;
 
-        tabelaGrupos[grupoAtual].adicionaTime(indexSlot, posicaoInicial);
-    }
-
-    for (int32 grupo = 0; grupo < tabelaGrupos.Num(); ++grupo)
-    {
-        tabelaGrupos[grupo].montaConfrontos();
-
-        // debug
-        FString JoinedStrRodada("Grupo ");
-        JoinedStrRodada += FString::FromInt(grupo);
-        for (int32 rodada = 0; rodada < tabelaGrupos[grupo].times.Num()-1; ++rodada)
+        while(true)
         {
-            JoinedStrRodada += FString(" Rodada ");
-            JoinedStrRodada += FString::FromInt(rodada);
-            for (int32 indJogo = 0; indJogo < tabelaGrupos[grupo].calendario[rodada].jogos.Num(); ++indJogo)
+            if (vez_casa)
             {
-                JoinedStrRodada += TEXT(" (");
-                JoinedStrRodada += getTeam(tabelaGrupos[grupo].calendario[rodada].jogos[indJogo].casa).nome_hud;
-                JoinedStrRodada += TEXT(",");
-                JoinedStrRodada += getTeam(tabelaGrupos[grupo].calendario[rodada].jogos[indJogo].fora).nome_hud;
-                JoinedStrRodada += TEXT(")");
+                penaltis_batidos_casa++;
+                result.gols_penalti_casa += FMath::RandBool()? 1 : 0;
+            }
+            else
+            {
+                penaltis_batidos_fora++;
+                result.gols_penalti_fora += FMath::RandBool()? 1 : 0;
+            }
+            vez_casa = !vez_casa;
+
+            if (penaltis_batidos_casa >= 5 && penaltis_batidos_fora >= 5)
+            {
+                if (penaltis_batidos_casa == penaltis_batidos_fora)
+                {
+                    if (result.gols_penalti_casa != result.gols_penalti_fora)
+                        break;
+                }
+            }
+            else
+            {
+                if ( (result.gols_penalti_casa - result.gols_penalti_fora) > 5-penaltis_batidos_fora)
+                    break;
+                if ( (result.gols_penalti_fora - result.gols_penalti_casa) > 5-penaltis_batidos_casa)
+                    break;
             }
         }
-        GEngine->AddOnScreenDebugMessage(-1, 150.0f, FColor::Red, JoinedStrRodada);
     }
+    return result;
 }
 
 void UFutebasGameInstance::simulaJogosProximaRodada()
 {
-    for (int32 grupo = 0; grupo < tabelaGrupos.Num(); ++grupo)
+    if (copa_do_mundo.fase_atual == 0)
     {
-        int32 rodada_atual = tabelaGrupos[grupo].rodada_atual;
-        for (int32 ind_jogo = 0; ind_jogo < tabelaGrupos[grupo].calendario[rodada_atual].jogos.Num(); ++ind_jogo)
+        for (int32 grupo = 0; grupo < copa_do_mundo.tabelaGrupos.Num(); ++grupo)
         {
-            int32 index_t1 = tabelaGrupos[grupo].calendario[rodada_atual].jogos[ind_jogo].casa;
-            int32 index_t2 = tabelaGrupos[grupo].calendario[rodada_atual].jogos[ind_jogo].fora;
-            float overall_t1 = getTeam(index_t1).habilidades.overall();
-            float overall_t2 = getTeam(index_t2).habilidades.overall();
-            int32 gols_t1 = FMath::RandRange(0, FMath::TruncToInt(5*overall_t1));
-            int32 gols_t2 = FMath::RandRange(0, FMath::TruncToInt(5*overall_t2));
-
-            tabelaGrupos[grupo].atualizaTabela(index_t1, index_t2, gols_t1, gols_t2);
+            int32 rodada_atual = copa_do_mundo.tabelaGrupos[grupo].rodada_atual;
+            for (int32 ind_jogo = 0; ind_jogo < copa_do_mundo.tabelaGrupos[grupo].calendario[rodada_atual].jogos.Num(); ++ind_jogo)
+            {
+                int32 index_t1 = copa_do_mundo.tabelaGrupos[grupo].calendario[rodada_atual].jogos[ind_jogo].casa;
+                int32 index_t2 = copa_do_mundo.tabelaGrupos[grupo].calendario[rodada_atual].jogos[ind_jogo].fora;
+                FResultadoData r = simulaJogo(index_t1, index_t2, false);
+                copa_do_mundo.tabelaGrupos[grupo].atualizaTabela(index_t1, index_t2, r.gols_casa, r.gols_fora);
+            }
+            copa_do_mundo.tabelaGrupos[grupo].terminaRodada();
         }
-        tabelaGrupos[grupo].terminaRodada();
+        if (copa_do_mundo.tabelaGrupos[7].rodada_atual == 3)
+            copa_do_mundo.chaveia();
+
+        // debug
+        // for (int32 grupo = 0; grupo < copa_do_mundo.tabelaGrupos.Num(); ++grupo)
+        // {
+        //     FString JoinedStrRodada("Grupo ");
+        //     JoinedStrRodada += FString::FromInt(grupo);
+        //     JoinedStrRodada += FString(" Rodada ");
+        //     int32 rodada = copa_do_mundo.tabelaGrupos[grupo].rodada_atual - 1;
+        //     JoinedStrRodada += FString::FromInt(rodada);
+        //     for (int32 indJogo = 0; indJogo < copa_do_mundo.tabelaGrupos[grupo].calendario[rodada].jogos.Num(); ++indJogo)
+        //     {
+        //         int32 index_casa = copa_do_mundo.tabelaGrupos[grupo].calendario[rodada].jogos[indJogo].casa;
+        //         int32 index_fora = copa_do_mundo.tabelaGrupos[grupo].calendario[rodada].jogos[indJogo].fora;
+        //         int32 gols_casa = copa_do_mundo.tabelaGrupos[grupo].confrontos.casa[index_casa].fora[index_fora].gols_casa;
+        //         int32 gols_fora = copa_do_mundo.tabelaGrupos[grupo].confrontos.casa[index_casa].fora[index_fora].gols_fora;
+        //         JoinedStrRodada += TEXT(" (");
+        //         JoinedStrRodada += getTeam(index_casa).nome_hud;
+        //         JoinedStrRodada += TEXT(" ");
+        //         JoinedStrRodada += FString::FromInt(gols_casa);
+        //         JoinedStrRodada += TEXT(" x ");
+        //         JoinedStrRodada += FString::FromInt(gols_fora);
+        //         JoinedStrRodada += TEXT(" ");
+        //         JoinedStrRodada += getTeam(index_fora).nome_hud;
+        //         JoinedStrRodada += TEXT(")");
+        //     }
+        //     GEngine->AddOnScreenDebugMessage(-1, 150.0f, FColor::Red, JoinedStrRodada);
+        // }
     }
-
-    // debug
-    for (int32 grupo = 0; grupo < tabelaGrupos.Num(); ++grupo)
+    else if (copa_do_mundo.fase_atual <= 4)
     {
-        FString JoinedStrRodada("Grupo ");
-        JoinedStrRodada += FString::FromInt(grupo);
-        JoinedStrRodada += FString(" Rodada ");
-        int32 rodada = tabelaGrupos[grupo].rodada_atual - 1;
-        JoinedStrRodada += FString::FromInt(rodada);
-        for (int32 indJogo = 0; indJogo < tabelaGrupos[grupo].calendario[rodada].jogos.Num(); ++indJogo)
+        for (int32 ind_jogo = 0; ind_jogo < copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-1].confrontos.Num(); ++ind_jogo)
         {
-            int32 index_casa = tabelaGrupos[grupo].calendario[rodada].jogos[indJogo].casa;
-            int32 index_fora = tabelaGrupos[grupo].calendario[rodada].jogos[indJogo].fora;
-            int32 gols_casa = tabelaGrupos[grupo].confrontos.casa[index_casa].fora[index_fora].gols_casa;
-            int32 gols_fora = tabelaGrupos[grupo].confrontos.casa[index_casa].fora[index_fora].gols_fora;
-            JoinedStrRodada += TEXT(" (");
-            JoinedStrRodada += getTeam(index_casa).nome_hud;
-            JoinedStrRodada += TEXT(" ");
-            JoinedStrRodada += FString::FromInt(gols_casa);
-            JoinedStrRodada += TEXT(" x ");
-            JoinedStrRodada += FString::FromInt(gols_fora);
-            JoinedStrRodada += TEXT(" ");
-            JoinedStrRodada += getTeam(index_fora).nome_hud;
-            JoinedStrRodada += TEXT(")");
+            int32 index_t1 = copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-1].confrontos[ind_jogo].index_casa;
+            int32 index_t2 = copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-1].confrontos[ind_jogo].index_fora;
+            copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-1].confrontos[ind_jogo] = simulaJogo(index_t1, index_t2, true);
         }
-        GEngine->AddOnScreenDebugMessage(-1, 150.0f, FColor::Red, JoinedStrRodada);
+
+        copa_do_mundo.chaveia();
+
+        // debug
+        // for (int32 ind_jogo = 0; ind_jogo < copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-2].confrontos.Num(); ++ind_jogo)
+        // {
+        //     FString JoinedStrRodada("Jogo ");
+        //     JoinedStrRodada += FString::FromInt(ind_jogo);
+        //     int32 index_casa = copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-2].confrontos[ind_jogo].index_casa;
+        //     int32 index_fora = copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-2].confrontos[ind_jogo].index_fora;
+        //     int32 gols_casa = copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-2].confrontos[ind_jogo].gols_casa;
+        //     int32 gols_fora = copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-2].confrontos[ind_jogo].gols_fora;
+        //     int32 gols_penalti_casa = copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-2].confrontos[ind_jogo].gols_penalti_casa;
+        //     int32 gols_penalti_fora = copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-2].confrontos[ind_jogo].gols_penalti_fora;
+        //     JoinedStrRodada += TEXT(" [");
+        //     JoinedStrRodada += getTeam(index_casa).nome_hud;
+        //     JoinedStrRodada += TEXT(" ");
+        //     JoinedStrRodada += FString::FromInt(gols_casa);
+        //     if (gols_penalti_casa != -1)
+        //     {
+        //         JoinedStrRodada += TEXT(" (");
+        //         JoinedStrRodada += FString::FromInt(gols_penalti_casa);
+        //         JoinedStrRodada += TEXT(")");
+        //     }
+        //     JoinedStrRodada += TEXT(" x ");
+        //     if (gols_penalti_fora != -1)
+        //     {
+        //         JoinedStrRodada += TEXT("(");
+        //         JoinedStrRodada += FString::FromInt(gols_penalti_fora);
+        //         JoinedStrRodada += TEXT(") ");
+        //     }
+        //     JoinedStrRodada += FString::FromInt(gols_fora);
+        //     JoinedStrRodada += TEXT(" ");
+        //     JoinedStrRodada += getTeam(index_fora).nome_hud;
+        //     JoinedStrRodada += TEXT("]");
+        //     GEngine->AddOnScreenDebugMessage(-1, 150.0f, FColor::Red, JoinedStrRodada);
+        // }
     }
 }

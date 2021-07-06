@@ -21,14 +21,14 @@ bool UTeamSlotPosicaoWidget::Initialize()
 
 FSlateBrush UTeamSlotPosicaoWidget::bindFlagTudo()
 {
-	if (FutebasGI && FutebasGI->tabelaGrupos.Num() > 0 && indexSlot >= 0)
+	if (FutebasGI && FutebasGI->copa_do_mundo.tabelaGrupos.Num() > 0 && indexSlot >= 0)
     {
         FPosicaoData posicao;
-        int32 times_por_grupo = FutebasGI->tabelaGrupos[0].n_times;
+        int32 times_por_grupo = FutebasGI->copa_do_mundo.tabelaGrupos[0].n_times;
         int32 grupoAtual = indexSlot/times_por_grupo;
         int32 posicaoAtual = indexSlot % times_por_grupo;
 
-        posicao = FutebasGI->tabelaGrupos[grupoAtual].tabela[posicaoAtual];
+        posicao = FutebasGI->copa_do_mundo.tabelaGrupos[grupoAtual].tabela[posicaoAtual];
 
         timeNome->SetText(FText::FromString(FutebasGI->getTeam(posicao.index_time).nome_hud));
         timePontos->SetText(UKismetTextLibrary::Conv_IntToText(posicao.pontos));

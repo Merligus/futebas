@@ -14,7 +14,8 @@ bool UTimeStatsWidget::Initialize()
 	FutebasGI = GetGameInstance<UFutebasGameInstance>();
 	if (FutebasGI)
     {
-        FutebasGI->loadTeams(8);
+        FutebasGI->loadTeams();
+        FutebasGI->copa_do_mundo.sortear();
         FutebasGI->team1 = FTeamData();
     }
     else
@@ -26,7 +27,7 @@ bool UTimeStatsWidget::Initialize()
 void UTimeStatsWidget::sorteiaGruposCopa()
 {
     if (FutebasGI)
-        FutebasGI->sortear(8);
+        FutebasGI->copa_do_mundo.sortear();
 }
 
 bool UTimeStatsWidget::bindStatsEnabled()
@@ -80,5 +81,5 @@ float UTimeStatsWidget::bindEnergia()
 void UTimeStatsWidget::bindIndexTimeGrupos()
 {
     if (FutebasGI)
-        FutebasGI->bindIndexTimeGrupos();
+        FutebasGI->copa_do_mundo.bindIndexTimeGrupos();
 }

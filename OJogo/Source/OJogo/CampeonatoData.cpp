@@ -145,7 +145,7 @@ void FCampeonatoData::terminaRodada()
                             if (sgA == sgB)
                             {
                                 if (gpA == gpB)
-                                    return true;
+                                    return FMath::RandBool();
                                 else
                                     return gpA > gpB;
                             }
