@@ -39,7 +39,7 @@ FSlateBrush UPartidaMataMataSlotWidget::bindFlagTudo1()
                 time1GolsPen->SetText(FText::FromString(FString(TEXT("(")) + FString::FromInt(gols_penalti_casa) + FString(TEXT(")")) ));
             else
                 time1GolsPen->SetText(FText::FromString(FString(TEXT(""))));            
-            return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeam(index_casa).flag, 32, 24);
+            return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeam(index_casa).flag, 24, 18);
         }
         else
         {
@@ -78,7 +78,7 @@ FSlateBrush UPartidaMataMataSlotWidget::bindFlagTudo2()
                 time2GolsPen->SetText(FText::FromString(FString(TEXT("(")) + FString::FromInt(gols_penalti_fora) + FString(TEXT(")")) ));
             else
                 time2GolsPen->SetText(FText::FromString(FString(TEXT(""))));            
-            return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeam(index_fora).flag, 32, 24);
+            return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeam(index_fora).flag, 24, 18);
         }
         else
         {

@@ -36,5 +36,10 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void sairClicked();
-	
+
+	UFUNCTION(BlueprintCallable)
+	ESlateVisibility bindCampeaoVisibilidade();
+
+	UFUNCTION(BlueprintCallable)
+	FSlateBrush bindCampeaoFlag();
 };
