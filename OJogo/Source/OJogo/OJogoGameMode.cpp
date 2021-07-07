@@ -65,6 +65,11 @@ void AOJogoGameMode::beginGame()
 			botIA->setJogador(FutebasGI->team2.jogador);
 			arrayJogadores.Add(player1);
 			arrayJogadores.Add(botIA);
+			if (!FutebasGI->team1_em_casa)
+			{
+				JogosGameState->posIndex.Swap(0, 1);
+				trocaTimes();
+			}
 			if (JogosGameState->posIndex[0] == 1)
 				arrayJogadores.Swap(0, 1);
 			setBotProprioGol(JogosGameState->posIndex[1]);
@@ -207,7 +212,7 @@ void AOJogoGameMode::fimDePapo()
 {
 	paralisaMovimentacao(true);
 
-	if (JogosGameState->golsTimeDir == JogosGameState->golsTimeEsq)
+	if (JogosGameState->golsTimeDir == JogosGameState->golsTimeEsq && FutebasGI->desempate_por_penaltis)
 	{
 		JogosGameState->penalidades = true;
 		vezTimeEsquerdo = JogosGameState->timeDireitoPrimeiro_pen;
@@ -219,7 +224,10 @@ void AOJogoGameMode::fimDePapo()
 		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::penalidadesMaximas, JogosGameState->tempoParadoAntesInicioPartida, false);
 	}
 	else
-		decideVencedor( (JogosGameState->golsTimeEsq - JogosGameState->golsTimeDir < 0) ? "time dir" : "time esq");
+	{
+		FResultadoData r(JogosGameState->golsTimeDir, JogosGameState->golsTimeEsq);
+		decideVencedor(r);
+	}
 }
 
 void AOJogoGameMode::trocaTimes()
@@ -394,7 +402,9 @@ void AOJogoGameMode::penalidadesMaximas()
 			if (JogosGameState->golsSomadosTimeEsq_pen - JogosGameState->golsSomadosTimeDir_pen != 0)
 			{
 				acabou = true;
-				decideVencedor( (JogosGameState->golsSomadosTimeEsq_pen - JogosGameState->golsSomadosTimeDir_pen < 0) ? "time dir" : "time esq");
+				FResultadoData r(JogosGameState->golsTimeDir, JogosGameState->golsSomadosTimeDir_pen, 
+								 JogosGameState->golsTimeEsq, JogosGameState->golsSomadosTimeEsq_pen);
+				decideVencedor(r);
 			}
 		}
 	}
@@ -403,12 +413,16 @@ void AOJogoGameMode::penalidadesMaximas()
 		if ( (JogosGameState->golsSomadosTimeEsq_pen - JogosGameState->golsSomadosTimeDir_pen) > faltamDir_pen)
 		{
 			acabou = true;
-			decideVencedor("time esq");
+			FResultadoData r(JogosGameState->golsTimeDir, JogosGameState->golsSomadosTimeDir_pen, 
+							 JogosGameState->golsTimeEsq, JogosGameState->golsSomadosTimeEsq_pen);
+			decideVencedor(r);
 		}
 		if ( (JogosGameState->golsSomadosTimeDir_pen - JogosGameState->golsSomadosTimeEsq_pen) > faltamEsq_pen)
 		{
 			acabou = true;
-			decideVencedor("time dir");
+			FResultadoData r(JogosGameState->golsTimeDir, JogosGameState->golsSomadosTimeDir_pen, 
+							 JogosGameState->golsTimeEsq, JogosGameState->golsSomadosTimeEsq_pen);
+			decideVencedor(r);
 		}
 	}
 
@@ -491,10 +505,16 @@ void AOJogoGameMode::penaltyTimedOut()
 	penalidadesMaximas();
 }
 
-void AOJogoGameMode::decideVencedor(FString timeVencedor)
+void AOJogoGameMode::decideVencedor(FResultadoData r)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, timeVencedor);
+	// int32 index_vencedor = r.getGanhador();
+	// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FutebasGI->getTeam(index_vencedor).nome_hud);
 	paralisaMovimentacao(true);
+
+	if(FutebasGI->team1_em_casa)
+		trocaTimes();
+	FutebasGI->terminaPartida(r);
+	UGameplayStatics::OpenLevel(GetWorld(), FName(TEXT("Copa_Level")));
 }
 
 void AOJogoGameMode::setBotGols(int32 golsEsq, int32 golsDir)

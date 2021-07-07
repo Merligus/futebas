@@ -47,7 +47,10 @@ struct FTeamData : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Team")
 	FJogadorData jogador;
 
-	FTeamData() { }
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Team")
+	int32 index_time;
+
+	FTeamData() { index_time = -1;}
 
 	~FTeamData() { }
 };

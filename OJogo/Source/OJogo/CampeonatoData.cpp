@@ -93,7 +93,11 @@ void FCampeonatoData::atualizaTabela(int32 index_casa, int32 index_fora, int32 g
 
 void FCampeonatoData::terminaRodada()
 {
-    rodada_atual += 1;
+    int32 min_rodada = tabela[0].partidas_jogadas;
+    for (int32 i = 1; i < tabela.Num(); ++i)
+        if (min_rodada > tabela[i].partidas_jogadas)
+            min_rodada = tabela[i].partidas_jogadas;
+    rodada_atual = min_rodada;
     
     tabela.StableSort(
         [this](const FPosicaoData& A, const FPosicaoData& B) // return true = A antes de B

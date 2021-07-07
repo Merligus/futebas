@@ -125,7 +125,7 @@ public:
 	void penaltyTimedOut();
 
 	UFUNCTION(BlueprintCallable)
-	void decideVencedor(FString timeVencedor);
+	void decideVencedor(FResultadoData r);
 
 	UFUNCTION(BlueprintCallable)
 	void setBotProprioGol(int32 golIndex);

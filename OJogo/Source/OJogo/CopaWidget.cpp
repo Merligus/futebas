@@ -23,13 +23,23 @@ bool UCopaWidget::Initialize()
         return false;
     sair->OnClicked.AddDynamic(this, &UCopaWidget::sairClicked);
 
+    proximo_jogo_player = false;
+
     return true;
 }
 
 void UCopaWidget::jogarClicked()
 {
     if (FutebasGI)
-        FutebasGI->simulaJogosProximaRodada();
+    {
+        if (!proximo_jogo_player)
+            proximo_jogo_player = FutebasGI->simulaJogosProximaRodada();
+        else
+        {
+            proximo_jogo_player = false;
+            FutebasGI->jogaPartida();
+        }
+    }
 }
 
 void UCopaWidget::sairClicked()

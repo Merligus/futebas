@@ -31,6 +31,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, meta=(BindWidget))
 	UButton* sair;
 
+	UPROPERTY(BlueprintReadWrite)
+	bool proximo_jogo_player;
+
 	UFUNCTION(BlueprintCallable)
 	void jogarClicked();
 

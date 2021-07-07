@@ -33,7 +33,7 @@ void UTimeStatsWidget::sorteiaGruposCopa()
 bool UTimeStatsWidget::bindStatsEnabled()
 {
     if (FutebasGI)
-        return FutebasGI->team1.nome_hud.Len() > 0;
+        return FutebasGI->team1.index_time >= 0;
     else
         return false;
 }
