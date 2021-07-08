@@ -28,10 +28,10 @@ public:
 	FTeamData team2;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool desempate_por_penaltis;
+	bool desempate_por_penaltis = true;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool team1_em_casa;
+	bool team1_em_casa = true;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 grupo_atualiza_tabela;

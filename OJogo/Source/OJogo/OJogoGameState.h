@@ -68,6 +68,9 @@ public:
 	float alturaReinicio;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool em_prorrogacao;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool penalidades;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

@@ -165,7 +165,10 @@ void AOJogoGameMode::antesDoComecoTimedOut()
 
 void AOJogoGameMode::comecaJogo()
 {
-	GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 45.0f, false);
+	if (JogosGameState->em_prorrogacao)
+		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 15.0f, false);
+	else
+		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 45.0f, false);
 	JogosGameState->tempoRegulamentar = true;
 	JogosGameState->bolaEmJogo = true;
 }
@@ -214,14 +217,26 @@ void AOJogoGameMode::fimDePapo()
 
 	if (JogosGameState->golsTimeDir == JogosGameState->golsTimeEsq && FutebasGI->desempate_por_penaltis)
 	{
-		JogosGameState->penalidades = true;
-		vezTimeEsquerdo = JogosGameState->timeDireitoPrimeiro_pen;
-		JogosGameState->tempo1Ou2 = 1;
-		JogosGameState->tempoRegulamentar = true;
-		botIA->setBotGols(0, 100);
+		if (!JogosGameState->em_prorrogacao)
+		{
+			JogosGameState->em_prorrogacao = true;
+			JogosGameState->tempo1Ou2 = 1;
+			GetWorldTimerManager().ClearTimer(delayTimedOut);
+			FTimerHandle UnusedHandle;
+			GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::terminaTempoTimedOut, JogosGameState->tempoParadoAntesInicioPartida, false);
+		}
+		else
+		{
+			JogosGameState->penalidades = true;
+			vezTimeEsquerdo = JogosGameState->timeDireitoPrimeiro_pen;
+			JogosGameState->tempo1Ou2 = 1;
+			JogosGameState->tempoRegulamentar = true;
+			botIA->setBotGols(0, 100);
+			GetWorldTimerManager().ClearTimer(delayTimedOut);
 
-		FTimerHandle UnusedHandle;
-		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::penalidadesMaximas, JogosGameState->tempoParadoAntesInicioPartida, false);
+			FTimerHandle UnusedHandle;
+			GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::penalidadesMaximas, JogosGameState->tempoParadoAntesInicioPartida, false);
+		}
 	}
 	else
 	{
@@ -507,14 +522,15 @@ void AOJogoGameMode::penaltyTimedOut()
 
 void AOJogoGameMode::decideVencedor(FResultadoData r)
 {
-	// int32 index_vencedor = r.getGanhador();
-	// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FutebasGI->getTeam(index_vencedor).nome_hud);
 	paralisaMovimentacao(true);
 
 	if(FutebasGI->team1_em_casa)
 		trocaTimes();
-	FutebasGI->terminaPartida(r);
-	UGameplayStatics::OpenLevel(GetWorld(), FName(TEXT("Copa_Level")));
+	if (FutebasGI->copa_do_mundo.tabelaGrupos[0].times.Num() > 0)
+	{
+		FutebasGI->terminaPartida(r);
+		UGameplayStatics::OpenLevel(GetWorld(), FName(TEXT("Copa_Level")));
+	}
 }
 
 void AOJogoGameMode::setBotGols(int32 golsEsq, int32 golsDir)

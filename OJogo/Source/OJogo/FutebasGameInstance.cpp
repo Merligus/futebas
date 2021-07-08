@@ -126,6 +126,16 @@ void UFutebasGameInstance::terminaPartida(FResultadoData r)
     }
     if (copa_do_mundo.fase_atual == 0)
     {
+        int32 rodada_atual = copa_do_mundo.tabelaGrupos[grupo_atualiza_tabela].rodada_atual;
+        if (rodada_atual == 2)
+        {
+            int32 index_t1_temp = copa_do_mundo.tabelaGrupos[grupo_atualiza_tabela].calendario[2].jogos[(ind_jogo_atualiza_tabela+1)%2].casa;
+            int32 index_t2_temp = copa_do_mundo.tabelaGrupos[grupo_atualiza_tabela].calendario[2].jogos[(ind_jogo_atualiza_tabela+1)%2].fora;
+            FResultadoData r_temp = simulaJogo(index_t1_temp, index_t2_temp, false);
+            copa_do_mundo.tabelaGrupos[grupo_atualiza_tabela].atualizaTabela(r_temp.index_casa, r_temp.index_fora, r_temp.gols_casa, r_temp.gols_fora);
+            ind_jogo_atualiza_tabela = 1;
+        }
+            
         copa_do_mundo.tabelaGrupos[grupo_atualiza_tabela].atualizaTabela(r.index_casa, r.index_fora, r.gols_casa, r.gols_fora);
         copa_do_mundo.tabelaGrupos[grupo_atualiza_tabela].terminaRodada();
         ++ind_jogo_atualiza_tabela;
@@ -173,7 +183,8 @@ bool UFutebasGameInstance::simulaJogosProximaRodada()
 
                     team1_em_casa = true;
                     
-                    copa_do_mundo.tabelaGrupos[grupo_atualiza_tabela].terminaRodada();
+                    if (ind_jogo_atualiza_tabela == 1)
+                        copa_do_mundo.tabelaGrupos[grupo_atualiza_tabela].terminaRodada();
                     return true;
                 }
                 else if (copa_do_mundo.sorteioGrupo[index_t2] == team1.index_time)
@@ -186,11 +197,43 @@ bool UFutebasGameInstance::simulaJogosProximaRodada()
 
                     team1_em_casa = false;
                     
-                    copa_do_mundo.tabelaGrupos[grupo_atualiza_tabela].terminaRodada();
+                    if (ind_jogo_atualiza_tabela == 1)
+                        copa_do_mundo.tabelaGrupos[grupo_atualiza_tabela].terminaRodada();
                     return true;
                 }
                 else
+                {
+                    if (ind_jogo_atualiza_tabela == 0 && rodada_atual == 2)
+                    {
+                        int32 index_t1_temp = copa_do_mundo.tabelaGrupos[grupo_atualiza_tabela].calendario[2].jogos[1].casa;
+                        int32 index_t2_temp = copa_do_mundo.tabelaGrupos[grupo_atualiza_tabela].calendario[2].jogos[1].fora;
+                        if (copa_do_mundo.sorteioGrupo[index_t1_temp] == team1.index_time)
+                        {
+                            desempate_por_penaltis = false;
+                            team2 = getTeam(index_t2_temp);
+                            
+                            team1.index_time = index_t1_temp;
+                            team2.index_time = index_t2_temp;
+
+                            team1_em_casa = true;
+                            ind_jogo_atualiza_tabela = 1;
+                            return true;
+                        }
+                        else if (copa_do_mundo.sorteioGrupo[index_t2_temp] == team1.index_time)
+                        {
+                            desempate_por_penaltis = false;
+                            team2 = getTeam(index_t1_temp);
+                            
+                            team1.index_time = index_t2_temp;
+                            team2.index_time = index_t1_temp;
+
+                            team1_em_casa = false;
+                            ind_jogo_atualiza_tabela = 1;
+                            return true;
+                        }
+                    }
                     r = simulaJogo(index_t1, index_t2, false);
+                }
                 copa_do_mundo.tabelaGrupos[grupo_atualiza_tabela].atualizaTabela(index_t1, index_t2, r.gols_casa, r.gols_fora);
             }
             ind_jogo_atualiza_tabela = 0;

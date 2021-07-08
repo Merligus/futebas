@@ -34,6 +34,12 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	bool proximo_jogo_player;
 
+	UPROPERTY(BlueprintReadWrite)
+	ESlateVisibility tabelaVisivel;
+
+	UPROPERTY(BlueprintReadWrite)
+	ESlateVisibility gruposVisivel;
+
 	UFUNCTION(BlueprintCallable)
 	void jogarClicked();
 

@@ -25,6 +25,12 @@ bool UCopaWidget::Initialize()
 
     proximo_jogo_player = false;
 
+    if (FutebasGI->copa_do_mundo.fase_atual >= 1)
+        gruposVisivel = ESlateVisibility::Hidden;
+    else
+        gruposVisivel = ESlateVisibility::Visible;
+	tabelaVisivel = ESlateVisibility::Visible;
+
     return true;
 }
 
