@@ -26,22 +26,22 @@ public:
 	void sorteiaGruposCopa();
 
 	UFUNCTION(BlueprintCallable)
-	bool bindStatsEnabled();
+	bool bindStatsEnabled(bool team1 = true);
 
 	UFUNCTION(BlueprintCallable)
-	FText bindTeamName();
+	FText bindTeamName(bool team1 = true);
 
 	UFUNCTION(BlueprintCallable)
-	float bindChute();
+	float bindChute(bool team1 = true);
 
 	UFUNCTION(BlueprintCallable)
-	float bindVelocidade();
+	float bindVelocidade(bool team1 = true);
 
 	UFUNCTION(BlueprintCallable)
-	float bindCarrinho();
+	float bindCarrinho(bool team1 = true);
 
 	UFUNCTION(BlueprintCallable)
-	float bindEnergia();
+	float bindEnergia(bool team1 = true);
 
 	UFUNCTION(BlueprintCallable)
 	void bindIndexTimeGrupos();

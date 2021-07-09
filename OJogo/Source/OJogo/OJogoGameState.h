@@ -83,6 +83,9 @@ public:
 	bool golDireitoAtivado_pen;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 penalty_timeout;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<int32> golsTimeEsq_pen;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

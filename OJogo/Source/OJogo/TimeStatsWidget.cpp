@@ -17,6 +17,7 @@ bool UTimeStatsWidget::Initialize()
         FutebasGI->loadTeams();
         FutebasGI->copa_do_mundo.sortear();
         FutebasGI->team1 = FTeamData();
+        FutebasGI->team2 = FTeamData();
     }
     else
         return false;
@@ -30,50 +31,80 @@ void UTimeStatsWidget::sorteiaGruposCopa()
         FutebasGI->copa_do_mundo.sortear();
 }
 
-bool UTimeStatsWidget::bindStatsEnabled()
+bool UTimeStatsWidget::bindStatsEnabled(bool team1)
 {
     if (FutebasGI)
-        return FutebasGI->team1.index_time >= 0;
+    {
+        if (team1)
+            return FutebasGI->team1.index_time >= 0;
+        else
+            return FutebasGI->team2.index_time >= 0;
+    }
     else
         return false;
 }
 
-FText UTimeStatsWidget::bindTeamName()
+FText UTimeStatsWidget::bindTeamName(bool team1)
 {
     if (FutebasGI)
-        return UKismetTextLibrary::Conv_StringToText(FutebasGI->team1.nome_hud);
+    {
+        if (team1)
+            return UKismetTextLibrary::Conv_StringToText(FutebasGI->team1.nome_hud);
+        else
+            return UKismetTextLibrary::Conv_StringToText(FutebasGI->team2.nome_hud);
+    }
     else
         return FText::FromString(FString("Time"));
 }
 
-float UTimeStatsWidget::bindChute()
+float UTimeStatsWidget::bindChute(bool team1)
 {
     if (FutebasGI)
-        return FutebasGI->team1.habilidades.maxForcaChute;
+    {
+        if (team1)
+            return FutebasGI->team1.habilidades.maxForcaChute;
+        else
+            return FutebasGI->team2.habilidades.maxForcaChute;
+    }
     else
         return 0.0f;
 }
 
-float UTimeStatsWidget::bindVelocidade()
+float UTimeStatsWidget::bindVelocidade(bool team1)
 {
     if (FutebasGI)
-        return FutebasGI->team1.habilidades.velocidade;
+    {
+        if (team1)
+            return FutebasGI->team1.habilidades.velocidade;
+        else
+            return FutebasGI->team2.habilidades.velocidade;
+    }
     else
         return 0.0f;
 }
 
-float UTimeStatsWidget::bindCarrinho()
+float UTimeStatsWidget::bindCarrinho(bool team1)
 {
     if (FutebasGI)
-        return FutebasGI->team1.habilidades.velocidadeCarrinho;
+    {
+        if (team1)
+            return FutebasGI->team1.habilidades.velocidadeCarrinho;
+        else
+            return FutebasGI->team2.habilidades.velocidadeCarrinho;
+    }
     else
         return 0.0f;
 }
 
-float UTimeStatsWidget::bindEnergia()
+float UTimeStatsWidget::bindEnergia(bool team1)
 {
     if (FutebasGI)
-        return FutebasGI->team1.habilidades.staminaRegen;
+    {
+        if (team1)
+            return FutebasGI->team1.habilidades.staminaRegen;
+        else
+            return FutebasGI->team2.habilidades.staminaRegen;
+    }
     else
         return 0.0f;
 }

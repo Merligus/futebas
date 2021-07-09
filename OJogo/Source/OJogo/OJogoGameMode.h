@@ -7,6 +7,7 @@
 #include "FutebasGameInstance.h"
 #include "OJogoCharacter.h"
 #include "OJogoGameState.h"
+#include "AfterMatchWidget.h"
 #include "Bola.h"
 #include "OJogoGameMode.generated.h"
 
@@ -37,6 +38,12 @@ class AOJogoGameMode : public AGameModeBase
 	int32 faltamDir_pen;
 
 protected:
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UUserWidget> widgetClass;
+
+	UPROPERTY(VisibleInstanceOnly)
+	class UAfterMatchWidget* matchResultWidget;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UFutebasGameInstance* FutebasGI;
 
@@ -125,7 +132,7 @@ public:
 	void penaltyTimedOut();
 
 	UFUNCTION(BlueprintCallable)
-	void decideVencedor(FResultadoData r);
+	void decideVencedor();
 
 	UFUNCTION(BlueprintCallable)
 	void setBotProprioGol(int32 golIndex);

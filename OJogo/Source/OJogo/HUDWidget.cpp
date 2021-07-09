@@ -46,13 +46,15 @@ FText UHUDWidget::bindGoalsDir()
 FText UHUDWidget::bindMinutes()
 {
 	int32 minutos;
+	int32 const_prorrogacao = JogosGameState->em_prorrogacao? 90 : 0;
+	int32 mult_prorrogacao = JogosGameState->em_prorrogacao? 15 : 45;
 	if ( GetWorld()->GetTimerManager().IsTimerActive(JogosGameState->tempo1) )
-		minutos = 45*(JogosGameState->tempo1Ou2 - 1) + UKismetMathLibrary::FTrunc(GetWorld()->GetTimerManager().GetTimerElapsed(JogosGameState->tempo1));
+		minutos = const_prorrogacao + mult_prorrogacao*(JogosGameState->tempo1Ou2 - 1) + UKismetMathLibrary::FTrunc(GetWorld()->GetTimerManager().GetTimerElapsed(JogosGameState->tempo1));
 	else if ( GetWorld()->GetTimerManager().IsTimerActive(JogosGameState->tempo2) )
-		minutos = 45*(JogosGameState->tempo1Ou2) + UKismetMathLibrary::FTrunc(GetWorld()->GetTimerManager().GetTimerElapsed(JogosGameState->tempo2));
+		minutos = const_prorrogacao + mult_prorrogacao*(JogosGameState->tempo1Ou2) + UKismetMathLibrary::FTrunc(GetWorld()->GetTimerManager().GetTimerElapsed(JogosGameState->tempo2));
 	else
-		minutos = JogosGameState->acrescimos.GetSeconds() + 45*(JogosGameState->tempo1Ou2 - 1);
-	return UKismetTextLibrary::Conv_IntToText(minutos, false, true, 2);
+		minutos = const_prorrogacao + JogosGameState->acrescimos.GetSeconds() + mult_prorrogacao*(JogosGameState->tempo1Ou2 - 1);
+	return UKismetTextLibrary::Conv_IntToText(FMath::Clamp(minutos, 0, 400), false, true, 2);
 }
 
 FText UHUDWidget::bindSeconds()
@@ -225,7 +227,7 @@ FText UHUDWidget::bindGoalsEsqPen(FSlateBrush erro, FSlateBrush acerto, FSlateBr
 	else
 		image_esq5->SetBrush(indefinido);
 
-	return UKismetTextLibrary::Conv_IntToText(JogosGameState->golsSomadosTimeEsq_pen);
+	return UKismetTextLibrary::Conv_IntToText(FMath::Clamp(JogosGameState->golsSomadosTimeEsq_pen, 0, 100));
 }
 
 FText UHUDWidget::bindGoalsDirPen(FSlateBrush erro, FSlateBrush acerto, FSlateBrush indefinido)
@@ -268,11 +270,15 @@ FText UHUDWidget::bindGoalsDirPen(FSlateBrush erro, FSlateBrush acerto, FSlateBr
 	else
 		image_dir1->SetBrush(indefinido);
 
-	return UKismetTextLibrary::Conv_IntToText(JogosGameState->golsSomadosTimeDir_pen);
+	return UKismetTextLibrary::Conv_IntToText(FMath::Clamp(JogosGameState->golsSomadosTimeDir_pen, 0, 100));
 }
 
 FText UHUDWidget::bindMinutesPenalidades()
 {
-	int32 minutos = UKismetMathLibrary::FTrunc(GetWorld()->GetTimerManager().GetTimerRemaining(JogosGameState->tempo1));
-	return UKismetTextLibrary::Conv_IntToText(minutos, false, true, 2);
+	int32 minutos; 
+	if ( GetWorld()->GetTimerManager().IsTimerActive(JogosGameState->tempo1) )
+		minutos = UKismetMathLibrary::FTrunc(GetWorld()->GetTimerManager().GetTimerRemaining(JogosGameState->tempo1));
+	else
+		minutos = JogosGameState->penalty_timeout;
+	return UKismetTextLibrary::Conv_IntToText(FMath::Clamp(minutos, 0, 400), false, true, 2);
 }

@@ -25,14 +25,15 @@ AOJogoGameState::AOJogoGameState()
 	tempoParado = 2.0f;
 	tempoParadoEscanteio = 1.0f;
 	alturaReinicio = 800.0f;
+	penalty_timeout = 4;
 
 	em_prorrogacao = false;
 	penalidades = false;
 	timeDireitoPrimeiro_pen = false;
 	golEsquerdoAtivado_pen = false;
 	golDireitoAtivado_pen = false;
-	golsSomadosTimeEsq_pen = 0;
-	golsSomadosTimeDir_pen = 0;
+	golsSomadosTimeEsq_pen = -1;
+	golsSomadosTimeDir_pen = -1;
 	golsTimeEsq_pen.Init(2, 5);
 	golsTimeDir_pen.Init(2, 5);
 }

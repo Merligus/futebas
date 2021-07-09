@@ -34,6 +34,15 @@ public:
 	bool team1_em_casa = true;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool escolheTeam2;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 team1_index_slot;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 team2_index_slot;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 grupo_atualiza_tabela;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

@@ -50,7 +50,7 @@ void AOJogoGameMode::BeginPlay()
 }
 
 void AOJogoGameMode::beginGame()
-{
+{	
 	player1 = Cast<AOJogoCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 	if (FutebasGI)
 	{
@@ -160,15 +160,15 @@ void AOJogoGameMode::antesDoComecoTimedOut()
 	if (!JogosGameState->penalidades)
 		comecaJogo();
 	else
-		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::penaltyTimedOut, 5.0f, false);
+		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::penaltyTimedOut, JogosGameState->penalty_timeout, false);
 }
 
 void AOJogoGameMode::comecaJogo()
 {
 	if (JogosGameState->em_prorrogacao)
-		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 15.0f, false);
+		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 2.0f, false);
 	else
-		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 45.0f, false);
+		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 2.0f, false);
 	JogosGameState->tempoRegulamentar = true;
 	JogosGameState->bolaEmJogo = true;
 }
@@ -228,8 +228,8 @@ void AOJogoGameMode::fimDePapo()
 		else
 		{
 			JogosGameState->penalidades = true;
-			vezTimeEsquerdo = JogosGameState->timeDireitoPrimeiro_pen;
 			JogosGameState->tempo1Ou2 = 1;
+			vezTimeEsquerdo = JogosGameState->timeDireitoPrimeiro_pen;
 			JogosGameState->tempoRegulamentar = true;
 			botIA->setBotGols(0, 100);
 			GetWorldTimerManager().ClearTimer(delayTimedOut);
@@ -240,8 +240,8 @@ void AOJogoGameMode::fimDePapo()
 	}
 	else
 	{
-		FResultadoData r(JogosGameState->golsTimeDir, JogosGameState->golsTimeEsq);
-		decideVencedor(r);
+		GetWorldTimerManager().ClearTimer(delayTimedOut);
+		decideVencedor();
 	}
 }
 
@@ -251,6 +251,15 @@ void AOJogoGameMode::trocaTimes()
 	aux = JogosGameState->golsTimeEsq;
 	JogosGameState->golsTimeEsq = JogosGameState->golsTimeDir;
 	JogosGameState->golsTimeDir = aux;
+
+	aux = JogosGameState->golsSomadosTimeEsq_pen;
+	JogosGameState->golsSomadosTimeEsq_pen = JogosGameState->golsSomadosTimeDir_pen;
+	JogosGameState->golsSomadosTimeDir_pen = aux;
+
+	TArray<int32> auxArray;
+	auxArray = JogosGameState->golsTimeEsq_pen;
+	JogosGameState->golsTimeEsq_pen = JogosGameState->golsTimeDir_pen;
+	JogosGameState->golsTimeDir_pen = auxArray;
 
 	FTeamData auxTeam;
 	auxTeam = FutebasGI->team1;
@@ -417,9 +426,7 @@ void AOJogoGameMode::penalidadesMaximas()
 			if (JogosGameState->golsSomadosTimeEsq_pen - JogosGameState->golsSomadosTimeDir_pen != 0)
 			{
 				acabou = true;
-				FResultadoData r(JogosGameState->golsTimeDir, JogosGameState->golsSomadosTimeDir_pen, 
-								 JogosGameState->golsTimeEsq, JogosGameState->golsSomadosTimeEsq_pen);
-				decideVencedor(r);
+				decideVencedor();
 			}
 		}
 	}
@@ -428,16 +435,12 @@ void AOJogoGameMode::penalidadesMaximas()
 		if ( (JogosGameState->golsSomadosTimeEsq_pen - JogosGameState->golsSomadosTimeDir_pen) > faltamDir_pen)
 		{
 			acabou = true;
-			FResultadoData r(JogosGameState->golsTimeDir, JogosGameState->golsSomadosTimeDir_pen, 
-							 JogosGameState->golsTimeEsq, JogosGameState->golsSomadosTimeEsq_pen);
-			decideVencedor(r);
+			decideVencedor();
 		}
 		if ( (JogosGameState->golsSomadosTimeDir_pen - JogosGameState->golsSomadosTimeEsq_pen) > faltamEsq_pen)
 		{
 			acabou = true;
-			FResultadoData r(JogosGameState->golsTimeDir, JogosGameState->golsSomadosTimeDir_pen, 
-							 JogosGameState->golsTimeEsq, JogosGameState->golsSomadosTimeEsq_pen);
-			decideVencedor(r);
+			decideVencedor();
 		}
 	}
 
@@ -520,16 +523,20 @@ void AOJogoGameMode::penaltyTimedOut()
 	penalidadesMaximas();
 }
 
-void AOJogoGameMode::decideVencedor(FResultadoData r)
+void AOJogoGameMode::decideVencedor()
 {
 	paralisaMovimentacao(true);
 
 	if(FutebasGI->team1_em_casa)
 		trocaTimes();
-	if (FutebasGI->copa_do_mundo.tabelaGrupos[0].times.Num() > 0)
+	
+	if (IsValid(widgetClass))
 	{
-		FutebasGI->terminaPartida(r);
-		UGameplayStatics::OpenLevel(GetWorld(), FName(TEXT("Copa_Level")));
+		matchResultWidget = Cast<UAfterMatchWidget>(CreateWidget(GetWorld(), widgetClass));
+
+		if (matchResultWidget)
+			matchResultWidget->AddToViewport();
+		
 	}
 }
 

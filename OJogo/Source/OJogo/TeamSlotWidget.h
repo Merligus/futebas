@@ -40,9 +40,21 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidget))
 	int32 indexSlot;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidget))
+	bool novaPartida;
+
 	UFUNCTION(BlueprintCallable)
 	void ButtonClicked();
 
 	UFUNCTION(BlueprintCallable)
+	void ButtonClickedNovaPartida();
+
+	UFUNCTION(BlueprintCallable)
 	FSlateBrush bindFlagNome();
+
+	UFUNCTION(BlueprintCallable)
+	FSlateBrush bindFlagNomeNovaPartida();
+
+	UFUNCTION(BlueprintCallable)
+	FLinearColor bindSelected();
 };

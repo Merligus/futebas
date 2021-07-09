@@ -16,7 +16,11 @@ bool UTeamSlotWidget::Initialize()
 
     if (!ensure(timeBotao != nullptr))
         return false;
-    timeBotao->OnClicked.AddDynamic(this, &UTeamSlotWidget::ButtonClicked);
+
+    if (novaPartida)
+        timeBotao->OnClicked.AddDynamic(this, &UTeamSlotWidget::ButtonClickedNovaPartida);
+    else
+        timeBotao->OnClicked.AddDynamic(this, &UTeamSlotWidget::ButtonClicked);
 
     return true;
 }
@@ -24,7 +28,30 @@ bool UTeamSlotWidget::Initialize()
 void UTeamSlotWidget::ButtonClicked()
 {
     if (FutebasGI)
+    {
         FutebasGI->team1 = FutebasGI->getTeam(indexSlot);
+        FutebasGI->team1_index_slot = indexSlot;
+    }
+    else
+        GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Slot %d clicado mas FutebasGI null"), indexSlot));
+}
+
+void UTeamSlotWidget::ButtonClickedNovaPartida()
+{
+    if (FutebasGI)
+    {
+        if (FutebasGI->escolheTeam2)
+        {
+            FutebasGI->team2 = FutebasGI->getTeamTrueIndex(indexSlot);
+            FutebasGI->team2_index_slot = indexSlot;
+        }
+        else
+        {
+            FutebasGI->team1 = FutebasGI->getTeamTrueIndex(indexSlot);
+            FutebasGI->team1_index_slot = indexSlot;
+        }
+        FutebasGI->escolheTeam2 = !FutebasGI->escolheTeam2;
+    }
     else
         GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Slot %d clicado mas FutebasGI null"), indexSlot));
 }
@@ -41,4 +68,36 @@ FSlateBrush UTeamSlotWidget::bindFlagNome()
         timeNome->SetText(FText::FromString(FString(TEXT("ERROR"))));
 		return FSlateNoResource();
     }
+}
+
+FSlateBrush UTeamSlotWidget::bindFlagNomeNovaPartida()
+{
+	if (FutebasGI)
+    {
+        timeNome->SetText(FText::FromString(FutebasGI->getTeamTrueIndex(indexSlot).nome_hud));
+		return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeamTrueIndex(indexSlot).flag, 32, 24);
+    }
+	else
+    {
+        timeNome->SetText(FText::FromString(FString(TEXT("ERROR"))));
+		return FSlateNoResource();
+    }
+}
+
+FLinearColor UTeamSlotWidget::bindSelected()
+{
+    FLinearColor c;
+    if (indexSlot == FutebasGI->team1_index_slot && FutebasGI->team1.index_time >= 0)
+    {
+        if (indexSlot == FutebasGI->team2_index_slot && FutebasGI->team2.index_time >= 0)
+            c = FLinearColor(1, 0, 1, 0.5);
+        else
+            c = FLinearColor(0, 0, 1, 0.5);
+    }
+    else if (indexSlot == FutebasGI->team2_index_slot && FutebasGI->team2.index_time >= 0 && novaPartida)
+        c = FLinearColor(1, 0, 0, 0.5);
+    else
+        c = FLinearColor(0, 0, 0, 0);
+    
+    return c;
 }
