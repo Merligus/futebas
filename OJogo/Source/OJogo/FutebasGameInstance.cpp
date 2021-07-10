@@ -114,19 +114,11 @@ void UFutebasGameInstance::jogaPartida()
 
 void UFutebasGameInstance::terminaPartida(FResultadoData r)
 {
-    if (team1_em_casa)
-    {
-        r.index_casa = team1.index_time;
-        r.index_fora = team2.index_time;
-    }
-    else
-    {
-        r.index_casa = team2.index_time;
-        r.index_fora = team1.index_time;
-    }
     if (copa_do_mundo.fase_atual == 0)
     {
         int32 rodada_atual = copa_do_mundo.tabelaGrupos[grupo_atualiza_tabela].rodada_atual;
+        r.index_casa = copa_do_mundo.tabelaGrupos[grupo_atualiza_tabela].calendario[rodada_atual].jogos[ind_jogo_atualiza_tabela].casa;
+        r.index_fora = copa_do_mundo.tabelaGrupos[grupo_atualiza_tabela].calendario[rodada_atual].jogos[ind_jogo_atualiza_tabela].fora;
         if (rodada_atual == 2)
         {
             int32 index_t1_temp = copa_do_mundo.tabelaGrupos[grupo_atualiza_tabela].calendario[2].jogos[(ind_jogo_atualiza_tabela+1)%2].casa;
@@ -158,7 +150,6 @@ void UFutebasGameInstance::terminaPartida(FResultadoData r)
             ind_jogo_atualiza_tabela = 0;
         }
     }
-    team1.index_time = copa_do_mundo.sorteioGrupo[team1.index_time];
 }
 
 bool UFutebasGameInstance::simulaJogosProximaRodada()
@@ -178,8 +169,8 @@ bool UFutebasGameInstance::simulaJogosProximaRodada()
                     desempate_por_penaltis = false;
                     team2 = getTeam(index_t2);
                     
-                    team1.index_time = index_t1;
-                    team2.index_time = index_t2;
+                    team1.index_time = copa_do_mundo.sorteioGrupo[index_t1];
+                    team2.index_time = copa_do_mundo.sorteioGrupo[index_t2];
 
                     team1_em_casa = true;
                     
@@ -192,8 +183,8 @@ bool UFutebasGameInstance::simulaJogosProximaRodada()
                     desempate_por_penaltis = false;
                     team2 = getTeam(index_t1);
                     
-                    team1.index_time = index_t2;
-                    team2.index_time = index_t1;
+                    team1.index_time = copa_do_mundo.sorteioGrupo[index_t2];
+                    team2.index_time = copa_do_mundo.sorteioGrupo[index_t1];
 
                     team1_em_casa = false;
                     
@@ -282,8 +273,8 @@ bool UFutebasGameInstance::simulaJogosProximaRodada()
                 desempate_por_penaltis = true;
                 team2 = getTeam(index_t2);
                 
-                team1.index_time = index_t1;
-                team2.index_time = index_t2;
+                team1.index_time = copa_do_mundo.sorteioGrupo[index_t1];;
+                team2.index_time = copa_do_mundo.sorteioGrupo[index_t2];;
 
                 team1_em_casa = true;
                 
@@ -295,8 +286,8 @@ bool UFutebasGameInstance::simulaJogosProximaRodada()
                 desempate_por_penaltis = true;
                 team2 = getTeam(index_t1);
                 
-                team1.index_time = index_t2;
-                team2.index_time = index_t1;
+                team1.index_time = copa_do_mundo.sorteioGrupo[index_t2];;
+                team2.index_time = copa_do_mundo.sorteioGrupo[index_t1];;
 
                 team1_em_casa = false;
                 
