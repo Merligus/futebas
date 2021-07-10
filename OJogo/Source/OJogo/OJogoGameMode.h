@@ -144,4 +144,6 @@ public:
 	void paralisaMovimentacao(bool ignora);
 
 	virtual void BeginPlay() override;
+
+	virtual void Tick(float DeltaTime) override;
 };

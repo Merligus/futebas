@@ -49,6 +49,31 @@ void AOJogoGameMode::BeginPlay()
 	// GetWorld()->GetAuthGameMode()->GetGameState<AOJogoGameState>()->vsBotIA = true;
 }
 
+// Called every frame
+void AOJogoGameMode::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	static FVector posicao_bola;
+
+	TArray<AActor*> FoundActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
+	if (FoundActors.Num() == 0)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola respawnada")));
+		ABola* bola = GetWorld()->SpawnActor<ABola>(ABola::StaticClass(), FVector(150, -20, 0), FRotator(0));
+		UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(bola->GetRootComponent());
+		if (Sphere)
+		{
+			Sphere->AddImpulse(Sphere->GetPhysicsLinearVelocity() * Sphere->GetMass() * (-1.0f));
+			Sphere->SetPhysicsAngularVelocityInDegrees(FVector(0.0f));
+			Sphere->SetWorldLocation(posicao_bola, false, NULL, ETeleportType::TeleportPhysics);
+		}
+	}
+	else
+		posicao_bola = FoundActors[0]->GetActorLocation();
+}
+
 void AOJogoGameMode::beginGame()
 {	
 	player1 = Cast<AOJogoCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
@@ -113,6 +138,12 @@ void AOJogoGameMode::reiniciaPartida(bool neutro, bool favoravelEsq)
 
 	TArray<AActor*> FoundActors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
+	if (FoundActors.Num() == 0)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola respawnada")));
+		ABola* bola = GetWorld()->SpawnActor<ABola>(ABola::StaticClass(), FVector(150, -20, 0), FRotator(0));
+		FoundActors.Add(bola);
+	}
 	if (FoundActors.Num() == 1)
 	{
 		UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(FoundActors[0]->GetRootComponent());
@@ -166,9 +197,9 @@ void AOJogoGameMode::antesDoComecoTimedOut()
 void AOJogoGameMode::comecaJogo()
 {
 	if (JogosGameState->em_prorrogacao)
-		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 2.0f, false);
+		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 15.0f, false);
 	else
-		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 2.0f, false);
+		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 45.0f, false);
 	JogosGameState->tempoRegulamentar = true;
 	JogosGameState->bolaEmJogo = true;
 }
@@ -351,6 +382,12 @@ void AOJogoGameMode::escanteioTimedOut()
 
 	TArray<AActor*> FoundActors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
+	if (FoundActors.Num() == 0)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola respawnada")));
+		ABola* bola = GetWorld()->SpawnActor<ABola>(ABola::StaticClass(), FVector(150, -20, 0), FRotator(0));
+		FoundActors.Add(bola);
+	}
 	if (FoundActors.Num() == 1)
 	{
 		UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(FoundActors[0]->GetRootComponent());
@@ -373,6 +410,12 @@ void AOJogoGameMode::reiniciaBolaMeio()
 	{
 		TArray<AActor*> FoundActors;
 		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
+		if (FoundActors.Num() == 0)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola respawnada")));
+			ABola* bola = GetWorld()->SpawnActor<ABola>(ABola::StaticClass(), FVector(150, -20, 0), FRotator(0));
+			FoundActors.Add(bola);
+		}
 		if (FoundActors.Num() == 1)
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Achou bola na explosao")));
