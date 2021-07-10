@@ -17,7 +17,7 @@ ABola::ABola()
 	aparencia = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Aparencia"));
 	aparencia->SetupAttachment(esfera);
 
-	explosao_NS = CreateDefaultSubobject<UNiagaraSystem>(TEXT("Explosao_NS"));
+	explosao = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("Explosao"));
 	aparencia->SetupAttachment(esfera);
 }
 
@@ -38,15 +38,15 @@ void ABola::Tick(float DeltaTime)
 
 void ABola::explode(FVector posicao)
 {
-	if (explosao_NS)
-		UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), explosao_NS, posicao, FRotator(0), FVector(1), true, true, ENCPoolMethod::None, true);
-	else
-		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("eplosao nao encontrada")));
+	// if (explosao)
+	// 	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), explosao, posicao, FRotator(0), FVector(1), true, true, ENCPoolMethod::None, true);
+	// else
+	// 	GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("eplosao nao encontrada")));
 }
 
 void ABola::chuta(FRotator anguloChute, float forca)
 {
-	explode(GetActorLocation());
+	// explode(GetActorLocation());
 
 	esfera->SetCollisionProfileName(FName(TEXT("Ragdoll")), true);
 	esfera->AddImpulse(UKismetMathLibrary::GetForwardVector(anguloChute) * forca, FName(TEXT("None")), true);

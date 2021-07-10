@@ -5,8 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/SphereComponent.h"
-#include "NiagaraSystem.h"
-#include "NiagaraFunctionLibrary.h"
+#include "PaperFlipbookComponent.h"
 #include "OJogoGameState.h"
 #include "Bola.generated.h"
 
@@ -26,8 +25,8 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Bola")
 	UStaticMeshComponent* aparencia;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Bola")
-	UNiagaraSystem* explosao_NS;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+	UPaperFlipbookComponent* explosao;
 
 	// Sets default values for this actor's properties
 	ABola();

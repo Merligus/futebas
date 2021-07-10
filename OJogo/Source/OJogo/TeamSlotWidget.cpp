@@ -31,6 +31,8 @@ void UTeamSlotWidget::ButtonClicked()
     {
         FutebasGI->team1 = FutebasGI->getTeam(indexSlot);
         FutebasGI->team1_index_slot = indexSlot;
+        FutebasGI->team2 = FutebasGI->getTeam(indexSlot);
+        FutebasGI->team2_index_slot = -1;
     }
     else
         GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Slot %d clicado mas FutebasGI null"), indexSlot));
