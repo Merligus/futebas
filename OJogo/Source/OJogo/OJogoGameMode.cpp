@@ -54,14 +54,12 @@ void AOJogoGameMode::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	static FVector posicao_bola;
-
 	TArray<AActor*> FoundActors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
 	if (FoundActors.Num() == 0)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola respawnada")));
-		ABola* bola = GetWorld()->SpawnActor<ABola>(ABola::StaticClass(), FVector(150, -20, 0), FRotator(0));
+		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola respawnada em %d %d"), posicao_bola.X, posicao_bola.Z));
+		ABola* bola = GetWorld()->SpawnActor<ABola>(ABola::StaticClass(), posicao_bola, FRotator(0));
 		UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(bola->GetRootComponent());
 		if (Sphere)
 		{
@@ -70,8 +68,7 @@ void AOJogoGameMode::Tick(float DeltaTime)
 			Sphere->SetWorldLocation(posicao_bola, false, NULL, ETeleportType::TeleportPhysics);
 		}
 	}
-	else
-		posicao_bola = FoundActors[0]->GetActorLocation();
+	posicao_bola = FoundActors[0]->GetActorLocation();
 }
 
 void AOJogoGameMode::beginGame()
@@ -140,8 +137,8 @@ void AOJogoGameMode::reiniciaPartida(bool neutro, bool favoravelEsq)
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
 	if (FoundActors.Num() == 0)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola respawnada")));
-		ABola* bola = GetWorld()->SpawnActor<ABola>(ABola::StaticClass(), FVector(150, -20, 0), FRotator(0));
+		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola respawnada em %d %d"), posicao_bola.X, posicao_bola.Z));
+		ABola* bola = GetWorld()->SpawnActor<ABola>(ABola::StaticClass(), posicao_bola, FRotator(0));
 		FoundActors.Add(bola);
 	}
 	if (FoundActors.Num() == 1)
@@ -384,8 +381,8 @@ void AOJogoGameMode::escanteioTimedOut()
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
 	if (FoundActors.Num() == 0)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola respawnada")));
-		ABola* bola = GetWorld()->SpawnActor<ABola>(ABola::StaticClass(), FVector(150, -20, 0), FRotator(0));
+		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola respawnada em %d %d"), posicao_bola.X, posicao_bola.Z));
+		ABola* bola = GetWorld()->SpawnActor<ABola>(ABola::StaticClass(), posicao_bola, FRotator(0));
 		FoundActors.Add(bola);
 	}
 	if (FoundActors.Num() == 1)
@@ -412,8 +409,8 @@ void AOJogoGameMode::reiniciaBolaMeio()
 		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
 		if (FoundActors.Num() == 0)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola respawnada")));
-			ABola* bola = GetWorld()->SpawnActor<ABola>(ABola::StaticClass(), FVector(150, -20, 0), FRotator(0));
+			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola respawnada em %d %d"), posicao_bola.X, posicao_bola.Z));
+			ABola* bola = GetWorld()->SpawnActor<ABola>(ABola::StaticClass(), posicao_bola, FRotator(0));
 			FoundActors.Add(bola);
 		}
 		if (FoundActors.Num() == 1)

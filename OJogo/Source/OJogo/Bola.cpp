@@ -3,6 +3,7 @@
 
 #include "Bola.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ABola::ABola()
@@ -49,9 +50,18 @@ void ABola::explode(FVector posicao)
 		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("eplosao nao encontrada")));
 }
 
+void ABola::fazSomChute(FVector posicao)
+{
+	if (som_chute)
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), som_chute, posicao);
+	else
+		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("som chute nao encontrado")));
+}
+
 void ABola::chuta(FRotator anguloChute, float forca)
 {
 	explode(GetActorLocation());
+	fazSomChute(GetActorLocation());
 
 	esfera->SetCollisionProfileName(FName(TEXT("Ragdoll")), true);
 	esfera->AddImpulse(UKismetMathLibrary::GetForwardVector(anguloChute) * forca, FName(TEXT("None")), true);

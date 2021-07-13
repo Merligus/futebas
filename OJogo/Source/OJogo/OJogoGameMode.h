@@ -24,6 +24,9 @@ class AOJogoGameMode : public AGameModeBase
 
 	UPROPERTY(VisibleAnywhere)
 	FTimerHandle delayTimedOut;
+	
+	UPROPERTY(VisibleAnywhere)
+	FVector posicao_bola;
 
 	UPROPERTY(VisibleAnywhere)
 	bool golTimeEsq;

@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Components/SphereComponent.h"
 #include "PaperFlipbookComponent.h"
+#include "Sound/SoundWave.h"
 #include "OJogoGameState.h"
 #include "Bola.generated.h"
 
@@ -28,6 +29,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
 	UPaperFlipbookComponent* explosao;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Sons)
+	USoundWave* som_chute;
+
 	// Sets default values for this actor's properties
 	ABola();
 
@@ -36,6 +40,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void explode(FVector posicao);
+
+	UFUNCTION(BlueprintCallable)
+	void fazSomChute(FVector posicao);
 
 	UFUNCTION(BlueprintCallable)
 	void chuta(FRotator anguloChute, float forca);
