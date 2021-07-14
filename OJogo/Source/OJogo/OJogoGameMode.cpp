@@ -103,6 +103,24 @@ void AOJogoGameMode::beginGame()
 	}
 }
 
+void AOJogoGameMode::fazSomApito(int32 modo)
+{
+	if (modo == 0)
+	{
+		if (som_apito_inicio)
+			UGameplayStatics::PlaySoundAtLocation(GetWorld(), som_apito_inicio, JogosGameState->posInicial);
+		else
+			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("som apito inicio nao encontrado")));
+	}
+	else if (modo == 1)
+	{
+		if (som_apito_fim)
+			UGameplayStatics::PlaySoundAtLocation(GetWorld(), som_apito_fim, JogosGameState->posInicial);
+		else
+			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("som apito fim nao encontrado")));
+	}
+}
+
 void AOJogoGameMode::setBotProprioGol(int32 golIndex)
 {
 	if (UAIBlueprintHelperLibrary::GetBlackboard(botIA))
@@ -184,6 +202,7 @@ void AOJogoGameMode::antesDoComeco()
 void AOJogoGameMode::antesDoComecoTimedOut()
 {
 	paralisaMovimentacao(false);
+	fazSomApito(0);
 
 	if (!JogosGameState->penalidades)
 		comecaJogo();
@@ -196,7 +215,7 @@ void AOJogoGameMode::comecaJogo()
 	if (JogosGameState->em_prorrogacao)
 		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 15.0f, false);
 	else
-		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 45.0f, false);
+		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 2.0f, false);
 	JogosGameState->tempoRegulamentar = true;
 	JogosGameState->bolaEmJogo = true;
 }
@@ -213,6 +232,7 @@ void AOJogoGameMode::terminaTempo()
 	JogosGameState->bolaEmJogo = false;
 	if (JogosGameState->tempo1Ou2 == 1)
 	{
+		fazSomApito(0);
 		JogosGameState->tempo1Ou2 = 2;
 		GetWorldTimerManager().ClearTimer(delayTimedOut);
 		paralisaMovimentacao(true);
@@ -245,6 +265,7 @@ void AOJogoGameMode::fimDePapo()
 
 	if (JogosGameState->golsTimeDir == JogosGameState->golsTimeEsq && FutebasGI->desempate_por_penaltis)
 	{
+		fazSomApito(1);
 		if (!JogosGameState->em_prorrogacao)
 		{
 			JogosGameState->em_prorrogacao = true;
@@ -295,10 +316,12 @@ void AOJogoGameMode::trocaTimes()
 	FutebasGI->team2 = auxTeam;
 }
 
-void AOJogoGameMode::golEsquerdo()
+bool AOJogoGameMode::golEsquerdo()
 {
+	bool bola_em_jogo = false;
 	if (JogosGameState->bolaEmJogo == true)
 	{
+		bola_em_jogo = true;
 		JogosGameState->bolaEmJogo = false;
 		JogosGameState->golsTimeDir += 1;
 		setBotGols(JogosGameState->golsTimeEsq, JogosGameState->golsTimeDir);
@@ -306,14 +329,19 @@ void AOJogoGameMode::golEsquerdo()
 	}
 	else if (JogosGameState->penalidades && GetWorldTimerManager().IsTimerActive(JogosGameState->tempo1))
 	{
+		
 		GetWorldTimerManager().PauseTimer(JogosGameState->tempo1);
 		paralisaMovimentacao(true);
 		if (JogosGameState->golEsquerdoAtivado_pen)
+		{
+			bola_em_jogo = true;
 			golTimeDir = true;
+		}
 		atualizaContagem();
 		FTimerHandle UnusedHandle;
 		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::penalidadesMaximas, JogosGameState->tempoParado, false);
 	}
+	return bola_em_jogo;
 }
 
 void AOJogoGameMode::golEsquerdoTimedOut()
@@ -324,10 +352,12 @@ void AOJogoGameMode::golEsquerdoTimedOut()
 	JogosGameState->bolaEmJogo = true;
 }
 
-void AOJogoGameMode::golDireito()
+bool AOJogoGameMode::golDireito()
 {
+	bool bola_em_jogo = false;
 	if (JogosGameState->bolaEmJogo == true)
 	{
+		bola_em_jogo = true;
 		JogosGameState->bolaEmJogo = false;
 		JogosGameState->golsTimeEsq += 1;
 		setBotGols(JogosGameState->golsTimeEsq, JogosGameState->golsTimeDir);
@@ -338,11 +368,15 @@ void AOJogoGameMode::golDireito()
 		GetWorldTimerManager().PauseTimer(JogosGameState->tempo1);
 		paralisaMovimentacao(true);
 		if (JogosGameState->golDireitoAtivado_pen)
+		{
+			bola_em_jogo = true;
 			golTimeEsq = true;
+		}
 		atualizaContagem();
 		FTimerHandle UnusedHandle;
 		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::penalidadesMaximas, JogosGameState->tempoParado, false);
 	}
+	return bola_em_jogo;
 }
 
 void AOJogoGameMode::golDireitoTimedOut()
@@ -353,8 +387,9 @@ void AOJogoGameMode::golDireitoTimedOut()
 	JogosGameState->bolaEmJogo = true;
 }
 
-void AOJogoGameMode::escanteio(AActor* pos)
+bool AOJogoGameMode::escanteio(AActor* pos)
 {
+	bool bola_em_jogo = JogosGameState->bolaEmJogo;
 	posicao = pos;
 	if (JogosGameState->bolaEmJogo)
 	{
@@ -369,6 +404,7 @@ void AOJogoGameMode::escanteio(AActor* pos)
 		FTimerHandle UnusedHandle;
 		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::penalidadesMaximas, JogosGameState->tempoParado, false);
 	}
+	return bola_em_jogo;
 }
 
 void AOJogoGameMode::escanteioTimedOut()
@@ -566,6 +602,7 @@ void AOJogoGameMode::penaltyTimedOut()
 void AOJogoGameMode::decideVencedor()
 {
 	paralisaMovimentacao(true);
+	fazSomApito(1);
 
 	if(FutebasGI->team1_em_casa)
 		trocaTimes();
@@ -576,7 +613,6 @@ void AOJogoGameMode::decideVencedor()
 
 		if (matchResultWidget)
 			matchResultWidget->AddToViewport();
-		
 	}
 }
 

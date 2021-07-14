@@ -8,6 +8,7 @@
 #include "OJogoCharacter.h"
 #include "OJogoGameState.h"
 #include "AfterMatchWidget.h"
+#include "Sound/SoundWave.h"
 #include "Bola.h"
 #include "OJogoGameMode.generated.h"
 
@@ -68,11 +69,20 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool vezTimeEsquerdo;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Sons)
+	USoundWave* som_apito_inicio;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Sons)
+	USoundWave* som_apito_fim;
+
 public:
 	AOJogoGameMode();
 
 	UFUNCTION(BlueprintCallable)
 	void beginGame();
+
+	UFUNCTION(BlueprintCallable)
+	void fazSomApito(int32 modo);
 
 	UFUNCTION(BlueprintCallable)
 	void reiniciaPartida(bool neutro, bool favoravelEsq);
@@ -102,19 +112,19 @@ public:
 	void trocaTimes();
 
 	UFUNCTION(BlueprintCallable)
-	void golEsquerdo();
+	bool golEsquerdo();
 
 	UFUNCTION(BlueprintCallable)
 	void golEsquerdoTimedOut();
 
 	UFUNCTION(BlueprintCallable)
-	void golDireito();
+	bool golDireito();
 
 	UFUNCTION(BlueprintCallable)
 	void golDireitoTimedOut();
 
 	UFUNCTION(BlueprintCallable)
-	void escanteio(AActor* pos);
+	bool escanteio(AActor* pos);
 
 	UFUNCTION(BlueprintCallable)
 	void escanteioTimedOut();
