@@ -44,12 +44,21 @@ void UAfterMatchWidget::continuarClicked()
         {
             FResultadoData resultado;
             if (JogosGameState)
-                resultado = FResultadoData(JogosGameState->golsTimeDir, JogosGameState->golsSomadosTimeDir_pen, 
-								           JogosGameState->golsTimeEsq, JogosGameState->golsSomadosTimeEsq_pen);
+            {
+                resultado.index_casa = FutebasGI->team1.index_time;
+                resultado.index_fora = FutebasGI->team2.index_time;
+                resultado = FResultadoData(JogosGameState->golsTimeEsq, JogosGameState->golsSomadosTimeEsq_pen, 
+                                            JogosGameState->golsTimeDir, JogosGameState->golsSomadosTimeDir_pen);
+                if (!FutebasGI->team1_em_casa)
+                {
+                    FTeamData auxTeam;
+                    auxTeam = FutebasGI->team1;
+                    FutebasGI->team1 = FutebasGI->team2;
+                    FutebasGI->team2 = auxTeam;
+                }
+            }
             else
                 resultado = FResultadoData(3);
-            resultado.index_casa = FutebasGI->team1.index_time;
-            resultado.index_fora = FutebasGI->team2.index_time;
             FutebasGI->terminaPartida(resultado);
             UGameplayStatics::OpenLevel(GetWorld(), FName(TEXT("Copa_Level")));
         }
