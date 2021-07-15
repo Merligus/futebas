@@ -109,7 +109,10 @@ FResultadoData UFutebasGameInstance::simulaJogo(int32 index_t1, int32 index_t2, 
 
 void UFutebasGameInstance::jogaPartida()
 {
-    UGameplayStatics::OpenLevel(GetWorld(), FName(team1.estadio));
+    if (team1_em_casa)
+        UGameplayStatics::OpenLevel(GetWorld(), FName(team1.estadio));
+    else
+        UGameplayStatics::OpenLevel(GetWorld(), FName(team2.estadio));
 }
 
 void UFutebasGameInstance::terminaPartida(FResultadoData r)
@@ -142,6 +145,8 @@ void UFutebasGameInstance::terminaPartida(FResultadoData r)
     }
     else if (copa_do_mundo.fase_atual <= 4)
     {
+        r.index_casa = copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-1].confrontos[ind_jogo_atualiza_tabela].index_casa;
+        r.index_fora = copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-1].confrontos[ind_jogo_atualiza_tabela].index_fora;
         copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-1].confrontos[ind_jogo_atualiza_tabela] = r;
         ++ind_jogo_atualiza_tabela;
         if (ind_jogo_atualiza_tabela == copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-1].confrontos.Num())

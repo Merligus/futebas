@@ -58,17 +58,22 @@ void AOJogoGameMode::Tick(float DeltaTime)
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
 	if (FoundActors.Num() == 0)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola respawnada em %d %d"), posicao_bola.X, posicao_bola.Z));
+		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Tick:Bola respawnada em %d %d"), posicao_bola.X, posicao_bola.Z));
 		ABola* bola = GetWorld()->SpawnActor<ABola>(ABola::StaticClass(), posicao_bola, FRotator(0));
 		UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(bola->GetRootComponent());
-		if (Sphere)
+		if (Sphere && JogosGameState)
 		{
 			Sphere->AddImpulse(Sphere->GetPhysicsLinearVelocity() * Sphere->GetMass() * (-1.0f));
 			Sphere->SetPhysicsAngularVelocityInDegrees(FVector(0.0f));
-			Sphere->SetWorldLocation(posicao_bola, false, NULL, ETeleportType::TeleportPhysics);
+			Sphere->SetWorldLocation(FVector(posicao_bola.X, posicao_bola.Y, posicao_bola.Z + JogosGameState->alturaReinicio), false, NULL, ETeleportType::TeleportPhysics);
+			if (bola)
+				bola->explode(FVector(posicao_bola.X, 10, 0));
+			else
+				GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("nao deu pra explodir")));
 		}
 	}
-	posicao_bola = FoundActors[0]->GetActorLocation();
+	else
+		posicao_bola = FoundActors[0]->GetActorLocation();
 }
 
 void AOJogoGameMode::beginGame()
@@ -155,7 +160,7 @@ void AOJogoGameMode::reiniciaPartida(bool neutro, bool favoravelEsq)
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
 	if (FoundActors.Num() == 0)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola respawnada em %d %d"), posicao_bola.X, posicao_bola.Z));
+		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("reiniciaPartida:Bola respawnada em %d %d"), posicao_bola.X, posicao_bola.Z));
 		ABola* bola = GetWorld()->SpawnActor<ABola>(ABola::StaticClass(), posicao_bola, FRotator(0));
 		FoundActors.Add(bola);
 	}
@@ -329,7 +334,6 @@ bool AOJogoGameMode::golEsquerdo()
 	}
 	else if (JogosGameState->penalidades && GetWorldTimerManager().IsTimerActive(JogosGameState->tempo1))
 	{
-		
 		GetWorldTimerManager().PauseTimer(JogosGameState->tempo1);
 		paralisaMovimentacao(true);
 		if (JogosGameState->golEsquerdoAtivado_pen)
@@ -417,7 +421,7 @@ void AOJogoGameMode::escanteioTimedOut()
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
 	if (FoundActors.Num() == 0)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola respawnada em %d %d"), posicao_bola.X, posicao_bola.Z));
+		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("escanteioTimedOut:Bola respawnada em %d %d"), posicao_bola.X, posicao_bola.Z));
 		ABola* bola = GetWorld()->SpawnActor<ABola>(ABola::StaticClass(), posicao_bola, FRotator(0));
 		FoundActors.Add(bola);
 	}
@@ -445,7 +449,7 @@ void AOJogoGameMode::reiniciaBolaMeio()
 		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
 		if (FoundActors.Num() == 0)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola respawnada em %d %d"), posicao_bola.X, posicao_bola.Z));
+			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("reiniciaBolaMeio:Bola respawnada em %d %d"), posicao_bola.X, posicao_bola.Z));
 			ABola* bola = GetWorld()->SpawnActor<ABola>(ABola::StaticClass(), posicao_bola, FRotator(0));
 			FoundActors.Add(bola);
 		}
@@ -502,6 +506,7 @@ void AOJogoGameMode::penalidadesMaximas()
 			if (JogosGameState->golsSomadosTimeEsq_pen - JogosGameState->golsSomadosTimeDir_pen != 0)
 			{
 				acabou = true;
+				GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("no alternado terminou")));
 				decideVencedor();
 			}
 		}
@@ -513,7 +518,7 @@ void AOJogoGameMode::penalidadesMaximas()
 			acabou = true;
 			decideVencedor();
 		}
-		if ( (JogosGameState->golsSomadosTimeDir_pen - JogosGameState->golsSomadosTimeEsq_pen) > faltamEsq_pen)
+		else if ( (JogosGameState->golsSomadosTimeDir_pen - JogosGameState->golsSomadosTimeEsq_pen) > faltamEsq_pen)
 		{
 			acabou = true;
 			decideVencedor();
@@ -603,7 +608,7 @@ void AOJogoGameMode::decideVencedor()
 {
 	paralisaMovimentacao(true);
 	fazSomApito(1);
-
+	
 	trocaTimes();
 	
 	if (IsValid(widgetClass))

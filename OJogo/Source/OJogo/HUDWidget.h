@@ -117,4 +117,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	FText bindMinutesPenalidades();
+
+	UFUNCTION(BlueprintCallable)
+	FText bindSecondsPenalidades();
 };

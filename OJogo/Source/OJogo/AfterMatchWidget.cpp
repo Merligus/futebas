@@ -48,7 +48,7 @@ void UAfterMatchWidget::continuarClicked()
                 resultado.index_casa = FutebasGI->team1.index_time;
                 resultado.index_fora = FutebasGI->team2.index_time;
                 resultado = FResultadoData(JogosGameState->golsTimeEsq, JogosGameState->golsSomadosTimeEsq_pen, 
-                                            JogosGameState->golsTimeDir, JogosGameState->golsSomadosTimeDir_pen);
+                                           JogosGameState->golsTimeDir, JogosGameState->golsSomadosTimeDir_pen);
                 if (!FutebasGI->team1_em_casa)
                 {
                     FTeamData auxTeam;

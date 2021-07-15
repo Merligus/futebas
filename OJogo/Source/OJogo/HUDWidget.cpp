@@ -282,3 +282,13 @@ FText UHUDWidget::bindMinutesPenalidades()
 		minutos = JogosGameState->penalty_timeout;
 	return UKismetTextLibrary::Conv_IntToText(FMath::Clamp(minutos, 0, 400), false, true, 2);
 }
+
+FText UHUDWidget::bindSecondsPenalidades()
+{
+	int32 segundos;
+	if ( GetWorld()->GetTimerManager().IsTimerActive(JogosGameState->tempo1) )
+		segundos = UKismetMathLibrary::FTrunc(60 * UKismetMathLibrary::Fraction(GetWorld()->GetTimerManager().GetTimerRemaining(JogosGameState->tempo1)));
+	else
+		segundos = 0;
+	return UKismetTextLibrary::Conv_IntToText(segundos, false, true, 2);
+}

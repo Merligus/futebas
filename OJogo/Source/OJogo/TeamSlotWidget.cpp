@@ -13,6 +13,7 @@ bool UTeamSlotWidget::Initialize()
 	FutebasGI = GetGameInstance<UFutebasGameInstance>();
 	if (!FutebasGI)
         return false;
+    FutebasGI->escolheTeam2 = false;
 
     if (!ensure(timeBotao != nullptr))
         return false;
