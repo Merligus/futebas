@@ -220,7 +220,7 @@ void AOJogoGameMode::comecaJogo()
 	if (JogosGameState->em_prorrogacao)
 		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 15.0f, false);
 	else
-		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 5.0f, false);
+		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 45.0f, false);
 	JogosGameState->tempoRegulamentar = true;
 	JogosGameState->bolaEmJogo = true;
 }

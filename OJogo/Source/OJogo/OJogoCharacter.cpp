@@ -1,6 +1,9 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "OJogoCharacter.h"
+#include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "PaperFlipbookComponent.h"
 #include "Components/TextRenderComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -50,7 +53,11 @@ AOJogoCharacter::AOJogoCharacter()
 
 	// Configure character movement
 	GetCharacterMovement()->GravityScale = 2.0f;
-	GetCharacterMovement()->AirControl = 0.80f;
+	GetCharacterMovement()->MaxAcceleration = 10000.0f;
+	GetCharacterMovement()->GroundFriction = 3.0f;
+	GetCharacterMovement()->BrakingDecelerationWalking = 10000.0f;
+	GetCharacterMovement()->BrakingDecelerationFalling = 2048.0f;
+	GetCharacterMovement()->AirControl = 0.8;
 	GetCharacterMovement()->JumpZVelocity = 1000.f;
 	GetCharacterMovement()->GroundFriction = 3.0f;
 	GetCharacterMovement()->MaxWalkSpeed = 600.0f;
@@ -75,7 +82,7 @@ AOJogoCharacter::AOJogoCharacter()
 	GetSprite()->SetIsReplicated(true);
 	bReplicates = true;
 
-
+	stamina = 100.0f;
 	maxForcaChute = 5000.0f;
 	maxForcaCabeceio = 5000.0f;
 	velocidade = GetCharacterMovement()->MaxWalkSpeed;
@@ -183,6 +190,95 @@ AOJogoCharacter::AOJogoCharacter()
 		chuteira->SetGenerateOverlapEvents(false);
 		chuteira->SetCanEverAffectNavigation(false);
 	}
+
+	GetSprite()->SetRelativeLocation(FVector(3.7, 0.0001, 10.5));
+	GetSprite()->SetRelativeScale3D(FVector(0.44));
+
+	// body
+	GetCapsuleComponent()->SetCapsuleHalfHeight(82);
+	GetCapsuleComponent()->SetCapsuleRadius(1);
+	GetCapsuleComponent()->SetCollisionProfileName(TEXT("corpo"));
+
+	cabeca = CreateDefaultSubobject<USphereComponent>(TEXT("cabeca"));
+	cabeca->SetRelativeLocation(FVector(0, 0, 59.2));
+	cabeca->InitSphereRadius(32.0f);
+    cabeca->SetCollisionProfileName(TEXT("corpo"));
+	cabeca->SetupAttachment(RootComponent);
+
+	peito = CreateDefaultSubobject<UCapsuleComponent>(TEXT("peito"));
+	peito->SetRelativeLocation(FVector(0, 0, 10.4));
+	peito->SetCapsuleHalfHeight(56);
+	peito->SetCapsuleRadius(27);
+	peito->SetCollisionProfileName(TEXT("corpo"));
+	peito->SetupAttachment(RootComponent);
+
+	pernas = CreateDefaultSubobject<USphereComponent>(TEXT("pernas"));
+	pernas->SetRelativeLocation(FVector(0, 0, -42.9));
+	pernas->InitSphereRadius(40.0f);
+	pernas->SetCollisionProfileName(TEXT("corpo"));
+	pernas->SetupAttachment(RootComponent);
+
+	pes = CreateDefaultSubobject<UBoxComponent>(TEXT("pes"));
+	pes->SetRelativeLocation(FVector(0, 0, -75.6));
+	pes->SetBoxExtent(FVector(50, 40, 2));
+	pes->SetCollisionProfileName(TEXT("corpo"));
+	pes->SetupAttachment(RootComponent);
+
+	chute_angulo = CreateDefaultSubobject<UBoxComponent>(TEXT("chute_angulo"));
+	chute_angulo->SetRelativeLocation(FVector(42.0, 0, -74));
+	chute_angulo->SetRelativeScale3D(FVector(0.02, 1, 0.6125));
+	chute_angulo->SetBoxExtent(FVector(32, 32, 32));
+	chute_angulo->SetCollisionProfileName(TEXT("NoCollision"));
+	chute_angulo->SetupAttachment(RootComponent);
+
+	pode_cabecear = CreateDefaultSubobject<UBoxComponent>(TEXT("pode_cabecear"));
+	pode_cabecear->SetRelativeLocation(FVector(0, 0, 86));
+	pode_cabecear->SetRelativeScale3D(FVector(2, 1, 1));
+	pode_cabecear->SetBoxExtent(FVector(32, 32, 42));
+	pode_cabecear->SetCollisionProfileName(TEXT("OverlapeAllDynamic"));
+	pode_cabecear->SetupAttachment(RootComponent);
+	pode_cabecear->OnComponentBeginOverlap.AddDynamic(this, &AOJogoCharacter::cabecearBeginOverlap); 
+	pode_cabecear->OnComponentEndOverlap.AddDynamic(this, &AOJogoCharacter::cabecearEndOverlap);
+
+	pode_chutar = CreateDefaultSubobject<UBoxComponent>(TEXT("pode_chutar"));
+	pode_chutar->SetRelativeLocation(FVector(32, 0, -32));
+	pode_chutar->SetRelativeScale3D(FVector(2, 1, 1));
+	pode_chutar->SetBoxExtent(FVector(32, 32, 42));
+	pode_chutar->SetCollisionProfileName(TEXT("OverlapeAllDynamic"));
+	pode_chutar->SetupAttachment(RootComponent);
+	pode_chutar->OnComponentBeginOverlap.AddDynamic(this, &AOJogoCharacter::chutarBeginOverlap); 
+	pode_chutar->OnComponentEndOverlap.AddDynamic(this, &AOJogoCharacter::chutarEndOverlap);
+	
+    bisMovingRight = true;
+    kicking = false;
+    sliding = false;
+    onAir = false;
+	forca_chute = 0.0f;
+    canHeader = false;
+    canKick = false;
+	dashFinished = true;
+	slidingActionFinished = true;
+	chutaFinished = true;
+    auxSpeed = 0.0f;
+    auxAcceleration = 0.0f;
+    chute_location = FVector(0, 0, 0);
+}
+
+void AOJogoCharacter::BeginPlay()
+{
+    Super::BeginPlay();
+	
+	FTimerHandle UnusedHandle;
+	GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoCharacter::staminaRegenLoop, 0.05f, true);
+
+	TArray<AActor*> FoundActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
+	if (FoundActors.Num() == 1)
+		ball = Cast<ABola>(FoundActors[0]);
+	else
+		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("OJogoCharacter:Bola nao achada")));
+
+	chute_location = chute_angulo->GetRelativeLocation();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -191,48 +287,85 @@ AOJogoCharacter::AOJogoCharacter()
 void AOJogoCharacter::UpdateAnimation()
 {
 	const FVector PlayerVelocity = GetVelocity();
-	const float PlayerSpeedSqr = PlayerVelocity.SizeSquared();
+	// usar caso tenha sprite de falling
+	// bool falling = PlayerVelocity.Z < 0; 
+	onAir = GetCharacterMovement()->IsFalling();
 
-	// Are we moving or standing still?
-	UPaperFlipbook* DesiredAnimation = (PlayerSpeedSqr > 0.0f) ? RunningAnimation : IdleAnimation;
-	if( GetSprite()->GetFlipbook() != DesiredAnimation 	)
+	if (onAir)
+		setMovimentacao(1);
+	else
 	{
-		GetSprite()->SetFlipbook(DesiredAnimation);
+		if (UKismetMathLibrary::VSize(PlayerVelocity) > 0)
+			setMovimentacao(3);
+		else
+			setMovimentacao(0);
 	}
 }
 
 void AOJogoCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	/*
-	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, FString::Printf(TEXT("%f %f %f %f %f %f"), MaxForcaChute, MaxForcaCabeceio, velocidade, velocidadeCarrinho, staminaRegen, jumpStaminaCost, slidingStaminaCost));
-	*/
 
-	UpdateCharacter();	
-}
-
-
-//////////////////////////////////////////////////////////////////////////
-// Input
-
-void AOJogoCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
-{
-	// Note: the 'Jump' action and the 'MoveRight' axis are bound to actual keys/buttons/sticks in DefaultInput.ini (editable from Project Settings..Input)
-	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
-	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
-	PlayerInputComponent->BindAxis("MoveRight", this, &AOJogoCharacter::MoveRight);
-
-	PlayerInputComponent->BindTouch(IE_Pressed, this, &AOJogoCharacter::TouchStarted);
-	PlayerInputComponent->BindTouch(IE_Released, this, &AOJogoCharacter::TouchStopped);
+	if (kicking)
+		setMovimentacao(2);
+	else if (sliding)
+		dashFunction();
+	else
+		UpdateAnimation();
 }
 
 void AOJogoCharacter::MoveRight(float Value)
 {
-	/*UpdateChar();*/
-
-	// Apply the input to the character motion
+	if (Value > 0)
+		bisMovingRight = true;
+	else if (Value < 0)
+		bisMovingRight = false;
 	AddMovementInput(FVector(1.0f, 0.0f, 0.0f), Value);
+}
+
+void AOJogoCharacter::Jump()
+{
+	if (stamina > jumpStaminaCost)
+	{
+		if (!onAir)
+		{
+			stamina = stamina - jumpStaminaCost;
+			ACharacter::Jump();
+		}
+	}
+}
+
+void AOJogoCharacter::Chuta()
+{
+	if (!sliding)
+	{
+		if (chutaFinished)
+		{
+			chutaFinished = false;
+			kicking = true;
+			if (setForcaChute())
+			{
+				FVector start;
+				FVector end;
+				TArray<TEnumAsByte<EObjectTypeQuery>> objectTypes;
+				TArray<AActor*> actors;
+				FHitResult out;
+				objectTypes.Add(UEngineTypes::ConvertToObjectType(ECollisionChannel::ECC_WorldStatic));
+				end = ball->GetActorLocation();
+				start = end - forca_chute * UKismetMathLibrary::GetForwardVector(chute_angulo->GetComponentRotation());
+				if (UKismetSystemLibrary::LineTraceSingleForObjects(GetWorld(), start, end, objectTypes, false, actors, EDrawDebugTrace::Type::None, out, true))
+					ball->chuta(chute_angulo->GetComponentRotation(), forca_chute);
+			}
+			FTimerHandle UnusedHandle;
+			GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoCharacter::chutaTimeout, 0.2f, false);
+		}
+	}
+}
+
+void AOJogoCharacter::chutaTimeout()
+{
+	kicking = false;
+	chutaFinished = true;
 }
 
 void AOJogoCharacter::TouchStarted(const ETouchIndex::Type FingerIndex, const FVector Location)
@@ -247,50 +380,28 @@ void AOJogoCharacter::TouchStopped(const ETouchIndex::Type FingerIndex, const FV
 	StopJumping();
 }
 
-void AOJogoCharacter::UpdateCharacter()
-{
-	// Update animation to match the motion
-	UpdateAnimation();
-
-	// Now setup the rotation of the controller based on the direction we are travelling
-	const FVector PlayerVelocity = GetVelocity();	
-	float TravelDirection = PlayerVelocity.X;
-	// Set the rotation so that the character faces his direction of travel.
-	if (Controller != nullptr)
-	{
-		if (TravelDirection < 0.0f)
-		{
-			Controller->SetControlRotation(FRotator(0.0, 180.0f, 0.0f));
-		}
-		else if (TravelDirection > 0.0f)
-		{
-			Controller->SetControlRotation(FRotator(0.0f, 0.0f, 0.0f));
-		}
-	}
-}
-
 void AOJogoCharacter::setHabilidades(const FHabilidadesData h)
 {
-	this->maxForcaChute = h.converteMaxForcaChute();
-	this->maxForcaCabeceio = h.converteMaxForcaCabeceio();
-	this->setVelocidade(h.converteVelocidade());
-	this->velocidadeCarrinho = h.converteVelocidadeCarrinho();
-	this->aceleracaoCarrinho = h.converteAceleracaoCarrinho();
-	this->staminaRegen = h.converteStaminaRegen();
-	this->jumpStaminaCost = h.converteJumpStaminaCost();
-	this->slidingStaminaCost = h.converteSlidingStaminaCost();
+	maxForcaChute = h.converteMaxForcaChute();
+	maxForcaCabeceio = h.converteMaxForcaCabeceio();
+	setVelocidade(h.converteVelocidade());
+	velocidadeCarrinho = h.converteVelocidadeCarrinho();
+	aceleracaoCarrinho = h.converteAceleracaoCarrinho();
+	staminaRegen = h.converteStaminaRegen();
+	jumpStaminaCost = h.converteJumpStaminaCost();
+	slidingStaminaCost = h.converteSlidingStaminaCost();
 }
 
 void AOJogoCharacter::setVelocidade(float v)
 {
-	this->velocidade = v;
+	velocidade = v;
 	GetCharacterMovement()->MaxWalkSpeed = v;
 }
 
 void AOJogoCharacter::setJogador(FJogadorData f)
 {
 	jogador = f;
-	this->setCor();
+	setCor();
 }
 
 void AOJogoCharacter::setCor()
@@ -319,4 +430,155 @@ void AOJogoCharacter::setBotGols(int32 meus, int32 adversario)
 {
 	meusGols = meus;
 	golsAdversario = adversario;
+}
+
+void AOJogoCharacter::staminaRegenLoop()
+{
+	stamina = stamina + staminaRegen;
+	if (stamina > 100)
+		stamina = 100.0f;
+}
+
+void AOJogoCharacter::dashFunction()
+{
+	if (dashFinished)
+	{
+		dashFinished = false;
+		auxSpeed = GetCharacterMovement()->MaxWalkSpeed;
+		GetCharacterMovement()->MaxWalkSpeed = velocidadeCarrinho;
+
+		APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+		DisableInput(PC);
+
+		auxAcceleration = GetCharacterMovement()->MaxAcceleration;
+		GetCharacterMovement()->MaxAcceleration = aceleracaoCarrinho;
+		setMovimentacao(4);
+
+		GetWorldTimerManager().SetTimer(dashHandle, this, &AOJogoCharacter::dashing, 0.005f, true);
+
+		FTimerHandle UnusedHandle;
+		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoCharacter::terminaDashing, 0.8f, false);
+	}
+}
+
+void AOJogoCharacter::dashing()
+{
+	AddMovementInput(GetCapsuleComponent()->GetForwardVector(), 1.0f);
+}
+
+void AOJogoCharacter::terminaDashing()
+{
+	GetWorldTimerManager().ClearTimer(dashHandle);
+
+	GetCharacterMovement()->MaxWalkSpeed = auxSpeed;
+	GetCharacterMovement()->MaxAcceleration = auxAcceleration;
+
+	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	EnableInput(PC);
+	dashFinished = true;
+	stopSliding();
+}
+
+void AOJogoCharacter::slideAction()
+{
+	if (!kicking)
+	{
+		if (slidingActionFinished)
+		{
+			slidingActionFinished = false;
+			if (stamina > slidingStaminaCost)
+			{
+				if (onAir)
+					stopSliding();
+				else
+				{
+					stamina = stamina - slidingStaminaCost;
+					sliding = true;
+				}
+			}
+			else
+				stopSliding();
+		}
+	}
+}
+
+void AOJogoCharacter::stopSliding()
+{
+    slidingActionFinished = true;
+	sliding = false;
+}
+
+bool AOJogoCharacter::setForcaChute()
+{
+	if (canKick)
+	{
+		forca_chute = forca_chute * maxForcaChute;
+		chute_angulo->SetRelativeLocation(chute_location);
+		return true;
+	}
+	else
+	{
+		if (canHeader)
+		{
+			forca_chute = forca_chute * maxForcaCabeceio;
+			chute_angulo->SetRelativeLocation(cabeca->GetRelativeLocation());
+			float theta;
+			theta = (ball->GetActorLocation() - cabeca->GetComponentLocation()).X;
+			theta = 90 - ((90 * (UKismetMathLibrary::Abs_Int(theta)))/theta);
+			chute_angulo->SetWorldRotation(FRotator(theta, 0, 0));
+			return true;
+		}
+		else
+			return false;
+	}
+}
+
+void AOJogoCharacter::cabecearBeginOverlap(UPrimitiveComponent * OverlapComponent, AActor * OtherActor, 
+										   UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, 
+										   bool bFromSweep, const FHitResult & SweepResult)
+{
+	if (OtherActor)
+	{
+		auto bola_temp = Cast<ABola>(OtherActor);
+		if (IsValid(bola_temp))
+			if (bola_temp->GetRootComponent() == OtherComp)
+				canHeader = true;
+	}
+}
+
+void AOJogoCharacter::cabecearEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, 
+										 UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	if (OtherActor)
+	{
+		auto bola_temp = Cast<ABola>(OtherActor);
+		if (IsValid(bola_temp))
+			if (bola_temp->GetRootComponent() == OtherComp)
+				canHeader = false;
+	}
+}
+
+void AOJogoCharacter::chutarBeginOverlap(UPrimitiveComponent * OverlapComponent, AActor * OtherActor, 
+										 UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, 
+										 bool bFromSweep, const FHitResult & SweepResult)
+{
+	if (OtherActor)
+	{
+		auto bola_temp = Cast<ABola>(OtherActor);
+		if (IsValid(bola_temp))
+			if (bola_temp->GetRootComponent() == OtherComp)
+				canKick = true;
+	}
+}
+
+void AOJogoCharacter::chutarEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, 
+									   UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	if (OtherActor)
+	{
+		auto bola_temp = Cast<ABola>(OtherActor);
+		if (IsValid(bola_temp))
+			if (bola_temp->GetRootComponent() == OtherComp)
+				canKick = false;
+	}
 }

@@ -5,10 +5,6 @@
 
 AOJogoGameState::AOJogoGameState()
 {
-    // static ConstructorHelpers::FObjectFinder<UClass> bolaClassFinder( TEXT("Blueprint'/Game/Items/Ball/Ball.Ball_C'") );
-	// const TCHAR* PreviewPlayer1Name("Blueprint'/Game/Character/Player1.Player1'");
-	// Bola_c = LoadObject<UClass>(NULL, TEXT("/Game/Items/Ball/Ball.Ball_C"), NULL, 0, NULL);
-	// player1_c = LoadClass<AOJogoCharacter>(NULL, *PreviewPlayer1Name, NULL, 0, NULL);
 	botIA_c = LoadClass<AOJogoCharacter>(NULL, TEXT("/Game/Teams/IA/Bot.Bot_C"), NULL, 0, NULL);
 
     golsTimeEsq = 0;

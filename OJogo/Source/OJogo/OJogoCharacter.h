@@ -5,6 +5,10 @@
 #include "CoreMinimal.h"
 #include "PaperCharacter.h"
 #include "JogadorData.h"
+#include "Bola.h"
+#include "Components/SphereComponent.h"
+#include "Components/BoxComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "HabilidadesData.h"
 #include "OJogoCharacter.generated.h"
 
@@ -31,8 +35,23 @@ class AOJogoCharacter : public APaperCharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* CameraBoom;
 
-	UTextRenderComponent* TextComponent;
-	virtual void Tick(float DeltaSeconds) override;
+	// UTextRenderComponent* TextComponent;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	class ABola* ball;
+
+	UPROPERTY()
+	bool dashFinished;
+
+	UPROPERTY()
+	bool slidingActionFinished;
+
+	UPROPERTY()
+	bool chutaFinished;
+
+	UPROPERTY()
+	FTimerHandle dashHandle;
+
 protected:
 	// The animation to play while running around
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Animations)
@@ -96,13 +115,64 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
 	FJogadorData jogador;
 
+	UPROPERTY(BlueprintReadWrite)
+	float stamina;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool bisMovingRight;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool kicking;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool sliding;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool onAir;
+
+	UPROPERTY(BlueprintReadWrite)
+	float auxSpeed;
+
+	UPROPERTY(BlueprintReadWrite)
+	float auxAcceleration;
+
+	UPROPERTY(BlueprintReadWrite)
+	float forca_chute;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool canHeader;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool canKick;
+
+	UPROPERTY(BlueprintReadWrite)
+	FVector chute_location;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	USphereComponent* cabeca;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UCapsuleComponent* peito;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	USphereComponent* pernas;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UBoxComponent* pes;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UBoxComponent* chute_angulo;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UBoxComponent* pode_chutar;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UBoxComponent* pode_cabecear;
+
 	/** Called to choose the correct animation to play based on the character's movement state */
 	void UpdateAnimation();
 
-	/** Called for side to side input */
-	void MoveRight(float Value);
-
-	void UpdateCharacter();
+	void chutaTimeout();
 
 	/** Handle touch inputs. */
 	void TouchStarted(const ETouchIndex::Type FingerIndex, const FVector Location);
@@ -110,12 +180,19 @@ protected:
 	/** Handle touch stop event. */
 	void TouchStopped(const ETouchIndex::Type FingerIndex, const FVector Location);
 
-	// APawn interface
-	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
-	// End of APawn interface
-
 public:
 	AOJogoCharacter();
+
+	virtual void BeginPlay() override;
+	
+	virtual void Tick(float DeltaSeconds) override;
+
+	/** Called for side to side input */
+	void MoveRight(float Value);
+
+	void Jump();
+
+	void Chuta();
 
 	/** Returns SideViewCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetSideViewCameraComponent() const { return SideViewCameraComponent; }
@@ -136,6 +213,8 @@ public:
 
 	FORCEINLINE class UPaperFlipbookComponent* Getchuteira() const { return chuteira; }
 
+	FORCEINLINE class UBoxComponent* Getchute_angulo() const { return chute_angulo; }
+
 	UFUNCTION(BlueprintCallable, Category = "Habilidades")
 	void setVelocidade(float v);
 
@@ -153,4 +232,44 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Habilidades")
 	void setCor();
+
+	UFUNCTION(BlueprintCallable)
+	void staminaRegenLoop();
+
+	UFUNCTION(BlueprintCallable)
+	void dashFunction();
+
+	UFUNCTION(BlueprintCallable)
+	void dashing();
+
+	UFUNCTION(BlueprintCallable)
+	void terminaDashing();
+
+	UFUNCTION(BlueprintCallable)
+	void slideAction();
+
+	UFUNCTION(BlueprintCallable)
+	void stopSliding();
+
+	UFUNCTION(BlueprintCallable)
+	bool setForcaChute();
+
+	UFUNCTION(BlueprintCallable)
+	void cabecearBeginOverlap(UPrimitiveComponent * OverlapComponent, AActor * OtherActor, 
+							  UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, 
+							  bool bFromSweep, const FHitResult & SweepResult);
+
+	UFUNCTION(BlueprintCallable)
+	void cabecearEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, 
+							UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+	UFUNCTION(BlueprintCallable)
+	void chutarBeginOverlap(UPrimitiveComponent * OverlapComponent, AActor * OtherActor, 
+							UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, 
+							bool bFromSweep, const FHitResult & SweepResult);
+
+	UFUNCTION(BlueprintCallable)
+	void chutarEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, 
+						  UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
 };
