@@ -271,13 +271,6 @@ void AOJogoCharacter::BeginPlay()
 	FTimerHandle UnusedHandle;
 	GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoCharacter::staminaRegenLoop, 0.05f, true);
 
-	TArray<AActor*> FoundActors;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
-	if (FoundActors.Num() == 1)
-		ball = Cast<ABola>(FoundActors[0]);
-	else
-		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("OJogoCharacter:Bola nao achada")));
-
 	chute_location = chute_angulo->GetRelativeLocation();
 }
 
@@ -323,7 +316,7 @@ void AOJogoCharacter::MoveRight(float Value)
 	AddMovementInput(FVector(1.0f, 0.0f, 0.0f), Value);
 }
 
-void AOJogoCharacter::Jump()
+void AOJogoCharacter::Pula()
 {
 	if (stamina > jumpStaminaCost)
 	{
@@ -343,7 +336,13 @@ void AOJogoCharacter::Chuta()
 		{
 			chutaFinished = false;
 			kicking = true;
-			if (setForcaChute())
+
+			TArray<AActor*> FoundActors;
+			UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
+			if (FoundActors.Num() == 1)
+				ball = Cast<ABola>(FoundActors[0]);
+
+			if (setForcaChute() && IsValid(ball))
 			{
 				FVector start;
 				FVector end;
@@ -426,12 +425,6 @@ void AOJogoCharacter::setMovimentacao(int mIndex)
 	chuteira->SetFlipbook(jogador.chuteiraArray[mIndex]);
 }
 
-void AOJogoCharacter::setBotGols(int32 meus, int32 adversario)
-{
-	meusGols = meus;
-	golsAdversario = adversario;
-}
-
 void AOJogoCharacter::staminaRegenLoop()
 {
 	stamina = stamina + staminaRegen;
@@ -444,11 +437,12 @@ void AOJogoCharacter::dashFunction()
 	if (dashFinished)
 	{
 		dashFinished = false;
-		auxSpeed = GetCharacterMovement()->MaxWalkSpeed;
-		GetCharacterMovement()->MaxWalkSpeed = velocidadeCarrinho;
 
 		APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 		DisableInput(PC);
+
+		auxSpeed = GetCharacterMovement()->MaxWalkSpeed;
+		GetCharacterMovement()->MaxWalkSpeed = velocidadeCarrinho;
 
 		auxAcceleration = GetCharacterMovement()->MaxAcceleration;
 		GetCharacterMovement()->MaxAcceleration = aceleracaoCarrinho;
@@ -522,9 +516,10 @@ bool AOJogoCharacter::setForcaChute()
 		{
 			forca_chute = forca_chute * maxForcaCabeceio;
 			chute_angulo->SetRelativeLocation(cabeca->GetRelativeLocation());
-			float theta;
-			theta = (ball->GetActorLocation() - cabeca->GetComponentLocation()).X;
-			theta = 90 - ((90 * (UKismetMathLibrary::Abs_Int(theta)))/theta);
+			float theta = 0;
+			if (ball)
+				theta = (ball->GetActorLocation() - cabeca->GetComponentLocation()).X;
+			theta = 90 - ((90 * (UKismetMathLibrary::Abs(theta)))/theta);
 			chute_angulo->SetWorldRotation(FRotator(theta, 0, 0));
 			return true;
 		}

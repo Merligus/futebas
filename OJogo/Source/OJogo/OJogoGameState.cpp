@@ -5,11 +5,11 @@
 
 AOJogoGameState::AOJogoGameState()
 {
-	botIA_c = LoadClass<AOJogoCharacter>(NULL, TEXT("/Game/Teams/IA/Bot.Bot_C"), NULL, 0, NULL);
+	// botIA_c = LoadClass<AOJogoCharacter>(NULL, TEXT("/Game/Teams/IA/Bot.Bot_C"), NULL, 0, NULL);
 
     golsTimeEsq = 0;
 	golsTimeDir = 0;
-	bolaEmJogo = true;
+	bolaEmJogo = false;
 	acrescimos = FTimespan(0, 0, 0);
 	tempo1Ou2 = 1;
 	tempoRegulamentar = true;

@@ -148,9 +148,6 @@ public:
 	void decideVencedor();
 
 	UFUNCTION(BlueprintCallable)
-	void setBotProprioGol(int32 golIndex);
-
-	UFUNCTION(BlueprintCallable)
 	void setBotGols(int32 golsEsq, int32 golsDir);
 
 	UFUNCTION(BlueprintCallable)

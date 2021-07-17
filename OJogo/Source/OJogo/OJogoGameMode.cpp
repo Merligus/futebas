@@ -1,5 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 #include "OJogoGameMode.h"
+#include "BotCharacter.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Blueprint/AIBlueprintHelperLibrary.h"
@@ -58,13 +59,13 @@ void AOJogoGameMode::Tick(float DeltaTime)
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
 	if (FoundActors.Num() == 0)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Tick:Bola respawnada em %d %d"), posicao_bola.X, posicao_bola.Z));
-		ABola* bola = GetWorld()->SpawnActor<ABola>(ABola::StaticClass(), posicao_bola, FRotator(0));
+		ABola* bola = GetWorld()->SpawnActor<ABola>(ABola::StaticClass(), FVector(0), FRotator(0));
 		UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(bola->GetRootComponent());
 		if (Sphere && JogosGameState)
 		{
 			Sphere->AddImpulse(Sphere->GetPhysicsLinearVelocity() * Sphere->GetMass() * (-1.0f));
 			Sphere->SetPhysicsAngularVelocityInDegrees(FVector(0.0f));
+			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Tick:Bola respawnada em %d %d"), posicao_bola.X, posicao_bola.Z));
 			Sphere->SetWorldLocation(FVector(posicao_bola.X, posicao_bola.Y, posicao_bola.Z + JogosGameState->alturaReinicio), false, NULL, ETeleportType::TeleportPhysics);
 			if (bola)
 				bola->explode(FVector(posicao_bola.X, 10, 0));
@@ -84,7 +85,15 @@ void AOJogoGameMode::beginGame()
 		player1->setHabilidades(FutebasGI->team1.habilidades);
 		player1->setJogador(FutebasGI->team1.jogador);
 
-		botIA = GetWorld()->SpawnActor<AOJogoCharacter>(JogosGameState->botIA_c, FVector(150, -20, 0), FRotator(0));
+		TArray<AActor*> FoundActors;
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABotCharacter::StaticClass(), FoundActors);
+		if (FoundActors.Num() == 1)
+		{
+			botIA = Cast<AOJogoCharacter>(FoundActors[0]);
+			botIA->SetActorLocation(FVector(150, -20, 0), false, NULL, ETeleportType::TeleportPhysics);
+		}
+		else
+			UE_LOG(LogTemp, Warning, TEXT("FoundAcotrs pra bot != 1"));
 		if(botIA)
 		{
 			botIA->SpawnDefaultController();
@@ -99,7 +108,7 @@ void AOJogoGameMode::beginGame()
 			}
 			if (JogosGameState->posIndex[0] == 1)
 				arrayJogadores.Swap(0, 1);
-			setBotProprioGol(JogosGameState->posIndex[1]);
+			Cast<ABotCharacter>(botIA)->setOwnGoal(JogosGameState->posIndex[1]);
 			reiniciaPartida(true, false);
 			antesDoComeco();
 		}
@@ -124,14 +133,6 @@ void AOJogoGameMode::fazSomApito(int32 modo)
 		else
 			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("som apito fim nao encontrado")));
 	}
-}
-
-void AOJogoGameMode::setBotProprioGol(int32 golIndex)
-{
-	if (UAIBlueprintHelperLibrary::GetBlackboard(botIA))
-		UAIBlueprintHelperLibrary::GetBlackboard(botIA)->SetValueAsInt(FName("proprioGol"), golIndex);
-	else
-		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bot sem blackboard")));
 }
 
 void AOJogoGameMode::reiniciaPartida(bool neutro, bool favoravelEsq)
@@ -259,7 +260,7 @@ void AOJogoGameMode::terminaTempoTimedOut()
 	JogosGameState->posIndex.Swap(0, 1);
 	arrayJogadores.Swap(0, 1);
 	trocaTimes();
-	setBotProprioGol(JogosGameState->posIndex[1]);
+	Cast<ABotCharacter>(botIA)->setOwnGoal(JogosGameState->posIndex[1]);
 	reiniciaPartida(true, false);
 	antesDoComeco();
 }
@@ -285,7 +286,7 @@ void AOJogoGameMode::fimDePapo()
 			JogosGameState->tempo1Ou2 = 1;
 			vezTimeEsquerdo = JogosGameState->timeDireitoPrimeiro_pen;
 			JogosGameState->tempoRegulamentar = true;
-			botIA->setBotGols(0, 100);
+			setBotGols(0, 100);
 			GetWorldTimerManager().ClearTimer(delayTimedOut);
 
 			FTimerHandle UnusedHandle;
@@ -328,6 +329,7 @@ bool AOJogoGameMode::golEsquerdo()
 	{
 		bola_em_jogo = true;
 		JogosGameState->bolaEmJogo = false;
+		paralisaMovimentacao(true);
 		JogosGameState->golsTimeDir += 1;
 		setBotGols(JogosGameState->golsTimeEsq, JogosGameState->golsTimeDir);
 		GetWorldTimerManager().SetTimer(delayTimedOut, this, &AOJogoGameMode::golEsquerdoTimedOut, JogosGameState->tempoParado, false);
@@ -350,7 +352,8 @@ bool AOJogoGameMode::golEsquerdo()
 
 void AOJogoGameMode::golEsquerdoTimedOut()
 {
-	reiniciaPartida(false, true);
+	reiniciaPartida(true, false);
+	paralisaMovimentacao(false);
 	if (JogosGameState->tempoRegulamentar)
 		JogosGameState->acrescimos += FTimespan(0, 0, JogosGameState->tempoParado);
 	JogosGameState->bolaEmJogo = true;
@@ -363,6 +366,7 @@ bool AOJogoGameMode::golDireito()
 	{
 		bola_em_jogo = true;
 		JogosGameState->bolaEmJogo = false;
+		paralisaMovimentacao(true);
 		JogosGameState->golsTimeEsq += 1;
 		setBotGols(JogosGameState->golsTimeEsq, JogosGameState->golsTimeDir);
 		GetWorldTimerManager().SetTimer(delayTimedOut, this, &AOJogoGameMode::golDireitoTimedOut, JogosGameState->tempoParado, false);
@@ -385,7 +389,8 @@ bool AOJogoGameMode::golDireito()
 
 void AOJogoGameMode::golDireitoTimedOut()
 {
-	reiniciaPartida(false, false);
+	reiniciaPartida(true, false);
+	paralisaMovimentacao(false);
 	if (JogosGameState->tempoRegulamentar)
 		JogosGameState->acrescimos += FTimespan(0, 0, JogosGameState->tempoParado);
 	JogosGameState->bolaEmJogo = true;
@@ -625,16 +630,17 @@ void AOJogoGameMode::setBotGols(int32 golsEsq, int32 golsDir)
 	if (JogosGameState->vsBotIA)
 	{
 		if (JogosGameState->posIndex[1] == 0)
-			botIA->setBotGols(golsEsq, golsDir);
+			Cast<ABotCharacter>(botIA)->setBotGols(golsEsq, golsDir);
 		else
-			botIA->setBotGols(golsDir, golsEsq);
+			Cast<ABotCharacter>(botIA)->setBotGols(golsDir, golsEsq);
 	}
 }
 
 void AOJogoGameMode::paralisaMovimentacao(bool ignora)
 {
 	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-	PC->SetIgnoreMoveInput(ignora);
+	if (PC->IsMoveInputIgnored() != ignora)
+		PC->SetIgnoreMoveInput(ignora);
 
 	UAIBlueprintHelperLibrary::GetBlackboard(botIA)->SetValueAsBool(FName("canMove"), !ignora);
 }

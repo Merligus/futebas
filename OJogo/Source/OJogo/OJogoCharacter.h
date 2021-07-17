@@ -36,9 +36,6 @@ class AOJogoCharacter : public APaperCharacter
 	class USpringArmComponent* CameraBoom;
 
 	// UTextRenderComponent* TextComponent;
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	class ABola* ball;
 
 	UPROPERTY()
 	bool dashFinished;
@@ -53,6 +50,10 @@ class AOJogoCharacter : public APaperCharacter
 	FTimerHandle dashHandle;
 
 protected:
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	class ABola* ball;
+	
 	// The animation to play while running around
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Animations)
 	class UPaperFlipbook* RunningAnimation;
@@ -105,12 +106,6 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
 	float slidingStaminaCost;
-
-	UPROPERTY(BlueprintReadWrite, Category = "BotIA")
-	int32 meusGols;
-
-	UPROPERTY(BlueprintReadWrite, Category = "BotIA")
-	int32 golsAdversario;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
 	FJogadorData jogador;
@@ -188,10 +183,13 @@ public:
 	virtual void Tick(float DeltaSeconds) override;
 
 	/** Called for side to side input */
+	UFUNCTION(BlueprintCallable)
 	void MoveRight(float Value);
 
-	void Jump();
+	UFUNCTION(BlueprintCallable)
+	void Pula();
 
+	UFUNCTION(BlueprintCallable)
 	void Chuta();
 
 	/** Returns SideViewCameraComponent subobject **/
@@ -226,9 +224,6 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Habilidades")
 	void setMovimentacao(int mIndex);
-
-	UFUNCTION(BlueprintCallable, Category = "BotIA")
-	void setBotGols(int32 meus, int32 adversario);
 
 	UFUNCTION(BlueprintCallable, Category = "Habilidades")
 	void setCor();

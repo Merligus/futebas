@@ -19,8 +19,8 @@ public:
 	// UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	// TSubclassOf<AOJogoCharacter> player1_c;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UClass* botIA_c;
+	// UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	// UClass* botIA_c;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 golsTimeEsq;
