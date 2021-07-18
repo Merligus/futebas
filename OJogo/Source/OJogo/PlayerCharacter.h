@@ -10,6 +10,15 @@
 /**
  * 
  */
+UENUM(BlueprintType)
+enum DirecaoChute
+{
+	Esquerda, 
+	Direita, 
+	Cima, 
+	Baixo
+};
+
 UCLASS()
 class OJOGO_API APlayerCharacter : public AOJogoCharacter
 {
@@ -17,6 +26,9 @@ class OJOGO_API APlayerCharacter : public AOJogoCharacter
 
 	UPROPERTY()
 	FTimerHandle chargeHandle;
+
+	UPROPERTY()
+	TArray<TEnumAsByte<DirecaoChute>> ordem_direcao;
 
 protected:
 
@@ -35,6 +47,18 @@ public:
 	virtual void BeginPlay() override;
 	
 	virtual void Tick(float DeltaSeconds) override;
+
+	UFUNCTION(BlueprintCallable)
+	void DirecaoHorizontal(float Value);
+
+	UFUNCTION(BlueprintCallable)
+	void DirecaoVertical(float Value);
+
+	UFUNCTION(BlueprintCallable)
+	void chutaPressed();
+
+	UFUNCTION(BlueprintCallable)
+	void chutaReleased();
 
 	UFUNCTION(BlueprintCallable)
 	void colocadoPressed();

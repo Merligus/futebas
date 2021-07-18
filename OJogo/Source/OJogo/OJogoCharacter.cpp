@@ -232,8 +232,8 @@ AOJogoCharacter::AOJogoCharacter()
 	chute_angulo->SetupAttachment(RootComponent);
 
 	pode_cabecear = CreateDefaultSubobject<UBoxComponent>(TEXT("pode_cabecear"));
-	pode_cabecear->SetRelativeLocation(FVector(0, 0, 86));
-	pode_cabecear->SetRelativeScale3D(FVector(2, 1, 1));
+	pode_cabecear->SetRelativeLocation(FVector(32, 0, 86));
+	pode_cabecear->SetRelativeScale3D(FVector(1, 1, 1));
 	pode_cabecear->SetBoxExtent(FVector(32, 32, 42));
 	pode_cabecear->SetCollisionProfileName(TEXT("OverlapeAllDynamic"));
 	pode_cabecear->SetupAttachment(RootComponent);
@@ -516,11 +516,11 @@ bool AOJogoCharacter::setForcaChute()
 		{
 			forca_chute = forca_chute * maxForcaCabeceio;
 			chute_angulo->SetRelativeLocation(cabeca->GetRelativeLocation());
-			float theta = 0;
-			if (ball)
-				theta = (ball->GetActorLocation() - cabeca->GetComponentLocation()).X;
-			theta = 90 - ((90 * (UKismetMathLibrary::Abs(theta)))/theta);
-			chute_angulo->SetWorldRotation(FRotator(theta, 0, 0));
+			// float theta = 0;
+			// if (ball)
+			// 	theta = (ball->GetActorLocation() - cabeca->GetComponentLocation()).X;
+			// theta = 90 - ((90 * (UKismetMathLibrary::Abs(theta)))/theta);
+			// chute_angulo->SetWorldRotation(FRotator(theta, 0, 0));
 			return true;
 		}
 		else
