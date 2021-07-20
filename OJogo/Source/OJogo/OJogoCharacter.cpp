@@ -282,7 +282,6 @@ void AOJogoCharacter::UpdateAnimation()
 	const FVector PlayerVelocity = GetVelocity();
 	// usar caso tenha sprite de falling
 	// bool falling = PlayerVelocity.Z < 0; 
-	onAir = GetCharacterMovement()->IsFalling();
 
 	if (onAir)
 		setMovimentacao(1);
@@ -305,6 +304,7 @@ void AOJogoCharacter::Tick(float DeltaSeconds)
 		dashFunction();
 	else
 		UpdateAnimation();
+	onAir = GetCharacterMovement()->IsFalling();
 }
 
 void AOJogoCharacter::MoveRight(float Value)
@@ -320,7 +320,7 @@ void AOJogoCharacter::Pula()
 {
 	if (stamina > jumpStaminaCost)
 	{
-		if (!onAir)
+		if (!onAir && !sliding)
 		{
 			stamina = stamina - jumpStaminaCost;
 			ACharacter::Jump();
@@ -342,19 +342,9 @@ void AOJogoCharacter::Chuta()
 			if (FoundActors.Num() == 1)
 				ball = Cast<ABola>(FoundActors[0]);
 
-			if (setForcaChute() && IsValid(ball))
-			{
-				FVector start;
-				FVector end;
-				TArray<TEnumAsByte<EObjectTypeQuery>> objectTypes;
-				TArray<AActor*> actors;
-				FHitResult out;
-				objectTypes.Add(UEngineTypes::ConvertToObjectType(ECollisionChannel::ECC_WorldStatic));
-				end = ball->GetActorLocation();
-				start = end - forca_chute * UKismetMathLibrary::GetForwardVector(chute_angulo->GetComponentRotation());
-				if (UKismetSystemLibrary::LineTraceSingleForObjects(GetWorld(), start, end, objectTypes, false, actors, EDrawDebugTrace::Type::None, out, true))
-					ball->chuta(chute_angulo->GetComponentRotation(), forca_chute);
-			}
+			float forca = setForcaChute();
+			if (forca > 0 && IsValid(ball))
+				ball->chuta(chute_angulo->GetComponentRotation(), forca);
 			FTimerHandle UnusedHandle;
 			GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoCharacter::chutaTimeout, 0.2f, false);
 		}
@@ -441,15 +431,15 @@ void AOJogoCharacter::dashFunction()
 		APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 		DisableInput(PC);
 
-		auxSpeed = GetCharacterMovement()->MaxWalkSpeed;
-		GetCharacterMovement()->MaxWalkSpeed = velocidadeCarrinho;
+		auxAcceleration = GetCharacterMovement()->BrakingFrictionFactor;
+		GetCharacterMovement()->BrakingFrictionFactor = 0.0f;
+		LaunchCharacter(3 * velocidadeCarrinho * FVector(GetActorForwardVector().X, 0, 0).GetSafeNormal(), true, true);
 
-		auxAcceleration = GetCharacterMovement()->MaxAcceleration;
-		GetCharacterMovement()->MaxAcceleration = aceleracaoCarrinho;
 		setMovimentacao(4);
 
-		GetWorldTimerManager().SetTimer(dashHandle, this, &AOJogoCharacter::dashing, 0.005f, true);
+		// GetWorldTimerManager().SetTimer(dashHandle, this, &AOJogoCharacter::dashing, 0.005f, false);
 
+		// se mudar o tempo de dashing mudar o tempo de congelamento de cerebro no bot tambem
 		FTimerHandle UnusedHandle;
 		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoCharacter::terminaDashing, 0.8f, false);
 	}
@@ -457,15 +447,12 @@ void AOJogoCharacter::dashFunction()
 
 void AOJogoCharacter::dashing()
 {
-	AddMovementInput(GetCapsuleComponent()->GetForwardVector(), 1.0f);
+	AddMovementInput(GetCapsuleComponent()->GetForwardVector(), 100.0f);
 }
 
 void AOJogoCharacter::terminaDashing()
 {
-	GetWorldTimerManager().ClearTimer(dashHandle);
-
-	GetCharacterMovement()->MaxWalkSpeed = auxSpeed;
-	GetCharacterMovement()->MaxAcceleration = auxAcceleration;
+	GetCharacterMovement()->BrakingFrictionFactor = auxAcceleration;
 
 	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	EnableInput(PC);
@@ -502,29 +489,27 @@ void AOJogoCharacter::stopSliding()
 	sliding = false;
 }
 
-bool AOJogoCharacter::setForcaChute()
+float AOJogoCharacter::setForcaChute()
 {
 	if (canKick)
 	{
-		forca_chute = forca_chute * maxForcaChute;
 		chute_angulo->SetRelativeLocation(chute_location);
-		return true;
+		return forca_chute * maxForcaChute;
 	}
 	else
 	{
 		if (canHeader)
 		{
-			forca_chute = forca_chute * maxForcaCabeceio;
 			chute_angulo->SetRelativeLocation(cabeca->GetRelativeLocation());
 			// float theta = 0;
 			// if (ball)
 			// 	theta = (ball->GetActorLocation() - cabeca->GetComponentLocation()).X;
 			// theta = 90 - ((90 * (UKismetMathLibrary::Abs(theta)))/theta);
 			// chute_angulo->SetWorldRotation(FRotator(theta, 0, 0));
-			return true;
+			return forca_chute * maxForcaCabeceio;
 		}
 		else
-			return false;
+			return -1;
 	}
 }
 

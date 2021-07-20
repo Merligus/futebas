@@ -3,7 +3,7 @@
 
 #include "TimeStatsWidget.h"
 #include "Kismet/KismetTextLibrary.h"
-
+#include "Blueprint/WidgetBlueprintLibrary.h"
 
 bool UTimeStatsWidget::Initialize()
 {
@@ -15,6 +15,7 @@ bool UTimeStatsWidget::Initialize()
 	if (FutebasGI)
     {
         FutebasGI->loadTeams();
+        FutebasGI->copa_do_mundo = FCopaMundoData();
         FutebasGI->copa_do_mundo.sortear();
         FutebasGI->team1 = FTeamData();
         FutebasGI->team2 = FTeamData();
@@ -43,6 +44,29 @@ bool UTimeStatsWidget::bindStatsEnabled(bool team1)
     }
     else
         return false;
+}
+
+FSlateBrush UTimeStatsWidget::bindFlag(bool team1)
+{
+    if (FutebasGI)
+    {
+        if (team1)
+        {
+            if (FutebasGI->team1.index_time >= 0)
+                return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->team1.flag, 64, 48);
+            else
+                return FSlateNoResource();
+        }
+        else
+        {
+            if (FutebasGI->team2.index_time >= 0)
+                return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->team2.flag, 64, 48);
+            else
+                return FSlateNoResource();
+        }
+    }
+    else
+        return FSlateNoResource();
 }
 
 FText UTimeStatsWidget::bindTeamName(bool team1)

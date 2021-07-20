@@ -247,7 +247,7 @@ public:
 	void stopSliding();
 
 	UFUNCTION(BlueprintCallable)
-	bool setForcaChute();
+	float setForcaChute();
 
 	UFUNCTION(BlueprintCallable)
 	void cabecearBeginOverlap(UPrimitiveComponent * OverlapComponent, AActor * OtherActor, 

@@ -12,6 +12,8 @@ void APlayerCharacter::BeginPlay()
 
 	if (IsValid(widgetClass))
 		pauseWidget = Cast<UPauseWidget>(CreateWidget(GetWorld(), widgetClass));
+
+	pausable = true;
 }
 
 void APlayerCharacter::Tick(float DeltaTime)
@@ -40,9 +42,6 @@ void APlayerCharacter::Tick(float DeltaTime)
 
 void APlayerCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
-	// Note: the 'Jump' action and the 'MoveRight' axis are bound to actual keys/buttons/sticks in DefaultInput.ini (editable from Project Settings..Input)
-	PlayerInputComponent->BindAction("Slide", IE_Pressed, this, &AOJogoCharacter::slideAction);
-    PlayerInputComponent->BindAction("Slide", IE_Released, this, &AOJogoCharacter::stopSliding);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AOJogoCharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 	PlayerInputComponent->BindAction("Chute", IE_Pressed, this, &APlayerCharacter::chutaPressed);
@@ -51,9 +50,10 @@ void APlayerCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerIn
 	// PlayerInputComponent->BindAction("Colocado", IE_Released, this, &APlayerCharacter::colocadoReleased);
 	// PlayerInputComponent->BindAction("Cavado", IE_Pressed, this, &APlayerCharacter::colocadoPressed);
 	// PlayerInputComponent->BindAction("Cavado", IE_Released, this, &APlayerCharacter::cavadoReleased);
-	PlayerInputComponent->BindAction("Pause", IE_Released, this, &APlayerCharacter::pause);
+	PlayerInputComponent->BindAction("Pause", IE_Pressed, this, &APlayerCharacter::pause);
 	PlayerInputComponent->BindAxis("MoveRight", this, &APlayerCharacter::DirecaoHorizontal);
 	PlayerInputComponent->BindAxis("DirecaoVertical", this, &APlayerCharacter::DirecaoVertical);
+	PlayerInputComponent->BindAxis("Slide", this, &APlayerCharacter::PlayerSlide);
 }
 
 void APlayerCharacter::DirecaoHorizontal(float Value)
@@ -81,6 +81,12 @@ void APlayerCharacter::DirecaoVertical(float Value)
 		ordem_direcao.Remove(DirecaoChute::Baixo);
 		ordem_direcao.Remove(DirecaoChute::Cima);
 	}
+}
+
+void APlayerCharacter::PlayerSlide(float Value)
+{
+	if (Value > 0 && !IsMoveInputIgnored())
+		slideAction();
 }
 
 void APlayerCharacter::chutaPressed()
@@ -164,20 +170,28 @@ void APlayerCharacter::chargeTimeOut()
 
 void APlayerCharacter::pause()
 {
-	if (UGameplayStatics::IsGamePaused(GetWorld()))
+	if (pausable)
 	{
-		UGameplayStatics::SetGamePaused(GetWorld(), false);
-		if (pauseWidget)
-			pauseWidget->RemoveFromParent();
-		APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-		PC->SetShowMouseCursor(false);
+		if (UGameplayStatics::IsGamePaused(GetWorld()))
+		{
+			UGameplayStatics::SetGamePaused(GetWorld(), false);
+			if (pauseWidget)
+				pauseWidget->RemoveFromParent();
+			APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+			PC->SetShowMouseCursor(false);
+		}
+		else
+		{
+			UGameplayStatics::SetGamePaused(GetWorld(), true);
+			if (pauseWidget)
+				pauseWidget->AddToViewport();
+			APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+			PC->SetShowMouseCursor(true);
+		}
 	}
-	else
-	{
-		UGameplayStatics::SetGamePaused(GetWorld(), true);
-		if (pauseWidget)
-			pauseWidget->AddToViewport();
-		APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-		PC->SetShowMouseCursor(true);
-	}
+}
+
+void APlayerCharacter::SetUnpausable()
+{
+	pausable = false;
 }

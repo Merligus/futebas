@@ -4,6 +4,7 @@
 #include "AfterMatchWidget.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetTextLibrary.h"
+#include "PlayerCharacter.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 
 
@@ -32,6 +33,9 @@ bool UAfterMatchWidget::Initialize()
     if (!ensure(continuar != nullptr))
         return false;
     continuar->OnClicked.AddDynamic(this, &UAfterMatchWidget::continuarClicked);
+
+    APlayerCharacter* player1 = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+    player1->SetUnpausable();
 
     return true;
 }

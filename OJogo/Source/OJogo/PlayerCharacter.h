@@ -42,6 +42,9 @@ protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 	// End of APawn interface
 
+	UPROPERTY(VisibleAnywhere)
+	bool pausable;
+
 public:
 
 	virtual void BeginPlay() override;
@@ -53,6 +56,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void DirecaoVertical(float Value);
+
+	UFUNCTION(BlueprintCallable)
+	void PlayerSlide(float Value);
 
 	UFUNCTION(BlueprintCallable)
 	void chutaPressed();
@@ -77,4 +83,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void pause();
+
+	UFUNCTION(BlueprintCallable)
+	void SetUnpausable();
 };

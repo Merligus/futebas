@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "FutebasGameInstance.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/Image.h"
 #include "TimeStatsWidget.generated.h"
 
 /**
@@ -27,6 +28,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	bool bindStatsEnabled(bool team1 = true);
+
+	UFUNCTION(BlueprintCallable)
+	FSlateBrush bindFlag(bool team1 = true);
 
 	UFUNCTION(BlueprintCallable)
 	FText bindTeamName(bool team1 = true);

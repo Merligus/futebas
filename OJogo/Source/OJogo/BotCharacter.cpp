@@ -226,8 +226,6 @@ void ABotCharacter::sense()
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
 	if (FoundActors.Num() == 1)
 		ball = Cast<ABola>(FoundActors[0]);
-	else
-		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("OJogoCharacter:Bola nao achada")));
         
     bool go_to_ball1(false), go_to_ball2(false), go_to_ball3(false);
     bool go_to_ball;

@@ -31,10 +31,9 @@ void UFutebasGameInstance::loadTeams()
         );
         for (int32 i = 0; i < teamsArray.Num(); ++i)
             teamsArray[i].index_time = i;
-        
-        ind_jogo_atualiza_tabela = 0;
-        grupo_atualiza_tabela = 0;
-    }
+    }    
+    ind_jogo_atualiza_tabela = 0;
+    grupo_atualiza_tabela = 0;
 }
 
 FTeamData UFutebasGameInstance::getTeam(int32 index)
