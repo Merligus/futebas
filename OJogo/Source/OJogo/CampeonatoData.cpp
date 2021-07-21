@@ -26,7 +26,10 @@ void FCampeonatoData::montaConfrontos()
     confrontos.AddUninitialized(times);
 
     FRodadaData rodadas;
-    calendario.Init(rodadas, times.Num()-1);
+    if (apenasIda)
+        calendario.Init(rodadas, times.Num()-1);
+    else
+        calendario.Init(rodadas, 2*(times.Num()-1));
 
     TArray<TArray<int32>> combinacoes;
     TArray<int32> combinacoesT;
@@ -54,6 +57,8 @@ void FCampeonatoData::montaConfrontos()
             timeOcupadoRodada[t2].Add(rodadaEscolhida);
             combinacoes[t1][t2] = rodadaEscolhida;
             calendario[rodadaEscolhida].jogos.Add(FJogoData(times[t1], times[t2]));
+            if (!apenasIda)
+                calendario[rodadaEscolhida + times.Num() - 1].jogos.Add(FJogoData(times[t2], times[t1]));
         }
     }
 }

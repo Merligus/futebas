@@ -15,8 +15,16 @@ bool UTimeStatsWidget::Initialize()
 	if (FutebasGI)
     {
         FutebasGI->loadTeams();
-        FutebasGI->copa_do_mundo = FCopaMundoData();
-        FutebasGI->copa_do_mundo.sortear();
+        if (game_mode == GameMode::CopaMundo)
+        {
+            FutebasGI->copa_do_mundo = FCopaMundoData();
+            FutebasGI->copa_do_mundo.sortear();
+        }
+        else if (game_mode == GameMode::LigaNacoes)
+        {
+            FutebasGI->liga_das_nacoes = FLigaData(16, 32);
+            FutebasGI->liga_das_nacoes.alocarTimes();
+        }
         FutebasGI->team1 = FTeamData();
         FutebasGI->team2 = FTeamData();
     }
@@ -137,5 +145,32 @@ float UTimeStatsWidget::bindEnergia(bool team1)
 void UTimeStatsWidget::bindIndexTimeGrupos()
 {
     if (FutebasGI)
-        FutebasGI->copa_do_mundo.bindIndexTimeGrupos();
+    {
+        if (game_mode == GameMode::CopaMundo)
+            FutebasGI->copa_do_mundo.bindIndexTimeGrupos();
+        else if (game_mode == GameMode::LigaNacoes)
+        {
+            FutebasGI->liga_das_nacoes.bindIndexTimeDivisoes();
+            // debug
+            // for (int32 divisao = 0; divisao < FutebasGI->liga_das_nacoes.tabelas.Num(); ++divisao)
+            // {
+            //     FString JoinedStrRodada("Divisao ");
+            //     JoinedStrRodada += FString::FromInt(divisao);
+            //     for (int32 rodada = 0; rodada < FutebasGI->liga_das_nacoes.tabelas[divisao].times.Num()-1; ++rodada)
+            //     {
+            //         JoinedStrRodada += FString(" Rodada ");
+            //         JoinedStrRodada += FString::FromInt(rodada);
+            //         for (int32 indJogo = 0; indJogo < FutebasGI->liga_das_nacoes.tabelas[divisao].calendario[rodada].jogos.Num(); ++indJogo)
+            //         {
+            //             JoinedStrRodada += TEXT(" (");
+            //             JoinedStrRodada += FutebasGI->getTeam(FutebasGI->liga_das_nacoes.tabelas[divisao].calendario[rodada].jogos[indJogo].casa, game_mode).nome_hud;
+            //             JoinedStrRodada += TEXT(",");
+            //             JoinedStrRodada += FutebasGI->getTeam(FutebasGI->liga_das_nacoes.tabelas[divisao].calendario[rodada].jogos[indJogo].fora, game_mode).nome_hud;
+            //             JoinedStrRodada += TEXT(")");
+            //         }
+            //     }
+            //     GEngine->AddOnScreenDebugMessage(-1, 150.0f, FColor::Red, JoinedStrRodada);
+            // }
+        }
+    }
 }

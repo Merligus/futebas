@@ -26,6 +26,12 @@ protected:
 	
 public:
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidget))
+	GameMode game_mode;
+
+	UPROPERTY(BlueprintReadOnly, meta=(BindWidget))
+	UTextBlock* timePos;
+
 	UPROPERTY(BlueprintReadWrite, meta=(BindWidget))
 	UImage* timeFlag;
 

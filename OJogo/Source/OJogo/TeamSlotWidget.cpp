@@ -18,7 +18,7 @@ bool UTeamSlotWidget::Initialize()
     if (!ensure(timeBotao != nullptr))
         return false;
 
-    if (novaPartida)
+    if (game_mode == GameMode::NovaPartida)
         timeBotao->OnClicked.AddDynamic(this, &UTeamSlotWidget::ButtonClickedNovaPartida);
     else
         timeBotao->OnClicked.AddDynamic(this, &UTeamSlotWidget::ButtonClicked);
@@ -30,10 +30,12 @@ void UTeamSlotWidget::ButtonClicked()
 {
     if (FutebasGI)
     {
-        FutebasGI->team1 = FutebasGI->getTeam(indexSlot);
+        FutebasGI->team1 = FutebasGI->getTeam(indexSlot, game_mode);
         FutebasGI->team1_index_slot = indexSlot;
-        FutebasGI->team2 = FutebasGI->getTeam(indexSlot);
+        FutebasGI->team2 = FutebasGI->getTeam(indexSlot, game_mode);
         FutebasGI->team2_index_slot = -1;
+        if (game_mode == GameMode::LigaNacoes)
+            FutebasGI->team1_index_slot = FutebasGI->liga_das_nacoes.putTeamAsLast(FutebasGI->team1.index_time);
     }
     else
         GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Slot %d clicado mas FutebasGI null"), indexSlot));
@@ -63,8 +65,8 @@ FSlateBrush UTeamSlotWidget::bindFlagNome()
 {
 	if (FutebasGI)
     {
-        timeNome->SetText(FText::FromString(FutebasGI->getTeam(indexSlot).nome_hud));
-		return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeam(indexSlot).flag, 32, 24);
+        timeNome->SetText(FText::FromString(FutebasGI->getTeam(indexSlot, game_mode).nome_hud));
+		return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeam(indexSlot, game_mode).flag, 32, 24);
     }
 	else
     {
@@ -97,7 +99,7 @@ FLinearColor UTeamSlotWidget::bindSelected()
         else
             c = FLinearColor(0, 0, 1, 0.5);
     }
-    else if (indexSlot == FutebasGI->team2_index_slot && FutebasGI->team2.index_time >= 0 && novaPartida)
+    else if (indexSlot == FutebasGI->team2_index_slot && FutebasGI->team2.index_time >= 0 && game_mode == GameMode::NovaPartida)
         c = FLinearColor(1, 0, 0, 0.5);
     else
         c = FLinearColor(0, 0, 0, 0);

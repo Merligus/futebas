@@ -63,8 +63,30 @@ void UAfterMatchWidget::continuarClicked()
             }
             else
                 resultado = FResultadoData(3);
-            FutebasGI->terminaPartida(resultado);
+            FutebasGI->terminaPartida(resultado, GameMode::CopaMundo);
             UGameplayStatics::OpenLevel(GetWorld(), FName(TEXT("Copa_Level")));
+        }
+        else if (FutebasGI->liga_das_nacoes.tabelas[0].times.Num() > 0)
+        {
+            FResultadoData resultado;
+            if (JogosGameState)
+            {
+                resultado.index_casa = FutebasGI->team1.index_time;
+                resultado.index_fora = FutebasGI->team2.index_time;
+                resultado = FResultadoData(JogosGameState->golsTimeEsq, JogosGameState->golsSomadosTimeEsq_pen, 
+                                           JogosGameState->golsTimeDir, JogosGameState->golsSomadosTimeDir_pen);
+                if (!FutebasGI->team1_em_casa)
+                {
+                    FTeamData auxTeam;
+                    auxTeam = FutebasGI->team1;
+                    FutebasGI->team1 = FutebasGI->team2;
+                    FutebasGI->team2 = auxTeam;
+                }
+            }
+            else
+                resultado = FResultadoData(3);
+            FutebasGI->terminaPartida(resultado, GameMode::LigaNacoes);
+            UGameplayStatics::OpenLevel(GetWorld(), FName(TEXT("Liga_Nacoes_Level")));
         }
         else
             UGameplayStatics::OpenLevel(GetWorld(), FName(TEXT("Menu_Level")));

@@ -41,7 +41,7 @@ public:
 	int32 indexSlot;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidget))
-	bool novaPartida;
+	GameMode game_mode;
 
 	UFUNCTION(BlueprintCallable)
 	void ButtonClicked();

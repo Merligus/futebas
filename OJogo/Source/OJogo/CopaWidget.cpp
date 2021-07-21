@@ -39,7 +39,7 @@ void UCopaWidget::jogarClicked()
     if (FutebasGI)
     {
         if (!proximo_jogo_player)
-            proximo_jogo_player = FutebasGI->simulaJogosProximaRodada();
+            proximo_jogo_player = FutebasGI->simulaJogosProximaRodada(GameMode::CopaMundo);
         else
         {
             proximo_jogo_player = false;

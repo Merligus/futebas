@@ -23,6 +23,9 @@ public:
 
 	virtual bool Initialize();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidget))
+	GameMode game_mode;
+
 	UFUNCTION(BlueprintCallable)
 	void sorteiaGruposCopa();
 
