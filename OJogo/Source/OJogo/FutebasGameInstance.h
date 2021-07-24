@@ -31,40 +31,37 @@ class OJOGO_API UFutebasGameInstance : public UPlatformGameInstance
 public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FTeamData team1;
+	FTeamData team1;	// game mode interface e campeonato state
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FTeamData team2;
+	FTeamData team2;	// game mode interface
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool desempate_por_penaltis = true;
+	bool desempate_por_penaltis = true;	// game mode interface
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool team1_em_casa = true;
+	bool team1_em_casa = true;	// game mode interface
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool escolheTeam2;
+	bool escolheTeam2;	// team select
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 team1_index_slot;
+	int32 team1_index_slot;	// team select
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 team2_index_slot;
+	int32 team2_index_slot;	// team select
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 grupo_atualiza_tabela;
+	GameMode current_game_mode;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 ind_jogo_atualiza_tabela;
+	FCopaMundoData copa_do_mundo;	// campeonato state
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FCopaMundoData copa_do_mundo;
+	FLigaData liga_das_nacoes;	// campeonato state
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FLigaData liga_das_nacoes;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UDataTable* teams;
+	UDataTable* teams;	// seleções
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float volume;
@@ -77,7 +74,7 @@ public:
 
 	FResultadoData simulaJogo(int32 index_t1, int32 index_t2, bool penaltis, GameMode game_mode = GameMode::CopaMundo);
 
-	void jogaPartida();
+	void jogaPartida(GameMode game_mode);
 
 	void terminaPartida(FResultadoData r, GameMode game_mode);
 

@@ -4,7 +4,7 @@
 #include "CopaMundoData.h"
 
 FCopaMundoData::FCopaMundoData() :
-    fase_atual(0)
+    fase_atual(0), grupo_atualiza_tabela(0), ind_jogo_atualiza_tabela(0)
 {
     for (int32 i = 0; i < 8; ++i)
         tabelaGrupos.Add(FCampeonatoData(4));

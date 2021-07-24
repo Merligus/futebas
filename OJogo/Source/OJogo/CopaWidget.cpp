@@ -3,6 +3,7 @@
 
 #include "CopaWidget.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "GeneralFunctionLibrary.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 
 bool UCopaWidget::Initialize()
@@ -18,6 +19,10 @@ bool UCopaWidget::Initialize()
     if (!ensure(jogar != nullptr))
         return false;
     jogar->OnClicked.AddDynamic(this, &UCopaWidget::jogarClicked);
+
+    if (!ensure(salvar != nullptr))
+        return false;
+    salvar->OnClicked.AddDynamic(this, &UCopaWidget::salvarClicked);
 
     if (!ensure(sair != nullptr))
         return false;
@@ -43,9 +48,14 @@ void UCopaWidget::jogarClicked()
         else
         {
             proximo_jogo_player = false;
-            FutebasGI->jogaPartida();
+            FutebasGI->jogaPartida(GameMode::CopaMundo);
         }
     }
+}
+
+void UCopaWidget::salvarClicked()
+{
+    UGeneralFunctionLibrary::saveGame(GameMode::CopaMundo, FutebasGI->copa_do_mundo, FutebasGI->liga_das_nacoes, FutebasGI->team1);
 }
 
 void UCopaWidget::sairClicked()

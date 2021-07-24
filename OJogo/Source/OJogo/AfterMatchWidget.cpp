@@ -44,7 +44,7 @@ void UAfterMatchWidget::continuarClicked()
 {
     if (FutebasGI)
     {
-        if (FutebasGI->copa_do_mundo.tabelaGrupos[0].times.Num() > 0)
+        if (FutebasGI->current_game_mode == GameMode::CopaMundo)
         {
             FResultadoData resultado;
             if (JogosGameState)
@@ -66,7 +66,7 @@ void UAfterMatchWidget::continuarClicked()
             FutebasGI->terminaPartida(resultado, GameMode::CopaMundo);
             UGameplayStatics::OpenLevel(GetWorld(), FName(TEXT("Copa_Level")));
         }
-        else if (FutebasGI->liga_das_nacoes.tabelas[0].times.Num() > 0)
+        else if (FutebasGI->current_game_mode == GameMode::LigaNacoes)
         {
             FResultadoData resultado;
             if (JogosGameState)

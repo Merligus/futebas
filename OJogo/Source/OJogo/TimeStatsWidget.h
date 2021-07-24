@@ -52,4 +52,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void bindIndexTimeGrupos();
+
+	UFUNCTION(BlueprintCallable)
+	void loadGame();
 };

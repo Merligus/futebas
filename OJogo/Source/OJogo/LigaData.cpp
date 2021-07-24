@@ -4,14 +4,14 @@
 #include "LigaData.h"
 
 FLigaData::FLigaData() :
-    divisoes(2), times_por_divisao(16)
+    divisoes(2), times_por_divisao(16), grupo_atualiza_tabela(0), ind_jogo_atualiza_tabela(0)
 {
     for (int32 i = 0; i < divisoes; ++i)
         tabelas.Add(FCampeonatoData(times_por_divisao, false));
 }
 
 FLigaData::FLigaData(int32 n_times_por_divisao, int32 n_times) :
-    divisoes(n_times/n_times_por_divisao), times_por_divisao(n_times_por_divisao)
+    divisoes(n_times/n_times_por_divisao), times_por_divisao(n_times_por_divisao), grupo_atualiza_tabela(0), ind_jogo_atualiza_tabela(0)
 {
     for (int32 i = 0; i < divisoes; ++i)
         tabelas.Add(FCampeonatoData(times_por_divisao, false));

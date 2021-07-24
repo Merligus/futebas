@@ -2,8 +2,11 @@
 
 
 #include "TimeStatsWidget.h"
+#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetTextLibrary.h"
+#include "GeneralFunctionLibrary.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
+#include "FutebasSaveGame.h"
 
 bool UTimeStatsWidget::Initialize()
 {
@@ -172,5 +175,11 @@ void UTimeStatsWidget::bindIndexTimeGrupos()
             //     GEngine->AddOnScreenDebugMessage(-1, 150.0f, FColor::Red, JoinedStrRodada);
             // }
         }
+        UGeneralFunctionLibrary::saveGame(game_mode, FutebasGI->copa_do_mundo, FutebasGI->liga_das_nacoes, FutebasGI->team1);
     }
+}
+
+void UTimeStatsWidget::loadGame()
+{
+    UGeneralFunctionLibrary::loadGame(GetWorld(), game_mode, FutebasGI);
 }

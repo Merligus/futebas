@@ -29,6 +29,9 @@ public:
 	UButton* jogar;
 
 	UPROPERTY(BlueprintReadWrite, meta=(BindWidget))
+	UButton* salvar;
+
+	UPROPERTY(BlueprintReadWrite, meta=(BindWidget))
 	UButton* sair;
 
 	UPROPERTY(BlueprintReadWrite)
@@ -42,6 +45,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void jogarClicked();
+
+	UFUNCTION(BlueprintCallable)
+	void salvarClicked();
 
 	UFUNCTION(BlueprintCallable)
 	void sairClicked();

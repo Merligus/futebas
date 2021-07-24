@@ -56,9 +56,20 @@ void FCampeonatoData::montaConfrontos()
             timeOcupadoRodada[t1].Add(rodadaEscolhida);
             timeOcupadoRodada[t2].Add(rodadaEscolhida);
             combinacoes[t1][t2] = rodadaEscolhida;
-            calendario[rodadaEscolhida].jogos.Add(FJogoData(times[t1], times[t2]));
+            bool t1_em_casa = FMath::RandBool();
+            calendario[rodadaEscolhida].jogos.Add(FJogoData(times[t1_em_casa? t1 : t2], times[t1_em_casa? t2 : t1]));
             if (!apenasIda)
-                calendario[rodadaEscolhida + times.Num() - 1].jogos.Add(FJogoData(times[t2], times[t1]));
+                calendario[rodadaEscolhida + times.Num() - 1].jogos.Add(FJogoData(times[t1_em_casa? t2 : t1], times[t1_em_casa? t1 : t2]));
+        }
+    }
+
+    for (int32 r = 0; r < calendario.Num(); ++r)
+    {
+        for (int32 j = 0; j < calendario[r].jogos.Num()/2; ++j)
+        {
+            int32 s1 = FMath::RandRange(0, calendario[r].jogos.Num()-1);
+            int32 s2 = FMath::RandRange(0, calendario[r].jogos.Num()-1);
+            calendario[r].jogos.Swap(s1, s2);
         }
     }
 }

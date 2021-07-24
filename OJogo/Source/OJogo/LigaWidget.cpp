@@ -3,6 +3,7 @@
 
 #include "LigaWidget.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "GeneralFunctionLibrary.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 
 bool ULigaWidget::Initialize()
@@ -18,6 +19,10 @@ bool ULigaWidget::Initialize()
     if (!ensure(jogar != nullptr))
         return false;
     jogar->OnClicked.AddDynamic(this, &ULigaWidget::jogarClicked);
+
+    if (!ensure(salvar != nullptr))
+        return false;
+    salvar->OnClicked.AddDynamic(this, &ULigaWidget::salvarClicked);
 
     if (!ensure(sair != nullptr))
         return false;
@@ -43,9 +48,14 @@ void ULigaWidget::jogarClicked()
         else
         {
             proximo_jogo_player = false;
-            FutebasGI->jogaPartida();
+            FutebasGI->jogaPartida(GameMode::LigaNacoes);
         }
     }
+}
+
+void ULigaWidget::salvarClicked()
+{
+    UGeneralFunctionLibrary::saveGame(GameMode::LigaNacoes, FutebasGI->copa_do_mundo, FutebasGI->liga_das_nacoes, FutebasGI->team1);
 }
 
 void ULigaWidget::tabelaClicked()

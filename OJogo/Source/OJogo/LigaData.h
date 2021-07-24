@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "TeamData.h"
 #include "CampeonatoData.h"
 #include "UObject/NoExportTypes.h"
 #include "LigaData.generated.h"
@@ -35,6 +36,15 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 times_por_divisao;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 grupo_atualiza_tabela;	// campeonato state
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 ind_jogo_atualiza_tabela;	// campeonato state
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FTeamData team1;	// game mode interface e campeonato state
 
 	FLigaData();
 

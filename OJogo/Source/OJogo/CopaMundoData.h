@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "CampeonatoData.h"
+#include "TeamData.h"
 #include "MataMataData.h"
 #include "UObject/NoExportTypes.h"
 #include "CopaMundoData.generated.h"
@@ -36,6 +37,15 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 fase_atual; // 0 -> grupos, 1 -> oitavas, 2 -> quartas, 3 -> semi, 4 -> final
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 grupo_atualiza_tabela;	// campeonato state
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 ind_jogo_atualiza_tabela;	// campeonato state
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FTeamData team1;	// game mode interface e campeonato state
 
 	FCopaMundoData();
 
