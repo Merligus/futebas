@@ -41,7 +41,8 @@ void UTimeStatsWidget::sorteiaGruposCopa()
 {
     if (FutebasGI)
         FutebasGI->copa_do_mundo.sortear();
-    FutebasGI->team1_index_slot = *(FutebasGI->copa_do_mundo.sorteioGrupo.FindKey(FutebasGI->team1.index_time));
+    if (FutebasGI->team1.index_time >= 0)
+        FutebasGI->team1_index_slot = *(FutebasGI->copa_do_mundo.sorteioGrupo.FindKey(FutebasGI->team1.index_time));
 }
 
 bool UTimeStatsWidget::bindStatsEnabled(bool team1)
