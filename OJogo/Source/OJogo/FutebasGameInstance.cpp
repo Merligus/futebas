@@ -239,7 +239,7 @@ bool UFutebasGameInstance::simulaJogosProximaRodada(GameMode game_mode)
 
                         team1_em_casa = true;
                         
-                        if (copa_do_mundo.ind_jogo_atualiza_tabela == 1)
+                        if (copa_do_mundo.ind_jogo_atualiza_tabela >= 1)
                             copa_do_mundo.tabelaGrupos[copa_do_mundo.grupo_atualiza_tabela].terminaRodada();
                         return true;
                     }
@@ -251,7 +251,7 @@ bool UFutebasGameInstance::simulaJogosProximaRodada(GameMode game_mode)
 
                         team1_em_casa = false;
                         
-                        if (copa_do_mundo.ind_jogo_atualiza_tabela == 1)
+                        if (copa_do_mundo.ind_jogo_atualiza_tabela >= 1)
                             copa_do_mundo.tabelaGrupos[copa_do_mundo.grupo_atualiza_tabela].terminaRodada();
                         return true;
                     }
@@ -416,7 +416,7 @@ bool UFutebasGameInstance::simulaJogosProximaRodada(GameMode game_mode)
 
                         team1_em_casa = true;
                         
-                        if (liga_das_nacoes.ind_jogo_atualiza_tabela == jogos - 1)
+                        if (liga_das_nacoes.ind_jogo_atualiza_tabela >= 1)
                             liga_das_nacoes.tabelas[liga_das_nacoes.grupo_atualiza_tabela].terminaRodada();
                         return true;
                     }
@@ -428,7 +428,7 @@ bool UFutebasGameInstance::simulaJogosProximaRodada(GameMode game_mode)
 
                         team1_em_casa = false;
                         
-                        if (liga_das_nacoes.ind_jogo_atualiza_tabela == jogos - 1)
+                        if (liga_das_nacoes.ind_jogo_atualiza_tabela >= 1)
                             liga_das_nacoes.tabelas[liga_das_nacoes.grupo_atualiza_tabela].terminaRodada();
                         return true;
                     }
