@@ -10,6 +10,7 @@ void URodadaPartidasWidget::NativeConstruct()
 
 bool URodadaPartidasWidget::Initialize()
 {
+    int32 teams_ind((int32)teams_set);
     bool success = Super::Initialize();
     if (!success)
         return false;
@@ -23,9 +24,9 @@ bool URodadaPartidasWidget::Initialize()
         rodadaSlider->OnValueChanged.AddDynamic(this, &URodadaPartidasWidget::SliderValue);
         rodadaSlider->SetMinValue(1);
         if (game_mode == GameMode::CopaMundo)
-            rodadaSlider->SetMaxValue(FutebasGI->copa_do_mundo.tabelaGrupos[grupo].times.Num()-1);
+            rodadaSlider->SetMaxValue(FutebasGI->GetCopa(teams_ind)->tabelaGrupos[grupo].times.Num()-1);
         else if (game_mode == GameMode::LigaNacoes)
-            rodadaSlider->SetMaxValue(2*(FutebasGI->liga_das_nacoes.tabelas[grupo].times.Num()-1));
+            rodadaSlider->SetMaxValue(2*(FutebasGI->GetLiga(teams_ind)->tabelas[grupo].times.Num()-1));
     }
     else
         return false;
@@ -33,15 +34,15 @@ bool URodadaPartidasWidget::Initialize()
     int32 max_rodadas(1), rodada(0), n_jogos(2);
     if (game_mode == GameMode::CopaMundo)
     {
-        max_rodadas = FutebasGI->copa_do_mundo.tabelaGrupos[grupo].times.Num()-1;
-        rodada = FutebasGI->copa_do_mundo.tabelaGrupos[grupo].rodada_atual;
-        n_jogos = FutebasGI->copa_do_mundo.tabelaGrupos[grupo].calendario[FMath::Clamp(rodada, 0, max_rodadas-1)].jogos.Num();
+        max_rodadas = FutebasGI->GetCopa(teams_ind)->tabelaGrupos[grupo].times.Num()-1;
+        rodada = FutebasGI->GetCopa(teams_ind)->tabelaGrupos[grupo].rodada_atual;
+        n_jogos = FutebasGI->GetCopa(teams_ind)->tabelaGrupos[grupo].calendario[FMath::Clamp(rodada, 0, max_rodadas-1)].jogos.Num();
     }
     else if (game_mode == GameMode::LigaNacoes)
     {
-        max_rodadas = FutebasGI->liga_das_nacoes.tabelas[grupo].times.Num()-1;
-        rodada = FutebasGI->liga_das_nacoes.tabelas[grupo].rodada_atual;
-        n_jogos = FutebasGI->liga_das_nacoes.tabelas[grupo].calendario[FMath::Clamp(rodada, 0, max_rodadas-1)].jogos.Num();
+        max_rodadas = FutebasGI->GetLiga(teams_ind)->tabelas[grupo].times.Num()-1;
+        rodada = FutebasGI->GetLiga(teams_ind)->tabelas[grupo].rodada_atual;
+        n_jogos = FutebasGI->GetLiga(teams_ind)->tabelas[grupo].calendario[FMath::Clamp(rodada, 0, max_rodadas-1)].jogos.Num();
     }
     
     rodadaSlider->SetValue(rodada+1);

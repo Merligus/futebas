@@ -10,6 +10,7 @@
 
 bool UTimeStatsWidget::Initialize()
 {
+    int32 teams_ind((int32)teams_set);
     bool success = Super::Initialize();
     if (!success)
         return false;
@@ -20,13 +21,13 @@ bool UTimeStatsWidget::Initialize()
         FutebasGI->loadTeams();
         if (game_mode == GameMode::CopaMundo)
         {
-            FutebasGI->copa_do_mundo = FCopaMundoData();
-            FutebasGI->copa_do_mundo.sortear();
+            FutebasGI->SetCopa(FCopaMundoData(), teams_ind);
+            FutebasGI->GetCopa(teams_ind)->sortear();
         }
         else if (game_mode == GameMode::LigaNacoes)
         {
-            FutebasGI->liga_das_nacoes = FLigaData(16, 32);
-            FutebasGI->liga_das_nacoes.alocarTimes();
+            FutebasGI->SetLiga(FLigaData(16, 32), teams_ind);
+            FutebasGI->GetLiga(teams_ind)->alocarTimes();
         }
         FutebasGI->team1 = FTeamData();
         FutebasGI->team2 = FTeamData();
@@ -39,10 +40,11 @@ bool UTimeStatsWidget::Initialize()
 
 void UTimeStatsWidget::sorteiaGruposCopa()
 {
+    int32 teams_ind((int32)teams_set);
     if (FutebasGI)
-        FutebasGI->copa_do_mundo.sortear();
+        FutebasGI->GetCopa(teams_ind)->sortear();
     if (FutebasGI->team1.index_time >= 0)
-        FutebasGI->team1_index_slot = *(FutebasGI->copa_do_mundo.sorteioGrupo.FindKey(FutebasGI->team1.index_time));
+        FutebasGI->team1_index_slot = *(FutebasGI->GetCopa(teams_ind)->sorteioGrupo.FindKey(FutebasGI->team1.index_time));
 }
 
 bool UTimeStatsWidget::bindStatsEnabled(bool team1)
@@ -148,39 +150,40 @@ float UTimeStatsWidget::bindEnergia(bool team1)
 
 void UTimeStatsWidget::bindIndexTimeGrupos()
 {
+    int32 teams_ind((int32)teams_set);
     if (FutebasGI)
     {
         if (game_mode == GameMode::CopaMundo)
-            FutebasGI->copa_do_mundo.bindIndexTimeGrupos();
+            FutebasGI->GetCopa(teams_ind)->bindIndexTimeGrupos();
         else if (game_mode == GameMode::LigaNacoes)
         {
-            FutebasGI->liga_das_nacoes.bindIndexTimeDivisoes();
+            FutebasGI->GetLiga(teams_ind)->bindIndexTimeDivisoes();
             // debug
-            // for (int32 divisao = 0; divisao < FutebasGI->liga_das_nacoes.tabelas.Num(); ++divisao)
+            // for (int32 divisao = 0; divisao < FutebasGI->GetLiga(teams_ind)->tabelas.Num(); ++divisao)
             // {
             //     FString JoinedStrRodada("Divisao ");
             //     JoinedStrRodada += FString::FromInt(divisao);
-            //     for (int32 rodada = 0; rodada < FutebasGI->liga_das_nacoes.tabelas[divisao].times.Num()-1; ++rodada)
+            //     for (int32 rodada = 0; rodada < FutebasGI->GetLiga(teams_ind)->tabelas[divisao].times.Num()-1; ++rodada)
             //     {
             //         JoinedStrRodada += FString(" Rodada ");
             //         JoinedStrRodada += FString::FromInt(rodada);
-            //         for (int32 indJogo = 0; indJogo < FutebasGI->liga_das_nacoes.tabelas[divisao].calendario[rodada].jogos.Num(); ++indJogo)
+            //         for (int32 indJogo = 0; indJogo < FutebasGI->GetLiga(teams_ind)->tabelas[divisao].calendario[rodada].jogos.Num(); ++indJogo)
             //         {
             //             JoinedStrRodada += TEXT(" (");
-            //             JoinedStrRodada += FutebasGI->getTeam(FutebasGI->liga_das_nacoes.tabelas[divisao].calendario[rodada].jogos[indJogo].casa, game_mode).nome_hud;
+            //             JoinedStrRodada += FutebasGI->getTeam(FutebasGI->GetLiga(teams_ind)->tabelas[divisao].calendario[rodada].jogos[indJogo].casa, game_mode).nome_hud;
             //             JoinedStrRodada += TEXT(",");
-            //             JoinedStrRodada += FutebasGI->getTeam(FutebasGI->liga_das_nacoes.tabelas[divisao].calendario[rodada].jogos[indJogo].fora, game_mode).nome_hud;
+            //             JoinedStrRodada += FutebasGI->getTeam(FutebasGI->GetLiga(teams_ind)->tabelas[divisao].calendario[rodada].jogos[indJogo].fora, game_mode).nome_hud;
             //             JoinedStrRodada += TEXT(")");
             //         }
             //     }
             //     GEngine->AddOnScreenDebugMessage(-1, 150.0f, FColor::Red, JoinedStrRodada);
             // }
         }
-        UGeneralFunctionLibrary::saveGame(game_mode, FutebasGI->copa_do_mundo, FutebasGI->liga_das_nacoes, FutebasGI->team1);
+        UGeneralFunctionLibrary::saveGame(*FutebasGI->GetCopa(teams_ind), *FutebasGI->GetLiga(teams_ind), FutebasGI->team1, game_mode, teams_set);
     }
 }
 
 void UTimeStatsWidget::loadGame()
 {
-    UGeneralFunctionLibrary::loadGame(GetWorld(), game_mode, FutebasGI);
+    UGeneralFunctionLibrary::loadGame(GetWorld(), FutebasGI, game_mode, teams_set);
 }

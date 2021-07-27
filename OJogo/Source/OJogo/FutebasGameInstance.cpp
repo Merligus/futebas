@@ -14,11 +14,36 @@ void UFutebasGameInstance::loadTeams()
         FString Context;
         TArray<FTeamData*> aux;
 
-        teams->GetAllRows(Context, aux);
+        if (IsValid(national_teams))
+            teams->GetAllRows(Context, aux);
         for (int32 i = 0; i < aux.Num(); ++i)
             teamsArray.Add(*(aux[i]));
 
         teamsArray.Sort(
+            [this](const FTeamData& A, const FTeamData& B) // return true = A antes de B
+            {
+                if (A.nome_interno == "gambaosaka_jap_png")
+                    return true;
+                else if (B.nome_interno == "gambaosaka_jap_png")
+                    return false;
+                else
+                    return A.habilidades.overall() > B.habilidades.overall();
+            }
+        );
+        for (int32 i = 0; i < teamsArray.Num(); ++i)
+            teamsArray[i].index_time = i;
+    }
+    if (nationalTeamsArray.Num() == 0)
+    {
+        FString Context;
+        TArray<FTeamData*> aux;
+
+        if (IsValid(national_teams))
+            national_teams->GetAllRows(Context, aux);
+        for (int32 i = 0; i < aux.Num(); ++i)
+            nationalTeamsArray.Add(*(aux[i]));
+
+        nationalTeamsArray.Sort(
             [this](const FTeamData& A, const FTeamData& B) // return true = A antes de B
             {
                 if (A.nome_interno == "qatar")
@@ -29,41 +54,73 @@ void UFutebasGameInstance::loadTeams()
                     return A.habilidades.overall() > B.habilidades.overall();
             }
         );
-        for (int32 i = 0; i < teamsArray.Num(); ++i)
-            teamsArray[i].index_time = i;
+        for (int32 i = 0; i < nationalTeamsArray.Num(); ++i)
+            nationalTeamsArray[i].index_time = i;
     }
 }
 
-FTeamData UFutebasGameInstance::getTeam(int32 index, GameMode game_mode)
+FTeamData UFutebasGameInstance::getTeam(int32 index, GameMode game_mode, TeamsSet teams_set)
 {
-    if (index < teamsArray.Num())
+    int32 teams_ind((int32)teams_set);
+    if (teams_set == TeamsSet::Times)
     {
-        if (game_mode == GameMode::CopaMundo)
-            return teamsArray[copa_do_mundo.sorteioGrupo[index]];
-        else if (game_mode == GameMode::LigaNacoes)
-            return teamsArray[liga_das_nacoes.teamMap[index]];
+        if (index < teamsArray.Num())
+        {
+            if (game_mode == GameMode::CopaMundo)
+                return teamsArray[GetCopa(teams_ind)->sorteioGrupo[index]];
+            else if (game_mode == GameMode::LigaNacoes)
+                return teamsArray[GetLiga(teams_ind)->teamMap[index]];
+            else
+                return teamsArray[0];
+        }
         else
-            return teamsArray[0];
+            return FTeamData();
+    }
+    else if (teams_set == TeamsSet::Selecoes)
+    {
+        if (index < nationalTeamsArray.Num())
+        {
+            if (game_mode == GameMode::CopaMundo)
+                return nationalTeamsArray[GetCopa(teams_ind)->sorteioGrupo[index]];
+            else if (game_mode == GameMode::LigaNacoes)
+                return nationalTeamsArray[GetLiga(teams_ind)->teamMap[index]];
+            else
+                return nationalTeamsArray[0];
+        }
+        else
+            return FTeamData();
     }
     else
         return FTeamData();
 }
 
-FTeamData UFutebasGameInstance::getTeamTrueIndex(int32 index)
+FTeamData UFutebasGameInstance::getTeamTrueIndex(int32 index, TeamsSet teams_set)
 {
-    if (index < teamsArray.Num())
-        return teamsArray[index];
+    if (teams_set == TeamsSet::Times)
+    {
+        if (index < teamsArray.Num())
+            return teamsArray[index];
+        else
+            return FTeamData();
+    }
+    else if (teams_set == TeamsSet::Selecoes)
+    {
+        if (index < nationalTeamsArray.Num())
+            return nationalTeamsArray[index];
+        else
+            return FTeamData();
+    }
     else
         return FTeamData();
 }
 
-FResultadoData UFutebasGameInstance::simulaJogo(int32 index_t1, int32 index_t2, bool penaltis, GameMode game_mode)
+FResultadoData UFutebasGameInstance::simulaJogo(int32 index_t1, int32 index_t2, bool penaltis, GameMode game_mode, TeamsSet teams_set)
 {
     FResultadoData result;
     result.index_casa = index_t1;
     result.index_fora = index_t2;
-    float overall_t1 = getTeam(index_t1, game_mode).habilidades.overall();
-    float overall_t2 = getTeam(index_t2, game_mode).habilidades.overall();
+    float overall_t1 = getTeam(index_t1, game_mode, teams_set).habilidades.overall();
+    float overall_t2 = getTeam(index_t2, game_mode, teams_set).habilidades.overall();
     int32 max_gols_t1 = FMath::TruncToInt(FMath::RoundHalfFromZero(5*overall_t1));
     int32 max_gols_t2 = FMath::TruncToInt(FMath::RoundHalfFromZero(5*overall_t2));
     result.gols_casa = FMath::RandRange(FMath::Clamp(max_gols_t1-1, 0, 100), max_gols_t1+1);
@@ -111,9 +168,10 @@ FResultadoData UFutebasGameInstance::simulaJogo(int32 index_t1, int32 index_t2, 
     return result;
 }
 
-void UFutebasGameInstance::jogaPartida(GameMode game_mode)
+void UFutebasGameInstance::jogaPartida(GameMode game_mode, TeamsSet teams_set)
 {
     current_game_mode = game_mode;
+    current_teams_set = teams_set;
     if (team1_em_casa)
         UGameplayStatics::OpenLevel(GetWorld(), FName(team1.estadio));
     else
@@ -136,239 +194,241 @@ void UFutebasGameInstance::jogaPartida(GameMode game_mode)
     // terminaPartida(resultado, GameMode::LigaNacoes);
 }
 
-void UFutebasGameInstance::terminaPartida(FResultadoData r, GameMode game_mode)
+void UFutebasGameInstance::terminaPartida(FResultadoData r, GameMode game_mode, TeamsSet teams_set)
 {
+    int32 teams_ind((int32)teams_set);
     if (game_mode == GameMode::CopaMundo)
     {
-        if (copa_do_mundo.fase_atual == 0)
+        if (GetCopa(teams_ind)->fase_atual == 0)
         {
-            int32 rodada_atual = copa_do_mundo.tabelaGrupos[copa_do_mundo.grupo_atualiza_tabela].rodada_atual;
-            r.index_casa = copa_do_mundo.tabelaGrupos[copa_do_mundo.grupo_atualiza_tabela].calendario[rodada_atual].jogos[copa_do_mundo.ind_jogo_atualiza_tabela].casa;
-            r.index_fora = copa_do_mundo.tabelaGrupos[copa_do_mundo.grupo_atualiza_tabela].calendario[rodada_atual].jogos[copa_do_mundo.ind_jogo_atualiza_tabela].fora;
+            int32 rodada_atual = GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].rodada_atual;
+            r.index_casa = GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].calendario[rodada_atual].jogos[GetCopa(teams_ind)->ind_jogo_atualiza_tabela].casa;
+            r.index_fora = GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].calendario[rodada_atual].jogos[GetCopa(teams_ind)->ind_jogo_atualiza_tabela].fora;
             if (rodada_atual == 2)
             {
-                int32 index_t1_temp = copa_do_mundo.tabelaGrupos[copa_do_mundo.grupo_atualiza_tabela].calendario[2].jogos[(copa_do_mundo.ind_jogo_atualiza_tabela+1)%2].casa;
-                int32 index_t2_temp = copa_do_mundo.tabelaGrupos[copa_do_mundo.grupo_atualiza_tabela].calendario[2].jogos[(copa_do_mundo.ind_jogo_atualiza_tabela+1)%2].fora;
-                FResultadoData r_temp = simulaJogo(index_t1_temp, index_t2_temp, false, game_mode);
-                copa_do_mundo.tabelaGrupos[copa_do_mundo.grupo_atualiza_tabela].atualizaTabela(r_temp.index_casa, r_temp.index_fora, r_temp.gols_casa, r_temp.gols_fora);
-                copa_do_mundo.ind_jogo_atualiza_tabela = 1;
+                int32 index_t1_temp = GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].calendario[2].jogos[(GetCopa(teams_ind)->ind_jogo_atualiza_tabela+1)%2].casa;
+                int32 index_t2_temp = GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].calendario[2].jogos[(GetCopa(teams_ind)->ind_jogo_atualiza_tabela+1)%2].fora;
+                FResultadoData r_temp = simulaJogo(index_t1_temp, index_t2_temp, false, game_mode, teams_set);
+                GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].atualizaTabela(r_temp.index_casa, r_temp.index_fora, r_temp.gols_casa, r_temp.gols_fora);
+                GetCopa(teams_ind)->SetJogo(1);
             }
                 
-            copa_do_mundo.tabelaGrupos[copa_do_mundo.grupo_atualiza_tabela].atualizaTabela(r.index_casa, r.index_fora, r.gols_casa, r.gols_fora);
-            copa_do_mundo.tabelaGrupos[copa_do_mundo.grupo_atualiza_tabela].terminaRodada();
-            ++copa_do_mundo.ind_jogo_atualiza_tabela;
-            if (copa_do_mundo.ind_jogo_atualiza_tabela == 2)
+            GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].atualizaTabela(r.index_casa, r.index_fora, r.gols_casa, r.gols_fora);
+            GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].terminaRodada();
+            GetCopa(teams_ind)->SetJogo(GetCopa(teams_ind)->ind_jogo_atualiza_tabela + 1);
+            if (GetCopa(teams_ind)->ind_jogo_atualiza_tabela == 2)
             {
-                if (copa_do_mundo.grupo_atualiza_tabela == 7 && copa_do_mundo.tabelaGrupos[7].rodada_atual == 3)
-                    copa_do_mundo.chaveia();
-                copa_do_mundo.ind_jogo_atualiza_tabela = 0;
-                copa_do_mundo.grupo_atualiza_tabela++;
+                if (GetCopa(teams_ind)->grupo_atualiza_tabela == 7 && GetCopa(teams_ind)->tabelaGrupos[7].rodada_atual == 3)
+                    GetCopa(teams_ind)->chaveia();
+                GetCopa(teams_ind)->SetJogo(0);
+                GetCopa(teams_ind)->SetGrupo(GetCopa(teams_ind)->grupo_atualiza_tabela + 1);
             }
-            copa_do_mundo.grupo_atualiza_tabela = copa_do_mundo.grupo_atualiza_tabela % copa_do_mundo.tabelaGrupos.Num();
+            GetCopa(teams_ind)->SetGrupo(GetCopa(teams_ind)->grupo_atualiza_tabela % GetCopa(teams_ind)->tabelaGrupos.Num());
         }
-        else if (copa_do_mundo.fase_atual <= 4)
+        else if (GetCopa(teams_ind)->fase_atual <= 4)
         {
-            r.index_casa = copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-1].confrontos[copa_do_mundo.ind_jogo_atualiza_tabela].index_casa;
-            r.index_fora = copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-1].confrontos[copa_do_mundo.ind_jogo_atualiza_tabela].index_fora;
-            copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-1].confrontos[copa_do_mundo.ind_jogo_atualiza_tabela] = r;
-            ++copa_do_mundo.ind_jogo_atualiza_tabela;
-            if (copa_do_mundo.ind_jogo_atualiza_tabela == copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-1].confrontos.Num())
+            r.index_casa = GetCopa(teams_ind)->faseFinal.fases[GetCopa(teams_ind)->fase_atual-1].confrontos[GetCopa(teams_ind)->ind_jogo_atualiza_tabela].index_casa;
+            r.index_fora = GetCopa(teams_ind)->faseFinal.fases[GetCopa(teams_ind)->fase_atual-1].confrontos[GetCopa(teams_ind)->ind_jogo_atualiza_tabela].index_fora;
+            GetCopa(teams_ind)->faseFinal.fases[GetCopa(teams_ind)->fase_atual-1].confrontos[GetCopa(teams_ind)->ind_jogo_atualiza_tabela] = r;
+            GetCopa(teams_ind)->SetJogo(GetCopa(teams_ind)->ind_jogo_atualiza_tabela);
+            if (GetCopa(teams_ind)->ind_jogo_atualiza_tabela == GetCopa(teams_ind)->faseFinal.fases[GetCopa(teams_ind)->fase_atual-1].confrontos.Num())
             {
-                copa_do_mundo.chaveia();
-                copa_do_mundo.ind_jogo_atualiza_tabela = 0;
+                GetCopa(teams_ind)->chaveia();
+                GetCopa(teams_ind)->SetJogo(0);
             }
         }
     }
     else if (game_mode == GameMode::LigaNacoes)
     {
-        int32 rodada_atual = liga_das_nacoes.tabelas[liga_das_nacoes.grupo_atualiza_tabela].rodada_atual;
-        int32 rodada_final = liga_das_nacoes.tabelas[liga_das_nacoes.grupo_atualiza_tabela].calendario.Num() - 1;
-        int32 jogos = liga_das_nacoes.tabelas[liga_das_nacoes.grupo_atualiza_tabela].calendario[rodada_atual].jogos.Num();
-        r.index_casa = liga_das_nacoes.tabelas[liga_das_nacoes.grupo_atualiza_tabela].calendario[rodada_atual].jogos[liga_das_nacoes.ind_jogo_atualiza_tabela].casa;
-        r.index_fora = liga_das_nacoes.tabelas[liga_das_nacoes.grupo_atualiza_tabela].calendario[rodada_atual].jogos[liga_das_nacoes.ind_jogo_atualiza_tabela].fora;
+        int32 rodada_atual = GetLiga(teams_ind)->tabelas[GetLiga(teams_ind)->grupo_atualiza_tabela].rodada_atual;
+        int32 rodada_final = GetLiga(teams_ind)->tabelas[GetLiga(teams_ind)->grupo_atualiza_tabela].calendario.Num() - 1;
+        int32 jogos = GetLiga(teams_ind)->tabelas[GetLiga(teams_ind)->grupo_atualiza_tabela].calendario[rodada_atual].jogos.Num();
+        r.index_casa = GetLiga(teams_ind)->tabelas[GetLiga(teams_ind)->grupo_atualiza_tabela].calendario[rodada_atual].jogos[GetLiga(teams_ind)->ind_jogo_atualiza_tabela].casa;
+        r.index_fora = GetLiga(teams_ind)->tabelas[GetLiga(teams_ind)->grupo_atualiza_tabela].calendario[rodada_atual].jogos[GetLiga(teams_ind)->ind_jogo_atualiza_tabela].fora;
         if (rodada_atual == rodada_final)
         {
-            for (int32 grupo_atualiza_tabela_temp = 0; grupo_atualiza_tabela_temp < liga_das_nacoes.tabelas.Num(); ++grupo_atualiza_tabela_temp)
+            for (int32 grupo_atualiza_tabela_temp = 0; grupo_atualiza_tabela_temp < GetLiga(teams_ind)->tabelas.Num(); ++grupo_atualiza_tabela_temp)
             {
-                int32 rodada_atual_temp = liga_das_nacoes.tabelas[grupo_atualiza_tabela_temp].rodada_atual;
-                for (int32 ind_jogo_atualiza_tabela_temp = 0; ind_jogo_atualiza_tabela_temp < liga_das_nacoes.tabelas[grupo_atualiza_tabela_temp].calendario[rodada_atual_temp].jogos.Num(); ++ind_jogo_atualiza_tabela_temp)
+                int32 rodada_atual_temp = GetLiga(teams_ind)->tabelas[grupo_atualiza_tabela_temp].rodada_atual;
+                for (int32 ind_jogo_atualiza_tabela_temp = 0; ind_jogo_atualiza_tabela_temp < GetLiga(teams_ind)->tabelas[grupo_atualiza_tabela_temp].calendario[rodada_atual_temp].jogos.Num(); ++ind_jogo_atualiza_tabela_temp)
                 {
-                    if (ind_jogo_atualiza_tabela_temp != liga_das_nacoes.ind_jogo_atualiza_tabela || grupo_atualiza_tabela_temp != liga_das_nacoes.grupo_atualiza_tabela)
+                    if (ind_jogo_atualiza_tabela_temp != GetLiga(teams_ind)->ind_jogo_atualiza_tabela || grupo_atualiza_tabela_temp != GetLiga(teams_ind)->grupo_atualiza_tabela)
                     {
-                        int32 index_t1_temp = liga_das_nacoes.tabelas[grupo_atualiza_tabela_temp].calendario[rodada_final].jogos[ind_jogo_atualiza_tabela_temp].casa;
-                        int32 index_t2_temp = liga_das_nacoes.tabelas[grupo_atualiza_tabela_temp].calendario[rodada_final].jogos[ind_jogo_atualiza_tabela_temp].fora;
-                        FResultadoData r_temp = simulaJogo(index_t1_temp, index_t2_temp, false, game_mode);
-                        liga_das_nacoes.tabelas[grupo_atualiza_tabela_temp].atualizaTabela(r_temp.index_casa, r_temp.index_fora, r_temp.gols_casa, r_temp.gols_fora);
+                        int32 index_t1_temp = GetLiga(teams_ind)->tabelas[grupo_atualiza_tabela_temp].calendario[rodada_final].jogos[ind_jogo_atualiza_tabela_temp].casa;
+                        int32 index_t2_temp = GetLiga(teams_ind)->tabelas[grupo_atualiza_tabela_temp].calendario[rodada_final].jogos[ind_jogo_atualiza_tabela_temp].fora;
+                        FResultadoData r_temp = simulaJogo(index_t1_temp, index_t2_temp, false, game_mode, teams_set);
+                        GetLiga(teams_ind)->tabelas[grupo_atualiza_tabela_temp].atualizaTabela(r_temp.index_casa, r_temp.index_fora, r_temp.gols_casa, r_temp.gols_fora);
                     }
                 }
-                liga_das_nacoes.tabelas[grupo_atualiza_tabela_temp].terminaRodada();
+                GetLiga(teams_ind)->tabelas[grupo_atualiza_tabela_temp].terminaRodada();
             }
         }
             
-        liga_das_nacoes.tabelas[liga_das_nacoes.grupo_atualiza_tabela].atualizaTabela(r.index_casa, r.index_fora, r.gols_casa, r.gols_fora);
-        liga_das_nacoes.tabelas[liga_das_nacoes.grupo_atualiza_tabela].terminaRodada();
-        ++liga_das_nacoes.ind_jogo_atualiza_tabela;
-        if (liga_das_nacoes.ind_jogo_atualiza_tabela == jogos)
+        GetLiga(teams_ind)->tabelas[GetLiga(teams_ind)->grupo_atualiza_tabela].atualizaTabela(r.index_casa, r.index_fora, r.gols_casa, r.gols_fora);
+        GetLiga(teams_ind)->tabelas[GetLiga(teams_ind)->grupo_atualiza_tabela].terminaRodada();
+        GetLiga(teams_ind)->SetJogo(GetLiga(teams_ind)->ind_jogo_atualiza_tabela + 1);
+        if (GetLiga(teams_ind)->ind_jogo_atualiza_tabela == jogos)
         {
-            liga_das_nacoes.ind_jogo_atualiza_tabela = 0;
-            liga_das_nacoes.grupo_atualiza_tabela++;
+            GetLiga(teams_ind)->SetJogo(0);
+            GetLiga(teams_ind)->SetGrupo(GetLiga(teams_ind)->grupo_atualiza_tabela + 1);
         }
-        liga_das_nacoes.grupo_atualiza_tabela = liga_das_nacoes.grupo_atualiza_tabela % liga_das_nacoes.tabelas.Num();
+        GetLiga(teams_ind)->SetGrupo(GetLiga(teams_ind)->grupo_atualiza_tabela % GetLiga(teams_ind)->tabelas.Num());
     }
 }
 
-bool UFutebasGameInstance::simulaJogosProximaRodada(GameMode game_mode)
+bool UFutebasGameInstance::simulaJogosProximaRodada(GameMode game_mode, TeamsSet teams_set)
 {
+    int32 teams_ind((int32)teams_set);
     if (game_mode == GameMode::CopaMundo)
     {
-        if (copa_do_mundo.fase_atual == 0)
+        if (GetCopa(teams_ind)->fase_atual == 0)
         {
-            for (; copa_do_mundo.grupo_atualiza_tabela < copa_do_mundo.tabelaGrupos.Num(); ++copa_do_mundo.grupo_atualiza_tabela)
+            for (; GetCopa(teams_ind)->grupo_atualiza_tabela < GetCopa(teams_ind)->tabelaGrupos.Num(); GetCopa(teams_ind)->SetGrupo(GetCopa(teams_ind)->grupo_atualiza_tabela + 1))
             {
-                int32 rodada_atual = copa_do_mundo.tabelaGrupos[copa_do_mundo.grupo_atualiza_tabela].rodada_atual;
-                for (; copa_do_mundo.ind_jogo_atualiza_tabela < copa_do_mundo.tabelaGrupos[copa_do_mundo.grupo_atualiza_tabela].calendario[rodada_atual].jogos.Num(); ++copa_do_mundo.ind_jogo_atualiza_tabela)
+                int32 rodada_atual = GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].rodada_atual;
+                for (; GetCopa(teams_ind)->ind_jogo_atualiza_tabela < GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].calendario[rodada_atual].jogos.Num(); GetCopa(teams_ind)->SetJogo(GetCopa(teams_ind)->ind_jogo_atualiza_tabela + 1))
                 {
-                    int32 index_t1 = copa_do_mundo.tabelaGrupos[copa_do_mundo.grupo_atualiza_tabela].calendario[rodada_atual].jogos[copa_do_mundo.ind_jogo_atualiza_tabela].casa;
-                    int32 index_t2 = copa_do_mundo.tabelaGrupos[copa_do_mundo.grupo_atualiza_tabela].calendario[rodada_atual].jogos[copa_do_mundo.ind_jogo_atualiza_tabela].fora;
+                    int32 index_t1 = GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].calendario[rodada_atual].jogos[GetCopa(teams_ind)->ind_jogo_atualiza_tabela].casa;
+                    int32 index_t2 = GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].calendario[rodada_atual].jogos[GetCopa(teams_ind)->ind_jogo_atualiza_tabela].fora;
                     FResultadoData r;
-                    if (copa_do_mundo.sorteioGrupo[index_t1] == team1.index_time)
+                    if (GetCopa(teams_ind)->sorteioGrupo[index_t1] == team1.index_time)
                     {
                         desempate_por_penaltis = false;
-                        team2 = getTeam(index_t2);
-                        team2.index_time = copa_do_mundo.sorteioGrupo[index_t2];
+                        team2 = getTeam(index_t2, game_mode, teams_set);
+                        team2.index_time = GetCopa(teams_ind)->sorteioGrupo[index_t2];
 
                         team1_em_casa = true;
                         
-                        if (copa_do_mundo.ind_jogo_atualiza_tabela >= 1)
-                            copa_do_mundo.tabelaGrupos[copa_do_mundo.grupo_atualiza_tabela].terminaRodada();
+                        if (GetCopa(teams_ind)->ind_jogo_atualiza_tabela >= 1)
+                            GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].terminaRodada();
                         return true;
                     }
-                    else if (copa_do_mundo.sorteioGrupo[index_t2] == team1.index_time)
+                    else if (GetCopa(teams_ind)->sorteioGrupo[index_t2] == team1.index_time)
                     {
                         desempate_por_penaltis = false;
-                        team2 = getTeam(index_t1);
-                        team2.index_time = copa_do_mundo.sorteioGrupo[index_t1];
+                        team2 = getTeam(index_t1, game_mode, teams_set);
+                        team2.index_time = GetCopa(teams_ind)->sorteioGrupo[index_t1];
 
                         team1_em_casa = false;
                         
-                        if (copa_do_mundo.ind_jogo_atualiza_tabela >= 1)
-                            copa_do_mundo.tabelaGrupos[copa_do_mundo.grupo_atualiza_tabela].terminaRodada();
+                        if (GetCopa(teams_ind)->ind_jogo_atualiza_tabela >= 1)
+                            GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].terminaRodada();
                         return true;
                     }
                     else
                     {
-                        if (copa_do_mundo.ind_jogo_atualiza_tabela == 0 && rodada_atual == 2)
+                        if (GetCopa(teams_ind)->ind_jogo_atualiza_tabela == 0 && rodada_atual == 2)
                         {
-                            int32 index_t1_temp = copa_do_mundo.tabelaGrupos[copa_do_mundo.grupo_atualiza_tabela].calendario[2].jogos[1].casa;
-                            int32 index_t2_temp = copa_do_mundo.tabelaGrupos[copa_do_mundo.grupo_atualiza_tabela].calendario[2].jogos[1].fora;
-                            if (copa_do_mundo.sorteioGrupo[index_t1_temp] == team1.index_time)
+                            int32 index_t1_temp = GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].calendario[2].jogos[1].casa;
+                            int32 index_t2_temp = GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].calendario[2].jogos[1].fora;
+                            if (GetCopa(teams_ind)->sorteioGrupo[index_t1_temp] == team1.index_time)
                             {
                                 desempate_por_penaltis = false;
-                                team2 = getTeam(index_t2_temp);
-                                team2.index_time = copa_do_mundo.sorteioGrupo[index_t2_temp];
+                                team2 = getTeam(index_t2_temp, game_mode, teams_set);
+                                team2.index_time = GetCopa(teams_ind)->sorteioGrupo[index_t2_temp];
 
                                 team1_em_casa = true;
-                                copa_do_mundo.ind_jogo_atualiza_tabela = 1;
+                                GetCopa(teams_ind)->SetJogo(1);
                                 return true;
                             }
-                            else if (copa_do_mundo.sorteioGrupo[index_t2_temp] == team1.index_time)
+                            else if (GetCopa(teams_ind)->sorteioGrupo[index_t2_temp] == team1.index_time)
                             {
                                 desempate_por_penaltis = false;
-                                team2 = getTeam(index_t1_temp);
-                                team2.index_time = copa_do_mundo.sorteioGrupo[index_t1_temp];
+                                team2 = getTeam(index_t1_temp, game_mode, teams_set);
+                                team2.index_time = GetCopa(teams_ind)->sorteioGrupo[index_t1_temp];
 
                                 team1_em_casa = false;
-                                copa_do_mundo.ind_jogo_atualiza_tabela = 1;
+                                GetCopa(teams_ind)->SetJogo(1);
                                 return true;
                             }
                         }
-                        r = simulaJogo(index_t1, index_t2, false, game_mode);
+                        r = simulaJogo(index_t1, index_t2, false, game_mode, teams_set);
                     }
-                    copa_do_mundo.tabelaGrupos[copa_do_mundo.grupo_atualiza_tabela].atualizaTabela(index_t1, index_t2, r.gols_casa, r.gols_fora);
+                    GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].atualizaTabela(index_t1, index_t2, r.gols_casa, r.gols_fora);
                 }
-                copa_do_mundo.ind_jogo_atualiza_tabela = 0;
-                copa_do_mundo.tabelaGrupos[copa_do_mundo.grupo_atualiza_tabela].terminaRodada();
+                GetCopa(teams_ind)->SetJogo(0);
+                GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].terminaRodada();
             }
-            if (copa_do_mundo.tabelaGrupos[7].rodada_atual == 3)
-                copa_do_mundo.chaveia();
-            copa_do_mundo.grupo_atualiza_tabela = 0;
+            if (GetCopa(teams_ind)->tabelaGrupos[7].rodada_atual == 3)
+                GetCopa(teams_ind)->chaveia();
+            GetCopa(teams_ind)->SetGrupo(0);
             
             // debug
-            // for (int32 grupo = 0; grupo < copa_do_mundo.tabelaGrupos.Num(); ++grupo)
+            // for (int32 grupo = 0; grupo < GetCopa(teams_ind)->tabelaGrupos.Num(); ++grupo)
             // {
             //     FString JoinedStrRodada("Grupo ");
             //     JoinedStrRodada += FString::FromInt(grupo);
             //     JoinedStrRodada += FString(" Rodada ");
-            //     int32 rodada = copa_do_mundo.tabelaGrupos[grupo].rodada_atual - 1;
+            //     int32 rodada = GetCopa(teams_ind)->tabelaGrupos[grupo].rodada_atual - 1;
             //     JoinedStrRodada += FString::FromInt(rodada);
-            //     for (int32 indJogo = 0; indJogo < copa_do_mundo.tabelaGrupos[grupo].calendario[rodada].jogos.Num(); ++indJogo)
+            //     for (int32 indJogo = 0; indJogo < GetCopa(teams_ind)->tabelaGrupos[grupo].calendario[rodada].jogos.Num(); ++indJogo)
             //     {
-            //         int32 index_casa = copa_do_mundo.tabelaGrupos[grupo].calendario[rodada].jogos[indJogo].casa;
-            //         int32 index_fora = copa_do_mundo.tabelaGrupos[grupo].calendario[rodada].jogos[indJogo].fora;
-            //         int32 gols_casa = copa_do_mundo.tabelaGrupos[grupo].confrontos.casa[index_casa].fora[index_fora].gols_casa;
-            //         int32 gols_fora = copa_do_mundo.tabelaGrupos[grupo].confrontos.casa[index_casa].fora[index_fora].gols_fora;
+            //         int32 index_casa = GetCopa(teams_ind)->tabelaGrupos[grupo].calendario[rodada].jogos[indJogo].casa;
+            //         int32 index_fora = GetCopa(teams_ind)->tabelaGrupos[grupo].calendario[rodada].jogos[indJogo].fora;
+            //         int32 gols_casa = GetCopa(teams_ind)->tabelaGrupos[grupo].confrontos.casa[index_casa].fora[index_fora].gols_casa;
+            //         int32 gols_fora = GetCopa(teams_ind)->tabelaGrupos[grupo].confrontos.casa[index_casa].fora[index_fora].gols_fora;
             //         JoinedStrRodada += TEXT(" (");
-            //         JoinedStrRodada += getTeam(index_casa).nome_hud;
+            //         JoinedStrRodada += getTeam(index_casa, game_mode, teams_set).nome_hud;
             //         JoinedStrRodada += TEXT(" ");
             //         JoinedStrRodada += FString::FromInt(gols_casa);
             //         JoinedStrRodada += TEXT(" x ");
             //         JoinedStrRodada += FString::FromInt(gols_fora);
             //         JoinedStrRodada += TEXT(" ");
-            //         JoinedStrRodada += getTeam(index_fora).nome_hud;
+            //         JoinedStrRodada += getTeam(index_fora, game_mode, teams_set).nome_hud;
             //         JoinedStrRodada += TEXT(")");
             //     }
             //     GEngine->AddOnScreenDebugMessage(-1, 150.0f, FColor::Red, JoinedStrRodada);
             // }
         }
-        else if (copa_do_mundo.fase_atual <= 4)
+        else if (GetCopa(teams_ind)->fase_atual <= 4)
         {
-            copa_do_mundo.ind_jogo_atualiza_tabela = copa_do_mundo.ind_jogo_atualiza_tabela % copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-1].confrontos.Num();
-            for (; copa_do_mundo.ind_jogo_atualiza_tabela < copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-1].confrontos.Num(); ++copa_do_mundo.ind_jogo_atualiza_tabela)
+            GetCopa(teams_ind)->SetJogo(GetCopa(teams_ind)->ind_jogo_atualiza_tabela % GetCopa(teams_ind)->faseFinal.fases[GetCopa(teams_ind)->fase_atual-1].confrontos.Num());
+            for (; GetCopa(teams_ind)->ind_jogo_atualiza_tabela < GetCopa(teams_ind)->faseFinal.fases[GetCopa(teams_ind)->fase_atual-1].confrontos.Num(); GetCopa(teams_ind)->SetJogo(GetCopa(teams_ind)->ind_jogo_atualiza_tabela + 1))
             {
-                int32 index_t1 = copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-1].confrontos[copa_do_mundo.ind_jogo_atualiza_tabela].index_casa;
-                int32 index_t2 = copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-1].confrontos[copa_do_mundo.ind_jogo_atualiza_tabela].index_fora;
-                if (copa_do_mundo.sorteioGrupo[index_t1] == team1.index_time)
+                int32 index_t1 = GetCopa(teams_ind)->faseFinal.fases[GetCopa(teams_ind)->fase_atual-1].confrontos[GetCopa(teams_ind)->ind_jogo_atualiza_tabela].index_casa;
+                int32 index_t2 = GetCopa(teams_ind)->faseFinal.fases[GetCopa(teams_ind)->fase_atual-1].confrontos[GetCopa(teams_ind)->ind_jogo_atualiza_tabela].index_fora;
+                if (GetCopa(teams_ind)->sorteioGrupo[index_t1] == team1.index_time)
                 {
                     desempate_por_penaltis = true;
-                    team2 = getTeam(index_t2);
-                    team2.index_time = copa_do_mundo.sorteioGrupo[index_t2];
+                    team2 = getTeam(index_t2, game_mode, teams_set);
+                    team2.index_time = GetCopa(teams_ind)->sorteioGrupo[index_t2];
 
                     team1_em_casa = true;
                     
-                    copa_do_mundo.tabelaGrupos[copa_do_mundo.grupo_atualiza_tabela].terminaRodada();
+                    GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].terminaRodada();
                     return true;
                 }
-                else if (copa_do_mundo.sorteioGrupo[index_t2] == team1.index_time)
+                else if (GetCopa(teams_ind)->sorteioGrupo[index_t2] == team1.index_time)
                 {
                     desempate_por_penaltis = true;
-                    team2 = getTeam(index_t1);
-                    team2.index_time = copa_do_mundo.sorteioGrupo[index_t1];
+                    team2 = getTeam(index_t1, game_mode, teams_set);
+                    team2.index_time = GetCopa(teams_ind)->sorteioGrupo[index_t1];
 
                     team1_em_casa = false;
                     
-                    copa_do_mundo.tabelaGrupos[copa_do_mundo.grupo_atualiza_tabela].terminaRodada();
+                    GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].terminaRodada();
                     return true;
                 }
                 else
-                    copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-1].confrontos[copa_do_mundo.ind_jogo_atualiza_tabela] = simulaJogo(index_t1, index_t2, true, game_mode);
+                    GetCopa(teams_ind)->faseFinal.fases[GetCopa(teams_ind)->fase_atual-1].confrontos[GetCopa(teams_ind)->ind_jogo_atualiza_tabela] = simulaJogo(index_t1, index_t2, true, game_mode, teams_set);
             }
 
-            copa_do_mundo.chaveia();
-            copa_do_mundo.ind_jogo_atualiza_tabela = 0;
+            GetCopa(teams_ind)->chaveia();
+            GetCopa(teams_ind)->SetJogo(0);
 
             // debug
-            // for (int32 ind_jogo = 0; ind_jogo < copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-2].confrontos.Num(); ++ind_jogo)
+            // for (int32 ind_jogo = 0; ind_jogo < GetCopa(teams_ind)->faseFinal.fases[GetCopa(teams_ind)->fase_atual-2].confrontos.Num(); ++ind_jogo)
             // {
             //     FString JoinedStrRodada("Jogo ");
             //     JoinedStrRodada += FString::FromInt(ind_jogo);
-            //     int32 index_casa = copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-2].confrontos[ind_jogo].index_casa;
-            //     int32 index_fora = copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-2].confrontos[ind_jogo].index_fora;
-            //     int32 gols_casa = copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-2].confrontos[ind_jogo].gols_casa;
-            //     int32 gols_fora = copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-2].confrontos[ind_jogo].gols_fora;
-            //     int32 gols_penalti_casa = copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-2].confrontos[ind_jogo].gols_penalti_casa;
-            //     int32 gols_penalti_fora = copa_do_mundo.faseFinal.fases[copa_do_mundo.fase_atual-2].confrontos[ind_jogo].gols_penalti_fora;
+            //     int32 index_casa = GetCopa(teams_ind)->faseFinal.fases[GetCopa(teams_ind)->fase_atual-2].confrontos[ind_jogo].index_casa;
+            //     int32 index_fora = GetCopa(teams_ind)->faseFinal.fases[GetCopa(teams_ind)->fase_atual-2].confrontos[ind_jogo].index_fora;
+            //     int32 gols_casa = GetCopa(teams_ind)->faseFinal.fases[GetCopa(teams_ind)->fase_atual-2].confrontos[ind_jogo].gols_casa;
+            //     int32 gols_fora = GetCopa(teams_ind)->faseFinal.fases[GetCopa(teams_ind)->fase_atual-2].confrontos[ind_jogo].gols_fora;
+            //     int32 gols_penalti_casa = GetCopa(teams_ind)->faseFinal.fases[GetCopa(teams_ind)->fase_atual-2].confrontos[ind_jogo].gols_penalti_casa;
+            //     int32 gols_penalti_fora = GetCopa(teams_ind)->faseFinal.fases[GetCopa(teams_ind)->fase_atual-2].confrontos[ind_jogo].gols_penalti_fora;
             //     JoinedStrRodada += TEXT(" [");
-            //     JoinedStrRodada += getTeam(index_casa).nome_hud;
+            //     JoinedStrRodada += getTeam(index_casa, game_mode, teams_set).nome_hud;
             //     JoinedStrRodada += TEXT(" ");
             //     JoinedStrRodada += FString::FromInt(gols_casa);
             //     if (gols_penalti_casa != -1)
@@ -386,7 +446,7 @@ bool UFutebasGameInstance::simulaJogosProximaRodada(GameMode game_mode)
             //     }
             //     JoinedStrRodada += FString::FromInt(gols_fora);
             //     JoinedStrRodada += TEXT(" ");
-            //     JoinedStrRodada += getTeam(index_fora).nome_hud;
+            //     JoinedStrRodada += getTeam(index_fora, game_mode, teams_set).nome_hud;
             //     JoinedStrRodada += TEXT("]");
             //     GEngine->AddOnScreenDebugMessage(-1, 150.0f, FColor::Red, JoinedStrRodada);
             // }
@@ -395,72 +455,72 @@ bool UFutebasGameInstance::simulaJogosProximaRodada(GameMode game_mode)
     else if (game_mode == GameMode::LigaNacoes)
     {
         bool termina(true);
-        for (int32 divisao = 0; divisao < liga_das_nacoes.divisoes; ++divisao)
-            termina = termina && (liga_das_nacoes.tabelas[divisao].rodada_atual == liga_das_nacoes.tabelas[divisao].calendario.Num());
+        for (int32 divisao = 0; divisao < GetLiga(teams_ind)->divisoes; ++divisao)
+            termina = termina && (GetLiga(teams_ind)->tabelas[divisao].rodada_atual == GetLiga(teams_ind)->tabelas[divisao].calendario.Num());
         if (!termina)
         {
-            for (; liga_das_nacoes.grupo_atualiza_tabela < liga_das_nacoes.tabelas.Num(); ++liga_das_nacoes.grupo_atualiza_tabela)
+            for (; GetLiga(teams_ind)->grupo_atualiza_tabela < GetLiga(teams_ind)->tabelas.Num(); GetLiga(teams_ind)->SetGrupo(GetLiga(teams_ind)->grupo_atualiza_tabela + 1))
             {
-                int32 rodada_atual = liga_das_nacoes.tabelas[liga_das_nacoes.grupo_atualiza_tabela].rodada_atual;
-                int32 jogos = liga_das_nacoes.tabelas[liga_das_nacoes.grupo_atualiza_tabela].calendario[rodada_atual].jogos.Num();
-                for (; liga_das_nacoes.ind_jogo_atualiza_tabela < jogos; ++liga_das_nacoes.ind_jogo_atualiza_tabela)
+                int32 rodada_atual = GetLiga(teams_ind)->tabelas[GetLiga(teams_ind)->grupo_atualiza_tabela].rodada_atual;
+                int32 jogos = GetLiga(teams_ind)->tabelas[GetLiga(teams_ind)->grupo_atualiza_tabela].calendario[rodada_atual].jogos.Num();
+                for (; GetLiga(teams_ind)->ind_jogo_atualiza_tabela < jogos; GetLiga(teams_ind)->SetJogo(GetLiga(teams_ind)->ind_jogo_atualiza_tabela + 1))
                 {
-                    int32 index_t1 = liga_das_nacoes.tabelas[liga_das_nacoes.grupo_atualiza_tabela].calendario[rodada_atual].jogos[liga_das_nacoes.ind_jogo_atualiza_tabela].casa;
-                    int32 index_t2 = liga_das_nacoes.tabelas[liga_das_nacoes.grupo_atualiza_tabela].calendario[rodada_atual].jogos[liga_das_nacoes.ind_jogo_atualiza_tabela].fora;
+                    int32 index_t1 = GetLiga(teams_ind)->tabelas[GetLiga(teams_ind)->grupo_atualiza_tabela].calendario[rodada_atual].jogos[GetLiga(teams_ind)->ind_jogo_atualiza_tabela].casa;
+                    int32 index_t2 = GetLiga(teams_ind)->tabelas[GetLiga(teams_ind)->grupo_atualiza_tabela].calendario[rodada_atual].jogos[GetLiga(teams_ind)->ind_jogo_atualiza_tabela].fora;
                     FResultadoData r;
-                    if (liga_das_nacoes.teamMap[index_t1] == team1.index_time)
+                    if (GetLiga(teams_ind)->teamMap[index_t1] == team1.index_time)
                     {
                         desempate_por_penaltis = false;
-                        team2 = getTeam(index_t2, game_mode);
-                        team2.index_time = liga_das_nacoes.teamMap[index_t2];
+                        team2 = getTeam(index_t2, game_mode, teams_set);
+                        team2.index_time = GetLiga(teams_ind)->teamMap[index_t2];
 
                         team1_em_casa = true;
                         
-                        if (liga_das_nacoes.ind_jogo_atualiza_tabela >= 1)
-                            liga_das_nacoes.tabelas[liga_das_nacoes.grupo_atualiza_tabela].terminaRodada();
+                        if (GetLiga(teams_ind)->ind_jogo_atualiza_tabela >= 1)
+                            GetLiga(teams_ind)->tabelas[GetLiga(teams_ind)->grupo_atualiza_tabela].terminaRodada();
                         return true;
                     }
-                    else if (liga_das_nacoes.teamMap[index_t2] == team1.index_time)
+                    else if (GetLiga(teams_ind)->teamMap[index_t2] == team1.index_time)
                     {
                         desempate_por_penaltis = false;
-                        team2 = getTeam(index_t1, game_mode);
-                        team2.index_time = liga_das_nacoes.teamMap[index_t1];
+                        team2 = getTeam(index_t1, game_mode, teams_set);
+                        team2.index_time = GetLiga(teams_ind)->teamMap[index_t1];
 
                         team1_em_casa = false;
                         
-                        if (liga_das_nacoes.ind_jogo_atualiza_tabela >= 1)
-                            liga_das_nacoes.tabelas[liga_das_nacoes.grupo_atualiza_tabela].terminaRodada();
+                        if (GetLiga(teams_ind)->ind_jogo_atualiza_tabela >= 1)
+                            GetLiga(teams_ind)->tabelas[GetLiga(teams_ind)->grupo_atualiza_tabela].terminaRodada();
                         return true;
                     }
                     else
                     {
-                        int32 rodada_final = liga_das_nacoes.tabelas[liga_das_nacoes.grupo_atualiza_tabela].calendario.Num() - 1;
+                        int32 rodada_final = GetLiga(teams_ind)->tabelas[GetLiga(teams_ind)->grupo_atualiza_tabela].calendario.Num() - 1;
                         if (rodada_atual != rodada_final)
                         {
-                            r = simulaJogo(index_t1, index_t2, false, game_mode);
-                            liga_das_nacoes.tabelas[liga_das_nacoes.grupo_atualiza_tabela].atualizaTabela(index_t1, index_t2, r.gols_casa, r.gols_fora);
+                            r = simulaJogo(index_t1, index_t2, false, game_mode, teams_set);
+                            GetLiga(teams_ind)->tabelas[GetLiga(teams_ind)->grupo_atualiza_tabela].atualizaTabela(index_t1, index_t2, r.gols_casa, r.gols_fora);
                         }
                     }
                 }
-                liga_das_nacoes.ind_jogo_atualiza_tabela = 0;
-                liga_das_nacoes.tabelas[liga_das_nacoes.grupo_atualiza_tabela].terminaRodada();
+                GetLiga(teams_ind)->SetJogo(0);
+                GetLiga(teams_ind)->tabelas[GetLiga(teams_ind)->grupo_atualiza_tabela].terminaRodada();
             }
-            liga_das_nacoes.grupo_atualiza_tabela = 0;
+            GetLiga(teams_ind)->SetGrupo(0);
             
             // debug
-            // for (int32 grupo = 0; grupo < liga_das_nacoes.tabelas.Num(); ++grupo)
+            // for (int32 grupo = 0; grupo < GetLiga(teams_ind)->tabelas.Num(); ++grupo)
             // {
             //     FString JoinedStrRodada("Divisao ");
             //     JoinedStrRodada += FString::FromInt(grupo);
             //     JoinedStrRodada += FString(" Rodada ");
-            //     int32 rodada = liga_das_nacoes.tabelas[grupo].rodada_atual - 1;
+            //     int32 rodada = GetLiga(teams_ind)->tabelas[grupo].rodada_atual - 1;
             //     JoinedStrRodada += FString::FromInt(rodada);
-            //     for (int32 indJogo = 0; indJogo < liga_das_nacoes.tabelas[grupo].calendario[rodada].jogos.Num(); ++indJogo)
+            //     for (int32 indJogo = 0; indJogo < GetLiga(teams_ind)->tabelas[grupo].calendario[rodada].jogos.Num(); ++indJogo)
             //     {
-            //         int32 index_casa = liga_das_nacoes.tabelas[grupo].calendario[rodada].jogos[indJogo].casa;
-            //         int32 index_fora = liga_das_nacoes.tabelas[grupo].calendario[rodada].jogos[indJogo].fora;
-            //         int32 gols_casa = liga_das_nacoes.tabelas[grupo].confrontos.casa[index_casa].fora[index_fora].gols_casa;
-            //         int32 gols_fora = liga_das_nacoes.tabelas[grupo].confrontos.casa[index_casa].fora[index_fora].gols_fora;
+            //         int32 index_casa = GetLiga(teams_ind)->tabelas[grupo].calendario[rodada].jogos[indJogo].casa;
+            //         int32 index_fora = GetLiga(teams_ind)->tabelas[grupo].calendario[rodada].jogos[indJogo].fora;
+            //         int32 gols_casa = GetLiga(teams_ind)->tabelas[grupo].confrontos.casa[index_casa].fora[index_fora].gols_casa;
+            //         int32 gols_fora = GetLiga(teams_ind)->tabelas[grupo].confrontos.casa[index_casa].fora[index_fora].gols_fora;
             //         JoinedStrRodada += TEXT(" (");
             //         JoinedStrRodada += getTeam(index_casa, game_mode).nome_hud;
             //         JoinedStrRodada += TEXT(" ");
@@ -476,10 +536,38 @@ bool UFutebasGameInstance::simulaJogosProximaRodada(GameMode game_mode)
         }
         else
         {
-            liga_das_nacoes.terminaTemporada();
-            liga_das_nacoes.ind_jogo_atualiza_tabela = 0;
-            liga_das_nacoes.grupo_atualiza_tabela = 0;
+            GetLiga(teams_ind)->terminaTemporada();
+            GetLiga(teams_ind)->SetJogo(0);
+            GetLiga(teams_ind)->SetGrupo(0);
         }
     }
     return false;
+}
+
+FCopaMundoData* UFutebasGameInstance::GetCopa(int32 index)
+{
+    while(index >= copa_do_mundo.Num())
+        copa_do_mundo.Add(FCopaMundoData());
+    return &copa_do_mundo[index];
+}
+
+FLigaData* UFutebasGameInstance::GetLiga(int32 index)
+{
+    while(index >= liga_das_nacoes.Num())
+        liga_das_nacoes.Add(FLigaData());
+    return &liga_das_nacoes[index];
+}
+
+void UFutebasGameInstance::SetCopa(FCopaMundoData copa, int32 index)
+{
+    while(index >= copa_do_mundo.Num())
+        copa_do_mundo.Add(FCopaMundoData());
+    copa_do_mundo[index] = copa;
+}
+
+void UFutebasGameInstance::SetLiga(FLigaData liga, int32 index)
+{
+    while(index >= liga_das_nacoes.Num())
+        liga_das_nacoes.Add(FLigaData());
+    liga_das_nacoes[index] = liga;
 }

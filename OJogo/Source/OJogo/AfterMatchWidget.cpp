@@ -63,7 +63,7 @@ void UAfterMatchWidget::continuarClicked()
             }
             else
                 resultado = FResultadoData(3);
-            FutebasGI->terminaPartida(resultado, GameMode::CopaMundo);
+            FutebasGI->terminaPartida(resultado, GameMode::CopaMundo, FutebasGI->current_teams_set);
             UGameplayStatics::OpenLevel(GetWorld(), FName(TEXT("Copa_Level")));
         }
         else if (FutebasGI->current_game_mode == GameMode::LigaNacoes)
@@ -85,7 +85,7 @@ void UAfterMatchWidget::continuarClicked()
             }
             else
                 resultado = FResultadoData(3);
-            FutebasGI->terminaPartida(resultado, GameMode::LigaNacoes);
+            FutebasGI->terminaPartida(resultado, GameMode::LigaNacoes, FutebasGI->current_teams_set);
             UGameplayStatics::OpenLevel(GetWorld(), FName(TEXT("Liga_Nacoes_Level")));
         }
         else
@@ -111,7 +111,7 @@ FSlateBrush UAfterMatchWidget::bindFlagTudo1()
             gols_casa = 0;
             gols_penalti_casa = 0;
         }
-        time1Nome->SetText(FText::FromString(FutebasGI->getTeamTrueIndex(index_casa).nome_hud));
+        time1Nome->SetText(FText::FromString(FutebasGI->getTeamTrueIndex(index_casa, FutebasGI->current_teams_set).nome_hud));
         if (gols_casa >= 0)
             time1Gols->SetText(UKismetTextLibrary::Conv_IntToText(gols_casa));
         else
@@ -120,7 +120,7 @@ FSlateBrush UAfterMatchWidget::bindFlagTudo1()
             time1GolsPen->SetText(FText::FromString(FString(TEXT("(")) + FString::FromInt(gols_penalti_casa) + FString(TEXT(")")) ));
         else
             time1GolsPen->SetText(FText::FromString(FString(TEXT(""))));            
-        return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeamTrueIndex(index_casa).flag, 64, 48);
+        return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeamTrueIndex(index_casa, FutebasGI->current_teams_set).flag, 64, 48);
     }
 	else
     {
@@ -148,7 +148,7 @@ FSlateBrush UAfterMatchWidget::bindFlagTudo2()
             gols_penalti_fora = 0;
         }
 
-        time2Nome->SetText(FText::FromString(FutebasGI->getTeamTrueIndex(index_fora).nome_hud));
+        time2Nome->SetText(FText::FromString(FutebasGI->getTeamTrueIndex(index_fora, FutebasGI->current_teams_set).nome_hud));
         if (gols_fora >= 0)
             time2Gols->SetText(UKismetTextLibrary::Conv_IntToText(gols_fora));
         else
@@ -157,7 +157,7 @@ FSlateBrush UAfterMatchWidget::bindFlagTudo2()
             time2GolsPen->SetText(FText::FromString(FString(TEXT("(")) + FString::FromInt(gols_penalti_fora) + FString(TEXT(")")) ));
         else
             time2GolsPen->SetText(FText::FromString(FString(TEXT(""))));            
-        return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeamTrueIndex(index_fora).flag, 64, 48);
+        return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeamTrueIndex(index_fora, FutebasGI->current_teams_set).flag, 64, 48);
     }
 	else
     {

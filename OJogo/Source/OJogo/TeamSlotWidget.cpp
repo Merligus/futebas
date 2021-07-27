@@ -28,14 +28,15 @@ bool UTeamSlotWidget::Initialize()
 
 void UTeamSlotWidget::ButtonClicked()
 {
+    int32 teams_ind((int32)teams_set);
     if (FutebasGI)
     {
-        FutebasGI->team1 = FutebasGI->getTeam(indexSlot, game_mode);
+        FutebasGI->team1 = FutebasGI->getTeam(indexSlot, game_mode, teams_set);
         FutebasGI->team1_index_slot = indexSlot;
-        FutebasGI->team2 = FutebasGI->getTeam(indexSlot, game_mode);
+        FutebasGI->team2 = FutebasGI->getTeam(indexSlot, game_mode, teams_set);
         FutebasGI->team2_index_slot = -1;
         if (game_mode == GameMode::LigaNacoes)
-            FutebasGI->team1_index_slot = FutebasGI->liga_das_nacoes.putTeamAsLast(FutebasGI->team1.index_time);
+            FutebasGI->team1_index_slot = FutebasGI->GetLiga(teams_ind)->putTeamAsLast(FutebasGI->team1.index_time);
     }
     else
         GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Slot %d clicado mas FutebasGI null"), indexSlot));
@@ -47,12 +48,12 @@ void UTeamSlotWidget::ButtonClickedNovaPartida()
     {
         if (FutebasGI->escolheTeam2)
         {
-            FutebasGI->team2 = FutebasGI->getTeamTrueIndex(indexSlot);
+            FutebasGI->team2 = FutebasGI->getTeamTrueIndex(indexSlot, teams_set);
             FutebasGI->team2_index_slot = indexSlot;
         }
         else
         {
-            FutebasGI->team1 = FutebasGI->getTeamTrueIndex(indexSlot);
+            FutebasGI->team1 = FutebasGI->getTeamTrueIndex(indexSlot, teams_set);
             FutebasGI->team1_index_slot = indexSlot;
         }
         FutebasGI->escolheTeam2 = !FutebasGI->escolheTeam2;
@@ -65,8 +66,8 @@ FSlateBrush UTeamSlotWidget::bindFlagNome()
 {
 	if (FutebasGI)
     {
-        timeNome->SetText(FText::FromString(FutebasGI->getTeam(indexSlot, game_mode).nome_hud));
-		return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeam(indexSlot, game_mode).flag, 32, 24);
+        timeNome->SetText(FText::FromString(FutebasGI->getTeam(indexSlot, game_mode, teams_set).nome_hud));
+		return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeam(indexSlot, game_mode, teams_set).flag, 32, 24);
     }
 	else
     {
@@ -79,8 +80,8 @@ FSlateBrush UTeamSlotWidget::bindFlagNomeNovaPartida()
 {
 	if (FutebasGI)
     {
-        timeNome->SetText(FText::FromString(FutebasGI->getTeamTrueIndex(indexSlot).nome_hud));
-		return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeamTrueIndex(indexSlot).flag, 32, 24);
+        timeNome->SetText(FText::FromString(FutebasGI->getTeamTrueIndex(indexSlot, teams_set).nome_hud));
+		return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeamTrueIndex(indexSlot, teams_set).flag, 32, 24);
     }
 	else
     {

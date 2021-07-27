@@ -21,6 +21,7 @@ bool UTeamSlotPosicaoWidget::Initialize()
 
 FSlateBrush UTeamSlotPosicaoWidget::bindFlagTudo()
 {
+    int32 teams_ind((int32)teams_set);
     if (FutebasGI)
     {
         if (game_mode == GameMode::CopaMundo)
@@ -28,14 +29,14 @@ FSlateBrush UTeamSlotPosicaoWidget::bindFlagTudo()
             if (indexSlot >= 0)
             {
                 FPosicaoData posicao;
-                int32 times_por_grupo = FutebasGI->copa_do_mundo.tabelaGrupos[0].n_times;
+                int32 times_por_grupo = FutebasGI->GetCopa(teams_ind)->tabelaGrupos[0].n_times;
                 int32 grupoAtual = indexSlot/times_por_grupo;
                 int32 posicaoAtual = indexSlot % times_por_grupo;
 
-                posicao = FutebasGI->copa_do_mundo.tabelaGrupos[grupoAtual].tabela[posicaoAtual];
+                posicao = FutebasGI->GetCopa(teams_ind)->tabelaGrupos[grupoAtual].tabela[posicaoAtual];
 
                 timePos->SetText(UKismetTextLibrary::Conv_IntToText(posicaoAtual+1));
-                timeNome->SetText(FText::FromString(FutebasGI->getTeam(posicao.index_time).nome_hud));
+                timeNome->SetText(FText::FromString(FutebasGI->getTeam(posicao.index_time, game_mode, teams_set).nome_hud));
                 timePontos->SetText(UKismetTextLibrary::Conv_IntToText(posicao.pontos));
                 timePartidasJogadas->SetText(UKismetTextLibrary::Conv_IntToText(posicao.partidas_jogadas));
                 timeVitorias->SetText(UKismetTextLibrary::Conv_IntToText(posicao.vitorias));
@@ -44,7 +45,7 @@ FSlateBrush UTeamSlotPosicaoWidget::bindFlagTudo()
                 timeGolsPro->SetText(UKismetTextLibrary::Conv_IntToText(posicao.gols_pro));
                 timeGolsContra->SetText(UKismetTextLibrary::Conv_IntToText(posicao.gols_contra));
                 timeSaldoDeGols->SetText(UKismetTextLibrary::Conv_IntToText(posicao.saldo_de_gols));
-                return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeam(posicao.index_time).flag, 32, 24);
+                return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeam(posicao.index_time, game_mode, teams_set).flag, 32, 24);
             }
             else
             {
@@ -68,14 +69,14 @@ FSlateBrush UTeamSlotPosicaoWidget::bindFlagTudo()
             if (indexSlot >= 0)
             {
                 FPosicaoData posicao;
-                int32 times_por_grupo = FutebasGI->liga_das_nacoes.tabelas[0].n_times;
+                int32 times_por_grupo = FutebasGI->GetLiga(teams_ind)->tabelas[0].n_times;
                 int32 grupoAtual = indexSlot/times_por_grupo;
                 int32 posicaoAtual = indexSlot % times_por_grupo;
 
-                posicao = FutebasGI->liga_das_nacoes.tabelas[grupoAtual].tabela[posicaoAtual];
+                posicao = FutebasGI->GetLiga(teams_ind)->tabelas[grupoAtual].tabela[posicaoAtual];
 
                 timePos->SetText(UKismetTextLibrary::Conv_IntToText(posicaoAtual+1));
-                timeNome->SetText(FText::FromString(FutebasGI->getTeam(posicao.index_time, game_mode).nome_hud));
+                timeNome->SetText(FText::FromString(FutebasGI->getTeam(posicao.index_time, game_mode, teams_set).nome_hud));
                 timePontos->SetText(UKismetTextLibrary::Conv_IntToText(posicao.pontos));
                 timePartidasJogadas->SetText(UKismetTextLibrary::Conv_IntToText(posicao.partidas_jogadas));
                 timeVitorias->SetText(UKismetTextLibrary::Conv_IntToText(posicao.vitorias));
@@ -84,7 +85,7 @@ FSlateBrush UTeamSlotPosicaoWidget::bindFlagTudo()
                 timeGolsPro->SetText(UKismetTextLibrary::Conv_IntToText(posicao.gols_pro));
                 timeGolsContra->SetText(UKismetTextLibrary::Conv_IntToText(posicao.gols_contra));
                 timeSaldoDeGols->SetText(UKismetTextLibrary::Conv_IntToText(posicao.saldo_de_gols));
-                return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeam(posicao.index_time, game_mode).flag, 32, 24);
+                return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeam(posicao.index_time, game_mode, teams_set).flag, 32, 24);
             }
             else
             {

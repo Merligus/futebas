@@ -25,6 +25,9 @@ protected:
 	
 public:
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidget))
+	TeamsSet teams_set;
+
 	UPROPERTY(BlueprintReadWrite, meta=(BindWidget))
 	UButton* jogar;
 

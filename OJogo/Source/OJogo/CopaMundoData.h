@@ -41,8 +41,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 grupo_atualiza_tabela;	// campeonato state
 
+	FORCEINLINE void SetGrupo(int32 grupo) { grupo_atualiza_tabela = grupo; }
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 ind_jogo_atualiza_tabela;	// campeonato state
+
+	FORCEINLINE void SetJogo(int32 jogo) { ind_jogo_atualiza_tabela = jogo; }
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FTeamData team1;	// game mode interface e campeonato state

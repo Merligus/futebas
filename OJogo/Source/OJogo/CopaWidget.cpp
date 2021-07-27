@@ -30,7 +30,8 @@ bool UCopaWidget::Initialize()
 
     proximo_jogo_player = false;
 
-    if (FutebasGI->copa_do_mundo.fase_atual >= 1)
+    int32 teams_ind((int32)teams_set);
+    if (FutebasGI->GetCopa(teams_ind)->fase_atual >= 1)
         gruposVisivel = ESlateVisibility::Hidden;
     else
         gruposVisivel = ESlateVisibility::Visible;
@@ -44,18 +45,19 @@ void UCopaWidget::jogarClicked()
     if (FutebasGI)
     {
         if (!proximo_jogo_player)
-            proximo_jogo_player = FutebasGI->simulaJogosProximaRodada(GameMode::CopaMundo);
+            proximo_jogo_player = FutebasGI->simulaJogosProximaRodada(GameMode::CopaMundo, teams_set);
         else
         {
             proximo_jogo_player = false;
-            FutebasGI->jogaPartida(GameMode::CopaMundo);
+            FutebasGI->jogaPartida(GameMode::CopaMundo, teams_set);
         }
     }
 }
 
 void UCopaWidget::salvarClicked()
 {
-    UGeneralFunctionLibrary::saveGame(GameMode::CopaMundo, FutebasGI->copa_do_mundo, FutebasGI->liga_das_nacoes, FutebasGI->team1);
+    int32 teams_ind((int32)teams_set);
+    UGeneralFunctionLibrary::saveGame(*FutebasGI->GetCopa(teams_ind), *FutebasGI->GetLiga(teams_ind), FutebasGI->team1, GameMode::CopaMundo, teams_set);
 }
 
 void UCopaWidget::sairClicked()
@@ -65,17 +67,19 @@ void UCopaWidget::sairClicked()
 
 ESlateVisibility UCopaWidget::bindCampeaoVisibilidade()
 {
-    if (FutebasGI->copa_do_mundo.fase_atual > 4)
-        if (FutebasGI->copa_do_mundo.faseFinal.fases[3].confrontos[0].getGanhador() != -1)
+    int32 teams_ind((int32)teams_set);
+    if (FutebasGI->GetCopa(teams_ind)->fase_atual > 4)
+        if (FutebasGI->GetCopa(teams_ind)->faseFinal.fases[3].confrontos[0].getGanhador() != -1)
 		    return ESlateVisibility::Visible;
     return ESlateVisibility::Hidden;
 }
 
 FSlateBrush UCopaWidget::bindCampeaoFlag()
 {
+    int32 teams_ind((int32)teams_set);
     if (FutebasGI)
-        if (FutebasGI->copa_do_mundo.fase_atual > 4)
-            if (FutebasGI->copa_do_mundo.faseFinal.fases[3].confrontos[0].getGanhador() != -1)
-                return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeam(FutebasGI->copa_do_mundo.faseFinal.fases[3].confrontos[0].getGanhador()).flag, 320, 240);
+        if (FutebasGI->GetCopa(teams_ind)->fase_atual > 4)
+            if (FutebasGI->GetCopa(teams_ind)->faseFinal.fases[3].confrontos[0].getGanhador() != -1)
+                return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->getTeam(FutebasGI->GetCopa(teams_ind)->faseFinal.fases[3].confrontos[0].getGanhador(), GameMode::CopaMundo, teams_set).flag, 320, 240);
     return FSlateNoResource();
 }

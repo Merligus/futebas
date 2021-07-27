@@ -26,6 +26,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidget))
 	GameMode game_mode;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidget))
+	TeamsSet teams_set;
+
 	UFUNCTION(BlueprintCallable)
 	void sorteiaGruposCopa();
 

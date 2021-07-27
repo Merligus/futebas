@@ -20,6 +20,12 @@ enum class GameMode : uint8 {
 	LigaNacoes = 2 UMETA(DisplayName = "Liga Mundial")
 };
 
+UENUM(BlueprintType)
+enum class TeamsSet : uint8 {
+	Times = 0 UMETA(DisplayName = "Times"),
+	Selecoes = 1 UMETA(DisplayName = "Seleções")
+};
+
 UCLASS()
 class OJOGO_API UFutebasGameInstance : public UPlatformGameInstance
 {
@@ -27,6 +33,9 @@ class OJOGO_API UFutebasGameInstance : public UPlatformGameInstance
 
 	UPROPERTY()
     TArray<FTeamData> teamsArray;
+
+	UPROPERTY()
+    TArray<FTeamData> nationalTeamsArray;
 
 public:
 	
@@ -55,28 +64,42 @@ public:
 	GameMode current_game_mode;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FCopaMundoData copa_do_mundo;	// campeonato state
+	TeamsSet current_teams_set;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FLigaData liga_das_nacoes;	// campeonato state
+	TArray<FCopaMundoData> copa_do_mundo;	// campeonato state
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UDataTable* teams;	// seleções
+	TArray<FLigaData> liga_das_nacoes;	// campeonato state
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UDataTable* teams;	// times
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UDataTable* national_teams;	// seleções
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float volume;
 
 	void loadTeams();
 
-	FTeamData getTeam(int32 index, GameMode game_mode = GameMode::CopaMundo);
+	FTeamData getTeam(int32 index, GameMode game_mode, TeamsSet teams_set);
 
-	FTeamData getTeamTrueIndex(int32 index);
+	FTeamData getTeamTrueIndex(int32 index, TeamsSet teams_set);
 
-	FResultadoData simulaJogo(int32 index_t1, int32 index_t2, bool penaltis, GameMode game_mode = GameMode::CopaMundo);
+	FResultadoData simulaJogo(int32 index_t1, int32 index_t2, bool penaltis, GameMode game_mode, TeamsSet teams_set);
 
-	void jogaPartida(GameMode game_mode);
+	void jogaPartida(GameMode game_mode, TeamsSet teams_set);
 
-	void terminaPartida(FResultadoData r, GameMode game_mode);
+	void terminaPartida(FResultadoData r, GameMode game_mode, TeamsSet teams_set);
 
-	bool simulaJogosProximaRodada(GameMode game_mode);
+	bool simulaJogosProximaRodada(GameMode game_mode, TeamsSet teams_set);
+
+	FCopaMundoData* GetCopa(int32 index);
+
+	FLigaData* GetLiga(int32 index);
+
+	void SetCopa(FCopaMundoData copa, int32 index);
+
+	void SetLiga(FLigaData liga, int32 index);
 };

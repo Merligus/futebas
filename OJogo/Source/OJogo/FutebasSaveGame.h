@@ -21,11 +21,19 @@ class OJOGO_API UFutebasSaveGame : public USaveGame
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FCopaMundoData copa_do_mundo;	// campeonato state
+	TArray<FCopaMundoData> copa_do_mundo;	// campeonato state
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FLigaData liga_das_nacoes;	// campeonato state
+	TArray<FLigaData> liga_das_nacoes;	// campeonato state
 
 	UFutebasSaveGame();
+
+	FCopaMundoData* GetCopa(int32 index);
+
+	FLigaData* GetLiga(int32 index);
+
+	void SetCopa(FCopaMundoData copa, int32 index);
+
+	void SetLiga(FLigaData liga, int32 index);
 	
 };

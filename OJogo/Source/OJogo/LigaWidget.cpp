@@ -44,18 +44,19 @@ void ULigaWidget::jogarClicked()
     if (FutebasGI)
     {
         if (!proximo_jogo_player)
-            proximo_jogo_player = FutebasGI->simulaJogosProximaRodada(GameMode::LigaNacoes);
+            proximo_jogo_player = FutebasGI->simulaJogosProximaRodada(GameMode::LigaNacoes, teams_set);
         else
         {
             proximo_jogo_player = false;
-            FutebasGI->jogaPartida(GameMode::LigaNacoes);
+            FutebasGI->jogaPartida(GameMode::LigaNacoes, teams_set);
         }
     }
 }
 
 void ULigaWidget::salvarClicked()
 {
-    UGeneralFunctionLibrary::saveGame(GameMode::LigaNacoes, FutebasGI->copa_do_mundo, FutebasGI->liga_das_nacoes, FutebasGI->team1);
+    int32 teams_ind((int32)teams_set);
+    UGeneralFunctionLibrary::saveGame(*FutebasGI->GetCopa(teams_ind), *FutebasGI->GetLiga(teams_ind), FutebasGI->team1, GameMode::LigaNacoes, teams_set);
 }
 
 void ULigaWidget::tabelaClicked()

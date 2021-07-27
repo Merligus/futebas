@@ -22,9 +22,9 @@ class OJOGO_API UGeneralFunctionLibrary : public UBlueprintFunctionLibrary
 public:
 
 	UFUNCTION(BlueprintCallable)
-	static void loadGame(const UObject* WorldContextObject, const GameMode game_mode, UFutebasGameInstance* FutebasGI);
+	static void loadGame(const UObject* WorldContextObject, UFutebasGameInstance* FutebasGI, const GameMode game_mode, const TeamsSet teams_set);
 
 	UFUNCTION(BlueprintCallable)
-	static void saveGame(const GameMode game_mode, const FCopaMundoData CdM, const FLigaData LdN, const FTeamData team1);
+	static void saveGame(const FCopaMundoData CdM, const FLigaData LdN, const FTeamData team1, const GameMode game_mode, const TeamsSet teams_set);
 	
 };
