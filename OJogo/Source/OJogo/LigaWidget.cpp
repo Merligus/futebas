@@ -36,6 +36,8 @@ bool ULigaWidget::Initialize()
 	tabelaVisivel = ESlateVisibility::Visible;
     partidasVisivel = ESlateVisibility::Hidden;
 
+    teams_set = FutebasGI->current_teams_set;
+
     return true;
 }
 

@@ -10,13 +10,18 @@
 
 bool UTimeStatsWidget::Initialize()
 {
-    int32 teams_ind((int32)teams_set);
     bool success = Super::Initialize();
     if (!success)
         return false;
 
 	FutebasGI = GetGameInstance<UFutebasGameInstance>();
-	if (FutebasGI)
+    return ReiniciarModo();
+}
+
+bool UTimeStatsWidget::ReiniciarModo()
+{
+    int32 teams_ind((int32)teams_set);
+    if (FutebasGI)
     {
         FutebasGI->loadTeams();
         if (game_mode == GameMode::CopaMundo)
@@ -31,11 +36,10 @@ bool UTimeStatsWidget::Initialize()
         }
         FutebasGI->team1 = FTeamData();
         FutebasGI->team2 = FTeamData();
+        return true;
     }
     else
         return false;
-
-    return true;
 }
 
 void UTimeStatsWidget::sorteiaGruposCopa()
@@ -179,11 +183,18 @@ void UTimeStatsWidget::bindIndexTimeGrupos()
             //     GEngine->AddOnScreenDebugMessage(-1, 150.0f, FColor::Red, JoinedStrRodada);
             // }
         }
+        FutebasGI->current_game_mode = game_mode;
+        FutebasGI->current_teams_set = teams_set;
         UGeneralFunctionLibrary::saveGame(*FutebasGI->GetCopa(teams_ind), *FutebasGI->GetLiga(teams_ind), FutebasGI->team1, game_mode, teams_set);
     }
 }
 
 void UTimeStatsWidget::loadGame()
 {
-    UGeneralFunctionLibrary::loadGame(GetWorld(), FutebasGI, game_mode, teams_set);
+    if (FutebasGI)
+    {
+        FutebasGI->current_game_mode = game_mode;
+        FutebasGI->current_teams_set = teams_set;
+        UGeneralFunctionLibrary::loadGame(GetWorld(), FutebasGI, game_mode, teams_set);
+    }
 }

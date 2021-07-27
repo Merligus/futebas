@@ -42,10 +42,10 @@ public:
 	GameMode game_mode;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidget))
-	TeamsSet teams_set;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidget))
 	int32 grupo;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TeamsSet teams_set;
 
 	UPROPERTY(BlueprintReadOnly, meta=(BindWidget))
 	UVerticalBox* PartidasBox;

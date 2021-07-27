@@ -30,7 +30,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidget))
 	GameMode game_mode;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidget))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TeamsSet teams_set;
 
 	UPROPERTY(BlueprintReadWrite, meta=(BindWidget))

@@ -16,6 +16,8 @@ bool UPartidaMataMataSlotWidget::Initialize()
 	if (!FutebasGI)
         return false;
 
+    teams_set = FutebasGI->current_teams_set;
+
     return true;
 }
 

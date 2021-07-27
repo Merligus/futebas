@@ -17,15 +17,11 @@ void UGeneralFunctionLibrary::loadGame(const UObject* WorldContextObject, UFuteb
         FutebasGI->SetLiga(*FutebasSG->GetLiga(teams_ind), teams_ind);
         if (game_mode == GameMode::CopaMundo)
         {
-            UE_LOG(LogTemp, Warning, TEXT("timesSG %d"), FutebasSG->GetCopa(teams_ind)->tabelaGrupos[0].times.Num());
-            UE_LOG(LogTemp, Warning, TEXT("timesGI %d"), FutebasGI->GetCopa(teams_ind)->tabelaGrupos[0].times.Num());
             if (FutebasSG->GetCopa(teams_ind)->team1.index_time >= 0)
             {
                 FutebasGI->team1 = FutebasSG->GetCopa(teams_ind)->team1;
                 UGameplayStatics::OpenLevel(WorldContextObject, FName(TEXT("Copa_Level")));
             }
-            // UE_LOG(LogTemp, Warning, TEXT("rodada %d"), FutebasGI->GetCopa(0)->tabelaGrupos[0].rodada_atual);
-            // UE_LOG(LogTemp, Warning, TEXT("rodada %d"), FutebasGI->GetCopa(1)->tabelaGrupos[0].rodada_atual);
         }
         else if (game_mode == GameMode::LigaNacoes)
         {
@@ -51,8 +47,6 @@ void UGeneralFunctionLibrary::saveGame(const FCopaMundoData CdM, const FLigaData
     {
         FutebasSG->SetCopa(CdM, teams_ind);
         FutebasSG->GetCopa(teams_ind)->team1 = team1;
-        UE_LOG(LogTemp, Warning, TEXT("timesSG %d"), FutebasSG->GetCopa(teams_ind)->tabelaGrupos[0].times.Num());
-        UE_LOG(LogTemp, Warning, TEXT("timesGI %d"), CdM.tabelaGrupos[0].times.Num());
     }
     else if (game_mode == GameMode::LigaNacoes)
     {

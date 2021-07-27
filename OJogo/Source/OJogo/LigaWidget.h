@@ -25,7 +25,7 @@ protected:
 	
 public:
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidget))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TeamsSet teams_set;
 
 	UPROPERTY(BlueprintReadWrite, meta=(BindWidget))

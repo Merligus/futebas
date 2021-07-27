@@ -23,6 +23,9 @@ public:
 
 	virtual bool Initialize();
 
+	UFUNCTION(BlueprintCallable)
+	bool ReiniciarModo();
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(BindWidget))
 	GameMode game_mode;
 

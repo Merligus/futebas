@@ -230,7 +230,7 @@ void UFutebasGameInstance::terminaPartida(FResultadoData r, GameMode game_mode, 
             r.index_casa = GetCopa(teams_ind)->faseFinal.fases[GetCopa(teams_ind)->fase_atual-1].confrontos[GetCopa(teams_ind)->ind_jogo_atualiza_tabela].index_casa;
             r.index_fora = GetCopa(teams_ind)->faseFinal.fases[GetCopa(teams_ind)->fase_atual-1].confrontos[GetCopa(teams_ind)->ind_jogo_atualiza_tabela].index_fora;
             GetCopa(teams_ind)->faseFinal.fases[GetCopa(teams_ind)->fase_atual-1].confrontos[GetCopa(teams_ind)->ind_jogo_atualiza_tabela] = r;
-            GetCopa(teams_ind)->SetJogo(GetCopa(teams_ind)->ind_jogo_atualiza_tabela);
+            GetCopa(teams_ind)->SetJogo(GetCopa(teams_ind)->ind_jogo_atualiza_tabela + 1);
             if (GetCopa(teams_ind)->ind_jogo_atualiza_tabela == GetCopa(teams_ind)->faseFinal.fases[GetCopa(teams_ind)->fase_atual-1].confrontos.Num())
             {
                 GetCopa(teams_ind)->chaveia();
@@ -395,7 +395,7 @@ bool UFutebasGameInstance::simulaJogosProximaRodada(GameMode game_mode, TeamsSet
 
                     team1_em_casa = true;
                     
-                    GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].terminaRodada();
+                    // GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].terminaRodada();
                     return true;
                 }
                 else if (GetCopa(teams_ind)->sorteioGrupo[index_t2] == team1.index_time)
@@ -406,7 +406,7 @@ bool UFutebasGameInstance::simulaJogosProximaRodada(GameMode game_mode, TeamsSet
 
                     team1_em_casa = false;
                     
-                    GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].terminaRodada();
+                    // GetCopa(teams_ind)->tabelaGrupos[GetCopa(teams_ind)->grupo_atualiza_tabela].terminaRodada();
                     return true;
                 }
                 else

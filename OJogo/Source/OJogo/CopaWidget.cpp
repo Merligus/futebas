@@ -30,6 +30,8 @@ bool UCopaWidget::Initialize()
 
     proximo_jogo_player = false;
 
+    teams_set = FutebasGI->current_teams_set;
+
     int32 teams_ind((int32)teams_set);
     if (FutebasGI->GetCopa(teams_ind)->fase_atual >= 1)
         gruposVisivel = ESlateVisibility::Hidden;
