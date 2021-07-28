@@ -42,8 +42,7 @@ void APlayerCharacter::Tick(float DeltaTime)
 
 void APlayerCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
-	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AOJogoCharacter::Jump);
-	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AOJogoCharacter::Pula);
 	PlayerInputComponent->BindAction("Chute", IE_Pressed, this, &APlayerCharacter::chutaPressed);
 	PlayerInputComponent->BindAction("Chute", IE_Released, this, &APlayerCharacter::chutaReleased);
     // PlayerInputComponent->BindAction("Colocado", IE_Pressed, this, &APlayerCharacter::colocadoPressed);

@@ -121,10 +121,10 @@ FResultadoData UFutebasGameInstance::simulaJogo(int32 index_t1, int32 index_t2, 
     result.index_fora = index_t2;
     float overall_t1 = getTeam(index_t1, game_mode, teams_set).habilidades.overall();
     float overall_t2 = getTeam(index_t2, game_mode, teams_set).habilidades.overall();
-    int32 max_gols_t1 = FMath::TruncToInt(FMath::RoundHalfFromZero(5*overall_t1));
-    int32 max_gols_t2 = FMath::TruncToInt(FMath::RoundHalfFromZero(5*overall_t2));
-    result.gols_casa = FMath::RandRange(FMath::Clamp(max_gols_t1-1, 0, 100), max_gols_t1+1);
-    result.gols_fora = FMath::RandRange(FMath::Clamp(max_gols_t2-1, 0, 100), max_gols_t2+1);
+    int32 max_gols_t1 = FMath::TruncToInt(FMath::RoundHalfFromZero(10*overall_t1));
+    int32 max_gols_t2 = FMath::TruncToInt(FMath::RoundHalfFromZero(10*overall_t2));
+    result.gols_casa = FMath::RandRange(FMath::Clamp(max_gols_t1-2, 0, 100), max_gols_t1+2);
+    result.gols_fora = FMath::RandRange(FMath::Clamp(max_gols_t2-2, 0, 100), max_gols_t2+2);
 
     if (result.gols_casa == result.gols_fora && penaltis) // penaltis
     {

@@ -5,7 +5,7 @@
 
 UFutebasSaveGame::UFutebasSaveGame()
 {
-    
+    volumes.Init(1.0, 3);
 }
 
 FCopaMundoData* UFutebasSaveGame::GetCopa(int32 index)

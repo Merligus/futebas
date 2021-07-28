@@ -14,10 +14,6 @@ bool UPauseWidget::Initialize()
         return false;
     Continuar->OnClicked.AddDynamic(this, &UPauseWidget::ContinuarClicked);
 
-    if (!ensure(opcoes != nullptr))
-        return false;
-    opcoes->OnClicked.AddDynamic(this, &UPauseWidget::opcoesClicked);
-
     if (!ensure(sair != nullptr))
         return false;
     sair->OnClicked.AddDynamic(this, &UPauseWidget::sairClicked);
@@ -31,10 +27,6 @@ void UPauseWidget::ContinuarClicked()
     UGameplayStatics::SetGamePaused(GetWorld(), false);
     APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
     PC->SetShowMouseCursor(false);
-}
-
-void UPauseWidget::opcoesClicked()
-{
 }
 
 void UPauseWidget::sairClicked()

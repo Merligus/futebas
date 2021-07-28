@@ -26,6 +26,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FLigaData> liga_das_nacoes;	// campeonato state
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<float> volumes;	// settings state
+
 	UFutebasSaveGame();
 
 	FCopaMundoData* GetCopa(int32 index);

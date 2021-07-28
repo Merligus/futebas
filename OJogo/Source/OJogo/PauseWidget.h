@@ -25,16 +25,10 @@ public:
 	UButton* Continuar;
 
 	UPROPERTY(BlueprintReadWrite, meta=(BindWidget))
-	UButton* opcoes;
-
-	UPROPERTY(BlueprintReadWrite, meta=(BindWidget))
 	UButton* sair;
 
 	UFUNCTION(BlueprintCallable)
 	void ContinuarClicked();
-
-	UFUNCTION(BlueprintCallable)
-	void opcoesClicked();
 
 	UFUNCTION(BlueprintCallable)
 	void sairClicked();	
