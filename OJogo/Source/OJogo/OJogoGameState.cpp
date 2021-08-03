@@ -14,7 +14,6 @@ AOJogoGameState::AOJogoGameState()
 	tempo1Ou2 = 1;
 	tempoRegulamentar = true;
 	posInicial = FVector(0.0f);
-	vsBotIA = true;
 	posIndex.Add(0);
 	posIndex.Add(1);
 	tempoParadoAntesInicioPartida = 3.0f;

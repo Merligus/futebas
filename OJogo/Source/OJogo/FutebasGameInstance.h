@@ -52,6 +52,9 @@ public:
 	bool team1_em_casa = true;	// game mode interface
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool vs_bot;	// game mode interface
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool escolheTeam2;	// team select
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -90,7 +93,7 @@ public:
 	FResultadoData simulaJogo(int32 index_t1, int32 index_t2, bool penaltis, GameMode game_mode, TeamsSet teams_set);
 
 	UFUNCTION(BlueprintCallable)
-	void jogaPartida(GameMode game_mode, TeamsSet teams_set);
+	void jogaPartida(GameMode game_mode, TeamsSet teams_set, bool vs_bot_p = true);
 
 	void terminaPartida(FResultadoData r, GameMode game_mode, TeamsSet teams_set);
 

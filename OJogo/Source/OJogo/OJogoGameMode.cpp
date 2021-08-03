@@ -47,7 +47,7 @@ void AOJogoGameMode::BeginPlay()
 		UGameplayStatics::CreatePlayer(GetWorld(), player_index);
 	for (int32 player_index = 0; player_index < PlayerStarts.Num(); ++player_index)
 	{
-		if (player_index == 0 || !JogosGameState->vsBotIA)
+		if (player_index == 0 || !FutebasGI->vs_bot)
 		{
 			APlayerCharacter* player = GetWorld()->SpawnActorDeferred<APlayerCharacter>(playerClass.Get(), FTransform());
 			if (player)
@@ -99,7 +99,7 @@ void AOJogoGameMode::beginGame()
 			arrayJogadores.Add(player);
 		}
 
-		if (JogosGameState->vsBotIA)
+		if (FutebasGI->vs_bot)
 		{
 			for (int32 Index = 0; Index < PlayerStarts.Num(); ++Index)
 			{
@@ -272,7 +272,7 @@ void AOJogoGameMode::terminaTempoTimedOut()
 	JogosGameState->posIndex.Swap(0, 1);
 	arrayJogadores.Swap(0, 1);
 	trocaTimes();
-	if (IsValid(botIA) && JogosGameState->vsBotIA)
+	if (IsValid(botIA) && FutebasGI->vs_bot)
 		Cast<ABotCharacter>(botIA)->setOwnGoal(JogosGameState->posIndex[1]);
 	reiniciaPartida(true, false);
 	antesDoComeco();
@@ -623,7 +623,7 @@ void AOJogoGameMode::decideVencedor()
 
 void AOJogoGameMode::setBotGols(int32 golsEsq, int32 golsDir)
 {
-	if (IsValid(botIA) && JogosGameState->vsBotIA)
+	if (IsValid(botIA) && FutebasGI->vs_bot)
 	{
 		if (JogosGameState->posIndex[1] == 0)
 			Cast<ABotCharacter>(botIA)->setBotGols(golsEsq, golsDir);
@@ -642,6 +642,6 @@ void AOJogoGameMode::paralisaMovimentacao(bool ignora)
 				PC->SetIgnoreMoveInput(ignora);
 	}
 
-	if (IsValid(botIA) && JogosGameState->vsBotIA)
+	if (IsValid(botIA) && FutebasGI->vs_bot)
 		UAIBlueprintHelperLibrary::GetBlackboard(botIA)->SetValueAsBool(FName("canMove"), !ignora);
 }
