@@ -5,6 +5,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "GameFramework/Controller.h"
+#include "GameFramework/PlayerStart.h"
 
 void APlayerCharacter::BeginPlay()
 {
@@ -14,6 +15,22 @@ void APlayerCharacter::BeginPlay()
 		pauseWidget = Cast<UPauseWidget>(CreateWidget(GetWorld(), widgetClass));
 
 	pausable = true;
+	TArray<AActor*> PlayerStarts;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStart::StaticClass(), PlayerStarts);
+	for (int32 Index = 0; Index < PlayerStarts.Num(); ++Index)
+	{
+		APlayerStart* PS = Cast<APlayerStart>(PlayerStarts[Index]);
+		if (IsValid(PS))
+		{
+			FString tag = PS->PlayerStartTag.ToString();
+			int32 indicePS = FCString::Atoi(*tag);
+			if (index_controller == indicePS)
+			{
+				FTransform NewLocation(PS->GetActorTransform());
+				SetActorTransform(NewLocation, false, NULL, ETeleportType::TeleportPhysics);
+			}
+		}
+	}
 }
 
 void APlayerCharacter::Tick(float DeltaTime)
@@ -42,17 +59,92 @@ void APlayerCharacter::Tick(float DeltaTime)
 
 void APlayerCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
-	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AOJogoCharacter::Pula);
-	PlayerInputComponent->BindAction("Chute", IE_Pressed, this, &APlayerCharacter::chutaPressed);
-	PlayerInputComponent->BindAction("Chute", IE_Released, this, &APlayerCharacter::chutaReleased);
-    // PlayerInputComponent->BindAction("Colocado", IE_Pressed, this, &APlayerCharacter::colocadoPressed);
-	// PlayerInputComponent->BindAction("Colocado", IE_Released, this, &APlayerCharacter::colocadoReleased);
-	// PlayerInputComponent->BindAction("Cavado", IE_Pressed, this, &APlayerCharacter::colocadoPressed);
-	// PlayerInputComponent->BindAction("Cavado", IE_Released, this, &APlayerCharacter::cavadoReleased);
-	PlayerInputComponent->BindAction("Pause", IE_Pressed, this, &APlayerCharacter::pause);
-	PlayerInputComponent->BindAxis("MoveRight", this, &APlayerCharacter::DirecaoHorizontal);
-	PlayerInputComponent->BindAxis("DirecaoVertical", this, &APlayerCharacter::DirecaoVertical);
-	PlayerInputComponent->BindAxis("Slide", this, &APlayerCharacter::PlayerSlide);
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	
+	if (index_controller == 0 && pausable)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("binding controller %d"), index_controller);
+		PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AOJogoCharacter::Pula);
+		PlayerInputComponent->BindAction("Chute", IE_Pressed, this, &APlayerCharacter::chutaPressed);
+		PlayerInputComponent->BindAction("Chute", IE_Released, this, &APlayerCharacter::chutaReleased);
+		PlayerInputComponent->BindAction("Pause", IE_Pressed, this, &APlayerCharacter::pause).bExecuteWhenPaused = true;
+		PlayerInputComponent->BindAxis("MoveRight", this, &APlayerCharacter::DirecaoHorizontal);
+		PlayerInputComponent->BindAxis("DirecaoVertical", this, &APlayerCharacter::DirecaoVertical);
+		PlayerInputComponent->BindAxis("Slide", this, &APlayerCharacter::PlayerSlide);
+
+		PlayerInputComponent->BindAction("Jump2", IE_Pressed, this, &APlayerCharacter::PulaP2);
+		PlayerInputComponent->BindAction("Chute2", IE_Pressed, this, &APlayerCharacter::chutaPressedP2);
+		PlayerInputComponent->BindAction("Chute2", IE_Released, this, &APlayerCharacter::chutaReleasedP2);
+		PlayerInputComponent->BindAxis("MoveRight2", this, &APlayerCharacter::DirecaoHorizontalP2);
+		PlayerInputComponent->BindAxis("DirecaoVertical2", this, &APlayerCharacter::DirecaoVerticalP2);
+		PlayerInputComponent->BindAxis("Slide2", this, &APlayerCharacter::PlayerSlideP2);
+	}
+}
+
+void APlayerCharacter::PulaP2()
+{
+	APlayerCharacter* player2 = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), index_controller+1));
+	UE_LOG(LogTemp, Warning, TEXT("calling P2 Pula"));
+	if (IsValid(player2) && player2 != this)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("calling P2 Pula"));
+		player2->Pula();
+	}
+}
+
+void APlayerCharacter::chutaPressedP2()
+{
+	APlayerCharacter* player2 = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), index_controller+1));
+	UE_LOG(LogTemp, Warning, TEXT("calling P2 chutaPressed"));
+	if (IsValid(player2) && player2 != this)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("calling P2 chutaPressed"));
+		player2->chutaPressed();
+	}
+}
+
+void APlayerCharacter::chutaReleasedP2()
+{
+	APlayerCharacter* player2 = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), index_controller+1));
+	UE_LOG(LogTemp, Warning, TEXT("calling P2 chutaReleased"));
+	if (IsValid(player2) && player2 != this)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("calling P2 chutaReleased"));
+		player2->chutaReleased();
+	}
+}
+
+void APlayerCharacter::DirecaoHorizontalP2(float Value)
+{
+	APlayerCharacter* player2 = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), index_controller+1));
+	if (IsValid(player2) && player2 != this)
+	{
+		if (Value != 0)
+			UE_LOG(LogTemp, Warning, TEXT("calling P2 DirecaoHorizontal"));
+		player2->DirecaoHorizontal(Value);
+	}
+}
+
+void APlayerCharacter::DirecaoVerticalP2(float Value)
+{
+	APlayerCharacter* player2 = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), index_controller+1));
+	if (IsValid(player2) && player2 != this)
+	{
+		if (Value != 0)
+			UE_LOG(LogTemp, Warning, TEXT("calling P2 DirecaoVertical"));
+		player2->DirecaoVertical(Value);
+	}
+}
+
+void APlayerCharacter::PlayerSlideP2(float Value)
+{
+	APlayerCharacter* player2 = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), index_controller+1));
+	if (IsValid(player2) && player2 != this)
+	{
+		if (Value != 0)
+			UE_LOG(LogTemp, Warning, TEXT("calling P2 PlayerSlide"));
+		player2->PlayerSlide(Value);
+	}
 }
 
 void APlayerCharacter::DirecaoHorizontal(float Value)
@@ -63,8 +155,11 @@ void APlayerCharacter::DirecaoHorizontal(float Value)
 		ordem_direcao.AddUnique(DirecaoChute::Esquerda);
 	else
 	{
-		ordem_direcao.Remove(DirecaoChute::Esquerda);
-		ordem_direcao.Remove(DirecaoChute::Direita);
+		if (ordem_direcao.Num() > 0)
+		{
+			ordem_direcao.Remove(DirecaoChute::Esquerda);
+			ordem_direcao.Remove(DirecaoChute::Direita);
+		}
 	}
 	MoveRight(Value);
 }
@@ -77,8 +172,11 @@ void APlayerCharacter::DirecaoVertical(float Value)
 		ordem_direcao.AddUnique(DirecaoChute::Baixo);
 	else
 	{
-		ordem_direcao.Remove(DirecaoChute::Baixo);
-		ordem_direcao.Remove(DirecaoChute::Cima);
+		if (ordem_direcao.Num() > 0)
+		{
+			ordem_direcao.Remove(DirecaoChute::Baixo);
+			ordem_direcao.Remove(DirecaoChute::Cima);
+		}
 	}
 }
 
@@ -176,16 +274,18 @@ void APlayerCharacter::pause()
 			UGameplayStatics::SetGamePaused(GetWorld(), false);
 			if (pauseWidget)
 				pauseWidget->RemoveFromParent();
-			APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-			PC->SetShowMouseCursor(false);
+			APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), index_controller);
+			if (IsValid(PC))
+				PC->SetShowMouseCursor(false);
 		}
 		else
 		{
 			UGameplayStatics::SetGamePaused(GetWorld(), true);
 			if (pauseWidget)
 				pauseWidget->AddToViewport();
-			APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-			PC->SetShowMouseCursor(true);
+			APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), index_controller);
+			if (IsValid(PC))
+				PC->SetShowMouseCursor(true);
 		}
 	}
 }

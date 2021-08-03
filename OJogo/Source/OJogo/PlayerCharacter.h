@@ -52,6 +52,24 @@ public:
 	virtual void Tick(float DeltaSeconds) override;
 
 	UFUNCTION(BlueprintCallable)
+	void PulaP2();
+
+	UFUNCTION(BlueprintCallable)
+	void chutaPressedP2();
+
+	UFUNCTION(BlueprintCallable)
+	void chutaReleasedP2();
+
+	UFUNCTION(BlueprintCallable)
+	void DirecaoHorizontalP2(float Value);
+
+	UFUNCTION(BlueprintCallable)
+	void DirecaoVerticalP2(float Value);
+
+	UFUNCTION(BlueprintCallable)
+	void PlayerSlideP2(float Value);
+
+	UFUNCTION(BlueprintCallable)
 	void DirecaoHorizontal(float Value);
 
 	UFUNCTION(BlueprintCallable)

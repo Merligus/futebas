@@ -249,6 +249,7 @@ AOJogoCharacter::AOJogoCharacter()
 	pode_chutar->OnComponentBeginOverlap.AddDynamic(this, &AOJogoCharacter::chutarBeginOverlap); 
 	pode_chutar->OnComponentEndOverlap.AddDynamic(this, &AOJogoCharacter::chutarEndOverlap);
 	
+	index_controller = 0;
     bisMovingRight = true;
     kicking = false;
     sliding = false;
@@ -428,7 +429,7 @@ void AOJogoCharacter::dashFunction()
 	{
 		dashFinished = false;
 
-		APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+		APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), index_controller);
 		DisableInput(PC);
 
 		auxAcceleration = GetCharacterMovement()->BrakingFrictionFactor;
@@ -454,7 +455,7 @@ void AOJogoCharacter::terminaDashing()
 {
 	GetCharacterMovement()->BrakingFrictionFactor = auxAcceleration;
 
-	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), index_controller);
 	EnableInput(PC);
 	dashFinished = true;
 	stopSliding();

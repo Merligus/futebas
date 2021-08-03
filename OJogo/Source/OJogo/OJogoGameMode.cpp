@@ -1,11 +1,11 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 #include "OJogoGameMode.h"
-#include "BotCharacter.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Blueprint/AIBlueprintHelperLibrary.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "GameFramework/PlayerStart.h"
+#include "BotAIController.h"
 #include "UObject/ConstructorHelpers.h"
 
 AOJogoGameMode::AOJogoGameMode()
@@ -42,6 +42,28 @@ void AOJogoGameMode::BeginPlay()
 		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("FutebasGI nao encontrado")));
 	}
 
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStart::StaticClass(), PlayerStarts);
+	for (int32 player_index = 1; player_index < PlayerStarts.Num(); ++player_index)
+		UGameplayStatics::CreatePlayer(GetWorld(), player_index);
+	for (int32 player_index = 0; player_index < PlayerStarts.Num(); ++player_index)
+	{
+		if (player_index == 0 || !JogosGameState->vsBotIA)
+		{
+			APlayerCharacter* player = GetWorld()->SpawnActorDeferred<APlayerCharacter>(playerClass.Get(), FTransform());
+			if (player)
+			{
+				player->SetIndexController(player_index);
+				UGameplayStatics::FinishSpawningActor(player, FTransform());
+			}
+			else
+				UE_LOG(LogTemp, Warning, TEXT("player %d not spawned"), player_index);
+			APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), player_index);
+			APawn* pawn = Cast<APawn>(player);
+			if (IsValid(pawn))
+				PC->Possess(pawn);
+		}
+	}
+
 	// game instance
 	// FutebasGI = Cast<UFutebasGameInstance>(GetGameInstance());
 	// GetGameInstance()
@@ -58,41 +80,61 @@ void AOJogoGameMode::Tick(float DeltaTime)
 
 void AOJogoGameMode::beginGame()
 {	
-	player1 = Cast<AOJogoCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 	if (FutebasGI)
 	{
-		player1->setHabilidades(FutebasGI->team1.habilidades);
-		player1->setJogador(FutebasGI->team1.jogador);
-
 		TArray<AActor*> FoundActors;
-		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABotCharacter::StaticClass(), FoundActors);
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
 		if (FoundActors.Num() == 1)
-		{
-			botIA = Cast<AOJogoCharacter>(FoundActors[0]);
-			botIA->SetActorLocation(FVector(150, -20, 0), false, NULL, ETeleportType::TeleportPhysics);
-		}
+			BolaActor = Cast<ABola>(FoundActors[0]);
 		else
-			UE_LOG(LogTemp, Warning, TEXT("FoundAcotrs pra bot != 1"));
-		if(botIA)
+			UE_LOG(LogTemp, Warning, TEXT("FoundActors pra bola != 1"));
+
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStart::StaticClass(), PlayerStarts);
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerCharacter::StaticClass(), FoundActors);
+		for (int32 player_index = 0; player_index < FoundActors.Num(); ++player_index)
 		{
-			botIA->SpawnDefaultController();
-			botIA->setHabilidades(FutebasGI->team2.habilidades);
-			botIA->setJogador(FutebasGI->team2.jogador);
-			arrayJogadores.Add(player1);
-			arrayJogadores.Add(botIA);
-			if (!FutebasGI->team1_em_casa)
+			APlayerCharacter* player = Cast<APlayerCharacter>(FoundActors[player_index]);
+			player->setHabilidades((player->GetIndexController() < PlayerStarts.Num()/2)? FutebasGI->team1.habilidades : FutebasGI->team2.habilidades);
+			player->setJogador((player->GetIndexController() < PlayerStarts.Num()/2)? FutebasGI->team1.jogador : FutebasGI->team2.jogador);
+			arrayJogadores.Add(player);
+		}
+
+		if (JogosGameState->vsBotIA)
+		{
+			for (int32 Index = 0; Index < PlayerStarts.Num(); ++Index)
 			{
-				JogosGameState->posIndex.Swap(0, 1);
-				trocaTimes();
+				APlayerStart* PS = Cast<APlayerStart>(PlayerStarts[Index]);
+				if (IsValid(PS))
+				{
+					FString tag = PS->PlayerStartTag.ToString();
+					int32 indicePS = FCString::Atoi(*tag);
+					if (indicePS == PlayerStarts.Num()-1)
+					{
+						botIA = Cast<AOJogoCharacter>(GetWorld()->SpawnActorAbsolute(botClass.Get(), PS->GetActorTransform()));
+						if(IsValid(botIA))
+						{
+							botIA->SpawnDefaultController();
+							botIA->setHabilidades(FutebasGI->team2.habilidades);
+							botIA->setJogador(FutebasGI->team2.jogador);
+							arrayJogadores.Add(botIA);
+							Cast<ABotCharacter>(botIA)->setOwnGoal(JogosGameState->posIndex[1]);
+						}
+						else
+							UE_LOG(LogTemp, Warning, TEXT("Bot nao spawnado"));
+					}
+				}
 			}
-			if (JogosGameState->posIndex[0] == 1)
-				arrayJogadores.Swap(0, 1);
-			Cast<ABotCharacter>(botIA)->setOwnGoal(JogosGameState->posIndex[1]);
-			reiniciaPartida(true, false);
-			antesDoComeco();
 		}
-		else
-			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bot nao spawnado")));
+
+		if (!FutebasGI->team1_em_casa)
+		{
+			JogosGameState->posIndex.Swap(0, 1);
+			trocaTimes();
+		}
+		if (JogosGameState->posIndex[0] == 1)
+			arrayJogadores.Swap(0, 1);
+		reiniciaPartida(true, false);
+		antesDoComeco();
 	}
 }
 
@@ -135,12 +177,10 @@ void AOJogoGameMode::reiniciaPartida(bool neutro, bool favoravelEsq)
 			offsets.Add(FVector(-1400.0f, 0.0f, 0.0f));
 		}
 	}
-
-	TArray<AActor*> FoundActors;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
-	if (FoundActors.Num() == 1)
+	
+	if (IsValid(BolaActor))
 	{
-		UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(FoundActors[0]->GetRootComponent());
+		UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(BolaActor->GetRootComponent());
 		if (Sphere)
 		{
 			Sphere->AddImpulse(Sphere->GetPhysicsLinearVelocity() * Sphere->GetMass() * (-1.0f));
@@ -148,22 +188,21 @@ void AOJogoGameMode::reiniciaPartida(bool neutro, bool favoravelEsq)
 			Sphere->SetWorldLocation(JogosGameState->posInicial, false, NULL, ETeleportType::TeleportPhysics);
 		}
 		else
-			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Sphere nao achada")));
+			UE_LOG(LogTemp, Warning, TEXT("Sphere nao achada"));
 	}
 	else
-		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola nao achada")));
+		UE_LOG(LogTemp, Warning, TEXT("Bola nao achada"));
 
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStart::StaticClass(), FoundActors);
-	for (int32 Index = 0; Index != FoundActors.Num(); ++Index)
+	for (int32 Index = 0; Index != PlayerStarts.Num(); ++Index)
 	{
-		APlayerStart* PS = Cast<APlayerStart>(FoundActors[Index]);
+		APlayerStart* PS = Cast<APlayerStart>(PlayerStarts[Index]);
 		if (PS)
 		{
 			FString tag = PS->PlayerStartTag.ToString();
 			int32 indicePS = FCString::Atoi(*tag);
-			FVector NewLocation;
-			NewLocation = offsets[indicePS] + FoundActors[Index]->GetActorLocation();
-			arrayJogadores[indicePS]->SetActorLocation(NewLocation, false, NULL, ETeleportType::TeleportPhysics);
+			FTransform NewLocation(PS->GetActorTransform());
+			NewLocation.SetLocation(offsets[indicePS] + PlayerStarts[Index]->GetActorLocation());
+			arrayJogadores[indicePS]->SetActorTransform(NewLocation, false, NULL, ETeleportType::TeleportPhysics);
 		}
 		else
 			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Player Start %d nao achado"), Index));
@@ -233,7 +272,8 @@ void AOJogoGameMode::terminaTempoTimedOut()
 	JogosGameState->posIndex.Swap(0, 1);
 	arrayJogadores.Swap(0, 1);
 	trocaTimes();
-	Cast<ABotCharacter>(botIA)->setOwnGoal(JogosGameState->posIndex[1]);
+	if (IsValid(botIA) && JogosGameState->vsBotIA)
+		Cast<ABotCharacter>(botIA)->setOwnGoal(JogosGameState->posIndex[1]);
 	reiniciaPartida(true, false);
 	antesDoComeco();
 }
@@ -395,11 +435,9 @@ void AOJogoGameMode::escanteioTimedOut()
 	if (JogosGameState->tempoRegulamentar)
 		JogosGameState->acrescimos += FTimespan(0, 0, JogosGameState->tempoParadoEscanteio);
 
-	TArray<AActor*> FoundActors;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
-	if (FoundActors.Num() == 1)
+	if (IsValid(BolaActor))
 	{
-		UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(FoundActors[0]->GetRootComponent());
+		UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(BolaActor->GetRootComponent());
 		if (Sphere)
 		{
 			Sphere->AddImpulse(Sphere->GetPhysicsLinearVelocity() * Sphere->GetMass() * (-1.0f));
@@ -417,21 +455,18 @@ void AOJogoGameMode::reiniciaBolaMeio()
 {
 	if (JogosGameState->bolaEmJogo)
 	{
-		TArray<AActor*> FoundActors;
-		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
-		if (FoundActors.Num() == 1)
+		if (IsValid(BolaActor))
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Achou bola na explosao")));
-			UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(FoundActors[0]->GetRootComponent());
+			UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(BolaActor->GetRootComponent());
 			if (Sphere)
 			{
 				Sphere->AddImpulse(Sphere->GetPhysicsLinearVelocity() * Sphere->GetMass() * (-1.0f));
 				Sphere->SetPhysicsAngularVelocityInDegrees(FVector(0.0f));
-				FVector posOld = FoundActors[0]->GetActorLocation();
+				FVector posOld = BolaActor->GetActorLocation();
 				Sphere->SetWorldLocation(FVector(posOld.X, posOld.Y, posOld.Z + JogosGameState->alturaReinicio), false, NULL, ETeleportType::TeleportPhysics);
-				ABola* bola = Cast<ABola>(FoundActors[0]);
-				if (bola)
-					bola->explode(FVector(posOld.X, 10, 0));
+				if (BolaActor)
+					BolaActor->explode(FVector(posOld.X, 10, 0));
 				else
 					GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("nao deu pra explodir")));
 			}
@@ -588,7 +623,7 @@ void AOJogoGameMode::decideVencedor()
 
 void AOJogoGameMode::setBotGols(int32 golsEsq, int32 golsDir)
 {
-	if (JogosGameState->vsBotIA)
+	if (IsValid(botIA) && JogosGameState->vsBotIA)
 	{
 		if (JogosGameState->posIndex[1] == 0)
 			Cast<ABotCharacter>(botIA)->setBotGols(golsEsq, golsDir);
@@ -599,9 +634,14 @@ void AOJogoGameMode::setBotGols(int32 golsEsq, int32 golsDir)
 
 void AOJogoGameMode::paralisaMovimentacao(bool ignora)
 {
-	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-	if (PC->IsMoveInputIgnored() != ignora)
-		PC->SetIgnoreMoveInput(ignora);
+	for (int32 Index = 0; Index != PlayerStarts.Num(); ++Index)
+	{
+		APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), Index);
+		if (IsValid(PC))
+			if (PC->IsMoveInputIgnored() != ignora)
+				PC->SetIgnoreMoveInput(ignora);
+	}
 
-	UAIBlueprintHelperLibrary::GetBlackboard(botIA)->SetValueAsBool(FName("canMove"), !ignora);
+	if (IsValid(botIA) && JogosGameState->vsBotIA)
+		UAIBlueprintHelperLibrary::GetBlackboard(botIA)->SetValueAsBool(FName("canMove"), !ignora);
 }

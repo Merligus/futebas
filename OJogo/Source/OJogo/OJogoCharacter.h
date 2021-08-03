@@ -164,6 +164,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UBoxComponent* pode_cabecear;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 index_controller;
+
 	/** Called to choose the correct animation to play based on the character's movement state */
 	void UpdateAnimation();
 
@@ -192,9 +195,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Chuta();
 
-	/** Returns SideViewCameraComponent subobject **/
+	FORCEINLINE void SetIndexController(int32 index) { index_controller = index; }
+
+	FORCEINLINE int32 GetIndexController() const { return index_controller; }
+
 	FORCEINLINE class UCameraComponent* GetSideViewCameraComponent() const { return SideViewCameraComponent; }
-	/** Returns CameraBoom subobject **/
+
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 
 	FORCEINLINE class UPaperFlipbookComponent* Getcabelo() const { return cabelo; }

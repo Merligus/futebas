@@ -3,6 +3,7 @@
 
 #include "PauseWidget.h"
 #include "Kismet/GameplayStatics.h"
+#include "GameFramework/PlayerStart.h"
 
 bool UPauseWidget::Initialize()
 {
@@ -25,8 +26,15 @@ void UPauseWidget::ContinuarClicked()
 {
     RemoveFromParent();
     UGameplayStatics::SetGamePaused(GetWorld(), false);
-    APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-    PC->SetShowMouseCursor(false);
+
+    // TArray<AActor*> FoundActors;
+    // UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStart::StaticClass(), FoundActors);
+	// for (int32 Index = 0; Index < FoundActors.Num(); ++Index)
+    // {
+    //     APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), Index);
+    //     if (IsValid(PC))
+    //         PC->SetShowMouseCursor(false);
+    // }
 }
 
 void UPauseWidget::sairClicked()

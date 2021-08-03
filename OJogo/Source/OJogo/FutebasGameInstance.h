@@ -89,6 +89,7 @@ public:
 
 	FResultadoData simulaJogo(int32 index_t1, int32 index_t2, bool penaltis, GameMode game_mode, TeamsSet teams_set);
 
+	UFUNCTION(BlueprintCallable)
 	void jogaPartida(GameMode game_mode, TeamsSet teams_set);
 
 	void terminaPartida(FResultadoData r, GameMode game_mode, TeamsSet teams_set);

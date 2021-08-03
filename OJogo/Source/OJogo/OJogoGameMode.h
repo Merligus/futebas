@@ -10,6 +10,8 @@
 #include "AfterMatchWidget.h"
 #include "Sound/SoundWave.h"
 #include "Bola.h"
+#include "BotCharacter.h"
+#include "PlayerCharacter.h"
 #include "OJogoGameMode.generated.h"
 
 /**
@@ -45,6 +47,12 @@ protected:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> widgetClass;
 
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<ABotCharacter> botClass;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<APlayerCharacter> playerClass;
+
 	UPROPERTY(VisibleInstanceOnly)
 	class UAfterMatchWidget* matchResultWidget;
 
@@ -55,10 +63,13 @@ protected:
 	AOJogoGameState* JogosGameState;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	AOJogoCharacter* player1;
+	AOJogoCharacter* botIA;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	AOJogoCharacter* botIA;
+	ABola* BolaActor;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<AActor*> PlayerStarts;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<AOJogoCharacter*> arrayJogadores;
