@@ -63,7 +63,6 @@ void APlayerCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerIn
 	
 	if (index_controller == 0 && pausable)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("binding controller %d"), index_controller);
 		PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AOJogoCharacter::Pula);
 		PlayerInputComponent->BindAction("Chute", IE_Pressed, this, &APlayerCharacter::chutaPressed);
 		PlayerInputComponent->BindAction("Chute", IE_Released, this, &APlayerCharacter::chutaReleased);

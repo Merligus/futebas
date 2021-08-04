@@ -8,6 +8,7 @@
 #include "BotAIController.h"
 #include "LevelSequencePlayer.h"
 #include "MovieSceneSequencePlayer.h"
+#include "Camera/CameraActor.h"
 #include "UObject/ConstructorHelpers.h"
 
 AOJogoGameMode::AOJogoGameMode()
@@ -219,7 +220,6 @@ void AOJogoGameMode::antesDoComeco()
 	if (FoundActors.Num() > 0)
 	{
 		ALevelSequenceActor* actor = Cast<ALevelSequenceActor>(FoundActors[0]);
-		UE_LOG(LogTemp, Warning, TEXT("playing"));
 		actor->SequencePlayer->Play();
 	}
 	else

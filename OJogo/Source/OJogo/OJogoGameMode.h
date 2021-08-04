@@ -54,9 +54,6 @@ protected:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<APlayerCharacter> playerClass;
 
-	UPROPERTY(EditAnywhere)
-	ULevelSequence* abertura;
-
 	UPROPERTY(VisibleInstanceOnly)
 	class UAfterMatchWidget* matchResultWidget;
 
