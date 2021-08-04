@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "LevelSequenceActor.h"
 #include "FutebasGameInstance.h"
 #include "OJogoCharacter.h"
 #include "OJogoGameState.h"
@@ -52,6 +53,9 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<APlayerCharacter> playerClass;
+
+	UPROPERTY(EditAnywhere)
+	ULevelSequence* abertura;
 
 	UPROPERTY(VisibleInstanceOnly)
 	class UAfterMatchWidget* matchResultWidget;

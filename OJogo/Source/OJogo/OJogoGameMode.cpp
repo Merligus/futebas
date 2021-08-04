@@ -6,6 +6,8 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "GameFramework/PlayerStart.h"
 #include "BotAIController.h"
+#include "LevelSequencePlayer.h"
+#include "MovieSceneSequencePlayer.h"
 #include "UObject/ConstructorHelpers.h"
 
 AOJogoGameMode::AOJogoGameMode()
@@ -211,6 +213,18 @@ void AOJogoGameMode::reiniciaPartida(bool neutro, bool favoravelEsq)
 
 void AOJogoGameMode::antesDoComeco()
 {
+	// cutscene
+	TArray<AActor*> FoundActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ALevelSequenceActor::StaticClass(), FoundActors);
+	if (FoundActors.Num() > 0)
+	{
+		ALevelSequenceActor* actor = Cast<ALevelSequenceActor>(FoundActors[0]);
+		UE_LOG(LogTemp, Warning, TEXT("playing"));
+		actor->SequencePlayer->Play();
+	}
+	else
+		UE_LOG(LogTemp, Warning, TEXT("abertura not valid"));
+
 	paralisaMovimentacao(true);
 	
 	FTimerHandle UnusedHandle;

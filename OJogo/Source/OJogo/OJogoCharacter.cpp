@@ -100,7 +100,7 @@ AOJogoCharacter::AOJogoCharacter()
 		cabelo->bOwnerNoSee = false;
 		cabelo->bAffectDynamicIndirectLighting = true;
 		cabelo->PrimaryComponentTick.TickGroup = TG_DuringPhysics;
-		cabelo->SetupAttachment(Sprite);
+		cabelo->SetupAttachment(GetSprite());
 		static FName CollisionProfileName(TEXT("OverlapAll"));
 		cabelo->SetCollisionProfileName(CollisionProfileName);
 		cabelo->SetGenerateOverlapEvents(false);
@@ -114,7 +114,7 @@ AOJogoCharacter::AOJogoCharacter()
 		olho->bOwnerNoSee = false;
 		olho->bAffectDynamicIndirectLighting = true;
 		olho->PrimaryComponentTick.TickGroup = TG_DuringPhysics;
-		olho->SetupAttachment(Sprite);
+		olho->SetupAttachment(GetSprite());
 		static FName CollisionProfileName(TEXT("OverlapAll"));
 		olho->SetCollisionProfileName(CollisionProfileName);
 		olho->SetGenerateOverlapEvents(false);
@@ -128,7 +128,7 @@ AOJogoCharacter::AOJogoCharacter()
 		luva->bOwnerNoSee = false;
 		luva->bAffectDynamicIndirectLighting = true;
 		luva->PrimaryComponentTick.TickGroup = TG_DuringPhysics;
-		luva->SetupAttachment(Sprite);
+		luva->SetupAttachment(GetSprite());
 		static FName CollisionProfileName(TEXT("OverlapAll"));
 		luva->SetCollisionProfileName(CollisionProfileName);
 		luva->SetGenerateOverlapEvents(false);
@@ -142,7 +142,7 @@ AOJogoCharacter::AOJogoCharacter()
 		pele->bOwnerNoSee = false;
 		pele->bAffectDynamicIndirectLighting = true;
 		pele->PrimaryComponentTick.TickGroup = TG_DuringPhysics;
-		pele->SetupAttachment(Sprite);
+		pele->SetupAttachment(GetSprite());
 		static FName CollisionProfileName(TEXT("OverlapAll"));
 		pele->SetCollisionProfileName(CollisionProfileName);
 		pele->SetGenerateOverlapEvents(false);
@@ -156,7 +156,7 @@ AOJogoCharacter::AOJogoCharacter()
 		roupa1->bOwnerNoSee = false;
 		roupa1->bAffectDynamicIndirectLighting = true;
 		roupa1->PrimaryComponentTick.TickGroup = TG_DuringPhysics;
-		roupa1->SetupAttachment(Sprite);
+		roupa1->SetupAttachment(GetSprite());
 		static FName CollisionProfileName(TEXT("OverlapAll"));
 		roupa1->SetCollisionProfileName(CollisionProfileName);
 		roupa1->SetGenerateOverlapEvents(false);
@@ -170,7 +170,7 @@ AOJogoCharacter::AOJogoCharacter()
 		roupa2->bOwnerNoSee = false;
 		roupa2->bAffectDynamicIndirectLighting = true;
 		roupa2->PrimaryComponentTick.TickGroup = TG_DuringPhysics;
-		roupa2->SetupAttachment(Sprite);
+		roupa2->SetupAttachment(GetSprite());
 		static FName CollisionProfileName(TEXT("OverlapAll"));
 		roupa2->SetCollisionProfileName(CollisionProfileName);
 		roupa2->SetGenerateOverlapEvents(false);
@@ -184,7 +184,7 @@ AOJogoCharacter::AOJogoCharacter()
 		chuteira->bOwnerNoSee = false;
 		chuteira->bAffectDynamicIndirectLighting = true;
 		chuteira->PrimaryComponentTick.TickGroup = TG_DuringPhysics;
-		chuteira->SetupAttachment(Sprite);
+		chuteira->SetupAttachment(GetSprite());
 		static FName CollisionProfileName(TEXT("OverlapAll"));
 		chuteira->SetCollisionProfileName(CollisionProfileName);
 		chuteira->SetGenerateOverlapEvents(false);
