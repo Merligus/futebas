@@ -9,7 +9,9 @@
 #include "OJogoCharacter.h"
 #include "OJogoGameState.h"
 #include "AfterMatchWidget.h"
+#include "FireworkActor.h"
 #include "Sound/SoundWave.h"
+#include "Sound/AmbientSound.h"
 #include "Bola.h"
 #include "BotCharacter.h"
 #include "PlayerCharacter.h"
@@ -87,6 +89,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Sons)
 	USoundWave* som_apito_fim;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Sons)
+	AAmbientSound* comemorando_titulo;
+
 public:
 	AOJogoGameMode();
 
@@ -158,6 +163,12 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void decideVencedor();
+
+	UFUNCTION(BlueprintCallable)
+	void comemoracaoTimedOut();
+
+	UFUNCTION(BlueprintCallable)
+	void openAfterMatch();
 
 	UFUNCTION(BlueprintCallable)
 	void setBotGols(int32 golsEsq, int32 golsDir);

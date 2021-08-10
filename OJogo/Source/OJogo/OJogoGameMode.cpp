@@ -132,8 +132,10 @@ void AOJogoGameMode::beginGame()
 		if (!FutebasGI->team1_em_casa)
 		{
 			JogosGameState->posIndex.Swap(0, 1);
+			Cast<ABotCharacter>(botIA)->setOwnGoal(JogosGameState->posIndex[1]);
 			trocaTimes();
 		}
+
 		if (JogosGameState->posIndex[0] == 1)
 			arrayJogadores.Swap(0, 1);
 		reiniciaPartida(true, false);
@@ -625,7 +627,62 @@ void AOJogoGameMode::decideVencedor()
 	fazSomApito(1);
 	
 	trocaTimes();
+
+	TArray<AActor*> FoundActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AAmbientSound::StaticClass(), FoundActors);
+	for (int32 index = 0; index < FoundActors.Num(); ++index)
+	{
+		AAmbientSound* AS = Cast<AAmbientSound>(FoundActors[index]);
+		if (IsValid(AS))
+		{
+			if (AS->Tags.Num() > 0)
+			{
+				FString tag = AS->Tags[0].ToString();
+				if (tag.Equals(FString(TEXT("goal"))))
+					comemorando_titulo = AS;
+			}
+		}
+	}
 	
+	if (comemorando_titulo)
+	{
+		comemorando_titulo->FadeIn(1.0f, 1.0f);
+		FTimerHandle UnusedHandle1;
+		GetWorldTimerManager().SetTimer(UnusedHandle1, this, &AOJogoGameMode::comemoracaoTimedOut, 2, false);
+	}
+
+	if (FutebasGI)
+	{
+		int32 teams_ind((int32)FutebasGI->current_teams_set);
+		if (FutebasGI->current_game_mode == GameMode::CopaMundo)
+		{
+			if (FutebasGI->GetCopa(teams_ind)->fase_atual == 4)
+			{
+				UGameplayStatics::GetAllActorsOfClass(GetWorld(), AFireworkActor::StaticClass(), FoundActors);
+				for (int32 index = 0; index < FoundActors.Num(); ++index)
+				{
+					AFireworkActor* firework = Cast<AFireworkActor>(FoundActors[index]);
+					firework->Fire();
+				}
+				
+				FTimerHandle UnusedHandle2;
+				GetWorldTimerManager().SetTimer(UnusedHandle2, this, &AOJogoGameMode::openAfterMatch, 10, false);
+			}
+			else
+				openAfterMatch();
+		}
+		else
+			openAfterMatch();
+	}
+}
+
+void AOJogoGameMode::comemoracaoTimedOut()
+{
+	comemorando_titulo->FadeOut(1.0f, 0.0f);
+}
+
+void AOJogoGameMode::openAfterMatch()
+{
 	if (IsValid(widgetClass))
 	{
 		matchResultWidget = Cast<UAfterMatchWidget>(CreateWidget(GetWorld(), widgetClass));

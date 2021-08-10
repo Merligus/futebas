@@ -2,9 +2,22 @@
 
 
 #include "TeamData.h"
+#include "Engine/ObjectLibrary.h"
 
 FTeamData::FTeamData()
 {
     index_time = -1;
-    // flag = UTexture2D::CreateTransient(12, 12, PF_R8G8B8A8_UINT, FName(TEXT("TeamFlagVoid")));
+    UObjectLibrary* ObjectLibrary;
+    ObjectLibrary = UObjectLibrary::CreateLibrary(UTexture2D::StaticClass(), false, GIsEditor);
+    ObjectLibrary->AddToRoot();
+    ObjectLibrary->LoadAssetDataFromPath(TEXT("/Game/Teams/flags"));
+    ObjectLibrary->LoadAssetsFromAssetData();
+
+    TArray<UTexture2D*> AllFlags;
+
+    ObjectLibrary->GetObjects(AllFlags);
+    if (AllFlags.Num() > 0)
+        flag = AllFlags[0];
+    else
+        UE_LOG(LogTemp, Warning, TEXT("Nenhuma flag encontrada"));
 }
