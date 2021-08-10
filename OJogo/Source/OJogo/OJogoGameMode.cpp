@@ -249,7 +249,7 @@ void AOJogoGameMode::comecaJogo()
 	if (JogosGameState->em_prorrogacao)
 		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 15.0f, false);
 	else
-		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 45.0f, false);
+		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 5.0f, false);
 	JogosGameState->tempoRegulamentar = true;
 	JogosGameState->bolaEmJogo = true;
 }
@@ -361,6 +361,8 @@ bool AOJogoGameMode::golEsquerdo()
 		paralisaMovimentacao(true);
 		JogosGameState->golsTimeDir += 1;
 		setBotGols(JogosGameState->golsTimeEsq, JogosGameState->golsTimeDir);
+		if (JogosGameState->tempoRegulamentar)
+			JogosGameState->acrescimos += FTimespan(0, 0, JogosGameState->tempoParado);
 		GetWorldTimerManager().SetTimer(delayTimedOut, this, &AOJogoGameMode::golEsquerdoTimedOut, JogosGameState->tempoParado, false);
 	}
 	else if (JogosGameState->penalidades && GetWorldTimerManager().IsTimerActive(JogosGameState->tempo1))
@@ -383,8 +385,6 @@ void AOJogoGameMode::golEsquerdoTimedOut()
 {
 	reiniciaPartida(true, false);
 	paralisaMovimentacao(false);
-	if (JogosGameState->tempoRegulamentar)
-		JogosGameState->acrescimos += FTimespan(0, 0, JogosGameState->tempoParado);
 	JogosGameState->bolaEmJogo = true;
 }
 
@@ -398,6 +398,8 @@ bool AOJogoGameMode::golDireito()
 		paralisaMovimentacao(true);
 		JogosGameState->golsTimeEsq += 1;
 		setBotGols(JogosGameState->golsTimeEsq, JogosGameState->golsTimeDir);
+		if (JogosGameState->tempoRegulamentar)
+			JogosGameState->acrescimos += FTimespan(0, 0, JogosGameState->tempoParado);
 		GetWorldTimerManager().SetTimer(delayTimedOut, this, &AOJogoGameMode::golDireitoTimedOut, JogosGameState->tempoParado, false);
 	}
 	else if (JogosGameState->penalidades && GetWorldTimerManager().IsTimerActive(JogosGameState->tempo1))
@@ -420,8 +422,6 @@ void AOJogoGameMode::golDireitoTimedOut()
 {
 	reiniciaPartida(true, false);
 	paralisaMovimentacao(false);
-	if (JogosGameState->tempoRegulamentar)
-		JogosGameState->acrescimos += FTimespan(0, 0, JogosGameState->tempoParado);
 	JogosGameState->bolaEmJogo = true;
 }
 
@@ -628,27 +628,35 @@ void AOJogoGameMode::decideVencedor()
 	
 	trocaTimes();
 
+	FResultadoData resultado;
+	resultado = FResultadoData(JogosGameState->golsTimeEsq, JogosGameState->golsSomadosTimeEsq_pen, 
+                               JogosGameState->golsTimeDir, JogosGameState->golsSomadosTimeDir_pen);
+	resultado.index_casa = 0;
+	resultado.index_fora = 1;
 	TArray<AActor*> FoundActors;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AAmbientSound::StaticClass(), FoundActors);
-	for (int32 index = 0; index < FoundActors.Num(); ++index)
+	if (resultado.getGanhador() > -1)
 	{
-		AAmbientSound* AS = Cast<AAmbientSound>(FoundActors[index]);
-		if (IsValid(AS))
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), AAmbientSound::StaticClass(), FoundActors);
+		for (int32 index = 0; index < FoundActors.Num(); ++index)
 		{
-			if (AS->Tags.Num() > 0)
+			AAmbientSound* AS = Cast<AAmbientSound>(FoundActors[index]);
+			if (IsValid(AS))
 			{
-				FString tag = AS->Tags[0].ToString();
-				if (tag.Equals(FString(TEXT("goal"))))
-					comemorando_titulo = AS;
+				if (AS->Tags.Num() > 0)
+				{
+					FString tag = AS->Tags[0].ToString();
+					if (tag.Equals(FString(TEXT("goal"))))
+						comemorando_titulo = AS;
+				}
 			}
 		}
-	}
-	
-	if (comemorando_titulo)
-	{
-		comemorando_titulo->FadeIn(1.0f, 1.0f);
-		FTimerHandle UnusedHandle1;
-		GetWorldTimerManager().SetTimer(UnusedHandle1, this, &AOJogoGameMode::comemoracaoTimedOut, 2, false);
+		
+		if (comemorando_titulo)
+		{
+			comemorando_titulo->FadeIn(0.5f, 1.0f);
+			FTimerHandle UnusedHandle1;
+			GetWorldTimerManager().SetTimer(UnusedHandle1, this, &AOJogoGameMode::comemoracaoTimedOut, 2.5, false);
+		}
 	}
 
 	if (FutebasGI)
@@ -678,7 +686,7 @@ void AOJogoGameMode::decideVencedor()
 
 void AOJogoGameMode::comemoracaoTimedOut()
 {
-	comemorando_titulo->FadeOut(1.0f, 0.0f);
+	comemorando_titulo->FadeOut(0.5f, 0.0f);
 }
 
 void AOJogoGameMode::openAfterMatch()

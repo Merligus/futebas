@@ -55,8 +55,6 @@ void UAfterMatchWidget::continuarClicked()
             FResultadoData resultado;
             if (JogosGameState)
             {
-                resultado.index_casa = FutebasGI->team1.index_time;
-                resultado.index_fora = FutebasGI->team2.index_time;
                 resultado = FResultadoData(JogosGameState->golsTimeEsq, JogosGameState->golsSomadosTimeEsq_pen, 
                                            JogosGameState->golsTimeDir, JogosGameState->golsSomadosTimeDir_pen);
                 if (!FutebasGI->team1_em_casa)
@@ -69,6 +67,8 @@ void UAfterMatchWidget::continuarClicked()
             }
             else
                 resultado = FResultadoData(3);
+            resultado.index_casa = FutebasGI->team1.index_time;
+            resultado.index_fora = FutebasGI->team2.index_time;
             FutebasGI->terminaPartida(resultado, GameMode::CopaMundo, FutebasGI->current_teams_set);
             UGameplayStatics::OpenLevel(GetWorld(), FName(TEXT("Copa_Level")));
         }
@@ -77,8 +77,6 @@ void UAfterMatchWidget::continuarClicked()
             FResultadoData resultado;
             if (JogosGameState)
             {
-                resultado.index_casa = FutebasGI->team1.index_time;
-                resultado.index_fora = FutebasGI->team2.index_time;
                 resultado = FResultadoData(JogosGameState->golsTimeEsq, JogosGameState->golsSomadosTimeEsq_pen, 
                                            JogosGameState->golsTimeDir, JogosGameState->golsSomadosTimeDir_pen);
                 if (!FutebasGI->team1_em_casa)
@@ -91,6 +89,8 @@ void UAfterMatchWidget::continuarClicked()
             }
             else
                 resultado = FResultadoData(3);
+            resultado.index_casa = FutebasGI->team1.index_time;
+            resultado.index_fora = FutebasGI->team2.index_time;
             FutebasGI->terminaPartida(resultado, GameMode::LigaNacoes, FutebasGI->current_teams_set);
             UGameplayStatics::OpenLevel(GetWorld(), FName(TEXT("Liga_Nacoes_Level")));
         }
