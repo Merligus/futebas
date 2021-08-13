@@ -48,5 +48,5 @@ public:
 
 	FResultadoData(int32 g_casa, int32 g_casa_pen, int32 g_fora, int32 g_fora_pen);
 
-	int32 getGanhador();
+	int32 getGanhador() const;
 };

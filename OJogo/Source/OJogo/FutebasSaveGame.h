@@ -29,6 +29,27 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<float> volumes;	// settings state
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool CDM;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool LDN;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool CMC;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool LMC;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 gols_unica_copa;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 copas;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 gols_todas_copas;
+
 	UFutebasSaveGame();
 
 	FCopaMundoData* GetCopa(int32 index);

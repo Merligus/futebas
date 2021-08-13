@@ -47,11 +47,36 @@ void UGeneralFunctionLibrary::saveGame(const FCopaMundoData CdM, const FLigaData
     {
         FutebasSG->SetCopa(CdM, teams_ind);
         FutebasSG->GetCopa(teams_ind)->team1 = team1;
+        if (teams_set == TeamsSet::Selecoes)
+        {
+            int32 record_gols = CdM.getGolsTime(team1.index_time);
+            if (FutebasSG->gols_unica_copa < record_gols)
+                FutebasSG->gols_unica_copa = record_gols;
+        }
     }
     else if (game_mode == GameMode::LigaNacoes)
     {
         FutebasSG->SetLiga(LdN, teams_ind);
         FutebasSG->GetLiga(teams_ind)->team1 = team1;
     }
+
+    if (game_mode == GameMode::CopaMundo)
+    {
+        if (teams_set == TeamsSet::Selecoes)
+        {
+            bool campeao_b(CdM.isCampeao(team1.index_time));
+            FutebasSG->CDM |= campeao_b;
+        }
+        else
+            FutebasSG->CMC |= (CdM.isCampeao(team1.index_time));
+    }
+    else
+    {
+        if (teams_set == TeamsSet::Selecoes)
+            FutebasSG->LDN |= (LdN.isCampeao(team1.index_time));
+        else
+            FutebasSG->LMC |= (LdN.isCampeao(team1.index_time));
+    }
+
     UGameplayStatics::SaveGameToSlot(FutebasSG, FString(TEXT("FutebasSavedGame")), 0);
 }

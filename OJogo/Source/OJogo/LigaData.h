@@ -50,6 +50,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FTeamData team1;	// game mode interface e campeonato state
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<int32> campeoes;	// [index_campeao1, index_campeao2, ...]
+
 	FLigaData();
 
 	FLigaData(int32 n_times_por_divisao, int32 n_times);
@@ -61,4 +64,6 @@ public:
 	void bindIndexTimeDivisoes();
 
 	void terminaTemporada();
+
+	bool isCampeao(int32 index_time_p) const;
 };

@@ -3,7 +3,9 @@
 
 #include "CopaWidget.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "Kismet/GameplayStatics.h"
 #include "GeneralFunctionLibrary.h"
+#include "FutebasSaveGame.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 
 bool UCopaWidget::Initialize()
@@ -38,6 +40,12 @@ bool UCopaWidget::Initialize()
     else
         gruposVisivel = ESlateVisibility::Visible;
 	tabelaVisivel = ESlateVisibility::Visible;
+
+    // save automatico se acabou
+    if (FutebasGI->current_teams_set == TeamsSet::Selecoes)
+        if (FutebasGI->copa_do_mundo[teams_ind].fase_atual >= 4)
+            if (FutebasGI->copa_do_mundo[teams_ind].faseFinal.fases[3].confrontos[0].getGanhador() >= 0) // copa ended
+                UGeneralFunctionLibrary::saveGame(*FutebasGI->GetCopa(teams_ind), *FutebasGI->GetLiga(teams_ind), FutebasGI->team1, GameMode::CopaMundo, teams_set);
 
     return true;
 }

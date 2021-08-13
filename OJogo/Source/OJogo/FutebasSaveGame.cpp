@@ -6,6 +6,13 @@
 UFutebasSaveGame::UFutebasSaveGame()
 {
     volumes.Init(1.0, 3);
+	CDM = false;
+	LDN = false;
+	CMC = false;
+	LMC = false;
+    gols_unica_copa = 0;
+	copas = 0;
+	gols_todas_copas = 0;
 }
 
 FCopaMundoData* UFutebasSaveGame::GetCopa(int32 index)

@@ -111,3 +111,46 @@ void FCopaMundoData::chaveia()
         }
     }
 }
+
+int32 FCopaMundoData::getGolsTime(int32 index_time_p) const
+{
+    int32 soma_gols = 0;
+    int32 index_time = 0;
+    for (int32 index_slot = 0; index_slot < sorteioGrupo.Num(); ++index_slot)
+        if (sorteioGrupo[index_slot] == index_time_p)
+            index_time = index_slot;
+            
+    for (int32 grupo = 0; grupo < tabelaGrupos.Num() && soma_gols == 0; ++grupo)
+        for (int32 time = 0; time < tabelaGrupos[grupo].tabela.Num() && soma_gols == 0; ++time)
+            if (tabelaGrupos[grupo].tabela[time].index_time == index_time)
+                soma_gols = tabelaGrupos[grupo].tabela[time].gols_pro;
+
+    for (int32 fase = 0; fase < faseFinal.fases.Num(); ++fase)
+    {
+        for (int32 confronto = 0; confronto < faseFinal.fases[fase].confrontos.Num(); ++confronto)
+        {
+            if (faseFinal.fases[fase].confrontos[confronto].index_casa == index_time)
+                if (faseFinal.fases[fase].confrontos[confronto].gols_casa >= 0)
+                    soma_gols += faseFinal.fases[fase].confrontos[confronto].gols_casa;
+            if (faseFinal.fases[fase].confrontos[confronto].index_fora == index_time)
+                if (faseFinal.fases[fase].confrontos[confronto].gols_fora >= 0)
+                    soma_gols += faseFinal.fases[fase].confrontos[confronto].gols_fora;
+        }
+    }
+    return soma_gols;
+}
+
+bool FCopaMundoData::isCampeao(int32 index_time_p) const
+{
+    if (fase_atual >= 4)
+    {
+        int32 index_time = 0;
+        for (int32 index_slot = 0; index_slot < sorteioGrupo.Num(); ++index_slot)
+            if (sorteioGrupo[index_slot] == index_time_p)
+                index_time = index_slot;
+        
+        return index_time == faseFinal.fases[3].confrontos[0].getGanhador();
+    }
+    else
+        return false;
+}

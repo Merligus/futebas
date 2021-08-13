@@ -49,7 +49,7 @@ FResultadoData::FResultadoData(int32 g_casa, int32 g_casa_pen, int32 g_fora, int
 	index_fora = -1;
 }
 
-int32 FResultadoData::getGanhador()
+int32 FResultadoData::getGanhador() const
 {
 	if (gols_casa > gols_fora)
 		return index_casa;

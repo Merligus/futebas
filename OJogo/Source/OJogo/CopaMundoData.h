@@ -58,4 +58,8 @@ public:
 	void bindIndexTimeGrupos();
 
 	void chaveia();
+
+	int32 getGolsTime(int32 index_time) const;
+
+	bool isCampeao(int32 index_time_p) const;
 };

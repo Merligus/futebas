@@ -63,6 +63,8 @@ void FLigaData::bindIndexTimeDivisoes()
 
 void FLigaData::terminaTemporada()
 {
+    campeoes.Add(tabelas[0].tabela[0].index_time);
+
     TArray<FCampeonatoData> tabelas_temp;
     for (int32 i = 0; i < divisoes; ++i)
         tabelas_temp.Add(FCampeonatoData(times_por_divisao, false));
@@ -100,4 +102,14 @@ void FLigaData::terminaTemporada()
         tabelas_temp[divisao].montaConfrontos();
         tabelas[divisao] = tabelas_temp[divisao];
     }
+}
+
+bool FLigaData::isCampeao(int32 index_time_p) const
+{
+    int32 index_time = 0;
+    for (int32 index_slot = 0; index_slot < teamMap.Num(); ++index_slot)
+        if (teamMap[index_slot] == index_time_p)
+            index_time = index_slot;
+
+    return campeoes.Find(index_time) != INDEX_NONE;
 }

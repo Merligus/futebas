@@ -192,7 +192,7 @@ void UFutebasGameInstance::jogaPartida(GameMode game_mode, TeamsSet teams_set, b
     //     resultado.gols_casa = 1;
     //     resultado.gols_fora = 2;
     // }
-    // terminaPartida(resultado, GameMode::LigaNacoes);
+    // terminaPartida(resultado, current_game_mode, current_teams_set);
 }
 
 void UFutebasGameInstance::terminaPartida(FResultadoData r, GameMode game_mode, TeamsSet teams_set)

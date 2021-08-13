@@ -5,6 +5,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetTextLibrary.h"
 #include "PlayerCharacter.h"
+#include "FutebasSaveGame.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "GameFramework/PlayerStart.h"
 
@@ -70,6 +71,25 @@ void UAfterMatchWidget::continuarClicked()
             resultado.index_casa = FutebasGI->team1.index_time;
             resultado.index_fora = FutebasGI->team2.index_time;
             FutebasGI->terminaPartida(resultado, GameMode::CopaMundo, FutebasGI->current_teams_set);
+            
+            // save copas e gols totais se acabou
+            if (FutebasGI->current_teams_set == TeamsSet::Selecoes)
+            {
+                int32 teams_ind((int32)FutebasGI->current_teams_set);
+                UFutebasSaveGame* FutebasSG;
+                if (UGameplayStatics::DoesSaveGameExist(FString(TEXT("FutebasSavedGame")), 0))
+                    FutebasSG = Cast<UFutebasSaveGame>(UGameplayStatics::LoadGameFromSlot(FString(TEXT("FutebasSavedGame")), 0));
+                else
+                    FutebasSG = Cast<UFutebasSaveGame>(UGameplayStatics::CreateSaveGameObject(UFutebasSaveGame::StaticClass()));
+
+                bool campeao_b(FutebasGI->copa_do_mundo[teams_ind].isCampeao(FutebasGI->team1.index_time));
+                FutebasSG->copas += campeao_b? 1 : 0;
+                if (FutebasGI->copa_do_mundo[teams_ind].fase_atual >= 4)
+                    if (FutebasGI->copa_do_mundo[teams_ind].faseFinal.fases[3].confrontos[0].getGanhador() >= 0) // copa ended
+                        FutebasSG->gols_todas_copas += FutebasGI->copa_do_mundo[teams_ind].getGolsTime(FutebasGI->team1.index_time);
+                    
+                UGameplayStatics::SaveGameToSlot(FutebasSG, FString(TEXT("FutebasSavedGame")), 0);
+            }
             UGameplayStatics::OpenLevel(GetWorld(), FName(TEXT("Copa_Level")));
         }
         else if (FutebasGI->current_game_mode == GameMode::LigaNacoes)
