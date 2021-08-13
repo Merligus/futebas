@@ -141,6 +141,9 @@ protected:
 	bool canKick;
 
 	UPROPERTY(BlueprintReadWrite)
+	bool inputEnabled;
+
+	UPROPERTY(BlueprintReadWrite)
 	FVector chute_location;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)

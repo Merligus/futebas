@@ -315,7 +315,10 @@ void AOJogoGameMode::fimDePapo()
 			JogosGameState->tempo1Ou2 = 1;
 			vezTimeEsquerdo = JogosGameState->timeDireitoPrimeiro_pen;
 			JogosGameState->tempoRegulamentar = true;
-			setBotGols(0, 100);
+			if (JogosGameState->posIndex[1] == 0)
+				setBotGols(0, 100);
+			else
+				setBotGols(100, 0);
 			GetWorldTimerManager().ClearTimer(delayTimedOut);
 
 			FTimerHandle UnusedHandle;

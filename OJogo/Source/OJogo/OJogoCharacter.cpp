@@ -257,6 +257,7 @@ AOJogoCharacter::AOJogoCharacter()
 	forca_chute = 0.0f;
     canHeader = false;
     canKick = false;
+	inputEnabled = true;
 	dashFinished = true;
 	slidingActionFinished = true;
 	chutaFinished = true;
@@ -319,12 +320,15 @@ void AOJogoCharacter::MoveRight(float Value)
 
 void AOJogoCharacter::Pula()
 {
-	if (stamina > jumpStaminaCost)
+	if (inputEnabled)
 	{
-		if (!onAir && !sliding)
+		if (stamina > jumpStaminaCost)
 		{
-			stamina = stamina - jumpStaminaCost;
-			ACharacter::Jump();
+			if (!onAir && !sliding)
+			{
+				stamina = stamina - jumpStaminaCost;
+				ACharacter::Jump();
+			}
 		}
 	}
 }
@@ -429,8 +433,9 @@ void AOJogoCharacter::dashFunction()
 	{
 		dashFinished = false;
 
-		APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), index_controller);
-		DisableInput(PC);
+		// APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), index_controller);
+		// DisableInput(PC);
+		inputEnabled = false;
 
 		auxAcceleration = GetCharacterMovement()->BrakingFrictionFactor;
 		GetCharacterMovement()->BrakingFrictionFactor = 0.0f;
@@ -455,8 +460,9 @@ void AOJogoCharacter::terminaDashing()
 {
 	GetCharacterMovement()->BrakingFrictionFactor = auxAcceleration;
 
-	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), index_controller);
-	EnableInput(PC);
+	// APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), index_controller);
+	// EnableInput(PC);
+	inputEnabled = true;
 	dashFinished = true;
 	stopSliding();
 }

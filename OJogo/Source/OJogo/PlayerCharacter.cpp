@@ -148,82 +148,94 @@ void APlayerCharacter::PlayerSlideP2(float Value)
 
 void APlayerCharacter::DirecaoHorizontal(float Value)
 {
-	if (Value > 0)
-		ordem_direcao.AddUnique(DirecaoChute::Direita);
-	else if (Value < 0)
-		ordem_direcao.AddUnique(DirecaoChute::Esquerda);
-	else
+	if (inputEnabled)
 	{
-		if (ordem_direcao.Num() > 0)
+		if (Value > 0)
+			ordem_direcao.AddUnique(DirecaoChute::Direita);
+		else if (Value < 0)
+			ordem_direcao.AddUnique(DirecaoChute::Esquerda);
+		else
 		{
-			ordem_direcao.Remove(DirecaoChute::Esquerda);
-			ordem_direcao.Remove(DirecaoChute::Direita);
+			if (ordem_direcao.Num() > 0)
+			{
+				ordem_direcao.Remove(DirecaoChute::Esquerda);
+				ordem_direcao.Remove(DirecaoChute::Direita);
+			}
 		}
+		MoveRight(Value);
 	}
-	MoveRight(Value);
 }
 
 void APlayerCharacter::DirecaoVertical(float Value)
 {
-	if (Value > 0)
-		ordem_direcao.AddUnique(DirecaoChute::Cima);
-	else if (Value < 0)
-		ordem_direcao.AddUnique(DirecaoChute::Baixo);
-	else
+	if (inputEnabled)
 	{
-		if (ordem_direcao.Num() > 0)
+		if (Value > 0)
+			ordem_direcao.AddUnique(DirecaoChute::Cima);
+		else if (Value < 0)
+			ordem_direcao.AddUnique(DirecaoChute::Baixo);
+		else
 		{
-			ordem_direcao.Remove(DirecaoChute::Baixo);
-			ordem_direcao.Remove(DirecaoChute::Cima);
+			if (ordem_direcao.Num() > 0)
+			{
+				ordem_direcao.Remove(DirecaoChute::Baixo);
+				ordem_direcao.Remove(DirecaoChute::Cima);
+			}
 		}
 	}
 }
 
 void APlayerCharacter::PlayerSlide(float Value)
 {
-	if (Value > 0 && !IsMoveInputIgnored())
+	if (Value > 0 && !IsMoveInputIgnored() && inputEnabled)
 		slideAction();
 }
 
 void APlayerCharacter::chutaPressed()
 {
-	forca_chute = 0.0f;
-	GetWorldTimerManager().SetTimer(chargeHandle, this, &APlayerCharacter::charge, 0.005f, true);
+	if (inputEnabled)
+	{
+		forca_chute = 0.0f;
+		GetWorldTimerManager().SetTimer(chargeHandle, this, &APlayerCharacter::charge, 0.005f, true);
+	}
 }
 
 void APlayerCharacter::chutaReleased()
 {
-	float supress_mult(0.4);
-	float angulo, x_temp(0), y_temp(0);
-	if (ordem_direcao.Num() > 0)
+	if (inputEnabled)
 	{
-		for (int32 index = 0; index < ordem_direcao.Num(); ++index)
+		float supress_mult(0.4);
+		float angulo, x_temp(0), y_temp(0);
+		if (ordem_direcao.Num() > 0)
 		{
-			if (ordem_direcao[index] == DirecaoChute::Esquerda)
-				x_temp -= 1;
-			else if (ordem_direcao[index] == DirecaoChute::Direita)
-				x_temp += 1;
-			else if (ordem_direcao[index] == DirecaoChute::Cima)
-				y_temp += 1;
-			else
-				y_temp -= 1;
+			for (int32 index = 0; index < ordem_direcao.Num(); ++index)
+			{
+				if (ordem_direcao[index] == DirecaoChute::Esquerda)
+					x_temp -= 1;
+				else if (ordem_direcao[index] == DirecaoChute::Direita)
+					x_temp += 1;
+				else if (ordem_direcao[index] == DirecaoChute::Cima)
+					y_temp += 1;
+				else
+					y_temp -= 1;
+			}
+			if (ordem_direcao[0] == DirecaoChute::Baixo || ordem_direcao[0] == DirecaoChute::Cima)
+				x_temp *= supress_mult;
+			else if (ordem_direcao[0] == DirecaoChute::Esquerda || ordem_direcao[0] == DirecaoChute::Direita)
+				y_temp *= supress_mult;
+			
+			angulo = UKismetMathLibrary::DegAtan(y_temp/(x_temp + 0.000000000001));
+			angulo += (x_temp < 0)? 180 : 0;
+			// if ((x < 0 && bisMovingRight) || (x > 0 && !bisMovingRight))
 		}
-		if (ordem_direcao[0] == DirecaoChute::Baixo || ordem_direcao[0] == DirecaoChute::Cima)
-			x_temp *= supress_mult;
-		else if (ordem_direcao[0] == DirecaoChute::Esquerda || ordem_direcao[0] == DirecaoChute::Direita)
-			y_temp *= supress_mult;
+		else
+			angulo = bisMovingRight? 0 : 180;
 		
-		angulo = UKismetMathLibrary::DegAtan(y_temp/(x_temp + 0.000000000001));
-		angulo += (x_temp < 0)? 180 : 0;
-		// if ((x < 0 && bisMovingRight) || (x > 0 && !bisMovingRight))
+		// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("angulo %.1f, x=%.1f y=%.1f"), angulo, x_temp, y_temp));
+		Getchute_angulo()->SetWorldRotation(FRotator(angulo, 0, 0));
+		chargeTimeOut();
+		Chuta();
 	}
-	else
-		angulo = bisMovingRight? 0 : 180;
-	
-	// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("angulo %.1f, x=%.1f y=%.1f"), angulo, x_temp, y_temp));
-	Getchute_angulo()->SetWorldRotation(FRotator(angulo, 0, 0));
-	chargeTimeOut();
-	Chuta();
 }
 
 void APlayerCharacter::colocadoPressed()
@@ -266,14 +278,14 @@ void APlayerCharacter::chargeTimeOut()
 
 void APlayerCharacter::pause()
 {
-	if (pausable)
+	if (pausable && inputEnabled)
 	{
 		if (UGameplayStatics::IsGamePaused(GetWorld()))
 		{
 			UGameplayStatics::SetGamePaused(GetWorld(), false);
 			if (pauseWidget)
 				pauseWidget->RemoveFromParent();
-			APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), index_controller);
+			APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 			if (IsValid(PC))
 				PC->SetShowMouseCursor(false);
 		}
@@ -282,7 +294,7 @@ void APlayerCharacter::pause()
 			UGameplayStatics::SetGamePaused(GetWorld(), true);
 			if (pauseWidget)
 				pauseWidget->AddToViewport();
-			APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), index_controller);
+			APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 			if (IsValid(PC))
 				PC->SetShowMouseCursor(true);
 		}
