@@ -14,7 +14,8 @@ void UHUDWidget::NativeConstruct()
 	int32 a;
 	FString b("NAN");
 
-	JogosGameState = GetWorld()->GetAuthGameMode()->GetGameState<AOJogoGameState>();
+	// JogosGameState = GetWorld()->GetAuthGameMode()->GetGameState<AOJogoGameState>();
+	JogosGameState = GetWorld() != NULL ? GetWorld()->GetGameState<AOJogoGameState>() : NULL;
 	if (JogosGameState)
 		a = JogosGameState->tempo1Ou2;
 	else

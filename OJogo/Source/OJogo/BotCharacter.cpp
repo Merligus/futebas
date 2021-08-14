@@ -63,7 +63,8 @@ void ABotCharacter::BeginPlay()
 			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bot:Player Start %d nao achado"), Index));
 	}
 
-    JogosGameState = GetWorld()->GetAuthGameMode()->GetGameState<AOJogoGameState>();
+    // JogosGameState = GetWorld()->GetAuthGameMode()->GetGameState<AOJogoGameState>();
+    JogosGameState = GetWorld() != NULL ? GetWorld()->GetGameState<AOJogoGameState>() : NULL;
     if (!IsValid(JogosGameState))
         GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bot:JogosGameState nao encontrado")));
 }
@@ -107,7 +108,8 @@ void ABotCharacter::setBotGols(int32 meus, int32 adversario)
 
 void ABotCharacter::BotChuta(float forca, float angulo)
 {
-    forca_chute = forca;
+    // forca_chute = forca;
+    GetPlayerState<APlayerCharacterState>()->SetForcaChute(forca);
     chute_angulo->SetRelativeRotation(FRotator(angulo, 0, 0));
 
     Super::Chuta();
@@ -281,7 +283,7 @@ void ABotCharacter::sense()
         carrinho1 = abs1 > horizontal_abs_distance_threshold;
         carrinho2 = abs2 > horizontal_abs_distance_threshold;
         carrinho3 = UKismetMathLibrary::Abs(ball->GetVelocity().X) < ball_velocity_threshold;
-        carrinho4 = stamina > (save_jumps_stamina * jumpStaminaCost + slidingStaminaCost);
+        carrinho4 = GetPlayerState<APlayerCharacterState>()->GetStamina() > (save_jumps_stamina * jumpStaminaCost + slidingStaminaCost);
         carrinho = ((carrinho1 && go_to_ball) || (carrinho2 && !go_to_ball)) && carrinho3 && carrinho4;
 
         FVector future_ball_carrinho = futurePosBall(ball->GetActorLocation(), ball->GetVelocity(), time_carrinho);

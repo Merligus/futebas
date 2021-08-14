@@ -46,27 +46,29 @@ void AOJogoGameMode::BeginPlay()
 	}
 
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStart::StaticClass(), PlayerStarts);
-	for (int32 player_index = 1; player_index < PlayerStarts.Num(); ++player_index)
-		UGameplayStatics::CreatePlayer(GetWorld(), player_index);
-	for (int32 player_index = 0; player_index < PlayerStarts.Num(); ++player_index)
+	if (!FutebasGI->online_instance)
 	{
-		if (player_index == 0 || !FutebasGI->vs_bot)
+		for (int32 player_index = 1; player_index < PlayerStarts.Num(); ++player_index)
+			UGameplayStatics::CreatePlayer(GetWorld(), player_index);
+		for (int32 player_index = 0; player_index < PlayerStarts.Num(); ++player_index)
 		{
-			APlayerCharacter* player = GetWorld()->SpawnActorDeferred<APlayerCharacter>(playerClass.Get(), FTransform());
-			if (player)
+			if (player_index == 0 || !FutebasGI->vs_bot)
 			{
-				player->SetIndexController(player_index);
-				UGameplayStatics::FinishSpawningActor(player, FTransform());
+				APlayerCharacter* player = GetWorld()->SpawnActorDeferred<APlayerCharacter>(playerClass.Get(), FTransform());
+				if (player)
+				{
+					player->SetIndexController(player_index);
+					UGameplayStatics::FinishSpawningActor(player, FTransform());
+				}
+				else
+					UE_LOG(LogTemp, Warning, TEXT("player %d not spawned"), player_index);
+				APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), player_index);
+				APawn* pawn = Cast<APawn>(player);
+				if (IsValid(pawn))
+					PC->Possess(pawn);
 			}
-			else
-				UE_LOG(LogTemp, Warning, TEXT("player %d not spawned"), player_index);
-			APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), player_index);
-			APawn* pawn = Cast<APawn>(player);
-			if (IsValid(pawn))
-				PC->Possess(pawn);
 		}
 	}
-
 	// game instance
 	// FutebasGI = Cast<UFutebasGameInstance>(GetGameInstance());
 	// GetGameInstance()
@@ -83,14 +85,16 @@ void AOJogoGameMode::Tick(float DeltaTime)
 
 void AOJogoGameMode::beginGame()
 {	
-	if (FutebasGI)
+	if (FutebasGI && false)
 	{
+
 		TArray<AActor*> FoundActors;
 		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
 		if (FoundActors.Num() == 1)
 			BolaActor = Cast<ABola>(FoundActors[0]);
 		else
 			UE_LOG(LogTemp, Warning, TEXT("FoundActors pra bola != 1"));
+		JogosGameState->posInicial = BolaActor->GetActorLocation();
 
 		UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStart::StaticClass(), PlayerStarts);
 		UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerCharacter::StaticClass(), FoundActors);

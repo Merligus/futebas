@@ -69,13 +69,13 @@ protected:
 	AOJogoCharacter* botIA;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<AOJogoCharacter*> arrayJogadores;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ABola* BolaActor;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<AActor*> PlayerStarts;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<AOJogoCharacter*> arrayJogadores;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	AActor* posicao;

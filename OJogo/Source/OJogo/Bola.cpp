@@ -28,8 +28,6 @@ ABola::ABola()
 void ABola::BeginPlay()
 {
 	Super::BeginPlay();
-	AOJogoGameState* JogosGameState = GetWorld()->GetAuthGameMode()->GetGameState<AOJogoGameState>();
-	JogosGameState->posInicial = GetActorLocation();
 	esfera->SetCollisionProfileName(FName(TEXT("BlockAll")), true);
 }
 

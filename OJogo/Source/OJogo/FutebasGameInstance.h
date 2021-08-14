@@ -38,6 +38,8 @@ class OJOGO_API UFutebasGameInstance : public UPlatformGameInstance
     TArray<FTeamData> nationalTeamsArray;
 
 public:
+
+	virtual void PostInitProperties() override;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FTeamData team1;	// game mode interface e campeonato state
@@ -53,6 +55,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool vs_bot;	// game mode interface
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool online_instance;	// game mode interface
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool escolheTeam2;	// team select
@@ -80,9 +85,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UDataTable* national_teams;	// seleções
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float volume;
 
 	void loadTeams();
 

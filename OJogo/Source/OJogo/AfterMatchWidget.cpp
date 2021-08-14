@@ -13,7 +13,8 @@ void UAfterMatchWidget::NativeConstruct()
 {
     Super::NativeConstruct();
 
-	JogosGameState = GetWorld()->GetAuthGameMode()->GetGameState<AOJogoGameState>();
+	// JogosGameState = GetWorld()->GetAuthGameMode()->GetGameState<AOJogoGameState>();
+    JogosGameState = GetWorld() != NULL ? GetWorld()->GetGameState<AOJogoGameState>() : NULL;
 	if (!JogosGameState)
     {
         GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("JogosGameState nao encontrado")));

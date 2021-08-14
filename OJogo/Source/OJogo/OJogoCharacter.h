@@ -6,6 +6,7 @@
 #include "PaperCharacter.h"
 #include "JogadorData.h"
 #include "Bola.h"
+#include "PlayerCharacterState.h"
 #include "Components/SphereComponent.h"
 #include "Components/BoxComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -83,6 +84,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
 	class UPaperFlipbookComponent* chuteira;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+	FJogadorData jogador;
+
 	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
 	float maxForcaChute;
 
@@ -107,12 +111,6 @@ protected:
 	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
 	float slidingStaminaCost;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
-	FJogadorData jogador;
-
-	UPROPERTY(BlueprintReadWrite)
-	float stamina;
-
 	UPROPERTY(BlueprintReadWrite)
 	bool bisMovingRight;
 
@@ -130,9 +128,6 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite)
 	float auxAcceleration;
-
-	UPROPERTY(BlueprintReadWrite)
-	float forca_chute;
 
 	UPROPERTY(BlueprintReadWrite)
 	bool canHeader;

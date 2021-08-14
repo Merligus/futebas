@@ -1,0 +1,48 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "PlayerCharacterState.h"
+
+APlayerCharacterState::APlayerCharacterState()
+{
+    stamina = 100.0f;
+	forca_chute = 0.0f;
+}
+
+void APlayerCharacterState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty> & OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(APlayerCharacterState, stamina);
+    DOREPLIFETIME(APlayerCharacterState, forca_chute);
+}
+
+void APlayerCharacterState::SetForcaChute_Implementation(float forca)
+{
+    MC_SetForcaChute(forca);
+}
+
+void APlayerCharacterState::MC_SetForcaChute_Implementation(float forca)
+{
+    forca_chute = forca;
+}
+
+float APlayerCharacterState::GetForcaChute() const
+{
+    return forca_chute;
+}
+
+void APlayerCharacterState::SetStamina_Implementation(float stam)
+{
+    MC_SetStamina_Implementation(stam);
+}
+
+void APlayerCharacterState::MC_SetStamina_Implementation(float stam)
+{
+    stamina = stam;
+}
+
+float APlayerCharacterState::GetStamina() const
+{
+    return stamina;
+}

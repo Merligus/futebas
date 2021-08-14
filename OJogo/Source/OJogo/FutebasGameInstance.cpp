@@ -7,6 +7,86 @@
 #include "ResultadoData.h"
 #include "Math/UnrealMathUtility.h"
 
+void UFutebasGameInstance::PostInitProperties()
+{
+    Super::PostInitProperties();
+
+    if (teamsArray.Num() == 0)
+    {
+        FString Context;
+        TArray<FTeamData*> aux;
+
+        if (IsValid(teams))
+        {
+            teams->GetAllRows(Context, aux);
+            for (int32 i = 0; i < aux.Num(); ++i)
+                teamsArray.Add(*(aux[i]));
+
+            teamsArray.Sort(
+                [this](const FTeamData& A, const FTeamData& B) // return true = A antes de B
+                {
+                    if (A.nome_interno == "gambaosaka_jap_png")
+                        return true;
+                    else if (B.nome_interno == "gambaosaka_jap_png")
+                        return false;
+                    else
+                        return A.habilidades.overall() > B.habilidades.overall();
+                }
+            );
+            for (int32 i = 0; i < teamsArray.Num(); ++i)
+                teamsArray[i].index_time = i;
+        }
+    }
+    if (nationalTeamsArray.Num() == 0)
+    {
+        FString Context;
+        TArray<FTeamData*> aux;
+
+        if (IsValid(national_teams))
+        {
+            national_teams->GetAllRows(Context, aux);
+            for (int32 i = 0; i < aux.Num(); ++i)
+                nationalTeamsArray.Add(*(aux[i]));
+
+            nationalTeamsArray.Sort(
+                [this](const FTeamData& A, const FTeamData& B) // return true = A antes de B
+                {
+                    if (A.nome_interno == "qatar")
+                        return true;
+                    else if (B.nome_interno == "qatar")
+                        return false;
+                    else
+                        return A.habilidades.overall() > B.habilidades.overall();
+                }
+            );
+            for (int32 i = 0; i < nationalTeamsArray.Num(); ++i)
+                nationalTeamsArray[i].index_time = i;
+        }
+    }
+
+    if (nationalTeamsArray.Num() > 0)
+    {
+        current_teams_set = TeamsSet::Selecoes;
+        team1 = nationalTeamsArray[0];
+    }
+    else if (teamsArray.Num() > 0)
+    {
+        current_teams_set = TeamsSet::Times;
+        team1 = teamsArray[0];
+    }
+	team2 = team1;
+	desempate_por_penaltis = true;
+	team1_em_casa = true;
+	vs_bot = false;
+    online_instance = true;
+	escolheTeam2 = false;
+	team1_index_slot = -1;
+	team2_index_slot = -1;
+	current_game_mode = GameMode::NovaPartida;
+	copa_do_mundo.Init(FCopaMundoData(), 2);
+	liga_das_nacoes.Init(FLigaData(16, 32), 2);
+}
+
 void UFutebasGameInstance::loadTeams()
 {
     if (teamsArray.Num() == 0)
@@ -14,7 +94,7 @@ void UFutebasGameInstance::loadTeams()
         FString Context;
         TArray<FTeamData*> aux;
 
-        if (IsValid(national_teams))
+        if (IsValid(teams))
             teams->GetAllRows(Context, aux);
         for (int32 i = 0; i < aux.Num(); ++i)
             teamsArray.Add(*(aux[i]));

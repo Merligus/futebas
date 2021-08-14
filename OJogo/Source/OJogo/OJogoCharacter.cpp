@@ -82,7 +82,6 @@ AOJogoCharacter::AOJogoCharacter()
 	GetSprite()->SetIsReplicated(true);
 	bReplicates = true;
 
-	stamina = 100.0f;
 	maxForcaChute = 5000.0f;
 	maxForcaCabeceio = 5000.0f;
 	velocidade = GetCharacterMovement()->MaxWalkSpeed;
@@ -254,7 +253,6 @@ AOJogoCharacter::AOJogoCharacter()
     kicking = false;
     sliding = false;
     onAir = false;
-	forca_chute = 0.0f;
     canHeader = false;
     canKick = false;
 	inputEnabled = true;
@@ -322,11 +320,12 @@ void AOJogoCharacter::Pula()
 {
 	if (inputEnabled)
 	{
-		if (stamina > jumpStaminaCost)
+		if (GetPlayerState<APlayerCharacterState>()->GetStamina() > jumpStaminaCost)
 		{
 			if (!onAir && !sliding)
 			{
-				stamina = stamina - jumpStaminaCost;
+				// stamina = stamina - jumpStaminaCost;
+				GetPlayerState<APlayerCharacterState>()->SetStamina(GetPlayerState<APlayerCharacterState>()->GetStamina() - jumpStaminaCost);
 				ACharacter::Jump();
 			}
 		}
@@ -422,9 +421,10 @@ void AOJogoCharacter::setMovimentacao(int mIndex)
 
 void AOJogoCharacter::staminaRegenLoop()
 {
-	stamina = stamina + staminaRegen;
-	if (stamina > 100)
-		stamina = 100.0f;
+	// stamina = stamina + staminaRegen;
+	GetPlayerState<APlayerCharacterState>()->SetStamina(GetPlayerState<APlayerCharacterState>()->GetStamina() + staminaRegen);
+	if (GetPlayerState<APlayerCharacterState>()->GetStamina() > 100)
+		GetPlayerState<APlayerCharacterState>()->SetStamina(100.0f);
 }
 
 void AOJogoCharacter::dashFunction()
@@ -474,13 +474,14 @@ void AOJogoCharacter::slideAction()
 		if (slidingActionFinished)
 		{
 			slidingActionFinished = false;
-			if (stamina > slidingStaminaCost)
+			if (GetPlayerState<APlayerCharacterState>()->GetStamina() > slidingStaminaCost)
 			{
 				if (onAir)
 					stopSliding();
 				else
 				{
-					stamina = stamina - slidingStaminaCost;
+					// stamina = stamina - slidingStaminaCost;
+					GetPlayerState<APlayerCharacterState>()->SetStamina(GetPlayerState<APlayerCharacterState>()->GetStamina() - slidingStaminaCost);
 					sliding = true;
 				}
 			}
@@ -501,7 +502,7 @@ float AOJogoCharacter::setForcaChute()
 	if (canKick)
 	{
 		chute_angulo->SetRelativeLocation(chute_location);
-		return forca_chute * maxForcaChute;
+		return GetPlayerState<APlayerCharacterState>()->GetForcaChute() * maxForcaChute;
 	}
 	else
 	{
@@ -513,7 +514,7 @@ float AOJogoCharacter::setForcaChute()
 			// 	theta = (ball->GetActorLocation() - cabeca->GetComponentLocation()).X;
 			// theta = 90 - ((90 * (UKismetMathLibrary::Abs(theta)))/theta);
 			// chute_angulo->SetWorldRotation(FRotator(theta, 0, 0));
-			return forca_chute * maxForcaCabeceio;
+			return GetPlayerState<APlayerCharacterState>()->GetForcaChute() * maxForcaCabeceio;
 		}
 		else
 			return -1;
