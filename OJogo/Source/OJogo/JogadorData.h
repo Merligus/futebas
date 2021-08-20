@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "PaperCharacter.h"
 #include "PaperFlipbook.h"
+#include "Engine/DataTable.h"
 #include "UObject/NoExportTypes.h"
 #include "JogadorData.generated.h"
 

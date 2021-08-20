@@ -2,6 +2,7 @@
 
 
 #include "Bola.h"
+#include "OJogoGameState.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Kismet/GameplayStatics.h"
 

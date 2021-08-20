@@ -69,6 +69,9 @@ void AOJogoGameMode::BeginPlay()
 			}
 		}
 	}
+
+	FTimerHandle UnusedHandle;
+	GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::beginGame, 0.5f, false);
 	// game instance
 	// FutebasGI = Cast<UFutebasGameInstance>(GetGameInstance());
 	// GetGameInstance()
@@ -85,9 +88,8 @@ void AOJogoGameMode::Tick(float DeltaTime)
 
 void AOJogoGameMode::beginGame()
 {	
-	if (FutebasGI && false)
+	if (FutebasGI)
 	{
-
 		TArray<AActor*> FoundActors;
 		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
 		if (FoundActors.Num() == 1)
@@ -253,7 +255,7 @@ void AOJogoGameMode::comecaJogo()
 	if (JogosGameState->em_prorrogacao)
 		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 15.0f, false);
 	else
-		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 15.0f, false);
+		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 45.0f, false);
 	JogosGameState->tempoRegulamentar = true;
 	JogosGameState->bolaEmJogo = true;
 }

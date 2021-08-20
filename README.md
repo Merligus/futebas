@@ -1,2 +1,2 @@
-# futebas
-Projeto Unreal Engine 4.23 pra um jogo de futebol 2D Pixel Art
+# Futebas
+Unreal Engine 4 project of a football 2D pixel art game. It can be downloaded in [Itch.io](https://merligus.itch.io/futebas)

@@ -7,7 +7,6 @@
 #include "Components/SphereComponent.h"
 #include "PaperFlipbookComponent.h"
 #include "Sound/SoundWave.h"
-#include "OJogoGameState.h"
 #include "Bola.generated.h"
 
 UCLASS()

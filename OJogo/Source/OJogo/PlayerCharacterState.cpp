@@ -2,11 +2,21 @@
 
 
 #include "PlayerCharacterState.h"
+#include "OJogoCharacter.h"
 
 APlayerCharacterState::APlayerCharacterState()
 {
     stamina = 100.0f;
 	forca_chute = 0.0f;
+
+    /*AOJogoCharacter* Char(GetPawn<AOJogoCharacter>());
+    if (Char)
+    {
+        Char->SetActorTickEnabled(true);
+        Char->PrimaryActorTick.bCanEverTick = true;
+        Char->PrimaryActorTick.SetTickFunctionEnable(true);
+        Char->PrimaryActorTick.bStartWithTickEnabled = true;
+    }*/
 }
 
 void APlayerCharacterState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty> & OutLifetimeProps) const

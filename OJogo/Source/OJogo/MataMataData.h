@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "ResultadoData.h"
+#include "Engine/DataTable.h"
 #include "UObject/NoExportTypes.h"
 #include "MataMataData.generated.h"
 

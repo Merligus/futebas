@@ -410,13 +410,16 @@ void AOJogoCharacter::setCor()
 
 void AOJogoCharacter::setMovimentacao(int mIndex)
 {
-	cabelo->SetFlipbook(jogador.cabeloArray[mIndex]);
-	olho->SetFlipbook(jogador.olhoArray[mIndex]);
-	luva->SetFlipbook(jogador.luvaArray[mIndex]);
-	pele->SetFlipbook(jogador.peleArray[mIndex]);
-	roupa1->SetFlipbook(jogador.roupa1Array[mIndex]);
-	roupa2->SetFlipbook(jogador.roupa2Array[mIndex]);
-	chuteira->SetFlipbook(jogador.chuteiraArray[mIndex]);
+	if (jogador.cabeloArray.Num() > 0)
+	{
+		cabelo->SetFlipbook(jogador.cabeloArray[mIndex]);
+		olho->SetFlipbook(jogador.olhoArray[mIndex]);
+		luva->SetFlipbook(jogador.luvaArray[mIndex]);
+		pele->SetFlipbook(jogador.peleArray[mIndex]);
+		roupa1->SetFlipbook(jogador.roupa1Array[mIndex]);
+		roupa2->SetFlipbook(jogador.roupa2Array[mIndex]);
+		chuteira->SetFlipbook(jogador.chuteiraArray[mIndex]);
+	}
 }
 
 void AOJogoCharacter::staminaRegenLoop()

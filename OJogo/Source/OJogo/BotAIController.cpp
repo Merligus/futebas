@@ -8,6 +8,7 @@ ABotAIController::ABotAIController()
 {
     BehaviorComp = CreateDefaultSubobject<UBehaviorTreeComponent>(TEXT("BehaviorComp"));
     BlackboardComp = CreateDefaultSubobject<UBlackboardComponent>(TEXT("BlackboardComp"));
+    bWantsPlayerState = true;
 }
 
 void ABotAIController::OnPossess(APawn* InPawn)
