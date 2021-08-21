@@ -55,7 +55,18 @@ void UCopaWidget::jogarClicked()
     if (FutebasGI)
     {
         if (!proximo_jogo_player)
+        {
             proximo_jogo_player = FutebasGI->simulaJogosProximaRodada(GameMode::CopaMundo, teams_set);
+
+            teams_set = FutebasGI->current_teams_set;
+
+            int32 teams_ind((int32)teams_set);
+            if (FutebasGI->GetCopa(teams_ind)->fase_atual >= 1)
+            {
+                gruposVisivel = ESlateVisibility::Hidden;
+                tabelaVisivel = ESlateVisibility::Visible;
+            }
+        }
         else
         {
             proximo_jogo_player = false;
@@ -72,7 +83,7 @@ void UCopaWidget::salvarClicked()
 
 void UCopaWidget::sairClicked()
 {
-    UKismetSystemLibrary::QuitGame(GetWorld(), nullptr, EQuitPreference::Type::Background, false);
+    UGameplayStatics::OpenLevel(GetWorld(), FName(TEXT("Menu_Level")));
 }
 
 ESlateVisibility UCopaWidget::bindCampeaoVisibilidade()

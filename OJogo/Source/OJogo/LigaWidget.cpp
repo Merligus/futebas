@@ -3,6 +3,7 @@
 
 #include "LigaWidget.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "Kismet/GameplayStatics.h"
 #include "GeneralFunctionLibrary.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 
@@ -80,5 +81,5 @@ void ULigaWidget::tabelaClicked()
 
 void ULigaWidget::sairClicked()
 {
-    UKismetSystemLibrary::QuitGame(GetWorld(), nullptr, EQuitPreference::Type::Background, false);
+    UGameplayStatics::OpenLevel(GetWorld(), FName(TEXT("Menu_Level")));
 }

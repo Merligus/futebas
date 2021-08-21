@@ -105,7 +105,7 @@ void AOJogoGameMode::beginGame()
 			APlayerCharacter* player = Cast<APlayerCharacter>(FoundActors[player_index]);
 			player->setHabilidades((player->GetIndexController() < PlayerStarts.Num()/2)? FutebasGI->team1.habilidades : FutebasGI->team2.habilidades);
 			player->setJogador((player->GetIndexController() < PlayerStarts.Num()/2)? FutebasGI->team1.jogador : FutebasGI->team2.jogador);
-			arrayJogadores.Add(player);
+			JogosGameState->arrayJogadores.Add(player);
 		}
 
 		if (FutebasGI->vs_bot)
@@ -125,7 +125,7 @@ void AOJogoGameMode::beginGame()
 							botIA->SpawnDefaultController();
 							botIA->setHabilidades(FutebasGI->team2.habilidades);
 							botIA->setJogador(FutebasGI->team2.jogador);
-							arrayJogadores.Add(botIA);
+							JogosGameState->arrayJogadores.Add(botIA);
 							Cast<ABotCharacter>(botIA)->setOwnGoal(JogosGameState->posIndex[1]);
 						}
 						else
@@ -143,7 +143,7 @@ void AOJogoGameMode::beginGame()
 		}
 
 		if (JogosGameState->posIndex[0] == 1)
-			arrayJogadores.Swap(0, 1);
+			JogosGameState->arrayJogadores.Swap(0, 1);
 		reiniciaPartida(true, false);
 		antesDoComeco();
 	}
@@ -213,7 +213,7 @@ void AOJogoGameMode::reiniciaPartida(bool neutro, bool favoravelEsq)
 			int32 indicePS = FCString::Atoi(*tag);
 			FTransform NewLocation(PS->GetActorTransform());
 			NewLocation.SetLocation(offsets[indicePS] + PlayerStarts[Index]->GetActorLocation());
-			arrayJogadores[indicePS]->SetActorTransform(NewLocation, false, NULL, ETeleportType::TeleportPhysics);
+			JogosGameState->arrayJogadores[indicePS]->SetActorTransform(NewLocation, false, NULL, ETeleportType::TeleportPhysics);
 		}
 		else
 			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Player Start %d nao achado"), Index));
@@ -292,7 +292,7 @@ void AOJogoGameMode::terminaTempoTimedOut()
 	JogosGameState->tempoRegulamentar = true;
 	JogosGameState->acrescimos = FTimespan(0, 0, 0);
 	JogosGameState->posIndex.Swap(0, 1);
-	arrayJogadores.Swap(0, 1);
+	JogosGameState->arrayJogadores.Swap(0, 1);
 	trocaTimes();
 	if (IsValid(botIA) && FutebasGI->vs_bot)
 		Cast<ABotCharacter>(botIA)->setOwnGoal(JogosGameState->posIndex[1]);
