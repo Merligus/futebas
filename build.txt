@@ -1,0 +1,17 @@
+- git clone 
+- (opcional) git checkout no commit especifico
+- generate visual studio files
+- 2 clicks no project
+- colocar em Project settings
+	- Packaging-> For distribution = true
+	- Packaging-> Build Config = Shipping
+	- Pak = true
+	- supported plataforms = win32
+	- Platforms->Target 32 bit = true
+	- Platforms->splash e icon
+- build tudo no botao Build um de cada vez
+- fecha
+- abre o project em um txt e tira o UnrealEd no modules e coloca os que estao em Game.Build.cs
+- compilar o jogo em shipping win32
+- click 2x no project
+- package win32

@@ -11,6 +11,7 @@
 #include "Components/BoxComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "HabilidadesData.h"
+#include "Net/UnrealNetwork.h"
 #include "OJogoCharacter.generated.h"
 
 class UTextRenderComponent;
@@ -44,7 +45,7 @@ class AOJogoCharacter : public APaperCharacter
 	UPROPERTY()
 	bool slidingActionFinished;
 
-	UPROPERTY()
+	UPROPERTY(Replicated)
 	bool chutaFinished;
 
 	UPROPERTY()
@@ -63,61 +64,61 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
 	class UPaperFlipbook* IdleAnimation;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Animations)
 	class UPaperFlipbookComponent* cabelo;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Animations)
 	class UPaperFlipbookComponent* olho;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Animations)
 	class UPaperFlipbookComponent* luva;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Animations)
 	class UPaperFlipbookComponent* pele;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Animations)
 	class UPaperFlipbookComponent* roupa1;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Animations)
 	class UPaperFlipbookComponent* roupa2;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Animations)
 	class UPaperFlipbookComponent* chuteira;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Animations)
 	FJogadorData jogador;
 
-	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	UPROPERTY(BlueprintReadWrite, Replicated, Category = "Habilidades")
 	float maxForcaChute;
 
-	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	UPROPERTY(BlueprintReadWrite, Replicated, Category = "Habilidades")
 	float maxForcaCabeceio;
 
-	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	UPROPERTY(BlueprintReadWrite, Replicated, Category = "Habilidades")
 	float velocidade;
 
-	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	UPROPERTY(BlueprintReadWrite, Replicated, Category = "Habilidades")
 	float velocidadeCarrinho;
 
-	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	UPROPERTY(BlueprintReadWrite, Replicated, Category = "Habilidades")
 	float aceleracaoCarrinho;
 
-	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	UPROPERTY(BlueprintReadWrite, Replicated, Category = "Habilidades")
 	float staminaRegen;
 
-	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	UPROPERTY(BlueprintReadWrite, Replicated, Category = "Habilidades")
 	float jumpStaminaCost;
 
-	UPROPERTY(BlueprintReadWrite, Category = "Habilidades")
+	UPROPERTY(BlueprintReadWrite, Replicated, Category = "Habilidades")
 	float slidingStaminaCost;
 
 	UPROPERTY(BlueprintReadWrite)
 	bool bisMovingRight;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Replicated)
 	bool kicking;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Replicated)
 	bool sliding;
 
 	UPROPERTY(BlueprintReadWrite)
@@ -141,31 +142,32 @@ protected:
 	UPROPERTY(BlueprintReadWrite)
 	FVector chute_location;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated)
 	USphereComponent* cabeca;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated)
 	UCapsuleComponent* peito;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated)
 	USphereComponent* pernas;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated)
 	UBoxComponent* pes;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated)
 	UBoxComponent* chute_angulo;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated)
 	UBoxComponent* pode_chutar;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated)
 	UBoxComponent* pode_cabecear;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 index_controller;
 
 	/** Called to choose the correct animation to play based on the character's movement state */
+	UFUNCTION(BlueprintCallable)
 	void UpdateAnimation();
 
 	void chutaTimeout();
@@ -179,6 +181,8 @@ protected:
 public:
 	AOJogoCharacter();
 
+	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
 	virtual void BeginPlay() override;
 	
 	virtual void Tick(float DeltaSeconds) override;
@@ -190,8 +194,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Pula();
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
 	void Chuta();
+	void Chuta_Implementation();
 
 	FORCEINLINE void SetIndexController(int32 index) { index_controller = index; }
 
@@ -217,20 +222,35 @@ public:
 
 	FORCEINLINE class UBoxComponent* Getchute_angulo() const { return chute_angulo; }
 
-	UFUNCTION(BlueprintCallable, Category = "Habilidades")
-	void setVelocidade(float v);
+	UFUNCTION(Server, Unreliable, BlueprintCallable, Category = "Habilidades")
+	void setHabilidades(const FHabilidadesData h);
+	void setHabilidades_Implementation(const FHabilidadesData h);
 
-	UFUNCTION(BlueprintCallable, Category = "Habilidades")
+	UFUNCTION(NetMulticast, Unreliable, BlueprintCallable, Category = "Habilidades")
+	void MC_setHabilidades(const FHabilidadesData h);
+	void MC_setHabilidades_Implementation(const FHabilidadesData h);
+
+	UFUNCTION(Server, Unreliable, BlueprintCallable, Category = "Habilidades")
+	void setJogador(FJogadorData f);
+	void setJogador_Implementation(FJogadorData f);
+
+	UFUNCTION(NetMulticast, Unreliable, BlueprintCallable, Category = "Habilidades")
+	void MC_setJogador(FJogadorData f);
+	void MC_setJogador_Implementation(FJogadorData f);
+
+	/*UFUNCTION(BlueprintCallable, Category = "Habilidades")
 	void setHabilidades(const FHabilidadesData h);
 
 	UFUNCTION(BlueprintCallable, Category = "Habilidades")
-	void setJogador(FJogadorData f);
+	void setJogador(FJogadorData f);*/
 
-	UFUNCTION(BlueprintCallable, Category = "Habilidades")
+	UFUNCTION(Server, Unreliable, BlueprintCallable)
 	void setMovimentacao(int mIndex);
+	void setMovimentacao_Implementation(int mIndex);
 
-	UFUNCTION(BlueprintCallable, Category = "Habilidades")
-	void setCor();
+	UFUNCTION(NetMulticast, Unreliable, BlueprintCallable)
+	void MC_setMovimentacao(int mIndex);
+	void MC_setMovimentacao_Implementation(int mIndex);
 
 	UFUNCTION(BlueprintCallable)
 	void staminaRegenLoop();

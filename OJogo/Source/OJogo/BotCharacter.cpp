@@ -109,7 +109,7 @@ void ABotCharacter::setBotGols(int32 meus, int32 adversario)
 void ABotCharacter::BotChuta(float forca, float angulo)
 {
     // forca_chute = forca;
-    GetPlayerState<APlayerCharacterState>()->SetForcaChute(forca);
+    GetPlayerState<APlayerCharacterState>()->MC_SetForcaChute(forca);
     chute_angulo->SetRelativeRotation(FRotator(angulo, 0, 0));
 
     Super::Chuta();

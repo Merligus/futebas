@@ -29,7 +29,6 @@ public:
 
 	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
-	// void SetForcaChute(float forca);
 	UFUNCTION(Server, Unreliable)
 	void SetForcaChute(float forca);
 	void SetForcaChute_Implementation(float forca);
@@ -40,7 +39,6 @@ public:
 
 	float GetForcaChute() const;
 
-	// void SetStamina(float stam);
 	UFUNCTION(Server, Unreliable)
 	void SetStamina(float stam);
 	void SetStamina_Implementation(float stam);

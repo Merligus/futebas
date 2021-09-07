@@ -196,7 +196,7 @@ void APlayerCharacter::chutaPressed()
 	if (inputEnabled)
 	{
 		// forca_chute = 0.0f;
-		GetPlayerState<APlayerCharacterState>()->SetForcaChute(0.0f);
+		GetPlayerState<APlayerCharacterState>()->MC_SetForcaChute(0.0f);
 		GetWorldTimerManager().SetTimer(chargeHandle, this, &APlayerCharacter::charge, 0.005f, true);
 	}
 }
@@ -242,7 +242,7 @@ void APlayerCharacter::chutaReleased()
 void APlayerCharacter::colocadoPressed()
 {
 	// forca_chute = 0.0f;
-	GetPlayerState<APlayerCharacterState>()->SetForcaChute(0.0f);
+	GetPlayerState<APlayerCharacterState>()->MC_SetForcaChute(0.0f);
 	GetWorldTimerManager().SetTimer(chargeHandle, this, &APlayerCharacter::charge, 0.005f, true);
 	FTimerHandle UnusedHandle;
 	GetWorldTimerManager().SetTimer(UnusedHandle, this, &APlayerCharacter::chargeTimeOut, 0.5f, false);
@@ -273,7 +273,7 @@ void APlayerCharacter::charge()
 		// chargeTimeOut();
 		// Chuta();
 	}
-	GetPlayerState<APlayerCharacterState>()->SetForcaChute(f_chute);
+	GetPlayerState<APlayerCharacterState>()->MC_SetForcaChute(f_chute);
 }
 
 void APlayerCharacter::chargeTimeOut()

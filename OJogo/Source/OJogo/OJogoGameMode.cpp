@@ -69,6 +69,21 @@ void AOJogoGameMode::BeginPlay()
 			}
 		}
 	}
+	//else // just create the player 1
+	//{
+	//	APlayerCharacter* player = GetWorld()->SpawnActorDeferred<APlayerCharacter>(playerClass.Get(), FTransform());
+	//	if (player)
+	//	{
+	//		player->SetIndexController(0);
+	//		UGameplayStatics::FinishSpawningActor(player, FTransform());
+	//	}
+	//	else
+	//		UE_LOG(LogTemp, Warning, TEXT("player %d not spawned"), 0);
+	//	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	//	APawn* pawn = Cast<APawn>(player);
+	//	if (IsValid(pawn))
+	//		PC->Possess(pawn);
+	//}
 
 	FTimerHandle UnusedHandle;
 	GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::beginGame, 0.5f, false);
@@ -103,8 +118,8 @@ void AOJogoGameMode::beginGame()
 		for (int32 player_index = 0; player_index < FoundActors.Num(); ++player_index)
 		{
 			APlayerCharacter* player = Cast<APlayerCharacter>(FoundActors[player_index]);
-			player->setHabilidades((player->GetIndexController() < PlayerStarts.Num()/2)? FutebasGI->team1.habilidades : FutebasGI->team2.habilidades);
-			player->setJogador((player->GetIndexController() < PlayerStarts.Num()/2)? FutebasGI->team1.jogador : FutebasGI->team2.jogador);
+			player->setHabilidades((player->GetIndexController() < PlayerStarts.Num() / 2) ? FutebasGI->team1.habilidades : FutebasGI->team2.habilidades);
+			player->setJogador((player->GetIndexController() < PlayerStarts.Num() / 2) ? FutebasGI->team1.jogador : FutebasGI->team2.jogador);
 			JogosGameState->arrayJogadores.Add(player);
 		}
 

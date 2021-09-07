@@ -104,6 +104,7 @@ AOJogoCharacter::AOJogoCharacter()
 		cabelo->SetCollisionProfileName(CollisionProfileName);
 		cabelo->SetGenerateOverlapEvents(false);
 		cabelo->SetCanEverAffectNavigation(false);
+		cabelo->SetIsReplicated(true);
 	}
 	olho = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("olho"));
 	if (olho)
@@ -118,6 +119,7 @@ AOJogoCharacter::AOJogoCharacter()
 		olho->SetCollisionProfileName(CollisionProfileName);
 		olho->SetGenerateOverlapEvents(false);
 		olho->SetCanEverAffectNavigation(false);
+		olho->SetIsReplicated(true);
 	}
 	luva = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("luva"));
 	if (luva)
@@ -132,6 +134,7 @@ AOJogoCharacter::AOJogoCharacter()
 		luva->SetCollisionProfileName(CollisionProfileName);
 		luva->SetGenerateOverlapEvents(false);
 		luva->SetCanEverAffectNavigation(false);
+		luva->SetIsReplicated(true);
 	}
 	pele = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("pele"));
 	if (pele)
@@ -146,6 +149,7 @@ AOJogoCharacter::AOJogoCharacter()
 		pele->SetCollisionProfileName(CollisionProfileName);
 		pele->SetGenerateOverlapEvents(false);
 		pele->SetCanEverAffectNavigation(false);
+		pele->SetIsReplicated(true);
 	}
 	roupa1 = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("roupa1"));
 	if (roupa1)
@@ -160,6 +164,7 @@ AOJogoCharacter::AOJogoCharacter()
 		roupa1->SetCollisionProfileName(CollisionProfileName);
 		roupa1->SetGenerateOverlapEvents(false);
 		roupa1->SetCanEverAffectNavigation(false);
+		roupa1->SetIsReplicated(true);
 	}
 	roupa2 = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("roupa2"));
 	if (roupa2)
@@ -174,6 +179,7 @@ AOJogoCharacter::AOJogoCharacter()
 		roupa2->SetCollisionProfileName(CollisionProfileName);
 		roupa2->SetGenerateOverlapEvents(false);
 		roupa2->SetCanEverAffectNavigation(false);
+		roupa2->SetIsReplicated(true);
 	}
 	chuteira = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("chuteira"));
 	if (chuteira)
@@ -188,6 +194,7 @@ AOJogoCharacter::AOJogoCharacter()
 		chuteira->SetCollisionProfileName(CollisionProfileName);
 		chuteira->SetGenerateOverlapEvents(false);
 		chuteira->SetCanEverAffectNavigation(false);
+		chuteira->SetIsReplicated(true);
 	}
 
 	GetSprite()->SetRelativeLocation(FVector(3.7, 0.0001, 10.5));
@@ -203,6 +210,7 @@ AOJogoCharacter::AOJogoCharacter()
 	cabeca->InitSphereRadius(32.0f);
     cabeca->SetCollisionProfileName(TEXT("corpo"));
 	cabeca->SetupAttachment(RootComponent);
+	cabeca->SetIsReplicated(true);
 
 	peito = CreateDefaultSubobject<UCapsuleComponent>(TEXT("peito"));
 	peito->SetRelativeLocation(FVector(0, 0, 10.4));
@@ -210,18 +218,21 @@ AOJogoCharacter::AOJogoCharacter()
 	peito->SetCapsuleRadius(27);
 	peito->SetCollisionProfileName(TEXT("corpo"));
 	peito->SetupAttachment(RootComponent);
+	peito->SetIsReplicated(true);
 
 	pernas = CreateDefaultSubobject<USphereComponent>(TEXT("pernas"));
 	pernas->SetRelativeLocation(FVector(0, 0, -42.9));
 	pernas->InitSphereRadius(40.0f);
 	pernas->SetCollisionProfileName(TEXT("corpo"));
 	pernas->SetupAttachment(RootComponent);
+	pernas->SetIsReplicated(true);
 
 	pes = CreateDefaultSubobject<UBoxComponent>(TEXT("pes"));
 	pes->SetRelativeLocation(FVector(0, 0, -75.6));
 	pes->SetBoxExtent(FVector(50, 40, 2));
 	pes->SetCollisionProfileName(TEXT("corpo"));
 	pes->SetupAttachment(RootComponent);
+	pes->SetIsReplicated(true);
 
 	chute_angulo = CreateDefaultSubobject<UBoxComponent>(TEXT("chute_angulo"));
 	chute_angulo->SetRelativeLocation(FVector(42.0, 0, -74));
@@ -229,6 +240,7 @@ AOJogoCharacter::AOJogoCharacter()
 	chute_angulo->SetBoxExtent(FVector(32, 32, 32));
 	chute_angulo->SetCollisionProfileName(TEXT("NoCollision"));
 	chute_angulo->SetupAttachment(RootComponent);
+	chute_angulo->SetIsReplicated(true);
 
 	pode_cabecear = CreateDefaultSubobject<UBoxComponent>(TEXT("pode_cabecear"));
 	pode_cabecear->SetRelativeLocation(FVector(32, 0, 86));
@@ -238,6 +250,7 @@ AOJogoCharacter::AOJogoCharacter()
 	pode_cabecear->SetupAttachment(RootComponent);
 	pode_cabecear->OnComponentBeginOverlap.AddDynamic(this, &AOJogoCharacter::cabecearBeginOverlap); 
 	pode_cabecear->OnComponentEndOverlap.AddDynamic(this, &AOJogoCharacter::cabecearEndOverlap);
+	pode_cabecear->SetIsReplicated(true);
 
 	pode_chutar = CreateDefaultSubobject<UBoxComponent>(TEXT("pode_chutar"));
 	pode_chutar->SetRelativeLocation(FVector(32, 0, -32));
@@ -247,6 +260,7 @@ AOJogoCharacter::AOJogoCharacter()
 	pode_chutar->SetupAttachment(RootComponent);
 	pode_chutar->OnComponentBeginOverlap.AddDynamic(this, &AOJogoCharacter::chutarBeginOverlap); 
 	pode_chutar->OnComponentEndOverlap.AddDynamic(this, &AOJogoCharacter::chutarEndOverlap);
+	pode_chutar->SetIsReplicated(true);
 	
 	index_controller = 0;
     bisMovingRight = true;
@@ -264,12 +278,57 @@ AOJogoCharacter::AOJogoCharacter()
     chute_location = FVector(0, 0, 0);
 }
 
+void AOJogoCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(AOJogoCharacter, cabelo);
+	DOREPLIFETIME(AOJogoCharacter, olho);
+	DOREPLIFETIME(AOJogoCharacter, luva);
+	DOREPLIFETIME(AOJogoCharacter, pele);
+	DOREPLIFETIME(AOJogoCharacter, roupa1);
+	DOREPLIFETIME(AOJogoCharacter, roupa2);
+	DOREPLIFETIME(AOJogoCharacter, chuteira);
+	DOREPLIFETIME(AOJogoCharacter, jogador);
+
+	DOREPLIFETIME(AOJogoCharacter, maxForcaChute);
+	DOREPLIFETIME(AOJogoCharacter, maxForcaCabeceio);
+	DOREPLIFETIME(AOJogoCharacter, velocidade);
+	DOREPLIFETIME(AOJogoCharacter, velocidadeCarrinho);
+	DOREPLIFETIME(AOJogoCharacter, aceleracaoCarrinho);
+	DOREPLIFETIME(AOJogoCharacter, staminaRegen);
+	DOREPLIFETIME(AOJogoCharacter, jumpStaminaCost);
+	DOREPLIFETIME(AOJogoCharacter, slidingStaminaCost);
+
+	// DOREPLIFETIME(AOJogoCharacter, index_controller);
+	DOREPLIFETIME(AOJogoCharacter, kicking);
+	DOREPLIFETIME(AOJogoCharacter, sliding);
+	DOREPLIFETIME(AOJogoCharacter, chutaFinished);
+	// DOREPLIFETIME(AOJogoCharacter, onAir);
+	// DOREPLIFETIME(AOJogoCharacter, canHeader);
+	// DOREPLIFETIME(AOJogoCharacter, canKick);
+	// DOREPLIFETIME(AOJogoCharacter, inputEnabled);
+	// DOREPLIFETIME(AOJogoCharacter, dashFinished);
+	// DOREPLIFETIME(AOJogoCharacter, slidingActionFinished);
+	// DOREPLIFETIME(AOJogoCharacter, auxSpeed);
+	// DOREPLIFETIME(AOJogoCharacter, auxAcceleration);
+	// DOREPLIFETIME(AOJogoCharacter, chute_location);*/
+
+	DOREPLIFETIME(AOJogoCharacter, cabeca);
+	DOREPLIFETIME(AOJogoCharacter, peito);
+	DOREPLIFETIME(AOJogoCharacter, pernas);
+	DOREPLIFETIME(AOJogoCharacter, pes);
+	DOREPLIFETIME(AOJogoCharacter, chute_angulo);
+	DOREPLIFETIME(AOJogoCharacter, pode_cabecear);
+	DOREPLIFETIME(AOJogoCharacter, pode_chutar);
+}
+
 void AOJogoCharacter::BeginPlay()
 {
     Super::BeginPlay();
 	
-	FTimerHandle UnusedHandle;
-	GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoCharacter::staminaRegenLoop, 0.05f, true);
+	/*FTimerHandle UnusedHandle;
+	GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoCharacter::staminaRegenLoop, 0.05f, true);*/
 
 	chute_location = chute_angulo->GetRelativeLocation();
 }
@@ -278,11 +337,11 @@ void AOJogoCharacter::BeginPlay()
 // Animation
 
 void AOJogoCharacter::UpdateAnimation()
-{
+	{
 	const FVector PlayerVelocity = GetVelocity();
+
 	// usar caso tenha sprite de falling
 	// bool falling = PlayerVelocity.Z < 0; 
-
 	if (onAir)
 		setMovimentacao(1);
 	else
@@ -296,15 +355,18 @@ void AOJogoCharacter::UpdateAnimation()
 
 void AOJogoCharacter::Tick(float DeltaSeconds)
 {
-	Super::Tick(DeltaSeconds);
+	if (IsLocallyControlled())
+	{
+		Super::Tick(DeltaSeconds);
 
-	if (kicking)
-		setMovimentacao(2);
-	else if (sliding)
-		dashFunction();
-	else
-		UpdateAnimation();
-	onAir = GetCharacterMovement()->IsFalling();
+		if (kicking)
+			setMovimentacao(2);
+		else if (sliding)
+			dashFunction();
+		else
+			UpdateAnimation();
+		onAir = GetCharacterMovement()->IsFalling();
+	}
 }
 
 void AOJogoCharacter::MoveRight(float Value)
@@ -332,7 +394,7 @@ void AOJogoCharacter::Pula()
 	}
 }
 
-void AOJogoCharacter::Chuta()
+void AOJogoCharacter::Chuta_Implementation()
 {
 	if (!sliding)
 	{
@@ -373,11 +435,19 @@ void AOJogoCharacter::TouchStopped(const ETouchIndex::Type FingerIndex, const FV
 	StopJumping();
 }
 
-void AOJogoCharacter::setHabilidades(const FHabilidadesData h)
+void AOJogoCharacter::setHabilidades_Implementation(const FHabilidadesData h)
+{
+	MC_setHabilidades(h);
+}
+
+void AOJogoCharacter::MC_setHabilidades_Implementation(const FHabilidadesData h)
 {
 	maxForcaChute = h.converteMaxForcaChute();
 	maxForcaCabeceio = h.converteMaxForcaCabeceio();
-	setVelocidade(h.converteVelocidade());
+
+	velocidade = h.converteVelocidade();
+	GetCharacterMovement()->MaxWalkSpeed = h.converteVelocidade();
+
 	velocidadeCarrinho = h.converteVelocidadeCarrinho();
 	aceleracaoCarrinho = h.converteAceleracaoCarrinho();
 	staminaRegen = h.converteStaminaRegen();
@@ -385,20 +455,14 @@ void AOJogoCharacter::setHabilidades(const FHabilidadesData h)
 	slidingStaminaCost = h.converteSlidingStaminaCost();
 }
 
-void AOJogoCharacter::setVelocidade(float v)
+void AOJogoCharacter::setJogador_Implementation(FJogadorData f)
 {
-	velocidade = v;
-	GetCharacterMovement()->MaxWalkSpeed = v;
+	MC_setJogador(f);
 }
 
-void AOJogoCharacter::setJogador(FJogadorData f)
+void AOJogoCharacter::MC_setJogador_Implementation(FJogadorData f)
 {
 	jogador = f;
-	setCor();
-}
-
-void AOJogoCharacter::setCor()
-{
 	cabelo->SetSpriteColor(jogador.cabelo);
 	olho->SetSpriteColor(jogador.olho);
 	luva->SetSpriteColor(jogador.luva);
@@ -408,7 +472,12 @@ void AOJogoCharacter::setCor()
 	chuteira->SetSpriteColor(jogador.chuteira);
 }
 
-void AOJogoCharacter::setMovimentacao(int mIndex)
+void AOJogoCharacter::setMovimentacao_Implementation(int mIndex)
+{
+	MC_setMovimentacao_Implementation(mIndex);
+}
+
+void AOJogoCharacter::MC_setMovimentacao_Implementation(int mIndex)
 {
 	if (jogador.cabeloArray.Num() > 0)
 	{
