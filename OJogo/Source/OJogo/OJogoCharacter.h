@@ -39,10 +39,10 @@ class AOJogoCharacter : public APaperCharacter
 
 	// UTextRenderComponent* TextComponent;
 
-	UPROPERTY()
+	UPROPERTY(Replicated)
 	bool dashFinished;
 
-	UPROPERTY()
+	UPROPERTY(Replicated)
 	bool slidingActionFinished;
 
 	UPROPERTY(Replicated)
@@ -121,13 +121,13 @@ protected:
 	UPROPERTY(BlueprintReadWrite, Replicated)
 	bool sliding;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Replicated)
 	bool onAir;
 
 	UPROPERTY(BlueprintReadWrite)
 	float auxSpeed;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Replicated)
 	float auxAcceleration;
 
 	UPROPERTY(BlueprintReadWrite)
@@ -136,7 +136,7 @@ protected:
 	UPROPERTY(BlueprintReadWrite)
 	bool canKick;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Replicated)
 	bool inputEnabled;
 
 	UPROPERTY(BlueprintReadWrite)
@@ -255,20 +255,27 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void staminaRegenLoop();
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Server, Unreliable)
 	void dashFunction();
+	void dashFunction_Implementation();
+
+	UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
+	void MC_dashFunction();
+	void MC_dashFunction_Implementation();
 
 	UFUNCTION(BlueprintCallable)
 	void dashing();
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
 	void terminaDashing();
+	void terminaDashing_Implementation();
 
 	UFUNCTION(BlueprintCallable)
 	void slideAction();
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
 	void stopSliding();
+	void stopSliding_Implementation();
 
 	UFUNCTION(BlueprintCallable)
 	float setForcaChute();

@@ -1,7 +1,7 @@
 from os import listdir
 from os.path import isfile, join
 
-code = ["MC_setMovimentacao"]
+code = ["dashFunction("]
 
 path = "../"
 onlyfiles = [f for f in listdir(path) if isfile(join(path, f))]

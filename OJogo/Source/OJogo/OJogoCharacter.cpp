@@ -304,14 +304,14 @@ void AOJogoCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	DOREPLIFETIME(AOJogoCharacter, kicking);
 	DOREPLIFETIME(AOJogoCharacter, sliding);
 	DOREPLIFETIME(AOJogoCharacter, chutaFinished);
-	// DOREPLIFETIME(AOJogoCharacter, onAir);
+	DOREPLIFETIME(AOJogoCharacter, dashFinished);
+	DOREPLIFETIME(AOJogoCharacter, auxAcceleration);
+	DOREPLIFETIME(AOJogoCharacter, inputEnabled);
+	DOREPLIFETIME(AOJogoCharacter, slidingActionFinished);
+	DOREPLIFETIME(AOJogoCharacter, onAir);
 	// DOREPLIFETIME(AOJogoCharacter, canHeader);
 	// DOREPLIFETIME(AOJogoCharacter, canKick);
-	// DOREPLIFETIME(AOJogoCharacter, inputEnabled);
-	// DOREPLIFETIME(AOJogoCharacter, dashFinished);
-	// DOREPLIFETIME(AOJogoCharacter, slidingActionFinished);
 	// DOREPLIFETIME(AOJogoCharacter, auxSpeed);
-	// DOREPLIFETIME(AOJogoCharacter, auxAcceleration);
 	// DOREPLIFETIME(AOJogoCharacter, chute_location);*/
 
 	DOREPLIFETIME(AOJogoCharacter, cabeca);
@@ -342,7 +342,11 @@ void AOJogoCharacter::UpdateAnimation()
 
 	// usar caso tenha sprite de falling
 	// bool falling = PlayerVelocity.Z < 0; 
-	if (onAir)
+	if (kicking)
+		setMovimentacao(2);
+	else if (sliding)
+		setMovimentacao(4);
+	else if (onAir)
 		setMovimentacao(1);
 	else
 	{
@@ -359,13 +363,15 @@ void AOJogoCharacter::Tick(float DeltaSeconds)
 	{
 		Super::Tick(DeltaSeconds);
 
-		if (kicking)
-			setMovimentacao(2);
-		else if (sliding)
+		onAir = GetCharacterMovement()->IsFalling();
+		
+		if (sliding && dashFinished)
+		{
+			dashFinished = false;
 			dashFunction();
+		}
 		else
 			UpdateAnimation();
-		onAir = GetCharacterMovement()->IsFalling();
 	}
 }
 
@@ -499,44 +505,42 @@ void AOJogoCharacter::staminaRegenLoop()
 		GetPlayerState<APlayerCharacterState>()->SetStamina(100.0f);
 }
 
-void AOJogoCharacter::dashFunction()
+void AOJogoCharacter::dashFunction_Implementation()
 {
-	if (dashFinished)
-	{
-		dashFinished = false;
-
-		// APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), index_controller);
-		// DisableInput(PC);
-		inputEnabled = false;
-
-		auxAcceleration = GetCharacterMovement()->BrakingFrictionFactor;
-		GetCharacterMovement()->BrakingFrictionFactor = 0.0f;
-		LaunchCharacter(3 * velocidadeCarrinho * FVector(GetActorForwardVector().X, 0, 0).GetSafeNormal(), true, true);
-
-		setMovimentacao(4);
-
-		// GetWorldTimerManager().SetTimer(dashHandle, this, &AOJogoCharacter::dashing, 0.005f, false);
-
-		// se mudar o tempo de dashing mudar o tempo de congelamento de cerebro no bot tambem
-		FTimerHandle UnusedHandle;
-		GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoCharacter::terminaDashing, 0.8f, false);
-	}
+	MC_dashFunction_Implementation();
 }
 
-void AOJogoCharacter::dashing()
+void AOJogoCharacter::MC_dashFunction_Implementation()
+{
+	// APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), index_controller);
+	// DisableInput(PC);
+	inputEnabled = false;
+
+	auxAcceleration = GetCharacterMovement()->BrakingFrictionFactor;
+	GetCharacterMovement()->BrakingFrictionFactor = 0.0f;
+	LaunchCharacter(3 * velocidadeCarrinho * FVector(GetActorForwardVector().X, 0, 0).GetSafeNormal(), true, true);
+
+	// GetWorldTimerManager().SetTimer(dashHandle, this, &AOJogoCharacter::dashing, 0.005f, false);
+
+	// se mudar o tempo de dashing mudar o tempo de congelamento de cerebro no bot tambem
+	FTimerHandle UnusedHandle;
+	GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoCharacter::terminaDashing, 0.8f, false);
+}
+
+void AOJogoCharacter::dashing() // deprecated
 {
 	AddMovementInput(GetCapsuleComponent()->GetForwardVector(), 100.0f);
 }
 
-void AOJogoCharacter::terminaDashing()
+void AOJogoCharacter::terminaDashing_Implementation()
 {
 	GetCharacterMovement()->BrakingFrictionFactor = auxAcceleration;
 
 	// APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), index_controller);
 	// EnableInput(PC);
+	stopSliding();
 	inputEnabled = true;
 	dashFinished = true;
-	stopSliding();
 }
 
 void AOJogoCharacter::slideAction()
@@ -563,7 +567,7 @@ void AOJogoCharacter::slideAction()
 	}
 }
 
-void AOJogoCharacter::stopSliding()
+void AOJogoCharacter::stopSliding_Implementation()
 {
     slidingActionFinished = true;
 	sliding = false;
