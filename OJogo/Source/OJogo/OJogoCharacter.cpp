@@ -261,6 +261,9 @@ AOJogoCharacter::AOJogoCharacter()
 	pode_chutar->OnComponentBeginOverlap.AddDynamic(this, &AOJogoCharacter::chutarBeginOverlap); 
 	pode_chutar->OnComponentEndOverlap.AddDynamic(this, &AOJogoCharacter::chutarEndOverlap);
 	pode_chutar->SetIsReplicated(true);
+
+	staminaRT = 100.0;
+	forcaChuteRT = 0.0f;
 	
 	index_controller = 0;
     bisMovingRight = true;
@@ -388,12 +391,14 @@ void AOJogoCharacter::Pula()
 {
 	if (inputEnabled)
 	{
-		if (GetPlayerState<APlayerCharacterState>()->GetStamina() > jumpStaminaCost)
+		if (GetStaminaRT() > jumpStaminaCost)
 		{
 			if (!onAir && !sliding)
 			{
 				// stamina = stamina - jumpStaminaCost;
-				GetPlayerState<APlayerCharacterState>()->SetStamina(GetPlayerState<APlayerCharacterState>()->GetStamina() - jumpStaminaCost);
+				float s = GetStaminaRT() - jumpStaminaCost;
+				GetPlayerState<APlayerCharacterState>()->SV_SetStamina(s);
+				staminaRT = s;
 				ACharacter::Jump();
 			}
 		}
@@ -500,9 +505,14 @@ void AOJogoCharacter::MC_setMovimentacao_Implementation(int mIndex)
 void AOJogoCharacter::staminaRegenLoop()
 {
 	// stamina = stamina + staminaRegen;
-	GetPlayerState<APlayerCharacterState>()->SetStamina(GetPlayerState<APlayerCharacterState>()->GetStamina() + staminaRegen);
-	if (GetPlayerState<APlayerCharacterState>()->GetStamina() > 100)
-		GetPlayerState<APlayerCharacterState>()->SetStamina(100.0f);
+	float s = GetStaminaRT() + staminaRegen;
+	GetPlayerState<APlayerCharacterState>()->SV_SetStamina(s);
+	staminaRT = s;
+	if (staminaRT > 100)
+	{
+		GetPlayerState<APlayerCharacterState>()->SV_SetStamina(100.0f);
+		staminaRT = 100.0f;
+	}
 }
 
 void AOJogoCharacter::dashFunction_Implementation()
@@ -550,14 +560,16 @@ void AOJogoCharacter::slideAction()
 		if (slidingActionFinished)
 		{
 			slidingActionFinished = false;
-			if (GetPlayerState<APlayerCharacterState>()->GetStamina() > slidingStaminaCost)
+			if (GetStaminaRT() > slidingStaminaCost)
 			{
 				if (onAir)
 					stopSliding();
 				else
 				{
 					// stamina = stamina - slidingStaminaCost;
-					GetPlayerState<APlayerCharacterState>()->SetStamina(GetPlayerState<APlayerCharacterState>()->GetStamina() - slidingStaminaCost);
+					float s = GetStaminaRT() - slidingStaminaCost;
+					GetPlayerState<APlayerCharacterState>()->SV_SetStamina(s);
+					staminaRT = s;
 					sliding = true;
 				}
 			}
@@ -578,7 +590,7 @@ float AOJogoCharacter::setForcaChute()
 	if (canKick)
 	{
 		chute_angulo->SetRelativeLocation(chute_location);
-		return GetPlayerState<APlayerCharacterState>()->GetForcaChute() * maxForcaChute;
+		return forcaChuteRT * maxForcaChute;
 	}
 	else
 	{
@@ -590,7 +602,7 @@ float AOJogoCharacter::setForcaChute()
 			// 	theta = (ball->GetActorLocation() - cabeca->GetComponentLocation()).X;
 			// theta = 90 - ((90 * (UKismetMathLibrary::Abs(theta)))/theta);
 			// chute_angulo->SetWorldRotation(FRotator(theta, 0, 0));
-			return GetPlayerState<APlayerCharacterState>()->GetForcaChute() * maxForcaCabeceio;
+			return forcaChuteRT * maxForcaCabeceio;
 		}
 		else
 			return -1;

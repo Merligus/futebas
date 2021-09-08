@@ -112,6 +112,12 @@ protected:
 	UPROPERTY(BlueprintReadWrite, Replicated, Category = "Habilidades")
 	float slidingStaminaCost;
 
+	UPROPERTY(BlueprintReadWrite, Category = "HUD")
+	float staminaRT;
+
+	UPROPERTY(BlueprintReadWrite, Category = "HUD")
+	float forcaChuteRT;
+
 	UPROPERTY(BlueprintReadWrite)
 	bool bisMovingRight;
 
@@ -221,6 +227,10 @@ public:
 	FORCEINLINE class UPaperFlipbookComponent* Getchuteira() const { return chuteira; }
 
 	FORCEINLINE class UBoxComponent* Getchute_angulo() const { return chute_angulo; }
+
+	FORCEINLINE float GetStaminaRT() const { return staminaRT; }
+
+	FORCEINLINE float GetForcaChuteRT() const { return forcaChuteRT; }
 
 	UFUNCTION(Server, Unreliable, BlueprintCallable, Category = "Habilidades")
 	void setHabilidades(const FHabilidadesData h);

@@ -109,7 +109,7 @@ void ABotCharacter::setBotGols(int32 meus, int32 adversario)
 void ABotCharacter::BotChuta(float forca, float angulo)
 {
     // forca_chute = forca;
-    GetPlayerState<APlayerCharacterState>()->MC_SetForcaChute(forca);
+    GetPlayerState<APlayerCharacterState>()->SV_SetForcaChute(forca);
     chute_angulo->SetRelativeRotation(FRotator(angulo, 0, 0));
 
     Super::Chuta();
@@ -283,7 +283,7 @@ void ABotCharacter::sense()
         carrinho1 = abs1 > horizontal_abs_distance_threshold;
         carrinho2 = abs2 > horizontal_abs_distance_threshold;
         carrinho3 = UKismetMathLibrary::Abs(ball->GetVelocity().X) < ball_velocity_threshold;
-        carrinho4 = GetPlayerState<APlayerCharacterState>()->GetStamina() > (save_jumps_stamina * jumpStaminaCost + slidingStaminaCost);
+        carrinho4 = staminaRT > (save_jumps_stamina * jumpStaminaCost + slidingStaminaCost);
         carrinho = ((carrinho1 && go_to_ball) || (carrinho2 && !go_to_ball)) && carrinho3 && carrinho4;
 
         FVector future_ball_carrinho = futurePosBall(ball->GetActorLocation(), ball->GetVelocity(), time_carrinho);

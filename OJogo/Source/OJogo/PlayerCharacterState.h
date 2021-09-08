@@ -17,10 +17,10 @@ class OJOGO_API APlayerCharacterState : public APlayerState
 
 protected:
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
 	float stamina;
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated)
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
 	float forca_chute;
 
 public:
@@ -29,24 +29,18 @@ public:
 
 	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
-	UFUNCTION(Server, Unreliable)
-	void SetForcaChute(float forca);
-	void SetForcaChute_Implementation(float forca);
+	UFUNCTION(BlueprintCallable, Server, Unreliable)
+	void SV_SetForcaChute(float forca);
+	void SV_SetForcaChute_Implementation(float forca);
 
-	UFUNCTION(NetMulticast, Unreliable)
-	void MC_SetForcaChute(float forca);
-	void MC_SetForcaChute_Implementation(float forca);
-
+	UFUNCTION(BlueprintCallable)
 	float GetForcaChute() const;
 
-	UFUNCTION(Server, Unreliable)
-	void SetStamina(float stam);
-	void SetStamina_Implementation(float stam);
+	UFUNCTION(BlueprintCallable, Server, Unreliable)
+	void SV_SetStamina(float stam);
+	void SV_SetStamina_Implementation(float stam);
 
-	UFUNCTION(NetMulticast, Unreliable)
-	void MC_SetStamina(float stam);
-	void MC_SetStamina_Implementation(float stam);
-
+	UFUNCTION(BlueprintCallable)
 	float GetStamina() const;
 	
 };

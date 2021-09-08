@@ -27,12 +27,7 @@ void APlayerCharacterState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>
     DOREPLIFETIME(APlayerCharacterState, forca_chute);
 }
 
-void APlayerCharacterState::SetForcaChute_Implementation(float forca)
-{
-    MC_SetForcaChute(forca);
-}
-
-void APlayerCharacterState::MC_SetForcaChute_Implementation(float forca)
+void APlayerCharacterState::SV_SetForcaChute_Implementation(float forca)
 {
     forca_chute = forca;
 }
@@ -42,12 +37,7 @@ float APlayerCharacterState::GetForcaChute() const
     return forca_chute;
 }
 
-void APlayerCharacterState::SetStamina_Implementation(float stam)
-{
-    MC_SetStamina_Implementation(stam);
-}
-
-void APlayerCharacterState::MC_SetStamina_Implementation(float stam)
+void APlayerCharacterState::SV_SetStamina_Implementation(float stam)
 {
     stamina = stam;
 }
