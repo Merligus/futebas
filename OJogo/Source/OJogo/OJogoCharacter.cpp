@@ -18,7 +18,7 @@ DEFINE_LOG_CATEGORY_STATIC(SideScrollerCharacter, Log, All);
 //////////////////////////////////////////////////////////////////////////
 // AOJogoCharacter
 
-AOJogoCharacter::AOJogoCharacter()
+AOJogoCharacter::AOJogoCharacter(const class FObjectInitializer& PCIP) : Super(PCIP)
 {
 	// Use only Yaw from the controller and ignore the rest of the rotation.
 	bUseControllerRotationPitch = false;
@@ -28,27 +28,29 @@ AOJogoCharacter::AOJogoCharacter()
 	// Set the size of our collision capsule.
 	GetCapsuleComponent()->SetCapsuleHalfHeight(96.0f);
 	GetCapsuleComponent()->SetCapsuleRadius(40.0f);
+	GetCapsuleComponent()->SetIsReplicated(true);
 
 	// Create a camera boom attached to the root (capsule)
-	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
-	CameraBoom->SetupAttachment(RootComponent);
-	CameraBoom->TargetArmLength = 500.0f;
-	CameraBoom->SocketOffset = FVector(0.0f, 0.0f, 75.0f);
-	CameraBoom->SetUsingAbsoluteRotation(true);
-	CameraBoom->bDoCollisionTest = false;
-	CameraBoom->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
-	
+	// CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
+	// CameraBoom->SetupAttachment(RootComponent);
+	// CameraBoom->TargetArmLength = 500.0f;
+	// CameraBoom->SocketOffset = FVector(0.0f, 0.0f, 75.0f);
+	// CameraBoom->SetUsingAbsoluteRotation(true);
+	// CameraBoom->bDoCollisionTest = false;
+	// CameraBoom->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
+	// CameraBoom->SetIsReplicated(true);	
 
 	// Create an orthographic camera (no perspective) and attach it to the boom
-	SideViewCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("SideViewCamera"));
-	SideViewCameraComponent->ProjectionMode = ECameraProjectionMode::Orthographic;
-	SideViewCameraComponent->OrthoWidth = 2048.0f;
-	SideViewCameraComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
+	// SideViewCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("SideViewCamera"));
+	// SideViewCameraComponent->ProjectionMode = ECameraProjectionMode::Orthographic;
+	// SideViewCameraComponent->OrthoWidth = 2048.0f;
+	// // SideViewCameraComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
+	// SideViewCameraComponent->SetIsReplicated(true);
 
 	// Prevent all automatic rotation behavior on the camera, character, and camera component
-	CameraBoom->SetUsingAbsoluteRotation(true);
-	SideViewCameraComponent->bUsePawnControlRotation = false;
-	SideViewCameraComponent->bAutoActivate = true;
+	// CameraBoom->SetUsingAbsoluteRotation(true);
+	// SideViewCameraComponent->bUsePawnControlRotation = false;
+	// SideViewCameraComponent->bAutoActivate = true;
 	GetCharacterMovement()->bOrientRotationToMovement = false;
 
 	// Configure character movement
@@ -80,7 +82,12 @@ AOJogoCharacter::AOJogoCharacter()
 
 	// Enable replication on the Sprite component so animations show up when networked
 	GetSprite()->SetIsReplicated(true);
+	GetCharacterMovement()->SetIsReplicated(true);
+	// bReplicateMovement = true;
+	SetReplicateMovement(true);
 	bReplicates = true;
+	bNetUseOwnerRelevancy = true;
+	// bReplicateInstigator = true;
 
 	maxForcaChute = 5000.0f;
 	maxForcaCabeceio = 5000.0f;
@@ -210,7 +217,7 @@ AOJogoCharacter::AOJogoCharacter()
 	cabeca->InitSphereRadius(32.0f);
     cabeca->SetCollisionProfileName(TEXT("corpo"));
 	cabeca->SetupAttachment(RootComponent);
-	cabeca->SetIsReplicated(true);
+	cabeca->SetIsReplicated(false);
 
 	peito = CreateDefaultSubobject<UCapsuleComponent>(TEXT("peito"));
 	peito->SetRelativeLocation(FVector(0, 0, 10.4));
@@ -218,21 +225,21 @@ AOJogoCharacter::AOJogoCharacter()
 	peito->SetCapsuleRadius(27);
 	peito->SetCollisionProfileName(TEXT("corpo"));
 	peito->SetupAttachment(RootComponent);
-	peito->SetIsReplicated(true);
+	peito->SetIsReplicated(false);
 
 	pernas = CreateDefaultSubobject<USphereComponent>(TEXT("pernas"));
 	pernas->SetRelativeLocation(FVector(0, 0, -42.9));
 	pernas->InitSphereRadius(40.0f);
 	pernas->SetCollisionProfileName(TEXT("corpo"));
 	pernas->SetupAttachment(RootComponent);
-	pernas->SetIsReplicated(true);
+	pernas->SetIsReplicated(false);
 
 	pes = CreateDefaultSubobject<UBoxComponent>(TEXT("pes"));
 	pes->SetRelativeLocation(FVector(0, 0, -75.6));
 	pes->SetBoxExtent(FVector(50, 40, 2));
 	pes->SetCollisionProfileName(TEXT("corpo"));
 	pes->SetupAttachment(RootComponent);
-	pes->SetIsReplicated(true);
+	pes->SetIsReplicated(false);
 
 	chute_angulo = CreateDefaultSubobject<UBoxComponent>(TEXT("chute_angulo"));
 	chute_angulo->SetRelativeLocation(FVector(42.0, 0, -74));
@@ -240,7 +247,7 @@ AOJogoCharacter::AOJogoCharacter()
 	chute_angulo->SetBoxExtent(FVector(32, 32, 32));
 	chute_angulo->SetCollisionProfileName(TEXT("NoCollision"));
 	chute_angulo->SetupAttachment(RootComponent);
-	chute_angulo->SetIsReplicated(true);
+	chute_angulo->SetIsReplicated(false);
 
 	pode_cabecear = CreateDefaultSubobject<UBoxComponent>(TEXT("pode_cabecear"));
 	pode_cabecear->SetRelativeLocation(FVector(32, 0, 86));
@@ -250,7 +257,7 @@ AOJogoCharacter::AOJogoCharacter()
 	pode_cabecear->SetupAttachment(RootComponent);
 	pode_cabecear->OnComponentBeginOverlap.AddDynamic(this, &AOJogoCharacter::cabecearBeginOverlap); 
 	pode_cabecear->OnComponentEndOverlap.AddDynamic(this, &AOJogoCharacter::cabecearEndOverlap);
-	pode_cabecear->SetIsReplicated(true);
+	pode_cabecear->SetIsReplicated(false);
 
 	pode_chutar = CreateDefaultSubobject<UBoxComponent>(TEXT("pode_chutar"));
 	pode_chutar->SetRelativeLocation(FVector(32, 0, -32));
@@ -260,7 +267,7 @@ AOJogoCharacter::AOJogoCharacter()
 	pode_chutar->SetupAttachment(RootComponent);
 	pode_chutar->OnComponentBeginOverlap.AddDynamic(this, &AOJogoCharacter::chutarBeginOverlap); 
 	pode_chutar->OnComponentEndOverlap.AddDynamic(this, &AOJogoCharacter::chutarEndOverlap);
-	pode_chutar->SetIsReplicated(true);
+	pode_chutar->SetIsReplicated(false);
 
 	staminaRT = 100.0;
 	forcaChuteRT = 0.0f;
@@ -292,7 +299,7 @@ void AOJogoCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	DOREPLIFETIME(AOJogoCharacter, roupa1);
 	DOREPLIFETIME(AOJogoCharacter, roupa2);
 	DOREPLIFETIME(AOJogoCharacter, chuteira);
-	DOREPLIFETIME(AOJogoCharacter, jogador);
+	// DOREPLIFETIME(AOJogoCharacter, jogador);
 
 	DOREPLIFETIME(AOJogoCharacter, maxForcaChute);
 	DOREPLIFETIME(AOJogoCharacter, maxForcaCabeceio);
@@ -312,18 +319,18 @@ void AOJogoCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	DOREPLIFETIME(AOJogoCharacter, inputEnabled);
 	DOREPLIFETIME(AOJogoCharacter, slidingActionFinished);
 	DOREPLIFETIME(AOJogoCharacter, onAir);
-	// DOREPLIFETIME(AOJogoCharacter, canHeader);
-	// DOREPLIFETIME(AOJogoCharacter, canKick);
-	// DOREPLIFETIME(AOJogoCharacter, auxSpeed);
-	// DOREPLIFETIME(AOJogoCharacter, chute_location);*/
+	/*DOREPLIFETIME(AOJogoCharacter, canHeader);
+	DOREPLIFETIME(AOJogoCharacter, canKick);
+	DOREPLIFETIME(AOJogoCharacter, auxSpeed);
+	DOREPLIFETIME(AOJogoCharacter, chute_location);*/
 
-	DOREPLIFETIME(AOJogoCharacter, cabeca);
+	/*DOREPLIFETIME(AOJogoCharacter, cabeca);
 	DOREPLIFETIME(AOJogoCharacter, peito);
 	DOREPLIFETIME(AOJogoCharacter, pernas);
 	DOREPLIFETIME(AOJogoCharacter, pes);
 	DOREPLIFETIME(AOJogoCharacter, chute_angulo);
 	DOREPLIFETIME(AOJogoCharacter, pode_cabecear);
-	DOREPLIFETIME(AOJogoCharacter, pode_chutar);
+	DOREPLIFETIME(AOJogoCharacter, pode_chutar);*/
 }
 
 void AOJogoCharacter::BeginPlay()
@@ -485,7 +492,17 @@ void AOJogoCharacter::MC_setJogador_Implementation(FJogadorData f)
 
 void AOJogoCharacter::setMovimentacao_Implementation(int mIndex)
 {
-	MC_setMovimentacao_Implementation(mIndex);
+	// MC_setMovimentacao_Implementation(mIndex);
+	if (jogador.cabeloArray.Num() > 0)
+	{
+		cabelo->SetFlipbook(jogador.cabeloArray[mIndex]);
+		olho->SetFlipbook(jogador.olhoArray[mIndex]);
+		luva->SetFlipbook(jogador.luvaArray[mIndex]);
+		pele->SetFlipbook(jogador.peleArray[mIndex]);
+		roupa1->SetFlipbook(jogador.roupa1Array[mIndex]);
+		roupa2->SetFlipbook(jogador.roupa2Array[mIndex]);
+		chuteira->SetFlipbook(jogador.chuteiraArray[mIndex]);
+	}
 }
 
 void AOJogoCharacter::MC_setMovimentacao_Implementation(int mIndex)

@@ -30,12 +30,12 @@ class AOJogoCharacter : public APaperCharacter
 	GENERATED_BODY()
 
 	/** Side view camera */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera, meta=(AllowPrivateAccess="true"))
-	class UCameraComponent* SideViewCameraComponent;
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera, meta=(AllowPrivateAccess="true"))
+	//class UCameraComponent* SideViewCameraComponent;
 
-	/** Camera boom positioning the camera beside the character */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class USpringArmComponent* CameraBoom;
+	///** Camera boom positioning the camera beside the character */
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	//class USpringArmComponent* CameraBoom;
 
 	// UTextRenderComponent* TextComponent;
 
@@ -85,7 +85,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Animations)
 	class UPaperFlipbookComponent* chuteira;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Animations)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
 	FJogadorData jogador;
 
 	UPROPERTY(BlueprintReadWrite, Replicated, Category = "Habilidades")
@@ -148,25 +148,25 @@ protected:
 	UPROPERTY(BlueprintReadWrite)
 	FVector chute_location;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	USphereComponent* cabeca;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UCapsuleComponent* peito;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	USphereComponent* pernas;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UBoxComponent* pes;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UBoxComponent* chute_angulo;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UBoxComponent* pode_chutar;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UBoxComponent* pode_cabecear;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -185,7 +185,7 @@ protected:
 	void TouchStopped(const ETouchIndex::Type FingerIndex, const FVector Location);
 
 public:
-	AOJogoCharacter();
+	AOJogoCharacter(const class FObjectInitializer& PCIP);
 
 	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
@@ -208,9 +208,9 @@ public:
 
 	FORCEINLINE int32 GetIndexController() const { return index_controller; }
 
-	FORCEINLINE class UCameraComponent* GetSideViewCameraComponent() const { return SideViewCameraComponent; }
+	/*FORCEINLINE class UCameraComponent* GetSideViewCameraComponent() const { return SideViewCameraComponent; }
 
-	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
+	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }*/
 
 	FORCEINLINE class UPaperFlipbookComponent* Getcabelo() const { return cabelo; }
 
