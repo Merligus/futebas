@@ -27,6 +27,8 @@ public:
 
 	APlayerCharacterState();
 
+	virtual void BeginPlay() override;
+
 	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
 	UFUNCTION(BlueprintCallable, Server, Unreliable)
@@ -42,5 +44,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	float GetStamina() const;
+
+	UFUNCTION(BlueprintCallable, Server, Unreliable)
+	void staminaRegenLoop();
+	void staminaRegenLoop_Implementation();
 	
 };

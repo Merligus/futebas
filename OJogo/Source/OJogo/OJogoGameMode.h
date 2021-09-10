@@ -15,6 +15,7 @@
 #include "Bola.h"
 #include "BotCharacter.h"
 #include "PlayerCharacter.h"
+#include "Net/UnrealNetwork.h"
 #include "OJogoGameMode.generated.h"
 
 /**
@@ -91,6 +92,10 @@ protected:
 
 public:
 	AOJogoGameMode();
+
+	UFUNCTION(BlueprintCallable, Server, Unreliable)
+	void possessRequested(APlayerController* PC);
+	void possessRequested_Implementation(APlayerController* PC);
 
 	UFUNCTION(BlueprintCallable)
 	void beginGame();

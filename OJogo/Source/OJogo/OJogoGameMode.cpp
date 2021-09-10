@@ -9,12 +9,43 @@
 #include "LevelSequencePlayer.h"
 #include "MovieSceneSequencePlayer.h"
 #include "Camera/CameraActor.h"
+#include "MyController.h"
 #include "UObject/ConstructorHelpers.h"
 
 AOJogoGameMode::AOJogoGameMode()
 {
 	// Set default pawn class to our character
 	// DefaultPawnClass = AOJogoCharacter::StaticClass();	
+}
+
+void AOJogoGameMode::possessRequested_Implementation(APlayerController* PC)
+{
+	if (JogosGameState)
+	{
+		if (JogosGameState->arrayJogadores.Num() > JogosGameState->playersSpawned)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Orange, FString::Printf(TEXT("Possessed")));
+			UE_LOG(LogTemp, Warning, TEXT("Possessed"));
+			PC->Possess(JogosGameState->arrayJogadores[JogosGameState->playersSpawned]);
+			JogosGameState->playersSpawned++;
+			if (JogosGameState->playersSpawned == 2)
+			{
+				if (FutebasGI)
+				{
+					TArray<AActor*> FoundActors;
+					UGameplayStatics::GetAllActorsOfClass(GetWorld(), AOJogoCharacter::StaticClass(), FoundActors);
+					for (int32 i = 0; i < FoundActors.Num(); i++)
+					{
+						AOJogoCharacter* player_char = Cast<AOJogoCharacter>(FoundActors[i]);
+						if (i == 0)
+							player_char->pawnConfig(FutebasGI->team1.jogador, FutebasGI->team1.habilidades);
+						else
+							player_char->pawnConfig(FutebasGI->team2.jogador, FutebasGI->team2.habilidades);
+					}
+				}
+			}
+		}
+	}
 }
 
 void AOJogoGameMode::BeginPlay()
@@ -69,24 +100,30 @@ void AOJogoGameMode::BeginPlay()
 			}
 		}
 	}
-	//else // just create the player 1
-	//{
-	//	APlayerCharacter* player = GetWorld()->SpawnActorDeferred<APlayerCharacter>(playerClass.Get(), FTransform());
-	//	if (player)
-	//	{
-	//		player->SetIndexController(0);
-	//		UGameplayStatics::FinishSpawningActor(player, FTransform());
-	//	}
-	//	else
-	//		UE_LOG(LogTemp, Warning, TEXT("player %d not spawned"), 0);
-	//	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-	//	APawn* pawn = Cast<APawn>(player);
-	//	if (IsValid(pawn))
-	//		PC->Possess(pawn);
-	//}
+	/*else
+	{
+		TArray<AActor*> FoundActors;
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStart::StaticClass(), FoundActors);
+		for (int32 player_index = 0; player_index < FoundActors.Num(); ++player_index)
+		{
+			APlayerCharacter* player = GetWorld()->SpawnActorDeferred<APlayerCharacter>(playerClass.Get(), FTransform());
+			if (player)
+			{
+				player->SetIndexController(player_index);
+				UGameplayStatics::FinishSpawningActor(player, FTransform());
 
-	FTimerHandle UnusedHandle;
-	GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::beginGame, 0.5f, false);
+				player->SetIndexController(0);
+				JogosGameState->arrayJogadores.Add(player);
+				GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Cyan, FString::Printf(TEXT("Spawned")));
+			}
+			else
+				UE_LOG(LogTemp, Warning, TEXT("player %d not spawned"), player_index);
+		}
+	}*/
+
+	/*FTimerHandle UnusedHandle;
+	GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::beginGame, 0.5f, false);*/
+
 	// game instance
 	// FutebasGI = Cast<UFutebasGameInstance>(GetGameInstance());
 	// GetGameInstance()

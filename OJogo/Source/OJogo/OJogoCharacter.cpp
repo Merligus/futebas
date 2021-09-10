@@ -311,14 +311,14 @@ void AOJogoCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	DOREPLIFETIME(AOJogoCharacter, slidingStaminaCost);
 
 	// DOREPLIFETIME(AOJogoCharacter, index_controller);
-	DOREPLIFETIME(AOJogoCharacter, kicking);
-	DOREPLIFETIME(AOJogoCharacter, sliding);
-	DOREPLIFETIME(AOJogoCharacter, chutaFinished);
-	DOREPLIFETIME(AOJogoCharacter, dashFinished);
-	DOREPLIFETIME(AOJogoCharacter, auxAcceleration);
+	// DOREPLIFETIME(AOJogoCharacter, kicking);
+	// DOREPLIFETIME(AOJogoCharacter, sliding);
+	// DOREPLIFETIME(AOJogoCharacter, chutaFinished);
+	// DOREPLIFETIME(AOJogoCharacter, dashFinished);
+	// DOREPLIFETIME(AOJogoCharacter, auxAcceleration);
 	DOREPLIFETIME(AOJogoCharacter, inputEnabled);
-	DOREPLIFETIME(AOJogoCharacter, slidingActionFinished);
-	DOREPLIFETIME(AOJogoCharacter, onAir);
+	// DOREPLIFETIME(AOJogoCharacter, slidingActionFinished);
+	// DOREPLIFETIME(AOJogoCharacter, onAir);
 	/*DOREPLIFETIME(AOJogoCharacter, canHeader);
 	DOREPLIFETIME(AOJogoCharacter, canKick);
 	DOREPLIFETIME(AOJogoCharacter, auxSpeed);
@@ -336,9 +336,6 @@ void AOJogoCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 void AOJogoCharacter::BeginPlay()
 {
     Super::BeginPlay();
-	
-	/*FTimerHandle UnusedHandle;
-	GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoCharacter::staminaRegenLoop, 0.05f, true);*/
 
 	chute_location = chute_angulo->GetRelativeLocation();
 }
@@ -490,6 +487,20 @@ void AOJogoCharacter::MC_setJogador_Implementation(FJogadorData f)
 	chuteira->SetSpriteColor(jogador.chuteira);
 }
 
+void AOJogoCharacter::pawnConfig_Implementation(FJogadorData f, FHabilidadesData h)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Emerald, FString::Printf(TEXT("PawnConfig")));
+	UE_LOG(LogTemp, Warning, TEXT("PawnConfig"));
+	setHabilidades(h);
+	setJogador(f);
+
+	//if (IsLocallyControlled())
+	//{
+	//	FTimerHandle UnusedHandle;
+	//	GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoCharacter::staminaRegenLoop, 0.01f, true); // 0.05
+	//}
+}
+
 void AOJogoCharacter::setMovimentacao_Implementation(int mIndex)
 {
 	// MC_setMovimentacao_Implementation(mIndex);
@@ -516,19 +527,6 @@ void AOJogoCharacter::MC_setMovimentacao_Implementation(int mIndex)
 		roupa1->SetFlipbook(jogador.roupa1Array[mIndex]);
 		roupa2->SetFlipbook(jogador.roupa2Array[mIndex]);
 		chuteira->SetFlipbook(jogador.chuteiraArray[mIndex]);
-	}
-}
-
-void AOJogoCharacter::staminaRegenLoop()
-{
-	// stamina = stamina + staminaRegen;
-	float s = GetStaminaRT() + staminaRegen;
-	GetPlayerState<APlayerCharacterState>()->SV_SetStamina(s);
-	staminaRT = s;
-	if (staminaRT > 100)
-	{
-		GetPlayerState<APlayerCharacterState>()->SV_SetStamina(100.0f);
-		staminaRT = 100.0f;
 	}
 }
 

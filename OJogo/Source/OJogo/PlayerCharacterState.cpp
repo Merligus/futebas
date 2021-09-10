@@ -19,6 +19,14 @@ APlayerCharacterState::APlayerCharacterState()
     }*/
 }
 
+void APlayerCharacterState::BeginPlay()
+{
+    Super::BeginPlay();
+
+    FTimerHandle UnusedHandle;
+    GetWorldTimerManager().SetTimer(UnusedHandle, this, &APlayerCharacterState::staminaRegenLoop, 0.01f, true); // 0.05
+}
+
 void APlayerCharacterState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty> & OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
@@ -45,4 +53,20 @@ void APlayerCharacterState::SV_SetStamina_Implementation(float stam)
 float APlayerCharacterState::GetStamina() const
 {
     return stamina;
+}
+
+void APlayerCharacterState::staminaRegenLoop_Implementation()
+{
+    AOJogoCharacter* pawn = GetPawn<AOJogoCharacter>();
+    if (IsValid(pawn))
+    {
+        float s = GetStamina() + pawn->GetStaminaRegen();
+        SV_SetStamina(s);
+        pawn->SetStaminaRT(s);
+        if (GetStamina() > 100)
+        {
+            SV_SetStamina(100.0f);
+            pawn->SetStaminaRT(100.0f);
+        }
+    }
 }

@@ -100,6 +100,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 golsSomadosTimeDir_pen;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32  playersSpawned;
+
 	AOJogoGameState();
 	
 };

@@ -78,7 +78,7 @@ void UFutebasGameInstance::PostInitProperties()
 	desempate_por_penaltis = true;
 	team1_em_casa = true;
 	vs_bot = false;
-	online_instance = false;
+	online_instance = true;
 	escolheTeam2 = false;
 	team1_index_slot = -1;
 	team2_index_slot = -1;

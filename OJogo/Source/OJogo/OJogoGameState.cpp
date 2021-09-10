@@ -31,4 +31,6 @@ AOJogoGameState::AOJogoGameState()
 	golsSomadosTimeDir_pen = -1;
 	golsTimeEsq_pen.Init(2, 5);
 	golsTimeDir_pen.Init(2, 5);
+
+	playersSpawned = 0;
 }

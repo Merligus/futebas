@@ -39,13 +39,13 @@ class AOJogoCharacter : public APaperCharacter
 
 	// UTextRenderComponent* TextComponent;
 
-	UPROPERTY(Replicated)
+	UPROPERTY()
 	bool dashFinished;
 
-	UPROPERTY(Replicated)
+	UPROPERTY()
 	bool slidingActionFinished;
 
-	UPROPERTY(Replicated)
+	UPROPERTY()
 	bool chutaFinished;
 
 	UPROPERTY()
@@ -121,19 +121,19 @@ protected:
 	UPROPERTY(BlueprintReadWrite)
 	bool bisMovingRight;
 
-	UPROPERTY(BlueprintReadWrite, Replicated)
+	UPROPERTY(BlueprintReadWrite)
 	bool kicking;
 
-	UPROPERTY(BlueprintReadWrite, Replicated)
+	UPROPERTY(BlueprintReadWrite)
 	bool sliding;
 
-	UPROPERTY(BlueprintReadWrite, Replicated)
+	UPROPERTY(BlueprintReadWrite)
 	bool onAir;
 
 	UPROPERTY(BlueprintReadWrite)
 	float auxSpeed;
 
-	UPROPERTY(BlueprintReadWrite, Replicated)
+	UPROPERTY(BlueprintReadWrite)
 	float auxAcceleration;
 
 	UPROPERTY(BlueprintReadWrite)
@@ -169,7 +169,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UBoxComponent* pode_cabecear;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ExposeOnSpawn = "true"))
 	int32 index_controller;
 
 	/** Called to choose the correct animation to play based on the character's movement state */
@@ -232,6 +232,12 @@ public:
 
 	FORCEINLINE float GetForcaChuteRT() const { return forcaChuteRT; }
 
+	FORCEINLINE float GetStaminaRegen() const { return staminaRegen; }
+	
+	UFUNCTION(Client, Unreliable, BlueprintCallable)
+	void SetStaminaRT(float s);
+	FORCEINLINE void SetStaminaRT_Implementation(float s) { staminaRT = s; }
+
 	UFUNCTION(Server, Unreliable, BlueprintCallable, Category = "Habilidades")
 	void setHabilidades(const FHabilidadesData h);
 	void setHabilidades_Implementation(const FHabilidadesData h);
@@ -248,11 +254,9 @@ public:
 	void MC_setJogador(FJogadorData f);
 	void MC_setJogador_Implementation(FJogadorData f);
 
-	/*UFUNCTION(BlueprintCallable, Category = "Habilidades")
-	void setHabilidades(const FHabilidadesData h);
-
-	UFUNCTION(BlueprintCallable, Category = "Habilidades")
-	void setJogador(FJogadorData f);*/
+	UFUNCTION(Client, Unreliable, BlueprintCallable)
+	void pawnConfig(FJogadorData f, FHabilidadesData h);
+	void pawnConfig_Implementation(FJogadorData f, FHabilidadesData h);
 
 	UFUNCTION(Server, Unreliable, BlueprintCallable)
 	void setMovimentacao(int mIndex);
@@ -261,9 +265,6 @@ public:
 	UFUNCTION(NetMulticast, Unreliable, BlueprintCallable)
 	void MC_setMovimentacao(int mIndex);
 	void MC_setMovimentacao_Implementation(int mIndex);
-
-	UFUNCTION(BlueprintCallable)
-	void staminaRegenLoop();
 
 	UFUNCTION(BlueprintCallable, Server, Unreliable)
 	void dashFunction();
