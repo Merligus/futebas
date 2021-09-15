@@ -28,7 +28,7 @@ AOJogoCharacter::AOJogoCharacter(const class FObjectInitializer& PCIP) : Super(P
 	// Set the size of our collision capsule.
 	GetCapsuleComponent()->SetCapsuleHalfHeight(96.0f);
 	GetCapsuleComponent()->SetCapsuleRadius(40.0f);
-	GetCapsuleComponent()->SetIsReplicated(true);
+	GetCapsuleComponent()->SetIsReplicated(false);
 
 	// Create a camera boom attached to the root (capsule)
 	// CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
@@ -81,7 +81,7 @@ AOJogoCharacter::AOJogoCharacter(const class FObjectInitializer& PCIP) : Super(P
     // 	TextComponent->SetupAttachment(RootComponent);
 
 	// Enable replication on the Sprite component so animations show up when networked
-	GetSprite()->SetIsReplicated(true);
+	GetSprite()->SetIsReplicated(false);
 	GetCharacterMovement()->SetIsReplicated(true);
 	// bReplicateMovement = true;
 	SetReplicateMovement(true);
@@ -111,7 +111,7 @@ AOJogoCharacter::AOJogoCharacter(const class FObjectInitializer& PCIP) : Super(P
 		cabelo->SetCollisionProfileName(CollisionProfileName);
 		cabelo->SetGenerateOverlapEvents(false);
 		cabelo->SetCanEverAffectNavigation(false);
-		cabelo->SetIsReplicated(true);
+		cabelo->SetIsReplicated(false);
 	}
 	olho = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("olho"));
 	if (olho)
@@ -126,7 +126,7 @@ AOJogoCharacter::AOJogoCharacter(const class FObjectInitializer& PCIP) : Super(P
 		olho->SetCollisionProfileName(CollisionProfileName);
 		olho->SetGenerateOverlapEvents(false);
 		olho->SetCanEverAffectNavigation(false);
-		olho->SetIsReplicated(true);
+		olho->SetIsReplicated(false);
 	}
 	luva = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("luva"));
 	if (luva)
@@ -141,7 +141,7 @@ AOJogoCharacter::AOJogoCharacter(const class FObjectInitializer& PCIP) : Super(P
 		luva->SetCollisionProfileName(CollisionProfileName);
 		luva->SetGenerateOverlapEvents(false);
 		luva->SetCanEverAffectNavigation(false);
-		luva->SetIsReplicated(true);
+		luva->SetIsReplicated(false);
 	}
 	pele = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("pele"));
 	if (pele)
@@ -156,7 +156,7 @@ AOJogoCharacter::AOJogoCharacter(const class FObjectInitializer& PCIP) : Super(P
 		pele->SetCollisionProfileName(CollisionProfileName);
 		pele->SetGenerateOverlapEvents(false);
 		pele->SetCanEverAffectNavigation(false);
-		pele->SetIsReplicated(true);
+		pele->SetIsReplicated(false);
 	}
 	roupa1 = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("roupa1"));
 	if (roupa1)
@@ -171,7 +171,7 @@ AOJogoCharacter::AOJogoCharacter(const class FObjectInitializer& PCIP) : Super(P
 		roupa1->SetCollisionProfileName(CollisionProfileName);
 		roupa1->SetGenerateOverlapEvents(false);
 		roupa1->SetCanEverAffectNavigation(false);
-		roupa1->SetIsReplicated(true);
+		roupa1->SetIsReplicated(false);
 	}
 	roupa2 = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("roupa2"));
 	if (roupa2)
@@ -186,7 +186,7 @@ AOJogoCharacter::AOJogoCharacter(const class FObjectInitializer& PCIP) : Super(P
 		roupa2->SetCollisionProfileName(CollisionProfileName);
 		roupa2->SetGenerateOverlapEvents(false);
 		roupa2->SetCanEverAffectNavigation(false);
-		roupa2->SetIsReplicated(true);
+		roupa2->SetIsReplicated(false);
 	}
 	chuteira = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("chuteira"));
 	if (chuteira)
@@ -201,7 +201,7 @@ AOJogoCharacter::AOJogoCharacter(const class FObjectInitializer& PCIP) : Super(P
 		chuteira->SetCollisionProfileName(CollisionProfileName);
 		chuteira->SetGenerateOverlapEvents(false);
 		chuteira->SetCanEverAffectNavigation(false);
-		chuteira->SetIsReplicated(true);
+		chuteira->SetIsReplicated(false);
 	}
 
 	GetSprite()->SetRelativeLocation(FVector(3.7, 0.0001, 10.5));
@@ -292,15 +292,6 @@ void AOJogoCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
-	DOREPLIFETIME(AOJogoCharacter, cabelo);
-	DOREPLIFETIME(AOJogoCharacter, olho);
-	DOREPLIFETIME(AOJogoCharacter, luva);
-	DOREPLIFETIME(AOJogoCharacter, pele);
-	DOREPLIFETIME(AOJogoCharacter, roupa1);
-	DOREPLIFETIME(AOJogoCharacter, roupa2);
-	DOREPLIFETIME(AOJogoCharacter, chuteira);
-	// DOREPLIFETIME(AOJogoCharacter, jogador);
-
 	DOREPLIFETIME(AOJogoCharacter, maxForcaChute);
 	DOREPLIFETIME(AOJogoCharacter, maxForcaCabeceio);
 	DOREPLIFETIME(AOJogoCharacter, velocidade);
@@ -313,8 +304,8 @@ void AOJogoCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	// DOREPLIFETIME(AOJogoCharacter, index_controller);
 	// DOREPLIFETIME(AOJogoCharacter, kicking);
 	// DOREPLIFETIME(AOJogoCharacter, sliding);
-	// DOREPLIFETIME(AOJogoCharacter, chutaFinished);
 	// DOREPLIFETIME(AOJogoCharacter, dashFinished);
+	// DOREPLIFETIME(AOJogoCharacter, chutaFinished);
 	// DOREPLIFETIME(AOJogoCharacter, auxAcceleration);
 	DOREPLIFETIME(AOJogoCharacter, inputEnabled);
 	// DOREPLIFETIME(AOJogoCharacter, slidingActionFinished);
@@ -342,9 +333,13 @@ void AOJogoCharacter::BeginPlay()
 
 //////////////////////////////////////////////////////////////////////////
 // Animation
-
 void AOJogoCharacter::UpdateAnimation()
-	{
+{
+	/*if (HasAuthority())
+		GEngine->AddOnScreenDebugMessage(-1, 0.2f, FColor::Red, FString::Printf(TEXT("Server: update %.2f"), maxForcaChute));
+	else
+		GEngine->AddOnScreenDebugMessage(-1, 0.2f, FColor::Emerald, FString::Printf(TEXT("Client: update %.2f"), maxForcaChute));*/
+
 	const FVector PlayerVelocity = GetVelocity();
 
 	// usar caso tenha sprite de falling
@@ -366,20 +361,18 @@ void AOJogoCharacter::UpdateAnimation()
 
 void AOJogoCharacter::Tick(float DeltaSeconds)
 {
-	if (IsLocallyControlled())
-	{
-		Super::Tick(DeltaSeconds);
+	Super::Tick(DeltaSeconds);
 
-		onAir = GetCharacterMovement()->IsFalling();
-		
-		if (sliding && dashFinished)
-		{
-			dashFinished = false;
-			dashFunction();
-		}
-		else
-			UpdateAnimation();
+	onAir = GetCharacterMovement()->IsFalling();
+
+	if (sliding && dashFinished)
+	{
+		dashFinished = false;
+		setDashFinished(false);
+		dashFunction();
 	}
+	else
+		UpdateAnimation();
 }
 
 void AOJogoCharacter::MoveRight(float Value)
@@ -409,7 +402,7 @@ void AOJogoCharacter::Pula()
 	}
 }
 
-void AOJogoCharacter::Chuta_Implementation()
+void AOJogoCharacter::Chuta()
 {
 	if (!sliding)
 	{
@@ -417,24 +410,32 @@ void AOJogoCharacter::Chuta_Implementation()
 		{
 			chutaFinished = false;
 			kicking = true;
-
-			TArray<AActor*> FoundActors;
-			UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
-			if (FoundActors.Num() == 1)
-				ball = Cast<ABola>(FoundActors[0]);
+			setKicking(true);
 
 			float forca = setForcaChute();
-			if (forca > 0 && IsValid(ball))
-				ball->chuta(chute_angulo->GetComponentRotation(), forca);
+			if (forca > 0)
+				SV_Chuta(chute_angulo->GetComponentRotation(), forca);
 			FTimerHandle UnusedHandle;
 			GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoCharacter::chutaTimeout, 0.2f, false);
 		}
 	}
 }
 
+void AOJogoCharacter::SV_Chuta_Implementation(FRotator anguloChute, float forca)
+{
+	TArray<AActor*> FoundActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
+	if (FoundActors.Num() == 1)
+		ball = Cast<ABola>(FoundActors[0]);
+
+	if (IsValid(ball))
+		ball->SV_chuta(anguloChute, forca);
+}
+
 void AOJogoCharacter::chutaTimeout()
 {
 	kicking = false;
+	setKicking(false);
 	chutaFinished = true;
 }
 
@@ -489,7 +490,7 @@ void AOJogoCharacter::MC_setJogador_Implementation(FJogadorData f)
 
 void AOJogoCharacter::pawnConfig_Implementation(FJogadorData f, FHabilidadesData h)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Emerald, FString::Printf(TEXT("PawnConfig")));
+	// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Emerald, FString::Printf(TEXT("PawnConfig")));
 	UE_LOG(LogTemp, Warning, TEXT("PawnConfig"));
 	setHabilidades(h);
 	setJogador(f);
@@ -501,22 +502,7 @@ void AOJogoCharacter::pawnConfig_Implementation(FJogadorData f, FHabilidadesData
 	//}
 }
 
-void AOJogoCharacter::setMovimentacao_Implementation(int mIndex)
-{
-	// MC_setMovimentacao_Implementation(mIndex);
-	if (jogador.cabeloArray.Num() > 0)
-	{
-		cabelo->SetFlipbook(jogador.cabeloArray[mIndex]);
-		olho->SetFlipbook(jogador.olhoArray[mIndex]);
-		luva->SetFlipbook(jogador.luvaArray[mIndex]);
-		pele->SetFlipbook(jogador.peleArray[mIndex]);
-		roupa1->SetFlipbook(jogador.roupa1Array[mIndex]);
-		roupa2->SetFlipbook(jogador.roupa2Array[mIndex]);
-		chuteira->SetFlipbook(jogador.chuteiraArray[mIndex]);
-	}
-}
-
-void AOJogoCharacter::MC_setMovimentacao_Implementation(int mIndex)
+void AOJogoCharacter::setMovimentacao(int mIndex)
 {
 	if (jogador.cabeloArray.Num() > 0)
 	{
@@ -530,12 +516,7 @@ void AOJogoCharacter::MC_setMovimentacao_Implementation(int mIndex)
 	}
 }
 
-void AOJogoCharacter::dashFunction_Implementation()
-{
-	MC_dashFunction_Implementation();
-}
-
-void AOJogoCharacter::MC_dashFunction_Implementation()
+void AOJogoCharacter::dashFunction()
 {
 	// APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), index_controller);
 	// DisableInput(PC);
@@ -544,6 +525,7 @@ void AOJogoCharacter::MC_dashFunction_Implementation()
 	auxAcceleration = GetCharacterMovement()->BrakingFrictionFactor;
 	GetCharacterMovement()->BrakingFrictionFactor = 0.0f;
 	LaunchCharacter(3 * velocidadeCarrinho * FVector(GetActorForwardVector().X, 0, 0).GetSafeNormal(), true, true);
+	SV_LaunchCharacter();
 
 	// GetWorldTimerManager().SetTimer(dashHandle, this, &AOJogoCharacter::dashing, 0.005f, false);
 
@@ -552,12 +534,18 @@ void AOJogoCharacter::MC_dashFunction_Implementation()
 	GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoCharacter::terminaDashing, 0.8f, false);
 }
 
+void AOJogoCharacter::SV_LaunchCharacter_Implementation()
+{
+	GetCharacterMovement()->BrakingFrictionFactor = 0.0f;
+	LaunchCharacter(3 * velocidadeCarrinho * FVector(GetActorForwardVector().X, 0, 0).GetSafeNormal(), true, true);
+}
+
 void AOJogoCharacter::dashing() // deprecated
 {
 	AddMovementInput(GetCapsuleComponent()->GetForwardVector(), 100.0f);
 }
 
-void AOJogoCharacter::terminaDashing_Implementation()
+void AOJogoCharacter::terminaDashing()
 {
 	GetCharacterMovement()->BrakingFrictionFactor = auxAcceleration;
 
@@ -566,6 +554,7 @@ void AOJogoCharacter::terminaDashing_Implementation()
 	stopSliding();
 	inputEnabled = true;
 	dashFinished = true;
+	setDashFinished(true);
 }
 
 void AOJogoCharacter::slideAction()
@@ -575,6 +564,7 @@ void AOJogoCharacter::slideAction()
 		if (slidingActionFinished)
 		{
 			slidingActionFinished = false;
+			setSlidingActionFinished(false);
 			if (GetStaminaRT() > slidingStaminaCost)
 			{
 				if (onAir)
@@ -586,6 +576,7 @@ void AOJogoCharacter::slideAction()
 					GetPlayerState<APlayerCharacterState>()->SV_SetStamina(s);
 					staminaRT = s;
 					sliding = true;
+					setSliding(true);
 				}
 			}
 			else
@@ -594,10 +585,32 @@ void AOJogoCharacter::slideAction()
 	}
 }
 
-void AOJogoCharacter::stopSliding_Implementation()
+void AOJogoCharacter::stopSliding()
 {
     slidingActionFinished = true;
+	setSlidingActionFinished(true);
 	sliding = false;
+	setSliding(false);
+}
+
+void AOJogoCharacter::setSliding_Implementation(bool b)
+{
+	sliding = b;
+}
+
+void AOJogoCharacter::setDashFinished_Implementation(bool b)
+{
+	dashFinished = b;
+}
+
+void AOJogoCharacter::setKicking_Implementation(bool b)
+{
+	kicking = b;
+}
+
+void AOJogoCharacter::setSlidingActionFinished_Implementation(bool b)
+{
+	slidingActionFinished = b;
 }
 
 float AOJogoCharacter::setForcaChute()

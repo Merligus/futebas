@@ -24,7 +24,7 @@ void AOJogoGameMode::possessRequested_Implementation(APlayerController* PC)
 	{
 		if (JogosGameState->arrayJogadores.Num() > JogosGameState->playersSpawned)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Orange, FString::Printf(TEXT("Possessed")));
+			// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Orange, FString::Printf(TEXT("Possessed")));
 			UE_LOG(LogTemp, Warning, TEXT("Possessed"));
 			PC->Possess(JogosGameState->arrayJogadores[JogosGameState->playersSpawned]);
 			JogosGameState->playersSpawned++;
@@ -63,7 +63,8 @@ void AOJogoGameMode::BeginPlay()
 	else
 	{
 		a = -1;
-		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("JogosGameState nao encontrado")));
+		// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("JogosGameState nao encontrado")));
+		UE_LOG(LogTemp, Warning, TEXT("JogosGameState nao encontrado"));
 	}
 
 	FutebasGI = GetGameInstance<UFutebasGameInstance>();
@@ -73,7 +74,8 @@ void AOJogoGameMode::BeginPlay()
 	}
 	else
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("FutebasGI nao encontrado")));
+		// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("FutebasGI nao encontrado")));
+		UE_LOG(LogTemp, Warning, TEXT("FutebasGI nao encontrado"));
 	}
 
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStart::StaticClass(), PlayerStarts);
@@ -100,7 +102,7 @@ void AOJogoGameMode::BeginPlay()
 			}
 		}
 	}
-	/*else
+	else
 	{
 		TArray<AActor*> FoundActors;
 		UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStart::StaticClass(), FoundActors);
@@ -114,12 +116,13 @@ void AOJogoGameMode::BeginPlay()
 
 				player->SetIndexController(0);
 				JogosGameState->arrayJogadores.Add(player);
-				GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Cyan, FString::Printf(TEXT("Spawned")));
+				// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Cyan, FString::Printf(TEXT("Spawned")));
+				UE_LOG(LogTemp, Warning, TEXT("Spawned"));
 			}
 			else
 				UE_LOG(LogTemp, Warning, TEXT("player %d not spawned"), player_index);
 		}
-	}*/
+	}
 
 	/*FTimerHandle UnusedHandle;
 	GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::beginGame, 0.5f, false);*/
@@ -208,14 +211,16 @@ void AOJogoGameMode::fazSomApito(int32 modo)
 		if (som_apito_inicio)
 			UGameplayStatics::PlaySoundAtLocation(GetWorld(), som_apito_inicio, JogosGameState->posInicial);
 		else
-			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("som apito inicio nao encontrado")));
+			UE_LOG(LogTemp, Warning, TEXT("som apito inicio nao encontrado"));
+			// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("som apito inicio nao encontrado")));
 	}
 	else if (modo == 1)
 	{
 		if (som_apito_fim)
 			UGameplayStatics::PlaySoundAtLocation(GetWorld(), som_apito_fim, JogosGameState->posInicial);
 		else
-			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("som apito fim nao encontrado")));
+			UE_LOG(LogTemp, Warning, TEXT("som apito fim nao encontrado"));
+			// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("som apito fim nao encontrado")));
 	}
 }
 
@@ -268,7 +273,8 @@ void AOJogoGameMode::reiniciaPartida(bool neutro, bool favoravelEsq)
 			JogosGameState->arrayJogadores[indicePS]->SetActorTransform(NewLocation, false, NULL, ETeleportType::TeleportPhysics);
 		}
 		else
-			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Player Start %d nao achado"), Index));
+			UE_LOG(LogTemp, Warning, TEXT("Player Start %d nao achado"), Index);
+			// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Player Start %d nao achado"), Index));
 	}
 }
 
@@ -522,10 +528,12 @@ void AOJogoGameMode::escanteioTimedOut()
 			Sphere->SetWorldLocation(posicao->GetActorLocation(), false, NULL, ETeleportType::TeleportPhysics);
 		}
 		else
-			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Sphere nao achada no escanteio")));
+			UE_LOG(LogTemp, Warning, TEXT("Sphere nao achada no escanteio"));
+			// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Sphere nao achada no escanteio")));
 	}
 	else
-		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola nao achada no escanteio")));
+		UE_LOG(LogTemp, Warning, TEXT("Bola nao achada no escanteio"));
+		// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola nao achada no escanteio")));
 }
 
 void AOJogoGameMode::reiniciaBolaMeio()
@@ -534,7 +542,8 @@ void AOJogoGameMode::reiniciaBolaMeio()
 	{
 		if (IsValid(BolaActor))
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Achou bola na explosao")));
+			// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Achou bola na explosao")));
+			UE_LOG(LogTemp, Warning, TEXT("Achou bola na explosao"));
 			UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(BolaActor->GetRootComponent());
 			if (Sphere)
 			{
@@ -545,13 +554,16 @@ void AOJogoGameMode::reiniciaBolaMeio()
 				if (BolaActor)
 					BolaActor->explode(FVector(posOld.X, 10, 0));
 				else
-					GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("nao deu pra explodir")));
+					UE_LOG(LogTemp, Warning, TEXT("nao deu pra explodir"));
+					// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("nao deu pra explodir")));
 			}
 			else
-				GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Sphere nao achada na explosao")));
+				UE_LOG(LogTemp, Warning, TEXT("Sphere nao achada na explosao"));
+				// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Sphere nao achada na explosao")));
 		}
 		else
-			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola nao achada na explosao")));
+			UE_LOG(LogTemp, Warning, TEXT("Bola nao achada na explosao"));
+			// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bola nao achada na explosao")));
 	}
 }
 
@@ -584,7 +596,8 @@ void AOJogoGameMode::penalidadesMaximas()
 			if (JogosGameState->golsSomadosTimeEsq_pen - JogosGameState->golsSomadosTimeDir_pen != 0)
 			{
 				acabou = true;
-				GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("no alternado terminou")));
+				// GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("no alternado terminou")));
+				UE_LOG(LogTemp, Warning, TEXT("no alternado terminou"));
 				decideVencedor();
 			}
 		}

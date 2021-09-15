@@ -7,6 +7,7 @@
 #include "Components/SphereComponent.h"
 #include "PaperFlipbookComponent.h"
 #include "Sound/SoundWave.h"
+#include "Net/UnrealNetwork.h"
 #include "Bola.generated.h"
 
 UCLASS()
@@ -19,13 +20,13 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Bola")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Bola", Replicated)
 	USphereComponent* esfera;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Bola")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Bola", Replicated)
 	UStaticMeshComponent* aparencia;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations, Replicated)
 	UPaperFlipbookComponent* explosao;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Sons)
@@ -37,13 +38,23 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
 	void explode(FVector posicao);
+	void explode_Implementation(FVector posicao);
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
 	void fazSomChute(FVector posicao);
+	void fazSomChute_Implementation(FVector posicao);
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Client, Unreliable)
 	void chuta(FRotator anguloChute, float forca);
+	void chuta_Implementation(FRotator anguloChute, float forca);
 
+	UFUNCTION(BlueprintCallable, Server, Unreliable)
+	void SV_chuta(FRotator anguloChute, float forca);
+	void SV_chuta_Implementation(FRotator anguloChute, float forca);
+
+	UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
+	void MC_chuta(FRotator anguloChute, float forca);
+	void MC_chuta_Implementation(FRotator anguloChute, float forca);
 };

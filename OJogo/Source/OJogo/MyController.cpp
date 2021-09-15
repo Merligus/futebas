@@ -15,12 +15,13 @@ void AMyController::BeginPlay()
 
 void AMyController::OnPossess(APawn* aPawn)
 {
+    Super::OnPossess(aPawn);
+
     SetCamera();
 }
 
 void AMyController::RPC_PossessRequest_Implementation()
 {
-    GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Request")));
     UE_LOG(LogTemp, Warning, TEXT("Request"));
     PossessRequest(this);
 }
@@ -41,7 +42,6 @@ void AMyController::SetCamera_Implementation()
     for (int32 i = 0; i < FoundActors.Num(); ++i)
         if (FoundActors[i]->Tags.Num() > 0)
         {
-            GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Yellow, FString::Printf(TEXT("Camera")));
             UE_LOG(LogTemp, Warning, TEXT("Camera"));
             SetViewTargetWithBlend(FoundActors[i]);
         }

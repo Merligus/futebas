@@ -64,25 +64,25 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
 	class UPaperFlipbook* IdleAnimation;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Animations)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
 	class UPaperFlipbookComponent* cabelo;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Animations)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
 	class UPaperFlipbookComponent* olho;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Animations)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
 	class UPaperFlipbookComponent* luva;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Animations)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
 	class UPaperFlipbookComponent* pele;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Animations)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
 	class UPaperFlipbookComponent* roupa1;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Animations)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
 	class UPaperFlipbookComponent* roupa2;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Animations)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
 	class UPaperFlipbookComponent* chuteira;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
@@ -200,9 +200,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Pula();
 
-	UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
+	UFUNCTION(BlueprintCallable)
 	void Chuta();
-	void Chuta_Implementation();
+
+	UFUNCTION(BlueprintCallable, Server, Unreliable)
+	void SV_Chuta(FRotator anguloChute, float forca);
+	void SV_Chuta_Implementation(FRotator anguloChute, float forca);
 
 	FORCEINLINE void SetIndexController(int32 index) { index_controller = index; }
 
@@ -254,39 +257,47 @@ public:
 	void MC_setJogador(FJogadorData f);
 	void MC_setJogador_Implementation(FJogadorData f);
 
-	UFUNCTION(Client, Unreliable, BlueprintCallable)
+	UFUNCTION(NetMulticast, Unreliable, BlueprintCallable)
 	void pawnConfig(FJogadorData f, FHabilidadesData h);
 	void pawnConfig_Implementation(FJogadorData f, FHabilidadesData h);
 
-	UFUNCTION(Server, Unreliable, BlueprintCallable)
+	UFUNCTION(BlueprintCallable)
 	void setMovimentacao(int mIndex);
-	void setMovimentacao_Implementation(int mIndex);
 
-	UFUNCTION(NetMulticast, Unreliable, BlueprintCallable)
-	void MC_setMovimentacao(int mIndex);
-	void MC_setMovimentacao_Implementation(int mIndex);
+	UFUNCTION(BlueprintCallable)
+	void dashFunction();
 
 	UFUNCTION(BlueprintCallable, Server, Unreliable)
-	void dashFunction();
-	void dashFunction_Implementation();
-
-	UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
-	void MC_dashFunction();
-	void MC_dashFunction_Implementation();
+	void SV_LaunchCharacter();
+	void SV_LaunchCharacter_Implementation();
 
 	UFUNCTION(BlueprintCallable)
 	void dashing();
 
-	UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
+	UFUNCTION(BlueprintCallable)
 	void terminaDashing();
-	void terminaDashing_Implementation();
 
 	UFUNCTION(BlueprintCallable)
 	void slideAction();
 
-	UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
+	UFUNCTION(BlueprintCallable)
 	void stopSliding();
-	void stopSliding_Implementation();
+
+	UFUNCTION(BlueprintCallable, Server, Reliable)
+	void setSliding(bool b);
+	void setSliding_Implementation(bool b);
+
+	UFUNCTION(BlueprintCallable, Server, Reliable)
+	void setDashFinished(bool b);
+	void setDashFinished_Implementation(bool b);
+
+	UFUNCTION(BlueprintCallable, Server, Reliable)
+	void setKicking(bool b);
+	void setKicking_Implementation(bool b);
+
+	UFUNCTION(BlueprintCallable, Server, Reliable)
+	void setSlidingActionFinished(bool b);
+	void setSlidingActionFinished_Implementation(bool b);
 
 	UFUNCTION(BlueprintCallable)
 	float setForcaChute();
