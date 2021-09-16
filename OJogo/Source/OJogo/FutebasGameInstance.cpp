@@ -67,13 +67,13 @@ void UFutebasGameInstance::PostInitProperties()
 	if (nationalTeamsArray.Num() > 0)
 	{
 		current_teams_set = TeamsSet::Selecoes;
-		team1 = nationalTeamsArray[0];
+		team1 = nationalTeamsArray[1];
 		team2 = nationalTeamsArray[1];
 	}
 	else if (teamsArray.Num() > 0)
 	{
 		current_teams_set = TeamsSet::Times;
-		team1 = teamsArray[0];
+		team1 = teamsArray[1];
 		team2 = teamsArray[1];
 	}
 	desempate_por_penaltis = true;

@@ -25,11 +25,6 @@ AOJogoCharacter::AOJogoCharacter(const class FObjectInitializer& PCIP) : Super(P
 	bUseControllerRotationYaw = true;
 	bUseControllerRotationRoll = false;
 
-	// Set the size of our collision capsule.
-	GetCapsuleComponent()->SetCapsuleHalfHeight(96.0f);
-	GetCapsuleComponent()->SetCapsuleRadius(40.0f);
-	GetCapsuleComponent()->SetIsReplicated(false);
-
 	// Create a camera boom attached to the root (capsule)
 	// CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	// CameraBoom->SetupAttachment(RootComponent);
@@ -208,9 +203,11 @@ AOJogoCharacter::AOJogoCharacter(const class FObjectInitializer& PCIP) : Super(P
 	GetSprite()->SetRelativeScale3D(FVector(0.44));
 
 	// body
+	// Set the size of our collision capsule.
 	GetCapsuleComponent()->SetCapsuleHalfHeight(82);
 	GetCapsuleComponent()->SetCapsuleRadius(1);
 	GetCapsuleComponent()->SetCollisionProfileName(TEXT("corpo"));
+	GetCapsuleComponent()->SetIsReplicated(false);
 
 	cabeca = CreateDefaultSubobject<USphereComponent>(TEXT("cabeca"));
 	cabeca->SetRelativeLocation(FVector(0, 0, 59.2));
@@ -301,27 +298,9 @@ void AOJogoCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	DOREPLIFETIME(AOJogoCharacter, jumpStaminaCost);
 	DOREPLIFETIME(AOJogoCharacter, slidingStaminaCost);
 
-	// DOREPLIFETIME(AOJogoCharacter, index_controller);
-	// DOREPLIFETIME(AOJogoCharacter, kicking);
-	// DOREPLIFETIME(AOJogoCharacter, sliding);
-	// DOREPLIFETIME(AOJogoCharacter, dashFinished);
-	// DOREPLIFETIME(AOJogoCharacter, chutaFinished);
-	// DOREPLIFETIME(AOJogoCharacter, auxAcceleration);
 	DOREPLIFETIME(AOJogoCharacter, inputEnabled);
-	// DOREPLIFETIME(AOJogoCharacter, slidingActionFinished);
-	// DOREPLIFETIME(AOJogoCharacter, onAir);
-	/*DOREPLIFETIME(AOJogoCharacter, canHeader);
-	DOREPLIFETIME(AOJogoCharacter, canKick);
-	DOREPLIFETIME(AOJogoCharacter, auxSpeed);
-	DOREPLIFETIME(AOJogoCharacter, chute_location);*/
-
-	/*DOREPLIFETIME(AOJogoCharacter, cabeca);
-	DOREPLIFETIME(AOJogoCharacter, peito);
-	DOREPLIFETIME(AOJogoCharacter, pernas);
-	DOREPLIFETIME(AOJogoCharacter, pes);
-	DOREPLIFETIME(AOJogoCharacter, chute_angulo);
-	DOREPLIFETIME(AOJogoCharacter, pode_cabecear);
-	DOREPLIFETIME(AOJogoCharacter, pode_chutar);*/
+	DOREPLIFETIME(AOJogoCharacter, kicking);
+	DOREPLIFETIME(AOJogoCharacter, sliding);
 }
 
 void AOJogoCharacter::BeginPlay()
@@ -413,8 +392,15 @@ void AOJogoCharacter::Chuta()
 			setKicking(true);
 
 			float forca = setForcaChute();
-			if (forca > 0)
-				SV_Chuta(chute_angulo->GetComponentRotation(), forca);
+			SV_Chuta(chute_angulo->GetComponentRotation(), forca);
+
+			/*TArray<AActor*> FoundActors;
+			UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
+			if (FoundActors.Num() == 1)
+				ball = Cast<ABola>(FoundActors[0]);
+
+			if (IsValid(ball) && (canKick || canHeader))
+				ball->Predict_chuta(chute_angulo->GetComponentRotation(), forca);*/
 			FTimerHandle UnusedHandle;
 			GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoCharacter::chutaTimeout, 0.2f, false);
 		}
@@ -428,7 +414,7 @@ void AOJogoCharacter::SV_Chuta_Implementation(FRotator anguloChute, float forca)
 	if (FoundActors.Num() == 1)
 		ball = Cast<ABola>(FoundActors[0]);
 
-	if (IsValid(ball))
+	if (IsValid(ball) && (canKick || canHeader))
 		ball->SV_chuta(anguloChute, forca);
 }
 
@@ -622,18 +608,13 @@ float AOJogoCharacter::setForcaChute()
 	}
 	else
 	{
-		if (canHeader)
-		{
-			chute_angulo->SetRelativeLocation(cabeca->GetRelativeLocation());
-			// float theta = 0;
-			// if (ball)
-			// 	theta = (ball->GetActorLocation() - cabeca->GetComponentLocation()).X;
-			// theta = 90 - ((90 * (UKismetMathLibrary::Abs(theta)))/theta);
-			// chute_angulo->SetWorldRotation(FRotator(theta, 0, 0));
-			return forcaChuteRT * maxForcaCabeceio;
-		}
-		else
-			return -1;
+		chute_angulo->SetRelativeLocation(cabeca->GetRelativeLocation());
+		// float theta = 0;
+		// if (ball)
+		// 	theta = (ball->GetActorLocation() - cabeca->GetComponentLocation()).X;
+		// theta = 90 - ((90 * (UKismetMathLibrary::Abs(theta)))/theta);
+		// chute_angulo->SetWorldRotation(FRotator(theta, 0, 0));
+		return forcaChuteRT * maxForcaCabeceio;
 	}
 }
 

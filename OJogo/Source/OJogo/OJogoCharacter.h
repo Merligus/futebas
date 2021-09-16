@@ -121,10 +121,10 @@ protected:
 	UPROPERTY(BlueprintReadWrite)
 	bool bisMovingRight;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Replicated)
 	bool kicking;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Replicated)
 	bool sliding;
 
 	UPROPERTY(BlueprintReadWrite)
@@ -241,23 +241,23 @@ public:
 	void SetStaminaRT(float s);
 	FORCEINLINE void SetStaminaRT_Implementation(float s) { staminaRT = s; }
 
-	UFUNCTION(Server, Unreliable, BlueprintCallable, Category = "Habilidades")
+	UFUNCTION(Server, Reliable, BlueprintCallable, Category = "Habilidades")
 	void setHabilidades(const FHabilidadesData h);
 	void setHabilidades_Implementation(const FHabilidadesData h);
 
-	UFUNCTION(NetMulticast, Unreliable, BlueprintCallable, Category = "Habilidades")
+	UFUNCTION(NetMulticast, Reliable, BlueprintCallable, Category = "Habilidades")
 	void MC_setHabilidades(const FHabilidadesData h);
 	void MC_setHabilidades_Implementation(const FHabilidadesData h);
 
-	UFUNCTION(Server, Unreliable, BlueprintCallable, Category = "Habilidades")
+	UFUNCTION(Server, Reliable, BlueprintCallable, Category = "Habilidades")
 	void setJogador(FJogadorData f);
 	void setJogador_Implementation(FJogadorData f);
 
-	UFUNCTION(NetMulticast, Unreliable, BlueprintCallable, Category = "Habilidades")
+	UFUNCTION(NetMulticast, Reliable, BlueprintCallable, Category = "Habilidades")
 	void MC_setJogador(FJogadorData f);
 	void MC_setJogador_Implementation(FJogadorData f);
 
-	UFUNCTION(NetMulticast, Unreliable, BlueprintCallable)
+	UFUNCTION(NetMulticast, Reliable, BlueprintCallable)
 	void pawnConfig(FJogadorData f, FHabilidadesData h);
 	void pawnConfig_Implementation(FJogadorData f, FHabilidadesData h);
 

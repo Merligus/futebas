@@ -21,15 +21,15 @@ public:
 
 	virtual void OnPossess(APawn* aPawn) override;
 
-	UFUNCTION(BlueprintCallable, Client, Unreliable)
+	UFUNCTION(BlueprintCallable, Client, Reliable)
 	void RPC_PossessRequest();
 	void RPC_PossessRequest_Implementation();
 
-	UFUNCTION(BlueprintCallable, Server, Unreliable)
+	UFUNCTION(BlueprintCallable, Server, Reliable)
 	void PossessRequest(APlayerController* PC);
 	void PossessRequest_Implementation(APlayerController* PC);
 
-	UFUNCTION(BlueprintCallable, Client, Unreliable)
+	UFUNCTION(BlueprintCallable, Client, Reliable)
 	void SetCamera();
 	void SetCamera_Implementation();
 };

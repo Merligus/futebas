@@ -93,7 +93,7 @@ protected:
 public:
 	AOJogoGameMode();
 
-	UFUNCTION(BlueprintCallable, Server, Unreliable)
+	UFUNCTION(BlueprintCallable, Server, Reliable)
 	void possessRequested(APlayerController* PC);
 	void possessRequested_Implementation(APlayerController* PC);
 
