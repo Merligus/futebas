@@ -17,31 +17,25 @@ class OJOGO_API ABola : public AActor
 
 protected:
 
-	UPROPERTY()
-	FVector current_pos;
-
-	UPROPERTY()
-	FVector current_vel;
-
-	UPROPERTY()
-	float t_no_updates;
-
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
-public:	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Bola")
-	USphereComponent* esfera;
+public:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UStaticMeshComponent* bola;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Bola")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UStaticMeshComponent* aparencia;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	USphereComponent* esfera;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UPaperFlipbookComponent* explosao;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Sons)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USoundWave* som_chute;
 
 	// Sets default values for this actor's properties
@@ -49,10 +43,6 @@ public:
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-	UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
-	void UpdateBall(FVector posicao, FVector velocidade);
-	void UpdateBall_Implementation(FVector posicao, FVector velocidade);
 
 	UFUNCTION(BlueprintCallable, NetMulticast, Reliable)
 	void explode(FVector posicao);
@@ -62,7 +52,7 @@ public:
 	void fazSomChute(FVector posicao);
 	void fazSomChute_Implementation(FVector posicao);
 
-	UFUNCTION(BlueprintCallable, Server, Reliable)
+	UFUNCTION(BlueprintCallable, Server, Unreliable)
 	void SV_chuta(FRotator anguloChute, float forca);
 	void SV_chuta_Implementation(FRotator anguloChute, float forca);
 };
