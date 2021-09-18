@@ -24,7 +24,7 @@ void APlayerCharacterState::BeginPlay()
     Super::BeginPlay();
 
     FTimerHandle UnusedHandle;
-    GetWorldTimerManager().SetTimer(UnusedHandle, this, &APlayerCharacterState::staminaRegenLoop, 0.01f, true); // 0.05
+    GetWorldTimerManager().SetTimer(UnusedHandle, this, &APlayerCharacterState::staminaRegenLoop, 0.05f, true);
 }
 
 void APlayerCharacterState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty> & OutLifetimeProps) const

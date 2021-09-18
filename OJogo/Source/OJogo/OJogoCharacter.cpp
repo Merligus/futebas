@@ -606,7 +606,7 @@ float AOJogoCharacter::setForcaChute()
 	if (canKick)
 	{
 		chute_angulo->SetRelativeLocation(chute_location);
-		return forcaChuteRT * maxForcaChute;
+		return GetForcaChuteRT() * maxForcaChute;
 	}
 	else
 	{
@@ -616,7 +616,7 @@ float AOJogoCharacter::setForcaChute()
 		// 	theta = (ball->GetActorLocation() - cabeca->GetComponentLocation()).X;
 		// theta = 90 - ((90 * (UKismetMathLibrary::Abs(theta)))/theta);
 		// chute_angulo->SetWorldRotation(FRotator(theta, 0, 0));
-		return forcaChuteRT * maxForcaCabeceio;
+		return GetForcaChuteRT() * maxForcaCabeceio;
 	}
 }
 

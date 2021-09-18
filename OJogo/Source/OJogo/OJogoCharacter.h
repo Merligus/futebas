@@ -245,6 +245,14 @@ public:
 	void MC_SetStaminaRT(float s);
 	FORCEINLINE void MC_SetStaminaRT_Implementation(float s) { staminaRT = s; }
 
+	UFUNCTION(Server, Unreliable, BlueprintCallable)
+	void SetForcaChuteRT(float f);
+	FORCEINLINE void SetForcaChuteRT_Implementation(float f) { GetPlayerState<APlayerCharacterState>()->SV_SetForcaChute(f); MC_SetForcaChuteRT(f); }
+
+	UFUNCTION(NetMulticast, Unreliable, BlueprintCallable)
+	void MC_SetForcaChuteRT(float f);
+	FORCEINLINE void MC_SetForcaChuteRT_Implementation(float f) { forcaChuteRT = f; }
+
 	UFUNCTION(Server, Reliable, BlueprintCallable, Category = "Habilidades")
 	void setHabilidades(const FHabilidadesData h);
 	void setHabilidades_Implementation(const FHabilidadesData h);
