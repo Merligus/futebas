@@ -23,15 +23,21 @@ void AMyController::OnPossess(APawn* aPawn)
 void AMyController::RPC_PossessRequest_Implementation()
 {
     UE_LOG(LogTemp, Warning, TEXT("Request"));
-    PossessRequest(this);
+    int32 team;
+    if (HasAuthority())
+        team = 0;
+    else
+        team = 1;
+
+    PossessRequest(this, team);
 }
 
-void AMyController::PossessRequest_Implementation(APlayerController* PC)
+void AMyController::PossessRequest_Implementation(APlayerController* PC, int32 team)
 {
     AOJogoGameMode* GM = Cast<AOJogoGameMode>(GetWorld()->GetAuthGameMode());
 
     if (IsValid(GM))
-        GM->possessRequested(this);
+        GM->possessRequested(this, team);
 }
 
 void AMyController::SetCamera_Implementation()
@@ -41,8 +47,9 @@ void AMyController::SetCamera_Implementation()
 
     for (int32 i = 0; i < FoundActors.Num(); ++i)
         if (FoundActors[i]->Tags.Num() > 0)
-        {
-            UE_LOG(LogTemp, Warning, TEXT("Camera"));
-            SetViewTargetWithBlend(FoundActors[i]);
-        }
+            if (FoundActors[i]->Tags[0].Compare(TEXT("player")) == 0)
+            {
+                UE_LOG(LogTemp, Warning, TEXT("Camera"));
+                SetViewTargetWithBlend(FoundActors[i]);
+            }
 }

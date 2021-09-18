@@ -250,7 +250,7 @@ AOJogoCharacter::AOJogoCharacter(const class FObjectInitializer& PCIP) : Super(P
 	pode_cabecear->SetRelativeLocation(FVector(32, 0, 86));
 	pode_cabecear->SetRelativeScale3D(FVector(1, 1, 1));
 	pode_cabecear->SetBoxExtent(FVector(32, 32, 42));
-	pode_cabecear->SetCollisionProfileName(TEXT("OverlapeAllDynamic"));
+	pode_cabecear->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
 	pode_cabecear->SetupAttachment(RootComponent);
 	pode_cabecear->OnComponentBeginOverlap.AddDynamic(this, &AOJogoCharacter::cabecearBeginOverlap); 
 	pode_cabecear->OnComponentEndOverlap.AddDynamic(this, &AOJogoCharacter::cabecearEndOverlap);
@@ -260,13 +260,13 @@ AOJogoCharacter::AOJogoCharacter(const class FObjectInitializer& PCIP) : Super(P
 	pode_chutar->SetRelativeLocation(FVector(32, 0, -32));
 	pode_chutar->SetRelativeScale3D(FVector(2, 1, 1));
 	pode_chutar->SetBoxExtent(FVector(32, 32, 42));
-	pode_chutar->SetCollisionProfileName(TEXT("OverlapeAllDynamic"));
+	pode_chutar->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
 	pode_chutar->SetupAttachment(RootComponent);
 	pode_chutar->OnComponentBeginOverlap.AddDynamic(this, &AOJogoCharacter::chutarBeginOverlap); 
 	pode_chutar->OnComponentEndOverlap.AddDynamic(this, &AOJogoCharacter::chutarEndOverlap);
 	pode_chutar->SetIsReplicated(false);
 
-	staminaRT = 100.0;
+	staminaRT = 100.0f;
 	forcaChuteRT = 0.0f;
 	
 	index_controller = 0;
@@ -373,8 +373,9 @@ void AOJogoCharacter::Pula()
 			{
 				// stamina = stamina - jumpStaminaCost;
 				float s = GetStaminaRT() - jumpStaminaCost;
-				GetPlayerState<APlayerCharacterState>()->SV_SetStamina(s);
-				staminaRT = s;
+				// GetPlayerState<APlayerCharacterState>()->SV_SetStamina(s);
+				// staminaRT = s;
+				SetStaminaRT(s);
 				ACharacter::Jump();
 			}
 		}
@@ -559,8 +560,9 @@ void AOJogoCharacter::slideAction()
 				{
 					// stamina = stamina - slidingStaminaCost;
 					float s = GetStaminaRT() - slidingStaminaCost;
-					GetPlayerState<APlayerCharacterState>()->SV_SetStamina(s);
-					staminaRT = s;
+					// GetPlayerState<APlayerCharacterState>()->SV_SetStamina(s);
+					// staminaRT = s;
+					SetStaminaRT(s);
 					sliding = true;
 					setSliding(true);
 				}

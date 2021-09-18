@@ -8,7 +8,6 @@
 #include "FutebasGameInstance.h"
 #include "OJogoCharacter.h"
 #include "OJogoGameState.h"
-#include "AfterMatchWidget.h"
 #include "FireworkActor.h"
 #include "Sound/SoundWave.h"
 #include "Sound/AmbientSound.h"
@@ -30,6 +29,9 @@ class AOJogoGameMode : public AGameModeBase
 	GENERATED_BODY()
 
 	UPROPERTY(VisibleAnywhere)
+	FTimerHandle beginGameTH;
+
+	UPROPERTY(VisibleAnywhere)
 	FTimerHandle delayTimedOut;
 	
 	UPROPERTY(VisibleAnywhere)
@@ -48,17 +50,12 @@ class AOJogoGameMode : public AGameModeBase
 	int32 faltamDir_pen;
 
 protected:
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<UUserWidget> widgetClass;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<ABotCharacter> botClass;
 
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<APlayerCharacter> playerClass;
-
-	UPROPERTY(VisibleInstanceOnly)
-	class UAfterMatchWidget* matchResultWidget;
+	TSubclassOf<APlayerCharacter> playerClass;	
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UFutebasGameInstance* FutebasGI;
@@ -82,26 +79,17 @@ protected:
 	bool vezTimeEsquerdo;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Sons)
-	USoundWave* som_apito_inicio;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Sons)
-	USoundWave* som_apito_fim;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Sons)
 	AAmbientSound* comemorando_titulo;
 
 public:
 	AOJogoGameMode();
 
 	UFUNCTION(BlueprintCallable, Server, Reliable)
-	void possessRequested(APlayerController* PC);
-	void possessRequested_Implementation(APlayerController* PC);
+	void possessRequested(APlayerController* PC, int32 team);
+	void possessRequested_Implementation(APlayerController* PC, int32 team);
 
 	UFUNCTION(BlueprintCallable)
 	void beginGame();
-
-	UFUNCTION(BlueprintCallable)
-	void fazSomApito(int32 modo);
 
 	UFUNCTION(BlueprintCallable)
 	void reiniciaPartida(bool neutro, bool favoravelEsq);
@@ -168,9 +156,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void comemoracaoTimedOut();
-
-	UFUNCTION(BlueprintCallable)
-	void openAfterMatch();
 
 	UFUNCTION(BlueprintCallable)
 	void setBotGols(int32 golsEsq, int32 golsDir);

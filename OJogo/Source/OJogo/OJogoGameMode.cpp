@@ -18,7 +18,7 @@ AOJogoGameMode::AOJogoGameMode()
 	// DefaultPawnClass = AOJogoCharacter::StaticClass();	
 }
 
-void AOJogoGameMode::possessRequested_Implementation(APlayerController* PC)
+void AOJogoGameMode::possessRequested_Implementation(APlayerController* PC, int32 team)
 {
 	if (JogosGameState)
 	{
@@ -26,7 +26,10 @@ void AOJogoGameMode::possessRequested_Implementation(APlayerController* PC)
 		{
 			// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Orange, FString::Printf(TEXT("Possessed")));
 			UE_LOG(LogTemp, Warning, TEXT("Possessed"));
-			PC->Possess(JogosGameState->arrayJogadores[JogosGameState->playersSpawned]);
+			if (team < JogosGameState->arrayJogadores.Num())
+				PC->Possess(JogosGameState->arrayJogadores[team]);
+			else
+				UE_LOG(LogTemp, Warning, TEXT("Cannot posses. team >= arrayJogadores.Num()"));
 			JogosGameState->playersSpawned++;
 			if (JogosGameState->playersSpawned == 2)
 			{
@@ -50,89 +53,66 @@ void AOJogoGameMode::possessRequested_Implementation(APlayerController* PC)
 
 void AOJogoGameMode::BeginPlay()
 {
-	int32 a;
-	FString b("NAN");
-
 	Super::BeginPlay();
 
 	JogosGameState = GetWorld()->GetAuthGameMode()->GetGameState<AOJogoGameState>();
-	if (JogosGameState)
-	{
-		a = JogosGameState->tempo1Ou2;
-	}
-	else
-	{
-		a = -1;
-		// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("JogosGameState nao encontrado")));
+	if (!IsValid(JogosGameState))
 		UE_LOG(LogTemp, Warning, TEXT("JogosGameState nao encontrado"));
-	}
 
 	FutebasGI = GetGameInstance<UFutebasGameInstance>();
-	if (FutebasGI)
-	{
-		b = FutebasGI->team1.sigla;
-	}
-	else
-	{
-		// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("FutebasGI nao encontrado")));
+	if (!IsValid(FutebasGI))
 		UE_LOG(LogTemp, Warning, TEXT("FutebasGI nao encontrado"));
-	}
 
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStart::StaticClass(), PlayerStarts);
-	if (!FutebasGI->online_instance)
+	if (IsValid(FutebasGI))
 	{
-		for (int32 player_index = 1; player_index < PlayerStarts.Num(); ++player_index)
-			UGameplayStatics::CreatePlayer(GetWorld(), player_index);
-		for (int32 player_index = 0; player_index < PlayerStarts.Num(); ++player_index)
+		if (!FutebasGI->online_instance)
 		{
-			if (player_index == 0 || !FutebasGI->vs_bot)
+			for (int32 player_index = 1; player_index < PlayerStarts.Num(); ++player_index)
+				UGameplayStatics::CreatePlayer(GetWorld(), player_index);
+			for (int32 player_index = 0; player_index < PlayerStarts.Num(); ++player_index)
+			{
+				if (player_index == 0 || !FutebasGI->vs_bot)
+				{
+					APlayerCharacter* player = GetWorld()->SpawnActorDeferred<APlayerCharacter>(playerClass.Get(), FTransform());
+					if (player)
+					{
+						player->SetIndexController(player_index);
+						UGameplayStatics::FinishSpawningActor(player, FTransform());
+					}
+					else
+						UE_LOG(LogTemp, Warning, TEXT("player %d not spawned"), player_index);
+					AMyController* PC = Cast<AMyController>(UGameplayStatics::GetPlayerController(GetWorld(), player_index));
+					APawn* pawn = Cast<APawn>(player);
+					if (IsValid(pawn))
+						PC->Possess(pawn);
+				}
+			}
+			JogosGameState->playersSpawned = PlayerStarts.Num();
+		}
+		else
+		{
+			TArray<AActor*> FoundActors;
+			UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStart::StaticClass(), FoundActors);
+			for (int32 player_index = 0; player_index < FoundActors.Num(); ++player_index)
 			{
 				APlayerCharacter* player = GetWorld()->SpawnActorDeferred<APlayerCharacter>(playerClass.Get(), FTransform());
 				if (player)
 				{
 					player->SetIndexController(player_index);
 					UGameplayStatics::FinishSpawningActor(player, FTransform());
+
+					player->SetIndexController(0);
+					JogosGameState->arrayJogadores.Add(player);
+					UE_LOG(LogTemp, Warning, TEXT("Spawned"));
 				}
 				else
 					UE_LOG(LogTemp, Warning, TEXT("player %d not spawned"), player_index);
-				APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), player_index);
-				APawn* pawn = Cast<APawn>(player);
-				if (IsValid(pawn))
-					PC->Possess(pawn);
 			}
 		}
 	}
-	else
-	{
-		TArray<AActor*> FoundActors;
-		UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStart::StaticClass(), FoundActors);
-		for (int32 player_index = 0; player_index < FoundActors.Num(); ++player_index)
-		{
-			APlayerCharacter* player = GetWorld()->SpawnActorDeferred<APlayerCharacter>(playerClass.Get(), FTransform());
-			if (player)
-			{
-				player->SetIndexController(player_index);
-				UGameplayStatics::FinishSpawningActor(player, FTransform());
 
-				player->SetIndexController(0);
-				JogosGameState->arrayJogadores.Add(player);
-				// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Cyan, FString::Printf(TEXT("Spawned")));
-				UE_LOG(LogTemp, Warning, TEXT("Spawned"));
-			}
-			else
-				UE_LOG(LogTemp, Warning, TEXT("player %d not spawned"), player_index);
-		}
-	}
-
-	/*FTimerHandle UnusedHandle;
-	GetWorldTimerManager().SetTimer(UnusedHandle, this, &AOJogoGameMode::beginGame, 0.5f, false);*/
-
-	// game instance
-	// FutebasGI = Cast<UFutebasGameInstance>(GetGameInstance());
-	// GetGameInstance()
-	// game state
-	// GetGameState<AOJogoGameState>();
-	// GetWorld()->GetAuthGameMode()->GetGameState<AOJogoGameState>()->vsBotIA = true;
+	GetWorldTimerManager().SetTimer(beginGameTH, this, &AOJogoGameMode::beginGame, 0.5f, true);
 }
 
 // Called every frame
@@ -143,24 +123,29 @@ void AOJogoGameMode::Tick(float DeltaTime)
 
 void AOJogoGameMode::beginGame()
 {	
-	if (FutebasGI)
+	if (FutebasGI && JogosGameState->playersSpawned >= 2)
 	{
+		GetWorldTimerManager().ClearTimer(beginGameTH);
+
 		TArray<AActor*> FoundActors;
 		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
-		if (FoundActors.Num() == 1)
+		if (FoundActors.Num() >= 1)
 			BolaActor = Cast<ABola>(FoundActors[0]);
 		else
 			UE_LOG(LogTemp, Warning, TEXT("FoundActors pra bola != 1"));
 		JogosGameState->posInicial = BolaActor->GetActorLocation();
 
 		UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStart::StaticClass(), PlayerStarts);
-		UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerCharacter::StaticClass(), FoundActors);
-		for (int32 player_index = 0; player_index < FoundActors.Num(); ++player_index)
+		if (!FutebasGI->online_instance)
 		{
-			APlayerCharacter* player = Cast<APlayerCharacter>(FoundActors[player_index]);
-			player->setHabilidades((player->GetIndexController() < PlayerStarts.Num() / 2) ? FutebasGI->team1.habilidades : FutebasGI->team2.habilidades);
-			player->setJogador((player->GetIndexController() < PlayerStarts.Num() / 2) ? FutebasGI->team1.jogador : FutebasGI->team2.jogador);
-			JogosGameState->arrayJogadores.Add(player);
+			UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerCharacter::StaticClass(), FoundActors);
+			for (int32 player_index = 0; player_index < FoundActors.Num(); ++player_index)
+			{
+				APlayerCharacter* player = Cast<APlayerCharacter>(FoundActors[player_index]);
+				player->setHabilidades((player->GetIndexController() < PlayerStarts.Num() / 2) ? FutebasGI->team1.habilidades : FutebasGI->team2.habilidades);
+				player->setJogador((player->GetIndexController() < PlayerStarts.Num() / 2) ? FutebasGI->team1.jogador : FutebasGI->team2.jogador);
+				JogosGameState->arrayJogadores.Add(player);
+			}
 		}
 
 		if (FutebasGI->vs_bot)
@@ -190,10 +175,11 @@ void AOJogoGameMode::beginGame()
 			}
 		}
 
-		if (!FutebasGI->team1_em_casa)
+		if (!FutebasGI->team1_em_casa && !FutebasGI->online_instance)
 		{
 			JogosGameState->posIndex.Swap(0, 1);
-			Cast<ABotCharacter>(botIA)->setOwnGoal(JogosGameState->posIndex[1]);
+			if (botIA)
+				Cast<ABotCharacter>(botIA)->setOwnGoal(JogosGameState->posIndex[1]);
 			trocaTimes();
 		}
 
@@ -201,26 +187,6 @@ void AOJogoGameMode::beginGame()
 			JogosGameState->arrayJogadores.Swap(0, 1);
 		reiniciaPartida(true, false);
 		antesDoComeco();
-	}
-}
-
-void AOJogoGameMode::fazSomApito(int32 modo)
-{
-	if (modo == 0)
-	{
-		if (som_apito_inicio)
-			UGameplayStatics::PlaySoundAtLocation(GetWorld(), som_apito_inicio, JogosGameState->posInicial);
-		else
-			UE_LOG(LogTemp, Warning, TEXT("som apito inicio nao encontrado"));
-			// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("som apito inicio nao encontrado")));
-	}
-	else if (modo == 1)
-	{
-		if (som_apito_fim)
-			UGameplayStatics::PlaySoundAtLocation(GetWorld(), som_apito_fim, JogosGameState->posInicial);
-		else
-			UE_LOG(LogTemp, Warning, TEXT("som apito fim nao encontrado"));
-			// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("som apito fim nao encontrado")));
 	}
 }
 
@@ -248,15 +214,15 @@ void AOJogoGameMode::reiniciaPartida(bool neutro, bool favoravelEsq)
 	
 	if (IsValid(BolaActor))
 	{
-		UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(BolaActor->GetRootComponent());
-		if (Sphere)
+		UPrimitiveComponent* bolaPrimitive = Cast<UPrimitiveComponent>(BolaActor->GetRootComponent());
+		if (bolaPrimitive)
 		{
-			Sphere->AddImpulse(Sphere->GetPhysicsLinearVelocity() * Sphere->GetMass() * (-1.0f));
-			Sphere->SetPhysicsAngularVelocityInDegrees(FVector(0.0f));
-			Sphere->SetWorldLocation(JogosGameState->posInicial, false, NULL, ETeleportType::TeleportPhysics);
+			bolaPrimitive->AddImpulse(bolaPrimitive->GetPhysicsLinearVelocity() * bolaPrimitive->GetMass() * (-1.0f));
+			bolaPrimitive->SetPhysicsAngularVelocityInDegrees(FVector(0.0f));
+			bolaPrimitive->SetWorldLocation(JogosGameState->posInicial, false, NULL, ETeleportType::TeleportPhysics);
 		}
 		else
-			UE_LOG(LogTemp, Warning, TEXT("Sphere nao achada"));
+			UE_LOG(LogTemp, Warning, TEXT("Root da bola nao achada"));
 	}
 	else
 		UE_LOG(LogTemp, Warning, TEXT("Bola nao achada"));
@@ -280,17 +246,7 @@ void AOJogoGameMode::reiniciaPartida(bool neutro, bool favoravelEsq)
 
 void AOJogoGameMode::antesDoComeco()
 {
-	// cutscene
-	TArray<AActor*> FoundActors;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ALevelSequenceActor::StaticClass(), FoundActors);
-	if (FoundActors.Num() > 0)
-	{
-		ALevelSequenceActor* actor = Cast<ALevelSequenceActor>(FoundActors[0]);
-		actor->SequencePlayer->Play();
-	}
-	else
-		UE_LOG(LogTemp, Warning, TEXT("abertura not valid"));
-
+	JogosGameState->cutscene();
 	paralisaMovimentacao(true);
 	
 	FTimerHandle UnusedHandle;
@@ -300,20 +256,20 @@ void AOJogoGameMode::antesDoComeco()
 void AOJogoGameMode::antesDoComecoTimedOut()
 {
 	paralisaMovimentacao(false);
-	fazSomApito(0);
+	JogosGameState->fazSomApito(0);
 
 	if (!JogosGameState->penalidades)
 		comecaJogo();
 	else
-		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::penaltyTimedOut, JogosGameState->penalty_timeout, false);
+		JogosGameState->setTempo(true, JogosGameState->penalty_timeout, this, 0);
 }
 
 void AOJogoGameMode::comecaJogo()
 {
 	if (JogosGameState->em_prorrogacao)
-		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 15.0f, false);
+		JogosGameState->setTempo(true, 15.0f, this, 1);
 	else
-		GetWorldTimerManager().SetTimer(JogosGameState->tempo1, this, &AOJogoGameMode::maisAcrescimos, 45.0f, false);
+		JogosGameState->setTempo(true, 15.0f, this, 1);
 	JogosGameState->tempoRegulamentar = true;
 	JogosGameState->bolaEmJogo = true;
 }
@@ -321,7 +277,8 @@ void AOJogoGameMode::comecaJogo()
 void AOJogoGameMode::maisAcrescimos()
 {
 	float timeAcrescimos = JogosGameState->acrescimos.GetSeconds() + 0.1f;
-	GetWorldTimerManager().SetTimer(JogosGameState->tempo2, this, &AOJogoGameMode::terminaTempo, timeAcrescimos, false);
+	// GetWorldTimerManager().SetTimer(JogosGameState->tempo2, this, &AOJogoGameMode::terminaTempo, timeAcrescimos, false);
+	JogosGameState->setTempo(false, timeAcrescimos, this, 2);
 	JogosGameState->tempoRegulamentar = false;
 }
 
@@ -330,7 +287,7 @@ void AOJogoGameMode::terminaTempo()
 	JogosGameState->bolaEmJogo = false;
 	if (JogosGameState->tempo1Ou2 == 1)
 	{
-		fazSomApito(0);
+		JogosGameState->fazSomApito(0);
 		JogosGameState->tempo1Ou2 = 2;
 		GetWorldTimerManager().ClearTimer(delayTimedOut);
 		paralisaMovimentacao(true);
@@ -364,7 +321,7 @@ void AOJogoGameMode::fimDePapo()
 
 	if (JogosGameState->golsTimeDir == JogosGameState->golsTimeEsq && FutebasGI->desempate_por_penaltis)
 	{
-		fazSomApito(1);
+		JogosGameState->fazSomApito(1);
 		if (!JogosGameState->em_prorrogacao)
 		{
 			JogosGameState->em_prorrogacao = true;
@@ -698,7 +655,7 @@ void AOJogoGameMode::penaltyTimedOut()
 void AOJogoGameMode::decideVencedor()
 {
 	paralisaMovimentacao(true);
-	fazSomApito(1);
+	JogosGameState->fazSomApito(1);
 	
 	trocaTimes();
 
@@ -748,30 +705,19 @@ void AOJogoGameMode::decideVencedor()
 				}
 				
 				FTimerHandle UnusedHandle2;
-				GetWorldTimerManager().SetTimer(UnusedHandle2, this, &AOJogoGameMode::openAfterMatch, 10, false);
+				GetWorldTimerManager().SetTimer(UnusedHandle2, JogosGameState, &AOJogoGameState::openAfterMatch, 10, false);
 			}
 			else
-				openAfterMatch();
+				JogosGameState->openAfterMatch();
 		}
 		else
-			openAfterMatch();
+			JogosGameState->openAfterMatch();
 	}
 }
 
 void AOJogoGameMode::comemoracaoTimedOut()
 {
 	comemorando_titulo->FadeOut(0.5f, 0.0f);
-}
-
-void AOJogoGameMode::openAfterMatch()
-{
-	if (IsValid(widgetClass))
-	{
-		matchResultWidget = Cast<UAfterMatchWidget>(CreateWidget(GetWorld(), widgetClass));
-
-		if (matchResultWidget)
-			matchResultWidget->AddToViewport();
-	}
 }
 
 void AOJogoGameMode::setBotGols(int32 golsEsq, int32 golsDir)
@@ -787,13 +733,7 @@ void AOJogoGameMode::setBotGols(int32 golsEsq, int32 golsDir)
 
 void AOJogoGameMode::paralisaMovimentacao(bool ignora)
 {
-	for (int32 Index = 0; Index != PlayerStarts.Num(); ++Index)
-	{
-		APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), Index);
-		if (IsValid(PC))
-			if (PC->IsMoveInputIgnored() != ignora)
-				PC->SetIgnoreMoveInput(ignora);
-	}
+	JogosGameState->paralisaMovimentacao(ignora);
 
 	if (IsValid(botIA) && FutebasGI->vs_bot)
 		UAIBlueprintHelperLibrary::GetBlackboard(botIA)->SetValueAsBool(FName("canMove"), !ignora);

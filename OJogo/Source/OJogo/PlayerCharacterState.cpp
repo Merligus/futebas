@@ -31,7 +31,7 @@ void APlayerCharacterState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
-	DOREPLIFETIME(APlayerCharacterState, stamina);
+	// DOREPLIFETIME(APlayerCharacterState, stamina);
     DOREPLIFETIME(APlayerCharacterState, forca_chute);
 }
 
@@ -47,6 +47,11 @@ float APlayerCharacterState::GetForcaChute() const
 
 void APlayerCharacterState::SV_SetStamina_Implementation(float stam)
 {
+    MC_SetStamina(stam);
+}
+
+void APlayerCharacterState::MC_SetStamina_Implementation(float stam)
+{
     stamina = stam;
 }
 
@@ -61,11 +66,11 @@ void APlayerCharacterState::staminaRegenLoop_Implementation()
     if (IsValid(pawn))
     {
         float s = GetStamina() + pawn->GetStaminaRegen();
-        SV_SetStamina(s);
+        // SV_SetStamina(s);
         pawn->SetStaminaRT(s);
         if (GetStamina() > 100)
         {
-            SV_SetStamina(100.0f);
+            // SV_SetStamina(100.0f);
             pawn->SetStaminaRT(100.0f);
         }
     }

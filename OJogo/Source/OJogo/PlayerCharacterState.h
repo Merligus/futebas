@@ -17,7 +17,7 @@ class OJOGO_API APlayerCharacterState : public APlayerState
 
 protected:
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float stamina;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
@@ -41,6 +41,10 @@ public:
 	UFUNCTION(BlueprintCallable, Server, Unreliable)
 	void SV_SetStamina(float stam);
 	void SV_SetStamina_Implementation(float stam);
+
+	UFUNCTION(BlueprintCallable, NetMulticast, Unreliable)
+	void MC_SetStamina(float stam);
+	void MC_SetStamina_Implementation(float stam);
 
 	UFUNCTION(BlueprintCallable)
 	float GetStamina() const;

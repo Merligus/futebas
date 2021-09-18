@@ -26,8 +26,8 @@ public:
 	void RPC_PossessRequest_Implementation();
 
 	UFUNCTION(BlueprintCallable, Server, Reliable)
-	void PossessRequest(APlayerController* PC);
-	void PossessRequest_Implementation(APlayerController* PC);
+	void PossessRequest(APlayerController* PC, int32 team);
+	void PossessRequest_Implementation(APlayerController* PC, int32 team);
 
 	UFUNCTION(BlueprintCallable, Client, Reliable)
 	void SetCamera();

@@ -237,9 +237,13 @@ public:
 
 	FORCEINLINE float GetStaminaRegen() const { return staminaRegen; }
 	
-	UFUNCTION(Client, Unreliable, BlueprintCallable)
+	UFUNCTION(Server, Unreliable, BlueprintCallable)
 	void SetStaminaRT(float s);
-	FORCEINLINE void SetStaminaRT_Implementation(float s) { staminaRT = s; }
+	FORCEINLINE void SetStaminaRT_Implementation(float s) { GetPlayerState<APlayerCharacterState>()->SV_SetStamina(s); MC_SetStaminaRT(s); }
+
+	UFUNCTION(NetMulticast, Unreliable, BlueprintCallable)
+	void MC_SetStaminaRT(float s);
+	FORCEINLINE void MC_SetStaminaRT_Implementation(float s) { staminaRT = s; }
 
 	UFUNCTION(Server, Reliable, BlueprintCallable, Category = "Habilidades")
 	void setHabilidades(const FHabilidadesData h);
