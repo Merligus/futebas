@@ -53,6 +53,9 @@ public:
 	void ButtonClickedNovaPartida();
 
 	UFUNCTION(BlueprintCallable)
+	void ButtonClickedNovaPartidaOnline();
+
+	UFUNCTION(BlueprintCallable)
 	FSlateBrush bindFlagNome();
 
 	UFUNCTION(BlueprintCallable)

@@ -85,8 +85,8 @@ public:
 	AOJogoGameMode();
 
 	UFUNCTION(BlueprintCallable, Server, Reliable)
-	void possessRequested(APlayerController* PC, int32 team);
-	void possessRequested_Implementation(APlayerController* PC, int32 team);
+	void possessRequested(APlayerController* PC, int32 team, FTeamData team_data);
+	void possessRequested_Implementation(APlayerController* PC, int32 team, FTeamData team_data);
 
 	UFUNCTION(BlueprintCallable)
 	void beginGame();

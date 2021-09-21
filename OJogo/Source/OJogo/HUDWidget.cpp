@@ -113,7 +113,10 @@ ESlateVisibility UHUDWidget::bindTempoNaoRegulamentarVisibilidade()
 FSlateBrush UHUDWidget::bindTime1Emb()
 {
 	if (FutebasGI)
-		return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->team1.flag, 80, 60);
+		if (IsValid(JogosGameState->team1.flag))
+			return UWidgetBlueprintLibrary::MakeBrushFromTexture(JogosGameState->team1.flag, 80, 60);
+		else
+			return FSlateNoResource();
 	else
 		return FSlateNoResource();
 }
@@ -121,7 +124,10 @@ FSlateBrush UHUDWidget::bindTime1Emb()
 FSlateBrush UHUDWidget::bindTime2Emb()
 {
 	if (FutebasGI)
-		return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->team2.flag, 80, 60);
+		if (IsValid(JogosGameState->team2.flag))
+			return UWidgetBlueprintLibrary::MakeBrushFromTexture(JogosGameState->team2.flag, 80, 60);
+		else
+			return FSlateNoResource();
 	else
 		return FSlateNoResource();
 }
@@ -129,7 +135,7 @@ FSlateBrush UHUDWidget::bindTime2Emb()
 FText UHUDWidget::bindTime1Nome()
 {
 	if (FutebasGI)
-		return UKismetTextLibrary::Conv_StringToText(FutebasGI->team1.sigla);
+		return UKismetTextLibrary::Conv_StringToText(JogosGameState->team1.sigla);
 	else
 		return FText::FromString(FString("NAN"));
 }
@@ -137,7 +143,7 @@ FText UHUDWidget::bindTime1Nome()
 FText UHUDWidget::bindTime2Nome()
 {
 	if (FutebasGI)
-		return UKismetTextLibrary::Conv_StringToText(FutebasGI->team2.sigla);
+		return UKismetTextLibrary::Conv_StringToText(JogosGameState->team2.sigla);
 	else
 		return FText::FromString(FString("NAN"));
 }
@@ -145,7 +151,7 @@ FText UHUDWidget::bindTime2Nome()
 FLinearColor UHUDWidget::bindTime1Cor1()
 {
 	if (FutebasGI)
-		return FutebasGI->team1.jogador.roupa1;
+		return JogosGameState->team1.jogador.roupa1;
 	else
 		return FLinearColor(FVector(0));
 }
@@ -153,7 +159,7 @@ FLinearColor UHUDWidget::bindTime1Cor1()
 FLinearColor UHUDWidget::bindTime1Cor2()
 {
 	if (FutebasGI)
-		return FutebasGI->team1.jogador.roupa2;
+		return JogosGameState->team1.jogador.roupa2;
 	else
 		return FLinearColor(FVector(0));
 }
@@ -161,7 +167,7 @@ FLinearColor UHUDWidget::bindTime1Cor2()
 FLinearColor UHUDWidget::bindTime2Cor1()
 {
 	if (FutebasGI)
-		return FutebasGI->team2.jogador.roupa1;
+		return JogosGameState->team2.jogador.roupa1;
 	else
 		return FLinearColor(FVector(0));
 }
@@ -169,7 +175,7 @@ FLinearColor UHUDWidget::bindTime2Cor1()
 FLinearColor UHUDWidget::bindTime2Cor2()
 {
 	if (FutebasGI)
-		return FutebasGI->team2.jogador.roupa2;
+		return JogosGameState->team2.jogador.roupa2;
 	else
 		return FLinearColor(FVector(0));
 }

@@ -1,5 +1,6 @@
 - git clone 
 - (opcional) git checkout no commit especifico
+- baixar o advancedsessions https://forums.unrealengine.com/t/advanced-sessions-plugin/30020
 - generate visual studio files
 - 2 clicks no project
 - colocar em Project settings

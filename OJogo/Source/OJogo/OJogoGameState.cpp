@@ -3,10 +3,13 @@
 
 #include "OJogoGameState.h"
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "LevelSequencePlayer.h"
 #include "LevelSequenceActor.h"
 #include "AfterMatchWidget.h"
 #include "OJogoGameMode.h"
+#include "PaperFlipbookActor.h"
+#include "FutebasGameInstance.h"
 #include "Camera/CameraActor.h"
 
 AOJogoGameState::AOJogoGameState()
@@ -39,6 +42,13 @@ AOJogoGameState::AOJogoGameState()
 	golsTimeDir_pen.Init(2, 5);
 
 	playersSpawned = 0;
+	team1 = FTeamData();
+	team2 = FTeamData();
+}
+
+void AOJogoGameState::PostInitProperties()
+{
+	Super::PostInitProperties();
 }
 
 void AOJogoGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -70,6 +80,8 @@ void AOJogoGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	DOREPLIFETIME(AOJogoGameState, golsSomadosTimeEsq_pen);
 	DOREPLIFETIME(AOJogoGameState, golsSomadosTimeDir_pen);
 	DOREPLIFETIME(AOJogoGameState, playersSpawned);
+	DOREPLIFETIME(AOJogoGameState, team1);
+	DOREPLIFETIME(AOJogoGameState, team2);
 }
 
 void AOJogoGameState::fazSomApito_Implementation(int32 modo)
@@ -156,4 +168,39 @@ void AOJogoGameState::openAfterMatch_Implementation()
 	}
 	else
 		UE_LOG(LogTemp, Warning, TEXT("after match nao encontrado"));
+}
+
+void AOJogoGameState::coresTorcidas_Implementation()
+{
+	FLinearColor escurece(0.2, 0.2, 0.2, 1);
+	TArray<AActor*> FoundActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), APaperFlipbookActor::StaticClass(), FoundActors);
+	for (int i = 0; i < FoundActors.Num(); i++)
+	{
+		if (FoundActors[i]->Tags.Num() > 0)
+		{
+			APaperFlipbookActor* flipA = Cast<APaperFlipbookActor>(FoundActors[i]);
+			UPaperFlipbookComponent* flip = flipA->GetRenderComponent();
+			if (FoundActors[i]->Tags[0].Compare(TEXT("torcida_sprite_t1r1")) == 0)
+			{
+				FLinearColor r(UKismetMathLibrary::Multiply_LinearColorLinearColor(team1.jogador.roupa1, escurece));
+				flip->SetSpriteColor(r);
+			}
+			else if (FoundActors[i]->Tags[0].Compare(TEXT("torcida_sprite_t1r2")) == 0)
+			{
+				FLinearColor r(UKismetMathLibrary::Multiply_LinearColorLinearColor(team1.jogador.roupa2, escurece));
+				flip->SetSpriteColor(r);
+			}
+			else if (FoundActors[i]->Tags[0].Compare(TEXT("torcida_sprite_t2r1")) == 0)
+			{
+				FLinearColor r(UKismetMathLibrary::Multiply_LinearColorLinearColor(team2.jogador.roupa1, escurece));
+				flip->SetSpriteColor(r);
+			}
+			else if (FoundActors[i]->Tags[0].Compare(TEXT("torcida_sprite_t2r2")) == 0)
+			{
+				FLinearColor r(UKismetMathLibrary::Multiply_LinearColorLinearColor(team2.jogador.roupa2, escurece));
+				flip->SetSpriteColor(r);
+			}
+		}
+	}
 }

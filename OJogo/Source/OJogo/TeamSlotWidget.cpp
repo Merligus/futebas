@@ -20,6 +20,8 @@ bool UTeamSlotWidget::Initialize()
 
     if (game_mode == GameMode::NovaPartida)
         timeBotao->OnClicked.AddDynamic(this, &UTeamSlotWidget::ButtonClickedNovaPartida);
+    else if (game_mode == GameMode::NovaPartidaOnline)
+        timeBotao->OnClicked.AddDynamic(this, &UTeamSlotWidget::ButtonClickedNovaPartidaOnline);
     else
         timeBotao->OnClicked.AddDynamic(this, &UTeamSlotWidget::ButtonClicked);
 
@@ -57,6 +59,19 @@ void UTeamSlotWidget::ButtonClickedNovaPartida()
             FutebasGI->team1_index_slot = indexSlot;
         }
         FutebasGI->escolheTeam2 = !FutebasGI->escolheTeam2;
+    }
+    else
+        GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Slot %d clicado mas FutebasGI null"), indexSlot));
+}
+
+void UTeamSlotWidget::ButtonClickedNovaPartidaOnline()
+{
+    if (FutebasGI)
+    {
+        FutebasGI->team1 = FutebasGI->getTeamTrueIndex(indexSlot, teams_set);
+        FutebasGI->team1_index_slot = indexSlot;
+        FutebasGI->team2 = FutebasGI->getTeamTrueIndex(indexSlot, teams_set);
+        FutebasGI->team2_index_slot = indexSlot;
     }
     else
         GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Slot %d clicado mas FutebasGI null"), indexSlot));

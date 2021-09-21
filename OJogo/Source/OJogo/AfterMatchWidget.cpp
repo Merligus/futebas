@@ -124,67 +124,52 @@ void UAfterMatchWidget::continuarClicked()
 
 FSlateBrush UAfterMatchWidget::bindFlagTudo1()
 {
-	if (FutebasGI)
+	if (JogosGameState)
     {
-        int32 index_casa = FutebasGI->team1.index_time;
+        int32 index_casa = JogosGameState->team1.index_time;
         int32 gols_casa, gols_penalti_casa;
-        if (JogosGameState)
-        {
-            gols_casa = JogosGameState->golsTimeEsq;
-            gols_penalti_casa = JogosGameState->golsSomadosTimeEsq_pen;
-        }
-        else
-        {
-            gols_casa = 0;
-            gols_penalti_casa = 0;
-        }
-        time1Nome->SetText(FText::FromString(FutebasGI->team1.nome_hud));
+        gols_casa = JogosGameState->golsTimeEsq;
+        gols_penalti_casa = JogosGameState->golsSomadosTimeEsq_pen;
+
+        time1Nome->SetText(FText::FromString(JogosGameState->team1.nome_hud));
         if (gols_casa >= 0)
             time1Gols->SetText(UKismetTextLibrary::Conv_IntToText(gols_casa));
         else
             time1Gols->SetText(FText::FromString(FString(TEXT(" "))));
         if (gols_penalti_casa >= 0)
-            time1GolsPen->SetText(FText::FromString(FString(TEXT("(")) + FString::FromInt(gols_penalti_casa) + FString(TEXT(")")) ));
+            time1GolsPen->SetText(FText::FromString(FString(TEXT("(")) + FString::FromInt(gols_penalti_casa) + FString(TEXT(")"))));
         else
-            time1GolsPen->SetText(FText::FromString(FString(TEXT(""))));            
-        return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->team1.flag, 64, 48);
+            time1GolsPen->SetText(FText::FromString(FString(TEXT(""))));
+        return UWidgetBlueprintLibrary::MakeBrushFromTexture(JogosGameState->team1.flag, 64, 48);
     }
-	else
+    else
     {
         time1Nome->SetText(FText::FromString(FString(TEXT("ERROR"))));
         time1Gols->SetText(FText::FromString(FString(TEXT(""))));
         time1GolsPen->SetText(FText::FromString(FString(TEXT(""))));
-		return FSlateNoResource();
+        return FSlateNoResource();
     }
 }
 
 FSlateBrush UAfterMatchWidget::bindFlagTudo2()
 {
-	if (FutebasGI)
+    if (JogosGameState)
     {
-        int32 index_fora = FutebasGI->team2.index_time;
+        int32 index_fora = JogosGameState->team2.index_time;
         int32 gols_fora, gols_penalti_fora;
-        if (JogosGameState)
-        {
-            gols_fora = JogosGameState->golsTimeDir;
-            gols_penalti_fora = JogosGameState->golsSomadosTimeDir_pen;
-        }
-        else
-        {
-            gols_fora = 0;
-            gols_penalti_fora = 0;
-        }
+        gols_fora = JogosGameState->golsTimeDir;
+        gols_penalti_fora = JogosGameState->golsSomadosTimeDir_pen;
 
-        time2Nome->SetText(FText::FromString(FutebasGI->team2.nome_hud));
+        time2Nome->SetText(FText::FromString(JogosGameState->team2.nome_hud));
         if (gols_fora >= 0)
             time2Gols->SetText(UKismetTextLibrary::Conv_IntToText(gols_fora));
         else
             time2Gols->SetText(FText::FromString(FString(TEXT(" "))));
         if (gols_penalti_fora >= 0)
-            time2GolsPen->SetText(FText::FromString(FString(TEXT("(")) + FString::FromInt(gols_penalti_fora) + FString(TEXT(")")) ));
+            time2GolsPen->SetText(FText::FromString(FString(TEXT("(")) + FString::FromInt(gols_penalti_fora) + FString(TEXT(")"))));
         else
-            time2GolsPen->SetText(FText::FromString(FString(TEXT(""))));            
-        return UWidgetBlueprintLibrary::MakeBrushFromTexture(FutebasGI->team2.flag, 64, 48);
+            time2GolsPen->SetText(FText::FromString(FString(TEXT(""))));
+        return UWidgetBlueprintLibrary::MakeBrushFromTexture(JogosGameState->team2.flag, 64, 48);
     }
 	else
     {

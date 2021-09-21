@@ -61,7 +61,7 @@ void APlayerCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerIn
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	
-	if (index_controller == 0 && pausable)
+	if (index_controller == 0)
 	{
 		PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AOJogoCharacter::Pula);
 		PlayerInputComponent->BindAction("Chute", IE_Pressed, this, &APlayerCharacter::chutaPressed);
@@ -289,11 +289,17 @@ void APlayerCharacter::chargeTimeOut()
 
 void APlayerCharacter::pause()
 {
-	if (pausable && inputEnabled)
+	if (inputEnabled)
 	{
-		if (UGameplayStatics::IsGamePaused(GetWorld()))
+		if (pausable)
 		{
-			UGameplayStatics::SetGamePaused(GetWorld(), false);
+			if (UGameplayStatics::IsGamePaused(GetWorld()))
+				UGameplayStatics::SetGamePaused(GetWorld(), false);
+			else
+				UGameplayStatics::SetGamePaused(GetWorld(), true);
+		}
+		if (pauseWidget->IsInViewport())
+		{
 			if (pauseWidget)
 				pauseWidget->RemoveFromParent();
 			APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
@@ -302,7 +308,6 @@ void APlayerCharacter::pause()
 		}
 		else
 		{
-			UGameplayStatics::SetGamePaused(GetWorld(), true);
 			if (pauseWidget)
 				pauseWidget->AddToViewport();
 			APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
@@ -312,7 +317,7 @@ void APlayerCharacter::pause()
 	}
 }
 
-void APlayerCharacter::SetUnpausable()
+void APlayerCharacter::SetUnpausable_Implementation()
 {
 	pausable = false;
 }

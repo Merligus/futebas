@@ -102,6 +102,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void pause();
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, NetMulticast, Reliable)
 	void SetUnpausable();
+	void SetUnpausable_Implementation();
 };

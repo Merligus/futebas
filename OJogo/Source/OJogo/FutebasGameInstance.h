@@ -17,7 +17,8 @@ UENUM(BlueprintType)
 enum class GameMode : uint8 {
 	NovaPartida = 0 UMETA(DisplayName = "Nova Partida"),
 	CopaMundo = 1 UMETA(DisplayName = "Copa do Mundo"),
-	LigaNacoes = 2 UMETA(DisplayName = "Liga Mundial")
+	LigaNacoes = 2 UMETA(DisplayName = "Liga Mundial"),
+	NovaPartidaOnline = 3 UMETA(DisplayName = "Nova Partida Online")
 };
 
 UENUM(BlueprintType)

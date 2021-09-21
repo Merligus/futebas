@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "TeamData.h"
 #include "Net/UnrealNetwork.h"
 #include "MyController.generated.h"
 
@@ -26,8 +27,8 @@ public:
 	void RPC_PossessRequest_Implementation();
 
 	UFUNCTION(BlueprintCallable, Server, Reliable)
-	void PossessRequest(APlayerController* PC, int32 team);
-	void PossessRequest_Implementation(APlayerController* PC, int32 team);
+	void PossessRequest(APlayerController* PC, int32 team, FTeamData team_data);
+	void PossessRequest_Implementation(APlayerController* PC, int32 team, FTeamData team_data);
 
 	UFUNCTION(BlueprintCallable, Client, Reliable)
 	void SetCamera();

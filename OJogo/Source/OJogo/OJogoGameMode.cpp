@@ -18,7 +18,7 @@ AOJogoGameMode::AOJogoGameMode()
 	// DefaultPawnClass = AOJogoCharacter::StaticClass();	
 }
 
-void AOJogoGameMode::possessRequested_Implementation(APlayerController* PC, int32 team)
+void AOJogoGameMode::possessRequested_Implementation(APlayerController* PC, int32 team, FTeamData team_data)
 {
 	if (JogosGameState)
 	{
@@ -27,26 +27,27 @@ void AOJogoGameMode::possessRequested_Implementation(APlayerController* PC, int3
 			// GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Orange, FString::Printf(TEXT("Possessed")));
 			UE_LOG(LogTemp, Warning, TEXT("Possessed"));
 			if (team < JogosGameState->arrayJogadores.Num())
-				PC->Possess(JogosGameState->arrayJogadores[team]);
-			else
-				UE_LOG(LogTemp, Warning, TEXT("Cannot posses. team >= arrayJogadores.Num()"));
-			JogosGameState->playersSpawned++;
-			if (JogosGameState->playersSpawned == 2)
 			{
-				if (FutebasGI)
+				PC->Possess(JogosGameState->arrayJogadores[team]);
+				if (team == 0)
+					JogosGameState->team1 = team_data;
+				else
+					JogosGameState->team2 = team_data;
+				JogosGameState->playersSpawned++;
+				if (JogosGameState->playersSpawned == 2)
 				{
-					TArray<AActor*> FoundActors;
-					UGameplayStatics::GetAllActorsOfClass(GetWorld(), AOJogoCharacter::StaticClass(), FoundActors);
-					for (int32 i = 0; i < FoundActors.Num(); i++)
+					for (int t = 0; t < JogosGameState->arrayJogadores.Num(); t++)
 					{
-						AOJogoCharacter* player_char = Cast<AOJogoCharacter>(FoundActors[i]);
-						if (i == 0)
-							player_char->pawnConfig(FutebasGI->team1.jogador, FutebasGI->team1.habilidades);
+						AOJogoCharacter* player_char = JogosGameState->arrayJogadores[t];
+						if (t == 0)
+							player_char->pawnConfig(JogosGameState->team1.jogador, JogosGameState->team1.habilidades);
 						else
-							player_char->pawnConfig(FutebasGI->team2.jogador, FutebasGI->team2.habilidades);
+							player_char->pawnConfig(JogosGameState->team2.jogador, JogosGameState->team2.habilidades);
 					}
 				}
 			}
+			else
+				UE_LOG(LogTemp, Warning, TEXT("Cannot posses. team >= arrayJogadores.Num()"));
 		}
 	}
 }
@@ -89,6 +90,8 @@ void AOJogoGameMode::BeginPlay()
 				}
 			}
 			JogosGameState->playersSpawned = PlayerStarts.Num();
+			JogosGameState->team1 = FutebasGI->team1;
+			JogosGameState->team2 = FutebasGI->team2;
 		}
 		else
 		{
@@ -103,6 +106,7 @@ void AOJogoGameMode::BeginPlay()
 					UGameplayStatics::FinishSpawningActor(player, FTransform());
 
 					player->SetIndexController(0);
+					player->SetUnpausable();
 					JogosGameState->arrayJogadores.Add(player);
 					UE_LOG(LogTemp, Warning, TEXT("Spawned"));
 				}
@@ -135,6 +139,8 @@ void AOJogoGameMode::beginGame()
 			UE_LOG(LogTemp, Warning, TEXT("FoundActors pra bola != 1"));
 		JogosGameState->posInicial = BolaActor->GetActorLocation();
 
+		JogosGameState->coresTorcidas();
+
 		UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStart::StaticClass(), PlayerStarts);
 		if (!FutebasGI->online_instance)
 		{
@@ -142,8 +148,8 @@ void AOJogoGameMode::beginGame()
 			for (int32 player_index = 0; player_index < FoundActors.Num(); ++player_index)
 			{
 				APlayerCharacter* player = Cast<APlayerCharacter>(FoundActors[player_index]);
-				player->setHabilidades((player->GetIndexController() < PlayerStarts.Num() / 2) ? FutebasGI->team1.habilidades : FutebasGI->team2.habilidades);
-				player->setJogador((player->GetIndexController() < PlayerStarts.Num() / 2) ? FutebasGI->team1.jogador : FutebasGI->team2.jogador);
+				player->setHabilidades((player->GetIndexController() < PlayerStarts.Num() / 2) ? JogosGameState->team1.habilidades : JogosGameState->team2.habilidades);
+				player->setJogador((player->GetIndexController() < PlayerStarts.Num() / 2) ? JogosGameState->team1.jogador : JogosGameState->team2.jogador);
 				JogosGameState->arrayJogadores.Add(player);
 			}
 		}
@@ -370,6 +376,10 @@ void AOJogoGameMode::trocaTimes()
 	JogosGameState->golsTimeDir_pen = auxArray;
 
 	FTeamData auxTeam;
+	auxTeam = JogosGameState->team1;
+	JogosGameState->team1 = JogosGameState->team2;
+	JogosGameState->team2 = auxTeam;
+
 	auxTeam = FutebasGI->team1;
 	FutebasGI->team1 = FutebasGI->team2;
 	FutebasGI->team2 = auxTeam;

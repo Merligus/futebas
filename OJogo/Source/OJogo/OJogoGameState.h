@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameStateBase.h"
 #include "OJogoCharacter.h"
+#include "TeamData.h"
 #include "Net/UnrealNetwork.h"
 #include "OJogoGameState.generated.h"
 
@@ -115,8 +116,16 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
 	int32 playersSpawned;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
+	FTeamData team1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated)
+	FTeamData team2;
 
 	AOJogoGameState();
+
+	virtual void PostInitProperties() override;
 
 	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
@@ -139,4 +148,8 @@ public:
 	UFUNCTION(BlueprintCallable, NetMulticast, Reliable)
 	void openAfterMatch();
 	void openAfterMatch_Implementation();
+
+	UFUNCTION(BlueprintCallable, NetMulticast, Reliable)
+	void coresTorcidas();
+	void coresTorcidas_Implementation();
 };

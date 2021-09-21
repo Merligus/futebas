@@ -4,6 +4,7 @@
 #include "MyController.h"
 #include "Kismet/GameplayStatics.h"
 #include "OJogoGameMode.h"
+#include "FutebasGameInstance.h"
 #include "Camera/CameraActor.h"
 
 void AMyController::BeginPlay()
@@ -29,15 +30,26 @@ void AMyController::RPC_PossessRequest_Implementation()
     else
         team = 1;
 
-    PossessRequest(this, team);
+    FTeamData team_data;
+    UFutebasGameInstance* FutebasGI = GetGameInstance<UFutebasGameInstance>();
+    if (!IsValid(FutebasGI))
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Futebas nao encontrado"));
+    }
+    else
+    {
+        team_data = FutebasGI->team1;
+    }
+
+    PossessRequest(this, team, team_data);
 }
 
-void AMyController::PossessRequest_Implementation(APlayerController* PC, int32 team)
+void AMyController::PossessRequest_Implementation(APlayerController* PC, int32 team, FTeamData team_data)
 {
     AOJogoGameMode* GM = Cast<AOJogoGameMode>(GetWorld()->GetAuthGameMode());
 
     if (IsValid(GM))
-        GM->possessRequested(this, team);
+        GM->possessRequested(this, team, team_data);
 }
 
 void AMyController::SetCamera_Implementation()

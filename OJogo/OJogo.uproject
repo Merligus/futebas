@@ -1,21 +1,12 @@
 {
-
 	"FileVersion": 3,
-
 	"EngineAssociation": "4.26",
-
 	"Category": "",
-
 	"Description": "",
-
 	"Modules": [
-
 		{
-
 			"Name": "OJogo",
-
 			"Type": "Runtime",
-
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
 				"Engine",
@@ -23,23 +14,23 @@
 				"CoreUObject",
 				"AIModule",
 				"Niagara",
-				"UMG"
+				"UMG",
+				"OnlineSubsystemUtils",
+				"AdvancedSessions"
 			]
 		}
 	],
 	"Plugins": [
-
 		{
-
 			"Name": "Paper2D",
-
 			"Enabled": true
-
 		},
-
 		{
-
 			"Name": "NiagaraExtras",
+			"Enabled": true
+		},
+		{
+			"Name": "AdvancedSessions",
 			"Enabled": true
 		}
 	]
