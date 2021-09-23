@@ -197,8 +197,7 @@ void APlayerCharacter::chutaPressed()
 	{
 		// forca_chute = 0.0f;
 		// GetPlayerState<APlayerCharacterState>()->SV_SetForcaChute(0.0f);
-		// forcaChuteRT = 0.0f;
-		SetForcaChuteRT(0.0f);
+		forcaChuteRT = 0.0f;
 		GetWorldTimerManager().SetTimer(chargeHandle, this, &APlayerCharacter::charge, 0.005f, true);
 	}
 }

@@ -14,10 +14,7 @@ void UHUDWidget::NativeConstruct()
 	// JogosGameState = GetWorld()->GetAuthGameMode()->GetGameState<AOJogoGameState>();
 	JogosGameState = GetWorld() != NULL ? GetWorld()->GetGameState<AOJogoGameState>() : NULL;
 	if (!IsValid(JogosGameState))
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("JogosGameState nao encontrado")));
 		UE_LOG(LogTemp, Warning, TEXT("JogosGameState nao encontrado"));
-	}
 
 	FutebasGI = GetGameInstance<UFutebasGameInstance>();
 	if (!IsValid(FutebasGI))

@@ -59,6 +59,7 @@ void AOJogoGameMode::BeginPlay()
 	JogosGameState = GetWorld()->GetAuthGameMode()->GetGameState<AOJogoGameState>();
 	if (!IsValid(JogosGameState))
 		UE_LOG(LogTemp, Warning, TEXT("JogosGameState nao encontrado"));
+	JogosGameState->playersSpawned = 0;
 
 	FutebasGI = GetGameInstance<UFutebasGameInstance>();
 	if (!IsValid(FutebasGI))
@@ -132,12 +133,11 @@ void AOJogoGameMode::beginGame()
 		GetWorldTimerManager().ClearTimer(beginGameTH);
 
 		TArray<AActor*> FoundActors;
-		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABall::StaticClass(), FoundActors);
 		if (FoundActors.Num() >= 1)
-			BolaActor = Cast<ABola>(FoundActors[0]);
+			BolaActor = Cast<ABall>(FoundActors[0]);
 		else
 			UE_LOG(LogTemp, Warning, TEXT("FoundActors pra bola != 1"));
-		JogosGameState->posInicial = BolaActor->GetActorLocation();
 
 		JogosGameState->coresTorcidas();
 
@@ -223,7 +223,8 @@ void AOJogoGameMode::reiniciaPartida(bool neutro, bool favoravelEsq)
 		UPrimitiveComponent* bolaPrimitive = Cast<UPrimitiveComponent>(BolaActor->GetRootComponent());
 		if (bolaPrimitive)
 		{
-			bolaPrimitive->AddImpulse(bolaPrimitive->GetPhysicsLinearVelocity() * bolaPrimitive->GetMass() * (-1.0f));
+			bolaPrimitive->SetPhysicsLinearVelocity(FVector(0));
+			// bolaPrimitive->AddImpulse(bolaPrimitive->GetPhysicsLinearVelocity() * bolaPrimitive->GetMass() * (-1.0f));
 			bolaPrimitive->SetPhysicsAngularVelocityInDegrees(FVector(0.0f));
 			bolaPrimitive->SetWorldLocation(JogosGameState->posInicial, false, NULL, ETeleportType::TeleportPhysics);
 		}
@@ -275,7 +276,7 @@ void AOJogoGameMode::comecaJogo()
 	if (JogosGameState->em_prorrogacao)
 		JogosGameState->setTempo(true, 15.0f, this, 1);
 	else
-		JogosGameState->setTempo(true, 15.0f, this, 1);
+		JogosGameState->setTempo(true, 45.0f, this, 1);
 	JogosGameState->tempoRegulamentar = true;
 	JogosGameState->bolaEmJogo = true;
 }
@@ -490,6 +491,7 @@ void AOJogoGameMode::escanteioTimedOut()
 		UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(BolaActor->GetRootComponent());
 		if (Sphere)
 		{
+			Sphere->SetPhysicsLinearVelocity(FVector(0));
 			Sphere->AddImpulse(Sphere->GetPhysicsLinearVelocity() * Sphere->GetMass() * (-1.0f));
 			Sphere->SetPhysicsAngularVelocityInDegrees(FVector(0.0f));
 			Sphere->SetWorldLocation(posicao->GetActorLocation(), false, NULL, ETeleportType::TeleportPhysics);
@@ -514,6 +516,7 @@ void AOJogoGameMode::reiniciaBolaMeio()
 			UPrimitiveComponent* Sphere = Cast<UPrimitiveComponent>(BolaActor->GetRootComponent());
 			if (Sphere)
 			{
+				Sphere->SetPhysicsLinearVelocity(FVector(0));
 				Sphere->AddImpulse(Sphere->GetPhysicsLinearVelocity() * Sphere->GetMass() * (-1.0f));
 				Sphere->SetPhysicsAngularVelocityInDegrees(FVector(0.0f));
 				FVector posOld = BolaActor->GetActorLocation();

@@ -16,10 +16,7 @@ void UAfterMatchWidget::NativeConstruct()
 	// JogosGameState = GetWorld()->GetAuthGameMode()->GetGameState<AOJogoGameState>();
     JogosGameState = GetWorld() != NULL ? GetWorld()->GetGameState<AOJogoGameState>() : NULL;
 	if (!JogosGameState)
-    {
-        GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("JogosGameState nao encontrado")));
 		UE_LOG(LogTemp, Warning, TEXT("JogosGameState nao encontrado"));
-    }
 }
 
 bool UAfterMatchWidget::Initialize()
@@ -119,7 +116,7 @@ void UAfterMatchWidget::continuarClicked()
             UGameplayStatics::OpenLevel(GetWorld(), FName(TEXT("Menu_Level")));
     }
     else
-        GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("FutebasGI null after match")));
+        UE_LOG(LogTemp, Warning, TEXT("FutebasGI null after match"));
 }
 
 FSlateBrush UAfterMatchWidget::bindFlagTudo1()

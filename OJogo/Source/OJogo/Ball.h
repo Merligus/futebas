@@ -3,15 +3,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
-#include "Components/SphereComponent.h"
+#include "Engine/StaticMeshActor.h"
 #include "PaperFlipbookComponent.h"
 #include "Sound/SoundWave.h"
 #include "Net/UnrealNetwork.h"
-#include "Bola.generated.h"
+#include "Ball.generated.h"
 
+/**
+ *
+ */
 UCLASS()
-class OJOGO_API ABola : public AActor
+class OJOGO_API ABall : public AStaticMeshActor
 {
 	GENERATED_BODY()
 
@@ -20,17 +22,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
-
 public:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	UStaticMeshComponent* bola;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	UStaticMeshComponent* aparencia;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	USphereComponent* esfera;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UPaperFlipbookComponent* explosao;
@@ -39,10 +31,7 @@ public:
 	USoundWave* som_chute;
 
 	// Sets default values for this actor's properties
-	ABola();
-
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	ABall();
 
 	UFUNCTION(BlueprintCallable, NetMulticast, Reliable)
 	void explode(FVector posicao);
@@ -55,4 +44,5 @@ public:
 	UFUNCTION(BlueprintCallable, Server, Unreliable)
 	void SV_chuta(FRotator anguloChute, float forca);
 	void SV_chuta_Implementation(FRotator anguloChute, float forca);
+
 };

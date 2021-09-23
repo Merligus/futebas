@@ -41,7 +41,7 @@ void UTeamSlotWidget::ButtonClicked()
             FutebasGI->team1_index_slot = FutebasGI->GetLiga(teams_ind)->putTeamAsLast(FutebasGI->team1.index_time);
     }
     else
-        GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Slot %d clicado mas FutebasGI null"), indexSlot));
+        UE_LOG(LogTemp, Warning, TEXT("Slot clicado mas FutebasGI null"));
 }
 
 void UTeamSlotWidget::ButtonClickedNovaPartida()
@@ -61,7 +61,7 @@ void UTeamSlotWidget::ButtonClickedNovaPartida()
         FutebasGI->escolheTeam2 = !FutebasGI->escolheTeam2;
     }
     else
-        GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Slot %d clicado mas FutebasGI null"), indexSlot));
+        UE_LOG(LogTemp, Warning, TEXT("Slot clicado mas FutebasGI null"));
 }
 
 void UTeamSlotWidget::ButtonClickedNovaPartidaOnline()
@@ -74,7 +74,7 @@ void UTeamSlotWidget::ButtonClickedNovaPartidaOnline()
         FutebasGI->team2_index_slot = indexSlot;
     }
     else
-        GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Slot %d clicado mas FutebasGI null"), indexSlot));
+        UE_LOG(LogTemp, Warning, TEXT("Slot clicado mas FutebasGI null"));
 }
 
 FSlateBrush UTeamSlotWidget::bindFlagNome()

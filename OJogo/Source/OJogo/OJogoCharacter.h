@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "PaperCharacter.h"
 #include "JogadorData.h"
-#include "Bola.h"
+#include "Ball.h"
 #include "PlayerCharacterState.h"
 #include "Components/SphereComponent.h"
 #include "Components/BoxComponent.h"
@@ -54,7 +54,7 @@ class AOJogoCharacter : public APaperCharacter
 protected:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	class ABola* ball;
+	class ABall* ball;
 	
 	// The animation to play while running around
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Animations)
@@ -151,14 +151,14 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	USphereComponent* cabeca;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	/*UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UCapsuleComponent* peito;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	USphereComponent* pernas;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	UBoxComponent* pes;
+	UBoxComponent* pes;*/
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UBoxComponent* chute_angulo;

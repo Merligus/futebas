@@ -60,13 +60,13 @@ void ABotCharacter::BeginPlay()
             posicoes_gols.Add(Location);
 		}
 		else
-			GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bot:Player Start %d nao achado"), Index));
+            UE_LOG(LogTemp, Warning, TEXT("Bot:Player Start nao achado"));
 	}
 
     // JogosGameState = GetWorld()->GetAuthGameMode()->GetGameState<AOJogoGameState>();
     JogosGameState = GetWorld() != NULL ? GetWorld()->GetGameState<AOJogoGameState>() : NULL;
     if (!IsValid(JogosGameState))
-        GEngine->AddOnScreenDebugMessage(-1, 20.0f, FColor::Red, FString::Printf(TEXT("Bot:JogosGameState nao encontrado")));
+        UE_LOG(LogTemp, Warning, TEXT("Bot:JogosGameState nao encontrado"));
 }
 
 void ABotCharacter::Tick(float DeltaSeconds)
@@ -123,7 +123,7 @@ void ABotCharacter::cabecearBeginOverlapBot(UPrimitiveComponent * OverlapCompone
 {
 	if (OtherActor)
 	{
-		auto bola_temp = Cast<ABola>(OtherActor);
+		auto bola_temp = Cast<ABall>(OtherActor);
 		if (IsValid(bola_temp))
         {
 			if (bola_temp->GetRootComponent() == OtherComp)
@@ -140,7 +140,7 @@ void ABotCharacter::cabecearEndOverlapBot(UPrimitiveComponent* OverlappedCompone
 {
 	if (OtherActor)
 	{
-		auto bola_temp = Cast<ABola>(OtherActor);
+		auto bola_temp = Cast<ABall>(OtherActor);
 		if (IsValid(bola_temp))
         {
 			if (bola_temp->GetRootComponent() == OtherComp)
@@ -159,7 +159,7 @@ void ABotCharacter::chutarBeginOverlapBot(UPrimitiveComponent * OverlapComponent
 {
 	if (OtherActor)
 	{
-		auto bola_temp = Cast<ABola>(OtherActor);
+		auto bola_temp = Cast<ABall>(OtherActor);
 		if (IsValid(bola_temp))
         {
 			if (bola_temp->GetRootComponent() == OtherComp)
@@ -176,7 +176,7 @@ void ABotCharacter::chutarEndOverlapBot(UPrimitiveComponent* OverlappedComponent
 {
 	if (OtherActor)
 	{
-		auto bola_temp = Cast<ABola>(OtherActor);
+		auto bola_temp = Cast<ABall>(OtherActor);
 		if (IsValid(bola_temp))
         {
 			if (bola_temp->GetRootComponent() == OtherComp)
@@ -227,9 +227,9 @@ void ABotCharacter::sense()
     FVector player_location(Cast<AOJogoCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))->GetActorLocation());
     
     TArray<AActor*> FoundActors;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABall::StaticClass(), FoundActors);
 	if (FoundActors.Num() == 1)
-		ball = Cast<ABola>(FoundActors[0]);
+		ball = Cast<ABall>(FoundActors[0]);
         
     bool go_to_ball1(false), go_to_ball2(false), go_to_ball3(false);
     bool go_to_ball;

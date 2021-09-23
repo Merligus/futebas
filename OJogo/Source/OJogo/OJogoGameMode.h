@@ -11,7 +11,7 @@
 #include "FireworkActor.h"
 #include "Sound/SoundWave.h"
 #include "Sound/AmbientSound.h"
-#include "Bola.h"
+#include "Ball.h"
 #include "BotCharacter.h"
 #include "PlayerCharacter.h"
 #include "Net/UnrealNetwork.h"
@@ -67,7 +67,7 @@ protected:
 	AOJogoCharacter* botIA;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	ABola* BolaActor;
+	ABall* BolaActor;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<AActor*> PlayerStarts;

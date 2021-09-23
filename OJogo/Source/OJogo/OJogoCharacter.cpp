@@ -216,7 +216,7 @@ AOJogoCharacter::AOJogoCharacter(const class FObjectInitializer& PCIP) : Super(P
 	cabeca->SetupAttachment(RootComponent);
 	cabeca->SetIsReplicated(false);
 
-	peito = CreateDefaultSubobject<UCapsuleComponent>(TEXT("peito"));
+	/*peito = CreateDefaultSubobject<UCapsuleComponent>(TEXT("peito"));
 	peito->SetRelativeLocation(FVector(0, 0, 10.4));
 	peito->SetCapsuleHalfHeight(56);
 	peito->SetCapsuleRadius(27);
@@ -236,7 +236,7 @@ AOJogoCharacter::AOJogoCharacter(const class FObjectInitializer& PCIP) : Super(P
 	pes->SetBoxExtent(FVector(50, 40, 2));
 	pes->SetCollisionProfileName(TEXT("corpo"));
 	pes->SetupAttachment(RootComponent);
-	pes->SetIsReplicated(false);
+	pes->SetIsReplicated(false);*/
 
 	chute_angulo = CreateDefaultSubobject<UBoxComponent>(TEXT("chute_angulo"));
 	chute_angulo->SetRelativeLocation(FVector(42.0, 0, -74));
@@ -314,11 +314,6 @@ void AOJogoCharacter::BeginPlay()
 // Animation
 void AOJogoCharacter::UpdateAnimation()
 {
-	/*if (HasAuthority())
-		GEngine->AddOnScreenDebugMessage(-1, 0.2f, FColor::Red, FString::Printf(TEXT("Server: update %.2f"), maxForcaChute));
-	else
-		GEngine->AddOnScreenDebugMessage(-1, 0.2f, FColor::Emerald, FString::Printf(TEXT("Client: update %.2f"), maxForcaChute));*/
-
 	const FVector PlayerVelocity = GetVelocity();
 
 	// usar caso tenha sprite de falling
@@ -396,9 +391,9 @@ void AOJogoCharacter::Chuta()
 			SV_Chuta(chute_angulo->GetComponentRotation(), forca);
 
 			/*TArray<AActor*> FoundActors;
-			UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
+			UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABall::StaticClass(), FoundActors);
 			if (FoundActors.Num() == 1)
-				ball = Cast<ABola>(FoundActors[0]);
+				ball = Cast<ABall>(FoundActors[0]);
 
 			if (IsValid(ball) && (canKick || canHeader))
 				ball->Predict_chuta(chute_angulo->GetComponentRotation(), forca);*/
@@ -411,9 +406,9 @@ void AOJogoCharacter::Chuta()
 void AOJogoCharacter::SV_Chuta_Implementation(FRotator anguloChute, float forca)
 {
 	TArray<AActor*> FoundActors;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABola::StaticClass(), FoundActors);
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABall::StaticClass(), FoundActors);
 	if (FoundActors.Num() == 1)
-		ball = Cast<ABola>(FoundActors[0]);
+		ball = Cast<ABall>(FoundActors[0]);
 
 	if (IsValid(ball) && (canKick || canHeader))
 		ball->SV_chuta(anguloChute, forca);
@@ -626,7 +621,7 @@ void AOJogoCharacter::cabecearBeginOverlap(UPrimitiveComponent * OverlapComponen
 {
 	if (OtherActor)
 	{
-		auto bola_temp = Cast<ABola>(OtherActor);
+		auto bola_temp = Cast<ABall>(OtherActor);
 		if (IsValid(bola_temp))
 			if (bola_temp->GetRootComponent() == OtherComp)
 				canHeader = true;
@@ -638,7 +633,7 @@ void AOJogoCharacter::cabecearEndOverlap(UPrimitiveComponent* OverlappedComponen
 {
 	if (OtherActor)
 	{
-		auto bola_temp = Cast<ABola>(OtherActor);
+		auto bola_temp = Cast<ABall>(OtherActor);
 		if (IsValid(bola_temp))
 			if (bola_temp->GetRootComponent() == OtherComp)
 				canHeader = false;
@@ -651,7 +646,7 @@ void AOJogoCharacter::chutarBeginOverlap(UPrimitiveComponent * OverlapComponent,
 {
 	if (OtherActor)
 	{
-		auto bola_temp = Cast<ABola>(OtherActor);
+		auto bola_temp = Cast<ABall>(OtherActor);
 		if (IsValid(bola_temp))
 			if (bola_temp->GetRootComponent() == OtherComp)
 				canKick = true;
@@ -663,7 +658,7 @@ void AOJogoCharacter::chutarEndOverlap(UPrimitiveComponent* OverlappedComponent,
 {
 	if (OtherActor)
 	{
-		auto bola_temp = Cast<ABola>(OtherActor);
+		auto bola_temp = Cast<ABall>(OtherActor);
 		if (IsValid(bola_temp))
 			if (bola_temp->GetRootComponent() == OtherComp)
 				canKick = false;

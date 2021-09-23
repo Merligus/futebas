@@ -251,6 +251,7 @@ FResultadoData UFutebasGameInstance::simulaJogo(int32 index_t1, int32 index_t2, 
 
 void UFutebasGameInstance::jogaPartida(GameMode game_mode, TeamsSet teams_set, bool vs_bot_p)
 {
+	online_instance = false;
 	vs_bot = vs_bot_p;
 	current_game_mode = game_mode;
 	current_teams_set = teams_set;

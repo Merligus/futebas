@@ -10,11 +10,16 @@
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
 				"Engine",
-				"UnrealEd",
 				"CoreUObject",
 				"AIModule",
 				"Niagara",
 				"UMG",
+				"InputCore",
+				"Paper2D",
+				"Slate",
+				"SlateCore",
+				"LevelSequence",
+				"MovieScene",
 				"OnlineSubsystemUtils",
 				"AdvancedSessions"
 			]
@@ -33,5 +38,8 @@
 			"Name": "AdvancedSessions",
 			"Enabled": true
 		}
+	],
+	"TargetPlatforms": [
+		"WindowsNoEditorWin32"
 	]
 }
