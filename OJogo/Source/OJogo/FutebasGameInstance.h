@@ -36,7 +36,17 @@ class OJOGO_API UFutebasGameInstance : public UPlatformGameInstance
     TArray<FTeamData> teamsArray;
 
 	UPROPERTY()
+	TArray<FTeamData> teamsRankingArray;
+
+	UPROPERTY()
     TArray<FTeamData> nationalTeamsArray;
+
+	UPROPERTY()
+	TArray<FTeamData> nationalTeamsRankingArray;
+
+	void loadClubTeams();
+
+	void loadNationalTeams();
 
 public:
 
@@ -86,6 +96,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UDataTable* national_teams;	// seleções
+
+	TArray<int32> getTeamsRanking(TeamsSet teams_set);
 
 	void loadTeams();
 

@@ -13,55 +13,11 @@ void UFutebasGameInstance::PostInitProperties()
 
 	if (teamsArray.Num() == 0)
 	{
-		FString Context;
-		TArray<FTeamData*> aux;
-
-		if (IsValid(teams))
-		{
-			teams->GetAllRows(Context, aux);
-			for (int32 i = 0; i < aux.Num(); ++i)
-				teamsArray.Add(*(aux[i]));
-
-			teamsArray.Sort(
-				[this](const FTeamData& A, const FTeamData& B) // return true = A antes de B
-				{
-					if (A.nome_interno == "gambaosaka_jap_png")
-						return true;
-					else if (B.nome_interno == "gambaosaka_jap_png")
-						return false;
-					else
-						return A.habilidades.overall() > B.habilidades.overall();
-				}
-			);
-			for (int32 i = 0; i < teamsArray.Num(); ++i)
-				teamsArray[i].index_time = i;
-		}
+		loadClubTeams();
 	}
 	if (nationalTeamsArray.Num() == 0)
 	{
-		FString Context;
-		TArray<FTeamData*> aux;
-
-		if (IsValid(national_teams))
-		{
-			national_teams->GetAllRows(Context, aux);
-			for (int32 i = 0; i < aux.Num(); ++i)
-				nationalTeamsArray.Add(*(aux[i]));
-
-			nationalTeamsArray.Sort(
-				[this](const FTeamData& A, const FTeamData& B) // return true = A antes de B
-				{
-					if (A.nome_interno == "qatar")
-						return true;
-					else if (B.nome_interno == "qatar")
-						return false;
-					else
-						return A.habilidades.overall() > B.habilidades.overall();
-				}
-			);
-			for (int32 i = 0; i < nationalTeamsArray.Num(); ++i)
-				nationalTeamsArray[i].index_time = i;
-		}
+		loadNationalTeams();
 	}
 
 	if (nationalTeamsArray.Num() > 0)
@@ -88,55 +44,91 @@ void UFutebasGameInstance::PostInitProperties()
 	liga_das_nacoes.Init(FLigaData(16, 32), 2);
 }
 
+void UFutebasGameInstance::loadClubTeams()
+{
+	FString Context;
+	TArray<FTeamData*> aux;
+
+	if (IsValid(teams))
+		teams->GetAllRows(Context, aux);
+	for (int32 i = 0; i < aux.Num(); ++i)
+	{
+		teamsArray.Add(*(aux[i]));
+		teamsRankingArray.Add(*(aux[i]));
+	}
+
+	for (int32 i = 0; i < teamsArray.Num(); ++i)
+	{
+		teamsArray[i].index_time = i;
+		teamsRankingArray[i].index_time = i;
+	}
+
+	teamsRankingArray.Sort(
+		[this](const FTeamData& A, const FTeamData& B) // return true = A antes de B
+		{
+			return A.habilidades.overall() > B.habilidades.overall();
+		}
+	);
+}
+
+void UFutebasGameInstance::loadNationalTeams()
+{
+	FString Context;
+	TArray<FTeamData*> aux;
+
+	if (IsValid(national_teams))
+		national_teams->GetAllRows(Context, aux);
+	for (int32 i = 0; i < aux.Num(); ++i)
+	{
+		nationalTeamsArray.Add(*(aux[i]));
+		nationalTeamsRankingArray.Add(*(aux[i]));
+	}
+
+	for (int32 i = 0; i < nationalTeamsArray.Num(); ++i)
+	{
+		nationalTeamsArray[i].index_time = i;
+		nationalTeamsRankingArray[i].index_time = i;
+	}
+
+	nationalTeamsRankingArray.Sort(
+		[this](const FTeamData& A, const FTeamData& B) // return true = A antes de B
+		{ 
+			return A.habilidades.overall() > B.habilidades.overall();
+		}
+	);
+}
+
+TArray<int32> UFutebasGameInstance::getTeamsRanking(TeamsSet teams_set)
+{
+	TArray<int32> ranking;
+
+	if (teams_set == TeamsSet::Selecoes)
+	{
+		for (int32 i = 0; i < nationalTeamsRankingArray.Num(); ++i)
+		{
+			ranking.Add(nationalTeamsRankingArray[i].index_time);
+		}
+	}
+	else
+	{
+		for (int32 i = 0; i < teamsRankingArray.Num(); ++i)
+		{
+			ranking.Add(teamsRankingArray[i].index_time);
+		}
+	}
+
+	return ranking;
+}
+
 void UFutebasGameInstance::loadTeams()
 {
 	if (teamsArray.Num() == 0)
 	{
-		FString Context;
-		TArray<FTeamData*> aux;
-
-		if (IsValid(teams))
-			teams->GetAllRows(Context, aux);
-		for (int32 i = 0; i < aux.Num(); ++i)
-			teamsArray.Add(*(aux[i]));
-
-		teamsArray.Sort(
-			[this](const FTeamData& A, const FTeamData& B) // return true = A antes de B
-			{
-				if (A.nome_interno == "gambaosaka_jap_png")
-					return true;
-				else if (B.nome_interno == "gambaosaka_jap_png")
-					return false;
-				else
-					return A.habilidades.overall() > B.habilidades.overall();
-			}
-		);
-		for (int32 i = 0; i < teamsArray.Num(); ++i)
-			teamsArray[i].index_time = i;
+		loadClubTeams();
 	}
 	if (nationalTeamsArray.Num() == 0)
 	{
-		FString Context;
-		TArray<FTeamData*> aux;
-
-		if (IsValid(national_teams))
-			national_teams->GetAllRows(Context, aux);
-		for (int32 i = 0; i < aux.Num(); ++i)
-			nationalTeamsArray.Add(*(aux[i]));
-
-		nationalTeamsArray.Sort(
-			[this](const FTeamData& A, const FTeamData& B) // return true = A antes de B
-			{
-				if (A.nome_interno == "qatar")
-					return true;
-				else if (B.nome_interno == "qatar")
-					return false;
-				else
-					return A.habilidades.overall() > B.habilidades.overall();
-			}
-		);
-		for (int32 i = 0; i < nationalTeamsArray.Num(); ++i)
-			nationalTeamsArray[i].index_time = i;
+		loadNationalTeams();
 	}
 }
 

@@ -53,7 +53,7 @@ public:
 
 	FCopaMundoData();
 
-	void sortear();
+	void sortear(TArray<int32> ranking);
 
 	void bindIndexTimeGrupos();
 

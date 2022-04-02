@@ -17,30 +17,38 @@ FLigaData::FLigaData(int32 n_times_por_divisao, int32 n_times) :
         tabelas.Add(FCampeonatoData(times_por_divisao, false));
 }
 
-void FLigaData::alocarTimes()
+void FLigaData::alocarTimes(TArray<int32> ranking)
 {
     int32 n_slots = divisoes * times_por_divisao;
 
-    for (int32 i = 0; i < n_slots-1; ++i)
-        teamMap.Add(i, i+1);
-    teamMap.Add(n_slots-1, 0);
+    teamMap.Reset();
+    originalRanking.Reset();
+    for (int32 i = 0; i < n_slots; ++i)
+    {
+        teamMap.Add(i, ranking[i]);
+        originalRanking.Add(ranking[i]);
+    }
 }
 
 int32 FLigaData::putTeamAsLast(int32 true_index)
 {
     int32 n_slots = divisoes * times_por_divisao;
     int32 new_slot = n_slots - 1;
+    int pos = 0; // posicao do time true_index no ranking
 
-    for (int32 i = 0; i < n_slots-1; ++i)
-        teamMap[i] = i+1;
-    teamMap[n_slots-1] = 0;
-
-    if (true_index != 0)
+    for (int32 i = 0; i < n_slots; ++i)
     {
-        for (int32 i = true_index-1; i < n_slots-1; ++i)
+        teamMap[i] = originalRanking[i];
+        if (originalRanking[i] == true_index)
+            pos = i;
+    }
+
+    if (pos != new_slot) // se o time selecionado ja esta na ultima posicao nao precisa fazer nada
+    {
+        for (int32 i = pos; i < new_slot; ++i) // desloca os times para cima até o ultimo
             teamMap[i] = teamMap[i+1];
-        teamMap[new_slot] = true_index;
-    }    
+        teamMap[new_slot] = true_index; // coloca o time selecionado na ultima posicao
+    }
     return new_slot;
 }
 

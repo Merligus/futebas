@@ -26,6 +26,9 @@ struct FLigaData : public FTableRowBase
 	UPROPERTY()
     TMap<int32, int32> teamMap;
 
+	UPROPERTY()
+	TArray<int32> originalRanking;
+
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -57,7 +60,7 @@ public:
 
 	FLigaData(int32 n_times_por_divisao, int32 n_times);
 
-	void alocarTimes();
+	void alocarTimes(TArray<int32> ranking);
 
 	int32 putTeamAsLast(int32 true_index);
 

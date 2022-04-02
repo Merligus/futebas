@@ -8,11 +8,28 @@ FCopaMundoData::FCopaMundoData() :
 {
     for (int32 i = 0; i < 8; ++i)
         tabelaGrupos.Add(FCampeonatoData(4));
+
+    sorteioGrupo.Reset();
+    for (int32 i = 0; i < 32; ++i)
+        sorteioGrupo.Add(i, i);
 }
 
-void FCopaMundoData::sortear()
+void FCopaMundoData::sortear(TArray<int32> ranking)
 {
+    sorteioGrupo.Reset();
+
     TArray<TArray<int32>> potes;
+
+    for (int32 i = 0; i < ranking.Num(); ++i) // procurar pelo catar
+    {
+        if (ranking[i] == 0) // se eh o index do catar
+        {
+            int qatarIndex = ranking[i]; // index do catar
+            ranking.RemoveAt(i); // remove o catar da posicao no ranking
+            ranking.Insert(qatarIndex, 0); // forca o catar a ser o primeiro do ranking
+            break;
+        }
+    }
 
     for (int32 i = 0; i < 4; ++i)
     {
@@ -20,7 +37,7 @@ void FCopaMundoData::sortear()
         while (aux.Num() > 0)
             aux.RemoveAt(0);
         for (int32 j = i*8; j < (i+1)*8; ++j)
-            aux.Add(j);
+            aux.Add(ranking[j]);
         potes.Emplace(aux);
     }
 

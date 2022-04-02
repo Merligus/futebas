@@ -27,12 +27,11 @@ bool UTimeStatsWidget::ReiniciarModo()
         if (game_mode == GameMode::CopaMundo)
         {
             FutebasGI->SetCopa(FCopaMundoData(), teams_ind);
-            FutebasGI->GetCopa(teams_ind)->sortear();
         }
         else if (game_mode == GameMode::LigaNacoes)
         {
             FutebasGI->SetLiga(FLigaData(16, 32), teams_ind);
-            FutebasGI->GetLiga(teams_ind)->alocarTimes();
+            FutebasGI->GetLiga(teams_ind)->alocarTimes(FutebasGI->getTeamsRanking(teams_set));
         }
         FutebasGI->team1 = FTeamData();
         FutebasGI->team2 = FTeamData();
@@ -46,7 +45,7 @@ void UTimeStatsWidget::sorteiaGruposCopa()
 {
     int32 teams_ind((int32)teams_set);
     if (FutebasGI)
-        FutebasGI->GetCopa(teams_ind)->sortear();
+        FutebasGI->GetCopa(teams_ind)->sortear(FutebasGI->getTeamsRanking(teams_set));
     if (FutebasGI->team1.index_time >= 0)
         FutebasGI->team1_index_slot = *(FutebasGI->GetCopa(teams_ind)->sorteioGrupo.FindKey(FutebasGI->team1.index_time));
 }
